@@ -5,13 +5,15 @@
 #+begin_src emacs-lisp 
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
-(package-initialize)
 #+end_src
 
 * Init
 load theme
 #+begin_src emacs-lisp 
-(load-theme 'immaterial-dark t)
+  (use-package immaterial-theme
+    :ensure t
+    :config
+    (load-theme 'immaterial-dark t))
 #+end_src
 
 soft wrap lines (wrap around past screen boundary)
@@ -68,7 +70,10 @@ enable automated indent mode for org files
 
 enable pretty bullets in org-mode
 #+begin_src emacs-lisp 
-(add-hook 'org-mode-hook 'org-bullets-mode)
+(use-package org-bullets
+  :ensure t
+  :config 
+(add-hook 'org-mode-hook 'org-bullets-mode))
 #+end_src
 
 #+begin_src emacs-lisp 
@@ -94,14 +99,6 @@ Show a tabbar at the top of the screen.
 :ensure t
 :config (tabbar-mode 1)
 )
-
-(setq tabbar-ruler-global-tabbar t)    ; get tabbar
-(setq tabbar-ruler-global-ruler t)     ; get global ruler
-(setq tabbar-ruler-popup-menu t)       ; get popup menu.
-(setq tabbar-ruler-popup-toolbar t)    ; get popup toolbar
-(setq tabbar-ruler-popup-scrollbar t)  ; show scroll-bar on mouse-move
-(require 'tabbar-ruler)
-
 #+end_src
 
 ** Treemacs
@@ -200,18 +197,15 @@ WhichKey
   (which-key-mode))
 #+end_src
 
-show vertical lines to guide indentation
-#+begin_src emacs-lisp 
-(require 'indent-guide)
-(indent-guide-global-mode)
-#+end_src
 
 dimmer, highlight current buffer
 #+begin_src emacs-lisp 
-(require 'dimmer)
-(dimmer-configure-which-key)
-(dimmer-configure-helm)
-(dimmer-mode t)
+(use-package dimmer
+  :ensure t
+  :config
+   (dimmer-configure-which-key)
+   (dimmer-configure-helm)
+   (dimmer-mode t))
 #+end_src
 
 org-roam
@@ -238,17 +232,22 @@ org-roam
 helm
 
 #+begin_src emacs-lisp 
-;; helm
+(use-package helm
+  :ensure t
+  :config
 (global-set-key (kbd "M-x") #'helm-M-x)
 (global-set-key (kbd "C-x r b") #'helm-filtered-bookmarks)
 (global-set-key (kbd "C-x C-f") #'helm-find-files)
-(helm-mode 1)
+(helm-mode 1))
 #+end_src
 
 python
 
 #+begin_src emacs-lisp 
-(elpy-enable) ;; enable python support
+(use-package elpy
+  :ensure t
+  :config
+(elpy-enable)) ;; enable python support
 
 ;; Enable Flycheck
 (when (require 'flycheck nil t)
@@ -256,10 +255,17 @@ python
   (add-hook 'elpy-mode-hook 'flycheck-mode))
 
 ;; python formatter
-(require 'blacken)
-(require 'dap-mode)
-(require 'dap-ui)
-(require 'dap-python)
-(dap-mode 1)
-(dap-ui-mode 1)
+(use-package blacken :ensure t)
+(use-package dap-mode :ensure t)
+;(use-package dap-ui :ensure t)
+;(use-package dap-python :ensure t :config (dap-mode 1) (dap-ui-mode 1))
+#+end_src
+
+https://github.com/zk-phi/indent-guide
+show vertical lines to guide indentation
+#+begin_src emacs-lisp
+  (use-package indent-guide
+    :ensure t
+    :config
+    (indent-guide-global-mode))
 #+end_src
