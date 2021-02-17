@@ -38,8 +38,15 @@ no startup message
 #+end_src
 
 use [[https://github.com/technomancy/better-defaults][better defaults]]
+#+begin_src emacs-listp
 (require 'better-defaults)
+#+end_src
 
+
+No tabs!
+#+begin_src emacs-lisp
+(setq-default indent-tabs-mode nil)
+#+end_src
 
 * Templates
 ** Enable easy templates (from [[https://emacs.stackexchange.com/a/46992][here]])
@@ -268,4 +275,24 @@ show vertical lines to guide indentation
     :ensure t
     :config
     (indent-guide-global-mode))
+#+end_src
+
+[[https://github.com/jacktasia/dumb-jump#obsolete-commands-and-options][Dumb jump]]
+Note, that this disables etags.
+
+Use `C-M g` to jump.
+
+#+begin_src emacs-lisp
+  (use-package dumb-jump
+     :ensure t
+     :config
+      (setq xref-backend-functions (remq 'etags--xref-backend xref-backend-functions))
+       (add-to-list 'xref-backend-functions #'dumb-jump-xref-activate t))
+#+end_src
+
+[[https://github.com/emacsorphanage/helm-ag][helm-ag]]
+#+begin_src emacs-lisp
+  (use-package helm-ag
+     :ensure t)
+   
 #+end_src
