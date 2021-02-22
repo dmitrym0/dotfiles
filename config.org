@@ -12,14 +12,6 @@ My emacs init file.
 #+end_src
 
 * Init
-load theme
-#+begin_src emacs-lisp 
-  (use-package immaterial-theme
-    :ensure t
-    :config
-    (load-theme 'immaterial-dark t))
-#+end_src
-
 soft wrap lines (wrap around past screen boundary)
 #+begin_src emacs-lisp 
 (global-visual-line-mode 1)
@@ -32,11 +24,12 @@ highlight current line
 
 
 Preserve emacs open buffers. Restore 5 on open and then when emacs is idle open more.
-
 #+begin_src emacs-lisp
-(setq desktop-lazy-idle-delay 25)
-(setq desktop-restore-eager 5)
-(setq desktop-save-mode t)
+  (setq desktop-lazy-idle-delay 25)
+  (setq desktop-restore-eager 5)
+  (desktop-save-mode)
+  (desktop-read)
+  (setq desktop-path '("~/.emacs.d/.cache/"))
 #+end_src
 
 turn on variable syntax highlighting
@@ -109,6 +102,13 @@ Use dome modeline
     :init (golden-ratio-mode 1))
 #+end_src
 
+No toolbar.
+#+begin_src emacs-lisp
+(tool-bar-mode -1) 
+#+end_src
+
+
+
 * Templates
 ** Enable easy templates (from [[https://emacs.stackexchange.com/a/46992][here]])
 #+begin_src emacs-lisp 
@@ -145,9 +145,12 @@ enable pretty bullets in org-mode
   :ensure t
   :config
 (add-hook 'org-mode-hook 'org-bullets-mode))
+#+end_src 
+
 Disable done tasks in agenda view.
 #+begin_src emacs-lisp
 (setq org-agenda-skip-scheduled-if-done t)
+(setq org-agenda-skip-deadline-if-done t)
 #+end_src
 
 ** custom agenda
@@ -433,4 +436,15 @@ Use `C-M g` to jump.
   (use-package helm-ag
      :ensure t)
    
+#+end_src
+
+
+* Last 
+Start maximized
+** TODO There's some issue with this; probably due to the order of operations?
+#+begin_src emacs-lisp
+(add-hook 'window-setup-hook 'toggle-frame-maximized t)
+(toggle-frame-maximized)
+(add-to-list 'initial-frame-alist '(fullscreen . maximized))
+
 #+end_src
