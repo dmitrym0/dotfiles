@@ -1,0 +1,777 @@
+(push (expand-file-name "~/.emacs.d/extra") load-path)
+(push (expand-file-name "~/.emacs.d/elpa/org-plus-contrib-20190603/") load-path)
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   '("8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "a8245b7cc985a0610d71f9852e9f2767ad1b852c2bdea6f4aadc12cce9c4d6d0" default))
+ '(deft-use-filter-string-for-filename t)
+ '(desktop-lazy-idle-delay 25)
+ '(desktop-restore-eager 5)
+ '(desktop-save-mode t)
+ '(global-hl-line-mode t)
+ '(global-hl-line-sticky-flag t)
+ '(notmuch-fcc-dirs nil)
+ '(notmuch-saved-searches
+   '((:name "epcorporate" :query "tag:epcorporate and tag:unread" :sort-order newest-first :search-type tree)
+     (:name "Jira" :query "tag:jira and tag:unread" :sort-order newest-first :search-type tree)
+     (:name "Unread inbox" :query "tag:unread and tag:inbox" :sort-order newest-first :search-type tree)
+     (:name "today" :query "date:-2days..-1sec" :sort-order newest-first :search-type tree)
+     (:name "Today Important Only" :query "tag:unread AND date:-2days..-1sec and tag:inbox" :key "t" :sort-order newest-first :search-type tree)
+     (:name "today unread" :query "tag:unread AND date:-2days..-1sec" :key "T" :sort-order newest-first :search-type tree)
+     (:name "inbox" :query "tag:inbox" :key "i" :sort-order newest-first :search-type tree)
+     (:name "unread" :query "tag:unread" :key "u" :sort-order newest-first :search-type tree)
+     (:name "flagged" :query "tag:flagged" :key "f")
+     (:name "sent" :query "tag:sent" :key "t")
+     (:name "drafts" :query "tag:draft" :key "d")
+     (:name "all mail" :query "*" :key "a")))
+ '(notmuch-tagging-keys
+   '(("a" notmuch-archive-tags "Archive")
+     ("u" notmuch-show-mark-read-tags "Mark read")
+     ("f"
+      ("+flagged")
+      "Flag")
+     ("s"
+      ("+spam" "-inbox")
+      "Mark as spam")
+     ("d"
+      ("+deleted" "-inbox")
+      "Delete")
+     ("U"
+      ("-unread")
+      "Mark read")))
+ '(org-agenda-custom-commands
+   '(("D" "Overview for today"
+      ((tags-todo "WORK:URGENT"
+                  ((org-agenda-overriding-header "Urgent Work")
+                   (org-agenda-skip-function 'org-agenda-skip-if-scheduled-later)))
+       (tags-todo "WORK:IMPORTANT"
+                  ((org-agenda-overriding-header "Important Work")
+                   (org-agenda-skip-function 'org-agenda-skip-if-scheduled-later)))
+       (tags-todo "-WORK:URGENT"
+                  ((org-agenda-overriding-header "Mine Urgent")
+                   (org-agenda-skip-function 'org-agenda-skip-if-scheduled-later)))
+       (tags-todo "-WORK:IMPORTANT"
+                  ((org-agenda-overriding-header "Mine Important")
+                   (org-agenda-skip-function 'org-agenda-skip-if-scheduled-later)))
+       (agenda ""
+               ((org-agenda-overriding-header "Today")
+                (org-agenda-span 1)
+                (org-agenda-sorting-strategy
+                 '(time-up priority-down))))))
+     ("R" "Review projects" tags-todo "-CANCELLED/"
+      ((org-agenda-overriding-header "Reviews Scheduled")
+       (org-agenda-skip-function 'org-review-agenda-skip)
+       (org-agenda-cmp-user-defined 'org-review-compare)
+       (org-agenda-sorting-strategy
+        '(user-defined-down))))
+     ("z" "zeemo"
+      ((todo "TODO"
+             (org-agenda-skip-entry-if -TIMESTAMP={\.}/! | +TIMESTAMP<<today>))))
+     ("n" "Agenda and all TODOs"
+      ((agenda "" nil)
+       (alltodo "" nil))
+      nil)))
+ '(org-agenda-dim-blocked-tasks 'invisible)
+ '(org-agenda-files '("/Users/dmitry/Dropbox/orgmode"))
+ '(org-brain-path "~/Dropbox/orgmode")
+ '(org-capture-templates
+   '(("e" "Email TODO" entry
+      (file+headline "~/Dropbox/orgmode/inbox.org" "TODOs")
+      "* TODO %? 
+%u
+%a
+%i
+")
+     ("i" "HSBC Log" entry
+      (file+olp+datetree "~/Dropbox/orgmode/hsbc-trello.org" "Docs LOG🚶")
+      "* Entered on %U
+%?
+")
+     ("l" "Log" entry
+      (file+olp+datetree "~/Dropbox/orgmode/log.org")
+      "* Entered on %U
+%?
+")
+     ("l" "Log" entry
+      (file+olp+datetree "~/Dropbox/orgmode/log.org")
+      "* Entered on %U
+%?
+")
+     ("w" "Web site" entry
+      (file+olp "~/Dropbox/orgmode/inbox.org" "Web")
+      "* %c :website:
+%U %?%:initial")
+     ("t" "TODO" entry
+      (file+headline "~/Dropbox/orgmode/inbox.org" "INBOX")
+      "* TODO %?
+  %i
+  %a")
+     ("h" "how do i" entry
+      (file+headline "~/Dropbox/orgmode/20200422070715_howdoi.org" "INBOX")
+      "* %?
+  %i
+  %a")
+     ("d" "Dailies")
+     ("p" "potatr")
+     ("pj" "Journal" entry
+      (file+olp+datetree "~/Dropbox/orgmode/potatr.org" "Log")
+      "* Entered on %U
+%?
+")
+     ("di" "Important thing daily" entry
+      (file+olp+datetree "~/Dropbox/orgmode/important-things-daily-2020.org")
+      "* Entered on %U
+%?")
+     ("dt" "Test Journal" entry
+      (file+olp+datetree "/tmp/test.org")
+      "* Entered on %U
+%?")
+     ("dj" "Journal" entry
+      (file+olp+datetree "~/Dropbox/orgmode/personal-daily-2020.org")
+      "* Entered on %U
+%?")
+     ("dc" "Daily Checkbox" entry
+      (file+olp+datetree "~/Dropbox/orgmode/work-log-2020.org")
+      (file "~/Dropbox/orgmode/template-morning-work-checklist.org"))))
+ '(org-download-image-dir "images")
+ '(org-download-screenshot-method "pngpaste %s")
+ '(org-enforce-todo-dependencies t)
+ '(org-export-backends '(ascii html md hugo re-reveal latex))
+ '(org-jira-custom-jqls
+   '((:jql " project = AT  AND status in (Reopened, Open) and 'Epic Link' = AT-8129  ORDER BY priority DESC, updated DESC " :limit 100 :filename "atb-tbh-milestone-3")
+     (:jql " project = TBH AND status in (Reopened, Open) and 'Epic Link' = TBH-48  ORDER BY priority DESC, updated DESC " :limit 100 :filename "tbh-milestone-1")))
+ '(org-jira-working-dir "~/Dropbox/orgmode")
+ '(org-journal-dir "~/Dropbox/orgmode/")
+ '(org-log-done 'note)
+ '(org-log-into-drawer t)
+ '(org-log-refile 'time)
+ '(org-modules
+   '(org-bbdb org-bibtex org-docview org-gnus org-habit org-info org-inlinetask org-irc org-mhe org-protocol org-rmail org-w3m org-mac-link))
+ '(org-outline-path-complete-in-steps nil)
+ '(org-refile-targets '((org-agenda-files :maxlevel . 3)))
+ '(org-refile-use-outline-path 'file)
+ '(org-roam-directory "/Users/dmitry/Dropbox/orgmode/")
+ '(org-startup-folded 'content)
+ '(org-startup-indented t)
+ '(package-selected-packages
+   '(todoist pdf-tools pandoc pandoc-mode helm-fuzzier helm-flx company-org-roam org-roam org-superstar org ox-hugo helm-fuzzy-find fzf org-web-tools hydra async-await popwin indent-guide doom-modeline doom-themes helm-ag helm-flyspell flyspell-correct-helm company-emoji golden-ratio dimmer beacon highlight company gnu-elpa-keyring-update org-sidebar yequake org-recent-headings org-trello org-jira yaml-mode magit helm-projectile projectile-rails helm-robe robe enh-ruby-mode uptimes keyfreq nav-flash wakatime-mode helm-w3m w3m helm-eww org-plus-contrib mu4e-conversation org-brain org-sticky-header checkbox jenkins jenkins-watch org-sql org-pomodoro org-review helm-org-rifle org-journal projectile solarized-theme color-theme-modern ace-window org-download deft orgalist org-edna))
+ '(wakatime-cli-path "/usr/local/bin/wakatime")
+ '(wakatime-python-bin nil)
+ '(word-wrap t)
+ '(yequake-frames
+   '(("dms"
+      (height . 0.75)
+      (width . 0.4)
+      (left . 0.0)
+      (top . 0.0)
+      (width . 0.0)))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(flyspell-incorrect ((t (:inverse-video t)))))
+
+;; dmitry
+(require 'package)
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
+(package-initialize)
+
+
+;; deft
+(require 'deft)
+(setq deft-extensions '("org" "txt" "tex" "md"))
+(setq deft-directory "~/Dropbox/orgmode")
+(setq deft-default-extension "org")
+(setq org-startup-with-inline-images t)
+
+;; inline images
+(require 'org-download)
+;; Drag-and-drop to `dired`
+(add-hook 'dired-mode-hook 'org-download-enable)
+
+(setq org-default-notes-file (expand-file-name "~/Dropbox/orgmode/notes.org"))
+
+(require 'org-bullets)
+(add-hook 'org-mode-hook (lambda ()
+			   (org-bullets-mode 1)))
+
+					;(setq org-ellipsis "⚡️⚡️")
+
+(load-theme 'solarized-dark t)
+
+(global-set-key [f8] 'deft)
+
+(require 'which-key)
+(which-key-mode)
+
+(global-set-key "\C-ca" 'org-agenda)
+
+;; handle message:// scheme
+(org-add-link-type "message" 'org-message-open)
+(defun org-message-open (path)
+  (call-process-shell-command (concat (concat "open 'message:" path) "'")))
+
+;; handle mlmt:// scheme
+(org-add-link-type "mlmt" 'org-mlmt-open)
+(defun org-mlmt-open (path)
+  (call-process-shell-command (concat (concat "open 'mlmt:" path) "'")))
+
+
+(defun make-orgcapture-frame ()
+  "Create a new frame and run org-capture."
+  (interactive)
+  (make-frame '((name . "remember")
+		(width . 80)
+		(height . 16)
+		(top . 400)
+		(left . 300)
+		(font . "-apple-Monaco-medium-normal-normal-*-13-*-*-*-m-0-iso10646-1")))
+  (select-frame-by-name "remember")
+  (raise-frame)
+  (delete-other-windows)
+  (org-capture))
+
+(set-display-table-slot standard-display-table 'selective-display (string-to-vector " ◦◦◦ ")) ;
+
+
+;; org-mac-link
+(require 'org-mac-link)
+(add-hook 'org-mode-hook (lambda ()
+			   (define-key org-mode-map (kbd "C-c g") 'org-mac-grab-link)))
+
+(defun make-deft-frame ()
+  "Create a new frame and run deft."
+  (interactive)
+  (make-frame '((name . "deft-free")
+		(width . 180)
+		(height . 46)
+		(top . 200)
+		(left . 300)
+		(font . "-apple-Monaco-medium-normal-normal-*-13-*-*-*-m-0-iso10646-1")))
+  (select-frame-by-name "deft-free")
+  (raise-frame)
+  (deft)
+  (delete-other-windows))
+
+(server-start)
+
+					; don't split windows
+(setq pop-up-windows nil)
+
+
+(add-hook 'org-capture-mode-hook 'delete-other-windows)
+
+(require 'org-journal)
+
+
+; Allow refile to create parent tasks with confirmation
+(setq org-refile-allow-creating-parent-nodes (quote confirm))
+
+; highlight the current task in agenda mode
+(add-hook 'org-agenda-mode-hook '(lambda ()
+				   (hl-line-mode 1)) 'append)
+
+;autoload files that have been changed on disk, but not locally
+(global-auto-revert-mode t)
+
+(require 'helm-config)
+(helm-mode 1)
+
+
+(defun my/copy-idlink-to-clipboard()
+  "Copy an ID link with the
+headline to killring, if no ID is there then create a new unique
+ID.  This function works only in org-mode or org-agenda buffers.
+
+The purpose of this function is to easily construct id:-links to
+worg-mode items. If its assigned to a key it saves you marking the
+text and copying to the killring."
+  (interactive)
+  (when (eq major-mode 'org-agenda-mode) ;switch to orgmode
+    (org-agenda-show)
+    (org-agenda-goto))
+  (when (eq major-mode 'org-mode)   ; do this only in org-mode buffers
+    (setq mytmphead (nth 4 (org-heading-components)))
+    (setq mytmpid (funcall 'org-id-get-create))
+    (setq mytmplink (format "[[id:%s][%s]]" mytmpid mytmphead))
+    (kill-new mytmplink)
+    (message "Copied %s to killring (clipboard)" mytmplink)))
+
+(global-set-key (kbd "<f5>") 'my/copy-idlink-to-clipboard)
+
+
+;;;;
+;;;
+;; Capture floating frame
+;;
+;; taken from: http://www.windley.com/archives/2010/12/capture_mode_and_emacs.shtml
+;;;
+
+(defadvice org-capture-finalize (after delete-capture-frame activate)
+  "Advise capture-finalize to close the frame"
+  (if (equal "capture" (frame-parameter nil 'name))
+      (delete-frame)))
+
+(defadvice org-capture-destroy (after delete-capture-frame activate)
+  "Advise capture-destroy to close the frame"
+  (if (equal "capture" (frame-parameter nil 'name))
+      (delete-frame)))
+
+;; make the frame contain a single window. by default org-capture
+;; splits the window.
+(add-hook 'org-capture-mode-hook 'delete-other-windows)
+
+(defadvice org-switch-to-buffer-other-window (after supress-window-splitting activate)
+  "Delete the extra window if we're in a capture frame"
+  (if (equal "capture" (frame-parameter nil 'name))
+      (delete-other-windows)))
+
+;(defun make-capture-frame ()
+;  "Create a new frame and run org-capture."
+;  (interactive)org-switch-to-buffer-other-window
+;  (make-frame '((name . "capture")
+;                (width . 120)
+;                (height . 5)))
+;  (select-frame-by-name "capture")
+;  (setq word-wrap 1)
+;  (setq truncate-lines nil)
+;  (org-capture))
+
+
+(defun make-orgcapture-frame
+    (&optional
+     capture-url)
+  "Create a new frame and run org-capture."
+  (interactive)
+  (make-frame '((name . "capture")
+		(width . 120)
+		(height . 65)
+		(top . 200)
+		(left . 300)))
+  (select-frame-by-name "capture")
+  (setq word-wrap 1)
+  (setq truncate-lines nil)
+  (if capture-url (org-protocol-capture capture-url)
+    (org-capture)))
+
+
+
+(require 'elisp-format)
+
+(require 'org-review)
+
+(add-hook 'org-agenda-mode-hook
+          (lambda ()
+            (local-set-key (kbd "C-c C-r")
+                           'org-review-insert-last-review)))
+    
+
+(load-file "~/.emacs.d/extra/capture.el")
+(load-file "~/.emacs.d/extra/dof.el")
+(load-file "~/.emacs.d/org-gcal.el")
+(setq ispell-program-name "/usr/local/bin/aspell")
+
+
+;;; Entry in `org-agenda-custom-commands':
+;;  (org-agenda-skip-function '(org-agenda-skip-if-scheduled-later))
+(defun org-agenda-skip-if-scheduled-later ()
+"If this function returns nil, the current match should not be skipped.
+Otherwise, the function must return a position from where the search
+should be continued."
+  (ignore-errors
+    (let ((subtree-end (save-excursion (org-end-of-subtree t)))
+          (scheduled-seconds
+            (time-to-seconds
+              (org-time-string-to-time
+                (org-entry-get nil "SCHEDULED"))))
+          (now (time-to-seconds (current-time))))
+       (and scheduled-seconds
+            (>= scheduled-seconds now)
+            subtree-end))))
+
+
+(setq helm-mode-fuzzy-match t)
+(setq-default word-wrap t)
+
+
+; make sure emacs finds applications in /usr/local/bin
+(setq exec-path (cons "/usr/local/bin" exec-path))
+
+; require mu4e
+(require 'mu4e)
+
+; tell mu4e where my Maildir is
+(setq mu4e-maildir "/Users/dmitry/mail/work")
+; tell mu4e how to sync email
+(setq mu4e-get-mail-command "/usr/local/bin/mbsync -a")
+; tell mu4e to use w3m for html rendering
+(setq mu4e-html2text-command "/usr/local/bin/w3m -T text/html")
+
+; taken from mu4e page to define bookmarks
+(add-to-list 'mu4e-bookmarks
+            '("size:5M..500M"       "Big messages"     ?b))
+
+; mu4e requires to specify drafts, sent, and trash dirs
+; a smarter configuration allows to select directories according to the account (see mu4e page)
+(setq mu4e-drafts-folder "/drafts")
+(setq mu4e-sent-folder "/sent")
+(setq mu4e-trash-folder "/trash")
+(setq user-mail-address "dmitrym@evidentpoint.com")
+
+
+; use msmtp
+(require 'smtpmail)
+;(setq message-send-mail-function 'message-send-mail-with-sendmail)
+;(setq sendmail-program "/usr/local/bin/msmtpq")
+; tell msmtp to choose the SMTP server according to the from field in the outgoing email
+;(setq message-sendmail-extra-arguments '("--read-envelope-from"))
+;(setq message-sendmail-f-is-evil 't)
+
+(setq send-mail-function (quote message-send-mail-with-sendmail ))
+(setq sendmail-program "/usr/local/bin/msmtp"
+  mail-specify-envelope-from t
+ message-sendmail-f-is-evil nil
+  mail-envelope-from 'header
+  message-sendmail-envelope-from 'header)
+
+
+;; to view selected message in the browser, no signin, just html mail
+(add-to-list 'mu4e-view-actions
+  '("ViewInBrowser" . mu4e-action-view-in-browser) t)
+
+;; enable inline images
+(setq mu4e-view-show-images t)
+;; use imagemagick, if available
+(when (fboundp 'imagemagick-register-types)
+  (imagemagick-register-types))
+
+
+(add-to-list 'exec-path "/usr/local/bin")
+
+;(require 'notmuch)
+;(require 'org-notmuch)
+
+
+;(setq org-capture-templates-contexts '(("e" ((in-mode . "notmuch-show-mode")))))
+
+
+;An address query might return multiple possible matches from which you will have to select one. To ease this task, several different frameworks in emacs support completion selection. One of them is helm. The following snippet improves the out-of-the-box support for helm in notmuch as it enables the required-match option and also does not ignore the first returned address.
+    (setq notmuch-address-selection-function
+      (lambda (prompt collection initial-input)
+        (completing-read prompt (cons initial-input collection) nil t nil 'notmuch-address-history)))
+
+
+(setq mm-text-html-renderer 'shr)
+
+
+;Reading mail settings:
+
+
+; C-c m opens up Notmuch from any buffer
+(global-set-key (kbd "C-c m") `notmuch)
+
+(setq wakatime-api-key "dda2eefc-4355-424a-aa6c-35ec09a44d59")
+
+
+(require 'nav-flash)
+ 
+(nav-flash-show)
+
+(global-set-key (kbd "M-x") #'helm-M-x)
+(global-set-key (kbd "C-x r b") #'helm-filtered-bookmarks)
+(global-set-key (kbd "C-x C-f") #'helm-find-files)
+
+
+(require 'keyfreq)
+(keyfreq-mode 1)
+(keyfreq-autosave-mode 1)
+
+(require 'org-re-reveal)
+
+
+(setq org-catch-invisible-edits 'show-and-error)
+
+
+(setq org-list-indent-offset 1)
+
+(add-to-list 'auto-mode-alist
+             '("\\(?:\\.rb\\|ru\\|rake\\|thor\\|jbuilder\\|gemspec\\|podspec\\|/\\(?:Gem\\|Rake\\|Cap\\|Thor\\|Vagrant\\|Guard\\|Pod\\)file\\)\\'" . enh-ruby-mode))
+
+(global-robe-mode)
+
+(setq projectile-indexing-method 'alien)
+
+(setq projectile-project-search-path '("~/workspace/"))
+
+(projectile-global-mode)
+
+(define-key projectile-mode-map (kbd "C-c C-p") 'projectile-command-map)
+
+(require 'helm-projectile)
+(helm-projectile-on)
+
+(setq org-todo-keyword-faces
+      (quote (("TODO" :foreground "red" :weight bold)
+              ("NEXT" :foreground "blue" :weight bold)
+              ("DONE" :foreground "forest green" :weight bold)
+              ("WAITING" :foreground "orange" :weight bold)
+              ("HOLD" :foreground "magenta" :weight bold)
+              ("CANCELLED" :foreground "forest green" :weight bold)
+              ("MEETING" :foreground "forest green" :weight bold)
+              ("PHONE" :foreground "forest green" :weight bold))))
+
+(with-eval-after-load 'ox
+  (require 'ox-hugo))
+
+
+(setq jiralib-url "https://evidentpoint.atlassian.net")
+
+
+(setq request-log-level 'debug)
+(setq request-message-level 'debug)
+
+(global-wakatime-mode)
+
+(menu-bar-mode t)
+
+(setq org-brain-include-file-entries nil)
+(setq org-brain-file-entries-use-title nil)
+
+(defun org-add-my-extra-markup ()
+  "Add highlight emphasis."
+  (add-to-list 'org-font-lock-extra-keywords
+               '("[^\\w]\\(:\\[^\n\r\t]+:\\)[^\\w]"
+                 (1 '(face highlight invisible nil)))))
+
+(add-hook 'org-font-lock-set-keywords-hook #'org-add-my-extra-markup)
+
+
+(add-hook 'after-init-hook 'global-company-mode)
+
+
+   
+
+; highlight current line
+(global-hl-line-mode t)
+
+
+; When we switch windows or scroll, for example, we get a wave of light near the cursor.
+(use-package beacon
+  :diminish
+  :config (setq beacon-color "#666600")
+  :hook   ((org-mode text-mode) . beacon-mode))
+
+; use dimmer mode
+(use-package dimmer
+  :config (dimmer-mode))
+
+
+(use-package golden-ratio
+  :disabled
+  :diminish golden-ratio-mode
+  :init (golden-ratio-mode 1))
+
+(setq-default fill-column 80          ;; Let's avoid going over 80 columns
+              truncate-lines nil      ;; I never want to scroll horizontally
+              indent-tabs-mode nil)   ;; Use spaces instead of tabs
+
+
+(use-package company
+  :diminish
+  :config
+  (global-company-mode 1)
+  (setq ;; Only 2 letters required for completion to activate.
+        company-minimum-prefix-length 2
+
+        ;; Search other buffers for compleition candidates
+        company-dabbrev-other-buffers t
+        company-dabbrev-code-other-buffers t
+
+        ;; Allow (lengthy) numbers to be eligible for completion.
+        company-complete-number t
+
+        ;; M-⟪num⟫ to select an option according to its number.
+        company-show-numbers t
+
+        ;; Edge of the completion list cycles around.
+        company-selection-wrap-around t
+
+        ;; Do not downcase completions by default.
+        company-dabbrev-downcase nil
+
+        ;; Even if I write something with the ‘wrong’ case,
+        ;; provide the ‘correct’ casing.
+        company-dabbrev-ignore-case t
+
+        ;; Immediately activate completion.
+        company-idle-delay 0))
+
+(use-package company-emoji
+  :config (add-to-list 'company-backends 'company-emoji))
+
+;(use-package flyspell
+;  :diminish
+;  :hook ((prog-mode . flyspell-prog-mode)
+;         (org-mode text-mode . flyspell-mode)))
+;
+
+(setq ispell-program-name "/usr/local/bin/aspell")
+(setq ispell-dictionary "en_CA") ;; set the default dictionary
+
+; Colour incorrect works; default is an underline.
+
+(global-font-lock-mode t)
+
+(use-package ox-hugo
+  :after ox)
+
+(require 'org-protocol-capture-html)
+
+(require 'doom-themes)
+
+(require 'indent-guide)
+(indent-guide-global-mode)
+(set-face-background 'indent-guide-face "dimgray")
+
+;; Global settings (defaults)
+(setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
+      doom-themes-enable-italic t) ; if nil, italics is universally disabled
+
+;; Load the theme (doom-one, doom-molokai, etc); keep in mind that each
+;; theme may have their own settings.
+(load-theme 'doom-molokai t)
+
+;; Enable flashing mode-line on errors
+(doom-themes-visual-bell-config)
+
+;; Enable custom neotree theme
+(doom-themes-neotree-config)  ; all-the-icons fonts must be installed!
+
+(require 'doom-modeline)
+(doom-modeline-mode 1)
+  (winner-mode 1)
+
+(require 'popwin)
+(popwin-mode 1)
+
+
+(use-package hydra
+  :config
+  (setq hydra-lv nil))
+
+
+(defhydra hydra-zoom ()
+  "zoom"
+  ("+" text-scale-increase "in")
+  ("=" text-scale-increase "in")
+  ("-" text-scale-decrease "out")
+  ("_" text-scale-decrease "out")
+  ("0" (text-scale-adjust 0) "reset")
+  ("q" nil "quit" :color blue))
+
+(bind-keys ("C-x C-0" . hydra-zoom/body)
+           ("C-x C-=" . hydra-zoom/body)
+           ("C-x C--" . hydra-zoom/body)
+           ("C-x C-+" . hydra-zoom/body))
+
+(defhydra hydra-org-clock (:color blue :hint nil)
+  "
+Clock   In/out^     ^Edit^   ^Summary     (_?_)
+-----------------------------------------
+        _i_n         _e_dit   _g_oto entry
+        _c_ontinue   _q_uit   _d_isplay
+        _o_ut        ^ ^      _r_eport
+      "
+  ("i" org-clock-in)
+  ("o" org-clock-out)
+  ("c" org-clock-in-last)
+  ("e" org-clock-modify-effort-estimate)
+  ("q" org-clock-cancel)
+  ("g" org-clock-goto)
+  ("d" org-clock-display)
+  ("r" org-clock-report)
+  ("?" (org-info "Clocking commands")))
+
+(defhydra hydra-org-agenda-clock (:color blue :hint nil)
+  "
+Clock   In/out^
+-----------------------------------------
+        _i_n
+        _g_oto entry
+        _o_ut
+        _q_uit
+      "
+  ("i" org-agenda-clock-in)
+  ("o" org-agenda-clock-out)
+  ("q" org-agenda-clock-cancel)
+  ("g" org-agenda-clock-goto))
+
+(bind-keys ("C-c w" . hydra-org-clock/body)
+           :map org-agenda-mode-map
+           ("C-c w" . hydra-org-agenda-clock/body))
+
+
+; #+OPTIONS: toc:4  toc:t 
+(setq org-export-with-toc nil
+      org-export-with-section-numbers nil)
+(eval-after-load "flyspell"
+  '(progn
+     (define-key flyspell-mouse-map [down-mouse-3] #'flyspell-correct-word)
+     (define-key flyspell-mouse-map [mouse-3] #'undefined)))
+
+(dolist (hook '(text-mode-hook))
+  (add-hook hook (lambda () (flyspell-mode 1))))
+
+(global-visual-line-mode) 
+
+(setq org-gcal-client-id "401590537325-hcoi6qoqu5gi6ofptuff2d3ifb41fied.apps.googleusercontent.com"
+      org-gcal-client-secret "jgwx-RCNdO00BBP0Uj-udCww"
+      org-gcal-file-alist '(("dmitrym@gmail.com" .  "~/Dropbox/orgmode/gcal.org")))
+
+(setq org-clock-persist 'history)
+(org-clock-persistence-insinuate)
+
+(use-package ox-hugo
+  :ensure t            ;Auto-install the package from Melpa (optional)
+  :after ox)
+
+(use-package dimmer)
+ (require 'dimmer)
+ (dimmer-configure-which-key)
+ (dimmer-configure-helm)
+ (dimmer-mode t)
+
+ (defun dm/get-first-child () (interactive) (org-up-element) (org-goto-first-child) (org-element-at-point))
+ (defun dm/is-first-child () (interactive) (save-excursion (setq current (org-element-at-point)) (setq first (dm/get-first-child)) (print current) (print first)) (equal current first))
+ (defun dm/custom-skip-for-maxtrix () (or (org-agenda-skip-if-scheduled-later) (dm/is-first-child)))
+
+; fuzzy matching for helm and org-refile	
+  (require 'helm-fuzzier)
+  (helm-fuzzier-mode 1)
+
+
+(defun my/refile (file headline &optional arg)
+  (let ((pos (save-excursion
+               (find-file file)
+               (org-find-exact-headline-in-buffer headline))))
+    (org-refile arg nil (list headline file nil pos)))
+  (switch-to-buffer (current-buffer)))
+
+
+(defhydra dmitrym/org-refile-hydra (:foreign-keys run) 
+  "Refile"
+  ("r" (my/refile "resources.org" "INBOX") "resources")
+  ("f" (my/refile "food.org" "INBOX") "food")
+  ("b" (my/refile "books.org" "INBOX") "books")
+  ("t" (my/refile "projects.org" "INBOX") "projects")
+  ("q" nil "cancel"))
+
+
+(global-set-key (kbd "C-c t") 'dmitrym/org-refile-hydra/body)
+
+
+(setq org-image-actual-width 300)
