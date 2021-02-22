@@ -1,4 +1,8 @@
+* Intro
 
+My emacs init file.
+
+~C-c C-,~ invokes Emacs templating system.
 
 
 * MELPA
@@ -27,6 +31,14 @@ highlight current line
 #+end_src
 
 
+Preserve emacs open buffers. Restore 5 on open and then when emacs is idle open more.
+
+#+begin_src emacs-lisp
+(setq desktop-lazy-idle-delay 25)
+(setq desktop-restore-eager 5)
+(setq desktop-save-mode t)
+#+end_src
+
 turn on variable syntax highlighting
 #+begin_src emacs-lisp 
 (add-hook 'after-init-hook 'global-color-identifiers-mode) 
@@ -48,6 +60,55 @@ No tabs!
 (setq-default indent-tabs-mode nil)
 #+end_src
 
+Autoload files that have been changed on disk, but not locally
+#+begin_src emacs-lisp
+(global-auto-revert-mode t)
+#+end_src
+
+Highlight everything between two exclamation marks (!highlighted!)
+#+begin_src emacs-lisp
+(defun org-add-my-extra-markup ()
+  "Add highlight emphasis."
+  (add-to-list 'org-font-lock-extra-keywords
+               '("[^\\w]\\(:\\[^\n\r\t]+:\\)[^\\w]"
+                 (1 '(face highlight invisible nil)))))
+(add-hook 'org-font-lock-set-keywords-hook #'org-add-my-extra-markup)
+#+end_src
+
+
+When we switch windows or scroll, for example, we get a wave of light near the cursor.
+#+begin_src emacs-lisp
+(use-package beacon
+  :diminish
+  :config (setq beacon-color "#666600")
+  :hook   ((org-mode text-mode) . beacon-mode))
+#+end_src
+
+Use solarized-dark theme from doom-themes.
+#+begin_src emacs-lisp
+  (use-package doom-themes  :diminish
+  :ensure t
+  :config (load-theme 'doom-molokai t)
+  )
+#+end_src
+
+
+Use dome modeline
+#+begin_src emacs-lisp
+  (use-package doom-modeline :diminish :ensure t
+  :config (doom-modeline-mode 1)
+          (winner-mode 1))
+
+#+end_src
+
+
+#+begin_src emacs-lisp
+  (use-package golden-ratio
+    :ensure t
+    :diminish golden-ratio-mode
+    :init (golden-ratio-mode 1))
+#+end_src
+
 * Templates
 ** Enable easy templates (from [[https://emacs.stackexchange.com/a/46992][here]])
 #+begin_src emacs-lisp 
@@ -62,31 +123,103 @@ Lets keep `C-c d` for personal shortcuts.
 (global-set-key (kbd "C-c d p") #'org-pomodoro)
 #+end_src
 
+
+
 * Org
+
 ** Init
 
 indent all org mode files
-#+begin_src emacs-lisp 
+#+begin_src emacs-lisp
 (setq org-startup-indented t)
 #+end_src
 
 enable automated indent mode for org files
-#+begin_src emacs-lisp 
+#+begin_src emacs-lisp
 (add-hook 'org-mode-hook 'org-indent-mode)
 #+end_src
 
 enable pretty bullets in org-mode
-#+begin_src emacs-lisp 
+#+begin_src emacs-lisp
 (use-package org-bullets
   :ensure t
-  :config 
+  :config
 (add-hook 'org-mode-hook 'org-bullets-mode))
+Disable done tasks in agenda view.
+#+begin_src emacs-lisp
+(setq org-agenda-skip-scheduled-if-done t)
 #+end_src
 
-#+begin_src emacs-lisp 
+** custom agenda
+
+Create a custom agenda view.
+
+#+begin_src emacs-lisp
 (setq org-agenda-files '("~/org-roam"))
 #+end_src
 
+
+Disable done tasks in agenda view.
+#+begin_src emacs-lisp
+(setq org-agenda-skip-scheduled-if-done t)
+#+end_src
+  
+** custom agenda
+
+Create a custom agenda view.
+
+
+#+begin_src emacs-lisp
+ (setq org-agenda-custom-commands
+   '(("D" "Overview for today"
+      ((tags-todo "WORK:URGENT"
+                  ((org-agenda-overriding-header "Urgent Work")
+                   (org-agenda-skip-function 'org-agenda-skip-if-scheduled-later)))
+       (tags-todo "WORK:IMPORTANT"
+                  ((org-agenda-overriding-header "Important Work")
+                   (org-agenda-skip-function 'org-agenda-skip-if-scheduled-later)))
+       (tags-todo "-WORK:URGENT"
+                  ((org-agenda-overriding-header "Mine Urgent")
+                   (org-agenda-skip-function 'org-agenda-skip-if-scheduled-later)))
+       (tags-todo "-WORK:IMPORTANT"
+                  ((org-agenda-overriding-header "Mine Important")
+                   (org-agenda-skip-function 'org-agenda-skip-if-scheduled-later)))
+       (agenda ""
+               ((org-agenda-overriding-header "Today")
+                (org-agenda-span 1)
+                (org-agenda-sorting-strategy
+                 '(time-up priority-down))))))
+     ("R" "Review projects" tags-todo "-CANCELLED/"
+      ((org-agenda-overriding-header "Reviews Scheduled")
+       (org-agenda-skip-function 'org-review-agenda-skip)
+       (org-agenda-cmp-user-defined 'org-review-compare)
+       (org-agenda-sorting-strategy
+        '(user-defined-down))))
+     ("z" "zeemo"
+      ((todo "TODO"
+             (org-agenda-skip-entry-if -TIMESTAMP={\.}/! | +TIMESTAMP<<today>))))
+     ("n" "Agenda and all TODOs"
+      ((agenda "" nil)
+       (alltodo "" nil))
+      nil)))
+#+end_src
+**** Custom org functions
+#+begin_src emacs-lisp
+(defun org-agenda-skip-if-scheduled-later ()
+"If this function returns nil, the current match should not be skipped.
+Otherwise, the function must return a position from where the search
+should be continued."
+  (ignore-errors
+    (let ((subtree-end (save-excursion (org-end-of-subtree t)))
+          (scheduled-seconds
+            (time-to-seconds
+              (org-time-string-to-time
+                (org-entry-get nil "SCHEDULED"))))
+          (now (time-to-seconds (current-time))))
+       (and scheduled-seconds
+            (>= scheduled-seconds now)
+            subtree-end))))
+#+end_src
 
 
 ** Other
@@ -94,7 +227,12 @@ Fancy TODO states
 #+begin_src emacs-lisp 
 (setq org-todo-keywords '((sequence "☛ TODO(t)" "|" "✔ DONE(d)") (sequence "⚑ WAITING(w)" "|") (sequence "|" "✘ CANCELED(c)")))
 #+end_src
+** Shortcuts
+org-agenda everywhere.
 
+#+begin_src emacs-lisp
+(global-set-key "\C-ca" 'org-agenda)
+#+end_src
 
 * Modules
 ** Tabbar
