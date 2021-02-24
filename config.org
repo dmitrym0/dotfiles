@@ -29,6 +29,32 @@ highlight current line
 (global-hl-line-mode t)
 #+end_src
 
+#+begin_src emacs-lisp
+  (setq auto-revert-interval 1
+        ring-bell-function 'ignore       
+        scroll-margin 1 ; Space between cursor and top/bottom
+        )
+
+
+(fset 'yes-or-no-p 'y-or-n-p)
+
+#+end_src
+
+Store autosaves elsewhere, borrowed from [[https://github.com/larstvei/dot-emacs][here]]
+#+begin_src emacs-lisp
+(defvar emacs-autosave-directory
+  (concat user-emacs-directory "autosaves/")
+  "This variable dictates where to put auto saves. It is set to a
+  directory called autosaves located wherever your .emacs.d/ is
+  located.")
+
+;; Sets all files to be backed up and auto saved in a single directory.
+(setq backup-directory-alist
+      `((".*" . ,emacs-autosave-directory))
+      auto-save-file-name-transforms
+      `((".*" ,emacs-autosave-directory t)))
+#+end_src
+
 
 Preserve emacs open buffers. Restore 5 on open and then when emacs is idle open more.
 #+begin_src emacs-lisp
@@ -140,6 +166,9 @@ indent all org mode files
 #+begin_src emacs-lisp
   (setq org-startup-indented t)
   (setq org-ellipsis "↪")
+ (setq org-outline-path-complete-in-steps nil)
+ (setq org-refile-targets '((org-agenda-files :maxlevel . 3)))
+ '(org-refile-use-outline-path 'file)
 #+end_src
 
 enable automated indent mode for org files
@@ -168,7 +197,7 @@ done tasks get a [[https://github.com/lmintmate/emacs.d#strikethrough-for-done-t
   (use-package org-superstar :ensure t :hook (org-mode . (lambda () (org-superstar-mode 1))))
   (add-hook 'org-mode-hook (lambda () (org-superstar-mode 1)))
   
-  (setq org-superstar-headline-bullets-list '("🅐" "🅑" "🅒", "🅓", "🅔", "🅕", "🅖"))
+  (setq org-superstar-headline-bullets-list '("🅐" "🅑" "🅒" "🅓"  "🅔"  "🅕"  "🅖"))
   (setq org-superstar-special-todo-items t)
   (setq org-superstar-todo-bullet-alist '(("TODO" . ?➽)
                                           ("CURRENTLY" . ?⌛)
@@ -488,6 +517,17 @@ Use `C-M g` to jump.
 #+end_src
 
 
+[[https://melpa.org/#/expand-region][expand-region]], intelligently adjust selection
+#+begin_src emacs-lisp
+(use-package expand-region :ensure t :config
+    (global-set-key (kbd "C-=") 'er/expand-region))
+#+end_src
+
+#+begin_src emacs-lisp
+(use-package doom-modeline
+  :ensure t
+  :hook (after-init . doom-modeline-mode))
+#+end_src
 * Last 
 Start maximized
 ** TODO There's some issue with this; probably due to the order of operations?
