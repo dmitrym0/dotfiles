@@ -2,8 +2,15 @@
 
 My emacs init file.
 
-~C-c C-,~ invokes Emacs templating system.
 
+** Don't forget
+
+- ~C-c C-,~ invokes Emacs templating system.
+
+
+** Still needs doing:
+
+- Change highlight color. Selecting with a mouse or ~C-SPC~ I can't see the highlight.
 
 * MELPA
 #+begin_src emacs-lisp 
@@ -27,7 +34,7 @@ Preserve emacs open buffers. Restore 5 on open and then when emacs is idle open 
 #+begin_src emacs-lisp
   (setq desktop-lazy-idle-delay 25)
   (setq desktop-restore-eager 5)
-  (desktop-save-mode)
+  (desktop-save-mode 1)
   (desktop-read)
   (setq desktop-path '("~/.emacs.d/.cache/"))
 #+end_src
@@ -131,7 +138,8 @@ Lets keep `C-c d` for personal shortcuts.
 
 indent all org mode files
 #+begin_src emacs-lisp
-(setq org-startup-indented t)
+  (setq org-startup-indented t)
+  (setq org-ellipsis "↪")
 #+end_src
 
 enable automated indent mode for org files
@@ -139,19 +147,36 @@ enable automated indent mode for org files
 (add-hook 'org-mode-hook 'org-indent-mode)
 #+end_src
 
-enable pretty bullets in org-mode
-#+begin_src emacs-lisp
-(use-package org-bullets
-  :ensure t
-  :config
-(add-hook 'org-mode-hook 'org-bullets-mode))
-#+end_src 
-
 Disable done tasks in agenda view.
 #+begin_src emacs-lisp
 (setq org-agenda-skip-scheduled-if-done t)
 (setq org-agenda-skip-deadline-if-done t)
 #+end_src
+
+
+
+done tasks get a [[https://github.com/lmintmate/emacs.d#strikethrough-for-done-tasks][strike through]]
+#+begin_src emacs-lisp
+(setq org-fontify-done-headline t)
+(set-face-attribute 'org-done nil :foreground "PaleGreen" :strike-through t :weight 'bold)
+(set-face-attribute 'org-headline-done nil :foreground "LightSalmon" :strike-through t)
+#+end_src
+
+
+
+#+begin_src emacs-lisp
+  (use-package org-superstar :ensure t :hook (org-mode . (lambda () (org-superstar-mode 1))))
+  (add-hook 'org-mode-hook (lambda () (org-superstar-mode 1)))
+  
+  (setq org-superstar-headline-bullets-list '("🅐" "🅑" "🅒", "🅓", "🅔", "🅕", "🅖"))
+  (setq org-superstar-special-todo-items t)
+  (setq org-superstar-todo-bullet-alist '(("TODO" . ?➽)
+                                          ("CURRENTLY" . ?⌛)
+                                          ("SOMEDAY" . ?⏱)
+                                          ("CANCELLED" . ?✘)
+                                          ("DONE" . ?✓)))
+#+end_src
+
 
 ** custom agenda
 
@@ -206,6 +231,7 @@ Create a custom agenda view.
        (alltodo "" nil))
       nil)))
 #+end_src
+
 **** Custom org functions
 #+begin_src emacs-lisp
 (defun org-agenda-skip-if-scheduled-later ()
@@ -228,7 +254,19 @@ should be continued."
 ** Other
 Fancy TODO states
 #+begin_src emacs-lisp 
-(setq org-todo-keywords '((sequence "☛ TODO(t)" "|" "✔ DONE(d)") (sequence "⚑ WAITING(w)" "|") (sequence "|" "✘ CANCELED(c)")))
+(setq org-todo-keywords '((sequence "TODO(t)" "|" "DONE(d)") (sequence "WAITING(w)" "|") (sequence "|" "CANCELED(c)")))
+#+end_src
+
+#+begin_src emacs-lisp
+(setq org-todo-keyword-faces
+      (quote (("TODO" :foreground "red" :weight bold)
+              ("NEXT" :foreground "blue" :weight bold)
+              ("DONE" :foreground "forest green" :weight bold)
+              ("WAITING" :foreground "orange" :weight bold)
+              ("HOLD" :foreground "magenta" :weight bold)
+              ("CANCELLED" :foreground "forest green" :weight bold)
+              ("MEETING" :foreground "forest green" :weight bold)
+              ("PHONE" :foreground "forest green" :weight bold))))
 #+end_src
 ** Shortcuts
 org-agenda everywhere.
@@ -436,6 +474,17 @@ Use `C-M g` to jump.
   (use-package helm-ag
      :ensure t)
    
+#+end_src
+
+
+[[https://melpa.org/#/no-littering][no-literring!]]
+#+begin_src emacs-lisp
+;(use-package no-littering :ensure t)
+#+end_src
+
+#+begin_src emacs-lisp
+(use-package emojify :ensure t
+  :hook (after-init . global-emojify-mode))
 #+end_src
 
 
