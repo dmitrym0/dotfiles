@@ -168,7 +168,7 @@ indent all org mode files
   (setq org-ellipsis "↪")
  (setq org-outline-path-complete-in-steps nil)
  (setq org-refile-targets '((org-agenda-files :maxlevel . 3)))
- '(org-refile-use-outline-path 'file)
+ (setq org-refile-use-outline-path 'file)
 #+end_src
 
 enable automated indent mode for org files
@@ -527,6 +527,14 @@ Use `C-M g` to jump.
 (use-package doom-modeline
   :ensure t
   :hook (after-init . doom-modeline-mode))
+#+end_src
+
+
+Fuzzy? matching. ~org refi~, matches ~org-refile~ and ~org-agenda-refile~
+#+begin_src emacs-lisp
+(use-package orderless
+  :ensure t
+  :custom (completion-styles '(orderless)))
 #+end_src
 * Last 
 Start maximized
