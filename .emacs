@@ -23,7 +23,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(helm-ag dumb-jump dumbjump groovy-mode org-pomodoro indent-guide blacken which-key use-package treemacs-projectile tabbar origami org-roam org-plus-contrib org-bullets immaterial-theme helm fzf elpy dimmer color-theme-modern beacon all-the-icons))
+   '(org-download orderless expand-region org-superstar helm-ag dumb-jump dumbjump groovy-mode org-pomodoro indent-guide blacken which-key use-package treemacs-projectile tabbar origami org-roam org-plus-contrib org-bullets immaterial-theme helm fzf elpy dimmer color-theme-modern beacon all-the-icons))
  '(require-final-newline nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.

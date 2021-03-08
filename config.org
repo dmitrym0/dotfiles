@@ -30,14 +30,16 @@ highlight current line
 (global-hl-line-mode t)
 #+end_src
 
+Ensure that files are reloaded from disk (when switching branches, or from dropbox sync)
 #+begin_src emacs-lisp
-  (setq auto-revert-interval 1
-        ring-bell-function 'ignore       
-        scroll-margin 1 ; Space between cursor and top/bottom
-        )
+(global-auto-revert-mode 1)
+    (setq auto-revert-interval 1
+          ring-bell-function 'ignore       
+          scroll-margin 1 ; Space between cursor and top/bottom
+          )
 
 
-(fset 'yes-or-no-p 'y-or-n-p)
+  (fset 'yes-or-no-p 'y-or-n-p)
 
 #+end_src
 
@@ -165,13 +167,15 @@ Lets keep `C-c d` for personal shortcuts.
 
 indent all org mode files
 #+begin_src emacs-lisp
-  (setq org-download-image-dir "images")
-  (setq org-startup-indented t)
-  (setq org-ellipsis "↪")
-  (setq org-outline-path-complete-in-steps nil)
-  (setq org-refile-targets '((org-agenda-files :maxlevel . 3)))
-  (setq org-refile-use-outline-path 'file)
-  (setq org-directory "~/org-roam")
+    (setq org-download-image-dir "images")
+    (setq org-startup-indented t)
+    (setq org-ellipsis "↪")
+    (setq org-outline-path-complete-in-steps nil)
+    (setq org-refile-targets '((org-agenda-files :maxlevel . 3)))
+    (setq org-refile-use-outline-path 'file)
+    (setq org-directory "~/org-roam")
+  (setq  org-download-image-dir (concat org-directory "/images"))
+
 #+end_src
 
 enable automated indent mode for org files
@@ -219,19 +223,19 @@ done tasks get a [[https://github.com/lmintmate/emacs.d#strikethrough-for-done-t
 
 #+begin_src emacs-lisp
   (setq org-capture-templates
-        '(
+        `(
           ("l" "Log" entry
-           (file+olp+datetree (concat org-directory "log.org"))
+           (file+olp+datetree ,(concat org-directory "/log.org"))
            "* Entered on %U
   %?
   ")
           ("t" "TODO" entry
-           (file+headline (concat org-directory "inbox.org") "INBOX")
+           (file+headline ,(concat org-directory "/inbox.org") "INBOX")
            "* TODO %?
     %i
     %a")
           ("h" "how do i" entry
-           (file+headline (concact org-directory "/20200422070715_howdoi.org") "INBOX")
+           (file+headline ,(concat org-directory "/20200422070715_howdoi.org") "INBOX")
            "* %?
     %i
     %a")
@@ -243,16 +247,16 @@ done tasks get a [[https://github.com/lmintmate/emacs.d#strikethrough-for-done-t
   %?
   ")
           ("di" "Important thing daily" entry
-           (file+olp+datetree (concat org-directory  "important-things-daily-2021.org"))
+/           (file+olp+datetree ,(concat org-directory  "/important-things-daily-2021.org"))
            "* Entered on %U
   %?")
 
           ("dj" "Journal" entry
-           (file+olp+datetree (concat org-directory "personal-daily-2021.org"))
+           (file+olp+datetree ,(concat org-directory "/personal-daily-2021.org"))
            "* Entered on %U
   %?")
           ("dc" "Daily Checkbox" entry
-           (file+olp+datetree (concat org-directory "~/work-log-2021.org"))
+           (file+olp+datetree ,(concat org-directory "~/work-log-2021.org"))
            (file "~/Dropbox/orgmode/template-morning-work-checklist.org"))))
 #+end_src
 
@@ -420,6 +424,10 @@ A file browser.
 #+end_src
 
 ** Random
+#+begin_src emacs-lisp
+(use-package org-download :ensure t )
+#+end_src
+
 fzf support
 #+begin_src emacs-lisp 
 (use-package fzf :ensure t)
