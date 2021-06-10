@@ -5,225 +5,225 @@ My emacs init file.
 
 ** Don't forget
 
-    - ~C - c C -, ~invokes Emacs templating system.
+- ~C-c C-,~ invokes Emacs templating system.
 
 
 ** Still needs doing:
 
-- Change highlight color.Selecting with a mouse or ~C - SPC~I can't see the highlight.
+- Change highlight color. Selecting with a mouse or ~C-SPC~ I can't see the highlight.
 
-    * MELPA
-# + begin_src emacs - lisp
-    (require 'package)
-        (add - to - list 'package-archives '("melpa". "http://melpa.org/packages/"))
-# + end_src
+* MELPA
+#+begin_src emacs-lisp 
+(require 'package)
+(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
+#+end_src
 
-        * Init
-soft wrap lines(wrap around past screen boundary)
-# + begin_src emacs - lisp
-        (global - visual - line - mode 1)
-        (show - paren - mode 1)
-# + end_src
+* Init
+soft wrap lines (wrap around past screen boundary)
+#+begin_src emacs-lisp 
+  (global-visual-line-mode 1)
+  (show-paren-mode 1)
+#+end_src
 
 highlight current line
-# + begin_src emacs - lisp
-        (global - hl - line - mode t)
-# + end_src
+#+begin_src emacs-lisp 
+(global-hl-line-mode t)
+#+end_src
 
-Ensure that files are reloaded from disk(when switching branches, or from dropbox sync)
-# + begin_src emacs - lisp
-        (global - auto - revert - mode 1)
-        (setq auto - revert - interval 1
-          ring - bell - function 'ignore       
-          scroll - margin 1 ; Space between cursor and top / bottom
+Ensure that files are reloaded from disk (when switching branches, or from dropbox sync)
+#+begin_src emacs-lisp
+(global-auto-revert-mode 1)
+    (setq auto-revert-interval 1
+          ring-bell-function 'ignore       
+          scroll-margin 1 ; Space between cursor and top/bottom
           )
 
 
-(fset 'yes-or-no-p 'y - or - n - p)
+  (fset 'yes-or-no-p 'y-or-n-p)
 
-# + end_src
+#+end_src
 
-Store autosaves elsewhere, borrowed from[[https://github.com/larstvei/dot-emacs][here]]
-# + begin_src emacs - lisp
-        (defvar emacs - autosave - directory
-            (concat user - emacs - directory "autosaves/")
+Store autosaves elsewhere, borrowed from [[https://github.com/larstvei/dot-emacs][here]]
+#+begin_src emacs-lisp
+(defvar emacs-autosave-directory
+  (concat user-emacs-directory "autosaves/")
   "This variable dictates where to put auto saves. It is set to a
-  directory called autosaves located wherever your.emacs.d / is
+  directory called autosaves located wherever your .emacs.d/ is
   located.")
 
 ;; Sets all files to be backed up and auto saved in a single directory.
-(setq backup - directory - alist
-                `((".*" . ,emacs-autosave-directory))
+(setq backup-directory-alist
+      `((".*" . ,emacs-autosave-directory))
       auto-save-file-name-transforms
-      `((".*", emacs - autosave - directory t)))
-# + end_src
+      `((".*" ,emacs-autosave-directory t)))
+#+end_src
 
 
-Preserve emacs open buffers.Restore 5 on open and then when emacs is idle open more.
-        # + begin_src emacs - lisp
-            (setq desktop - lazy - idle - delay 25)
-            (setq desktop - restore - eager 5)
-            (desktop - save - mode 1)
-            (desktop - read)
-            (setq desktop - path '("~/.emacs.d/.cache/"))
-# + end_src
+Preserve emacs open buffers. Restore 5 on open and then when emacs is idle open more.
+#+begin_src emacs-lisp
+  (setq desktop-lazy-idle-delay 25)
+  (setq desktop-restore-eager 5)
+  (desktop-save-mode 1)
+  (desktop-read)
+  (setq desktop-path '("~/.emacs.d/.cache/"))
+#+end_src
 
 turn on variable syntax highlighting
-# + begin_src emacs - lisp
-                (add - hook 'after-init-hook 'global - color - identifiers - mode) 
-# + end_src
+#+begin_src emacs-lisp 
+(add-hook 'after-init-hook 'global-color-identifiers-mode) 
+#+end_src
 
 no startup message
-# + begin_src emacs - lisp
-                (setq inhibit - startup - message t) 
-# + end_src
+#+begin_src emacs-lisp 
+(setq inhibit-startup-message t) 
+#+end_src
 
-use[[https://github.com/technomancy/better-defaults][better defaults]]
-# + begin_src emacs - listp
-                        (require 'better-defaults)
-# + end_src
+use [[https://github.com/technomancy/better-defaults][better defaults]]
+#+begin_src emacs-listp
+(require 'better-defaults)
+#+end_src
 
 
 No tabs!
-# + begin_src emacs - lisp
-                            (setq -default indent - tabs - mode nil)
-# + end_src
+#+begin_src emacs-lisp
+(setq-default indent-tabs-mode nil)
+#+end_src
 
 Autoload files that have been changed on disk, but not locally
-# + begin_src emacs - lisp
-                            (global - auto - revert - mode t)
-# + end_src
+#+begin_src emacs-lisp
+(global-auto-revert-mode t)
+#+end_src
 
-Highlight everything between two exclamation marks(!highlighted!)
-# + begin_src emacs - lisp
-                            (defun org - add - my - extra - markup()
+Highlight everything between two exclamation marks (!highlighted!)
+#+begin_src emacs-lisp
+(defun org-add-my-extra-markup ()
   "Add highlight emphasis."
-                                    (add - to - list 'org-font-lock-extra-keywords
+  (add-to-list 'org-font-lock-extra-keywords
                '("[^\\w]\\(:\\[^\n\r\t]+:\\)[^\\w]"
-                                            (1 '(face highlight invisible nil)))))
-                                                (add - hook 'org-font-lock-set-keywords-hook #'org - add - my - extra - markup)
-# + end_src
+                 (1 '(face highlight invisible nil)))))
+(add-hook 'org-font-lock-set-keywords-hook #'org-add-my-extra-markup)
+#+end_src
 
 
 When we switch windows or scroll, for example, we get a wave of light near the cursor.
-    # + begin_src emacs - lisp
-        (use - package beacon
-  : diminish
-  : config(setq beacon - color "#666600")
-  : hook((org - mode text - mode).beacon - mode))
-# + end_src
+#+begin_src emacs-lisp
+(use-package beacon
+  :diminish
+  :config (setq beacon-color "#666600")
+  :hook   ((org-mode text-mode) . beacon-mode))
+#+end_src
 
-Use solarized - dark theme from doom - themes.
-    # + begin_src emacs - lisp
-        (use - package doom - themes  : diminish
-  : ensure t
-  : config(load - theme 'doom-molokai t)
-        )
-# + end_src
+Use solarized-dark theme from doom-themes.
+#+begin_src emacs-lisp
+  (use-package doom-themes  :diminish
+  :ensure t
+  :config (load-theme 'doom-molokai t)
+  )
+#+end_src
 
 
 Use dome modeline
-# + begin_src emacs - lisp
-            (use - package doom - modeline : diminish : ensure t
-  : config(doom - modeline - mode 1)
-                    (winner - mode 1))
+#+begin_src emacs-lisp
+  (use-package doom-modeline :diminish :ensure t
+  :config (doom-modeline-mode 1)
+          (winner-mode 1))
 
-# + end_src
+#+end_src
 
 
-# + begin_src emacs - lisp
-            (use - package golden - ratio
-    : ensure t
-    : diminish golden - ratio - mode
-    : init(golden - ratio - mode 1))
-# + end_src
+#+begin_src emacs-lisp
+  (use-package golden-ratio
+    :ensure t
+    :diminish golden-ratio-mode
+    :init (golden-ratio-mode 1))
+#+end_src
 
 No toolbar.
-            # + begin_src emacs - lisp
-                (tool - bar - mode - 1) 
-# + end_src
+#+begin_src emacs-lisp
+(tool-bar-mode -1) 
+#+end_src
 
 
 
-            * Templates
-            ** Enable easy templates(from[[https://emacs.stackexchange.com/a/46992][here]])
-# + begin_src emacs - lisp
-                    (require 'org-tempo)
-# + end_src
+* Templates
+** Enable easy templates (from [[https://emacs.stackexchange.com/a/46992][here]])
+#+begin_src emacs-lisp 
+(require 'org-tempo)
+#+end_src
 
-                        * Keybindings
-                        ** Personal
+* Keybindings
+** Personal
 
-Lets keep`C-c d` for personal shortcuts.
-    # + begin_src emacs - lisp
-        (global - set - key(kbd "C-c d p") #'org-pomodoro)
-# + end_src
+Lets keep `C-c d` for personal shortcuts.
+#+begin_src emacs-lisp 
+(global-set-key (kbd "C-c d p") #'org-pomodoro)
+#+end_src
 
 
 
-            * Org
+* Org
 
-            ** Init
+** Init
 
 indent all org mode files
-# + begin_src emacs - lisp
-            (setq org - download - image - dir "images")
-            (setq org - startup - indented t)
-            (setq org - ellipsis "↪")
-            (setq org - outline - path - complete -in -steps nil)
-            (setq org - refile - targets '((org-agenda-files :maxlevel . 3)))
-                (setq org - refile - use - outline - path 'file)
-                    (setq org - directory "~/org-roam")
-                    (setq  org - download - image - dir(concat org - directory "/images"))
-                    (setq org - outline - path - complete -in -steps nil)
-# + end_src
+#+begin_src emacs-lisp
+    (setq org-download-image-dir "images")
+    (setq org-startup-indented t)
+    (setq org-ellipsis "↪")
+    (setq org-outline-path-complete-in-steps nil)
+    (setq org-refile-targets '((org-agenda-files :maxlevel . 3)))
+    (setq org-refile-use-outline-path 'file)
+    (setq org-directory "~/org-roam")
+  (setq  org-download-image-dir (concat org-directory "/images"))
+
+#+end_src
 
 enable automated indent mode for org files
-# + begin_src emacs - lisp
-            (add - hook 'org-mode-hook 'org - indent - mode)
-# + end_src
+#+begin_src emacs-lisp
+(add-hook 'org-mode-hook 'org-indent-mode)
+#+end_src
 
 Disable done tasks in agenda view.
-    # + begin_src emacs - lisp
-        (setq org - agenda - skip - scheduled -if-done t)
-(setq org - agenda - skip - deadline -if-done t)
-# + end_src
+#+begin_src emacs-lisp
+(setq org-agenda-skip-scheduled-if-done t)
+(setq org-agenda-skip-deadline-if-done t)
+#+end_src
 
 
 
-done tasks get a[[https://github.com/lmintmate/emacs.d#strikethrough-for-done-tasks][strike through]]
-# + begin_src emacs - lisp
-        (setq org - fontify - done - headline t)
-        (set - face - attribute 'org-done nil :foreground "PaleGreen" :strike-through t :weight 'bold)
-        (set - face - attribute 'org-headline-done nil :foreground "LightSalmon" :strike-through t)
-# + end_src
+done tasks get a [[https://github.com/lmintmate/emacs.d#strikethrough-for-done-tasks][strike through]]
+#+begin_src emacs-lisp
+(setq org-fontify-done-headline t)
+(set-face-attribute 'org-done nil :foreground "PaleGreen" :strike-through t :weight 'bold)
+(set-face-attribute 'org-headline-done nil :foreground "LightSalmon" :strike-through t)
+#+end_src
 
 
 
-# + begin_src emacs - lisp
-            (use - package org - superstar : ensure t : hook(org - mode. (lambda()(org - superstar - mode 1))))
-            (add - hook 'org-mode-hook (lambda () (org-superstar-mode 1)))
-
-                (setq org - superstar - headline - bullets - list '("🅐" "🅑" "🅒" "🅓"  "🅔"  "🅕"  "🅖"))
-                    (setq org - superstar - special - todo - items t)
-                    (setq org - superstar - todo - bullet - alist '(("TODO" . ?➽)
-                        ("CURRENTLY". ?⌛)
-                        ("SOMEDAY". ?⏱)
-                        ("CANCELLED". ?✘)
-                        ("DONE". ?✓)))
-# + end_src
-
-
+#+begin_src emacs-lisp
+  (use-package org-superstar :ensure t :hook (org-mode . (lambda () (org-superstar-mode 1))))
+  (add-hook 'org-mode-hook (lambda () (org-superstar-mode 1)))
+  
+  (setq org-superstar-headline-bullets-list '("🅐" "🅑" "🅒" "🅓"  "🅔"  "🅕"  "🅖"))
+  (setq org-superstar-special-todo-items t)
+  (setq org-superstar-todo-bullet-alist '(("TODO" . ?➽)
+                                          ("CURRENTLY" . ?⌛)
+                                          ("SOMEDAY" . ?⏱)
+                                          ("CANCELLED" . ?✘)
+                                          ("DONE" . ?✓)))
+#+end_src
 
 
 
 
-                ** Capture templates
 
 
-# + begin_src emacs - lisp
-                (setq org - capture - templates
-                    `(
+** Capture templates
+
+
+#+begin_src emacs-lisp
+  (setq org-capture-templates
+        `(
           ("l" "Log" entry
            (file+olp+datetree ,(concat org-directory "/log.org"))
            "* Entered on %U
@@ -545,7 +545,7 @@ show vertical lines to guide indentation
 [[https://github.com/jacktasia/dumb-jump#obsolete-commands-and-options][Dumb jump]]
 Note, that this disables etags.
 
-Use `C - M g` to jump.
+Use `C-M g` to jump.
 
 #+begin_src emacs-lisp
   (use-package dumb-jump
@@ -555,11 +555,10 @@ Use `C - M g` to jump.
        (add-to-list 'xref-backend-functions #'dumb-jump-xref-activate t))
 #+end_src
 
-[[https://github.com/emacsorphanage/helm-ag][helm-ag]]. Pick up the keyword at point when doing searches.
+[[https://github.com/emacsorphanage/helm-ag][helm-ag]]
 #+begin_src emacs-lisp
-    (use-package helm-ag
-       :ensure t
-       :config (setq helm-ag-insert-at-point 'symbol))
+  (use-package helm-ag
+     :ensure t)
    
 #+end_src
 
@@ -610,66 +609,8 @@ Fuzzy? matching. ~org refi~, matches ~org-refile~ and ~org-agenda-refile~
     (let ((text (replace-regexp-in-string "\\(!\\)\\([^\n\r\t]+?\\)\\(!\\)" "<mark>"  text nil nil 1 nil)))
       (replace-regexp-in-string "\\(<mark>\\)\\([^\n\r\t]+?\\)\\(!\\)" "</mark>" text nil nil 3 nil))))
 
-;(add-to-list 'org-export-filter-plain-text-functions 'my-html-mark-tag)
+(add-to-list 'org-export-filter-plain-text-functions 'my-html-mark-tag)
 #+end_src
-** ox-hugo
-#+begin_src elisp
-   (use-package ox-hugo
-     :ensure t
-     :config
-       (use-package ox-hugo
-     :ensure t
-     :config
-     ))
-#+end_src
-
-** js2 (TypeScript refactoring)
-#+begin_src elisp
-  (use-package js2-refactor
-    :ensure t
-    :config
-    (add-hook 'js2-mode-hook #'js2-refactor-mode)
-    (js2r-add-keybindings-with-prefix "C-c C-m")
-    )
-
-#+end_src
-
-
-** Mocha (JS testing support)
-#+begin_src elisp
-  (use-package mocha
-    :ensure t)
-
-#+end_src
-
-** Evil Mode 😈
-#+begin_src elisp
-    (use-package evil
-      :ensure t
-      :config
-      (require 'evil)
-      (evil-mode 1)
-      )
-
-#+end_src
-
-
-** Tide (Typescript interactive development environment for mac)
-
-#+begin_src elisp
-      (use-package tide
-        :ensure t
-        :after (typescript-mode company flycheck)
-        :hook ((typescript-mode . tide-setup)
-               (typescript-mode . tide-hl-identifier-mode)
-               (before-save . tide-format-before-save)))
-
-      (use-package typescript-mode
-        :ensure t
-    :config)
-#+end_src
-
-
 * Last 
 Start maximized
 ** TODO There's some issue with this; probably due to the order of operations?
