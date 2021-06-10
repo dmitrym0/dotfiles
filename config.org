@@ -609,7 +609,8 @@ Fuzzy? matching. ~org refi~, matches ~org-refile~ and ~org-agenda-refile~
     (let ((text (replace-regexp-in-string "\\(!\\)\\([^\n\r\t]+?\\)\\(!\\)" "<mark>"  text nil nil 1 nil)))
       (replace-regexp-in-string "\\(<mark>\\)\\([^\n\r\t]+?\\)\\(!\\)" "</mark>" text nil nil 3 nil))))
 
-(add-to-list 'org-export-filter-plain-text-functions 'my-html-mark-tag)
+; TODO
+;(add-to-list 'org-export-filter-plain-text-functions 'my-html-mark-tag)
 
  #+end_src
  ** ox-hugo
