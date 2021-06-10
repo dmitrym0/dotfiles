@@ -610,7 +610,65 @@ Fuzzy? matching. ~org refi~, matches ~org-refile~ and ~org-agenda-refile~
       (replace-regexp-in-string "\\(<mark>\\)\\([^\n\r\t]+?\\)\\(!\\)" "</mark>" text nil nil 3 nil))))
 
 (add-to-list 'org-export-filter-plain-text-functions 'my-html-mark-tag)
-#+end_src
+
+ #+end_src
+ ** ox-hugo
+ #+begin_src elisp
+    (use-package ox-hugo
+      :ensure t
+      :config
+        (use-package ox-hugo
+      :ensure t
+      :config
+      ))
+ #+end_src
+
+ ** js2 (TypeScript refactoring)
+ #+begin_src elisp
+   (use-package js2-refactor
+     :ensure t
+     :config
+     (add-hook 'js2-mode-hook #'js2-refactor-mode)
+     (js2r-add-keybindings-with-prefix "C-c C-m")
+     )
+
+ #+end_src
+
+
+ ** Mocha (JS testing support)
+ #+begin_src elisp
+   (use-package mocha
+     :ensure t)
+
+ #+end_src
+
+ ** Evil Mode 😈
+ #+begin_src elisp
+     (use-package evil
+       :ensure t
+       :config
+       (require 'evil)
+       (evil-mode 1)
+       )
+
+ #+end_src
+
+
+ ** Tide (Typescript interactive development environment for mac)
+
+ #+begin_src elisp
+   (use-package tide
+     :ensure t
+     :after (typescript-mode company flycheck)
+     :hook ((typescript-mode . tide-setup)
+            (typescript-mode . tide-hl-identifier-mode)
+            (before-save . tide-format-before-save)))
+
+   (use-package typescript-mode
+     :ensure t
+     :config)
+ #+end_src
+
 * Last 
 Start maximized
 ** TODO There's some issue with this; probably due to the order of operations?
