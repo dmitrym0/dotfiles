@@ -159,7 +159,10 @@ Lets keep `C-c d` for personal shortcuts.
 (global-set-key (kbd "C-c d p") #'org-pomodoro)
 #+end_src
 
-
+recompile.
+#+begin_src emacs-lisp
+(global-set-key (kbd "C-c c") 'recompile)
+#+end_src
 
 * Org
 
@@ -626,12 +629,12 @@ Fuzzy? matching. ~org refi~, matches ~org-refile~ and ~org-agenda-refile~
 
  ** js2 (TypeScript refactoring)
  #+begin_src elisp
-   (use-package js2-refactor
-     :ensure t
-     :config
-     (add-hook 'js2-mode-hook #'js2-refactor-mode)
-     (js2r-add-keybindings-with-prefix "C-c C-m")
-     )
+   ;; (use-package js2-refactor
+   ;;   :ensure t
+   ;;   :config
+   ;;   (add-hook 'js2-mode-hook #'js2-refactor-mode)
+   ;;   (js2r-add-keybindings-with-prefix "C-c C-m")
+   ;;   )
 
  #+end_src
 
@@ -658,18 +661,74 @@ Fuzzy? matching. ~org refi~, matches ~org-refile~ and ~org-agenda-refile~
  ** Tide (Typescript interactive development environment for mac)
 
  #+begin_src elisp
-   (use-package tide
-     :ensure t
-     :after (typescript-mode company flycheck)
-     :hook ((typescript-mode . tide-setup)
-            (typescript-mode . tide-hl-identifier-mode)
-            (before-save . tide-format-before-save)))
+   ;; (use-package tide
+   ;;   :ensure t
+   ;;   :after (typescript-mode company flycheck)
+   ;;   :hook ((typescript-mode . tide-setup)
+   ;;          (typescript-mode . tide-hl-identifier-mode)
+   ;;          (before-save . tide-format-before-save)))
 
-   (use-package typescript-mode
-     :ensure t
-     :config)
+   ;; (use-package typescript-mode
+   ;;   :ensure t
+   ;;   :config
+   ;;   (require 'ansi-color) ;; clean up compiler output from tsc
+   ;;   (defun colorize-compilation-buffer ()
+   ;;     (ansi-color-apply-on-region compilation-filter-start (point-max)))
+   ;;   (add-hook 'compilation-filter-hook 'colorize-compilation-buffer)
+   ;;   )
  #+end_src
 
+
+
+ ** LSP Mode
+#+begin_src elisp
+    (use-package lsp-mode
+  :ensure t
+      :init
+      ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
+      (setq lsp-keymap-prefix "C-c l")
+      :hook (;; replace XXX-mode with concrete major-mode(e. g. python-mode)
+             (typescript-mode . lsp)
+             ;; if you want which-key integration
+             (lsp-mode . lsp-enable-which-key-integration))
+      :commands lsp)
+
+    ;; optionally
+    (use-package lsp-ui :ensure t :commands lsp-ui-mode)
+    ;; if you are helm user
+    (use-package helm-lsp :ensure t :commands helm-lsp-workspace-symbol)
+    ;; if you are ivy user
+    (use-package lsp-treemacs :ensure t :commands lsp-treemacs-errors-list)
+
+    ;; optionally if you want to use debugger
+  ;  (use-package dap-mode :ensure t)
+   ; (use-package dap-typescript :ensure t) 
+
+    ;; optional if you want which-key integration
+    (use-package which-key
+        :config
+        (which-key-mode))
+
+
+#+end_src
+** Color in terminal (like M-x compile)
+#+begin_src elisp
+  (use-package xterm-color :ensure t
+    :config
+    (require 'xterm-color)
+    (setq compilation-environment '("TERM=xterm-256color"))
+    (defun my/advice-compilation-filter (f proc string)
+      (funcall f proc (xterm-color-filter string)))
+    (advice-add 'compilation-filter :around #'my/advice-compilation-filter))
+#+end_src
+
+
+** Compile mode improvements
+From [[https://massimilianomirra.com/notes/lightweight-external-command-integration-in-emacs-via-compilation-mode/][here]].
+#+begin_src emacs-lisp
+  (setq compilation-scroll-output 'first-error)
+  (setq scroll-conservatively 101)
+#+end_src
 * Last 
 Start maximized
 ** TODO There's some issue with this; probably due to the order of operations?
