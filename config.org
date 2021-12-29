@@ -1,3 +1,9 @@
+:PROPERTIES:
+:ID:       1859DDBD-1924-4A25-910F-4DBD4965B8CB
+:END:
+#+TITLE: DotConfig
+
+
 * Intro
 
 My emacs init file.
@@ -16,6 +22,7 @@ My emacs init file.
 #+begin_src emacs-lisp 
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
+(push (expand-file-name "~/.emacs.d/extra") load-path)
 #+end_src
 
 * Init
@@ -23,6 +30,7 @@ soft wrap lines (wrap around past screen boundary)
 #+begin_src emacs-lisp 
   (global-visual-line-mode 1)
   (show-paren-mode 1)
+  (setq show-paren-delay 0)
 #+end_src
 
 highlight current line
@@ -33,10 +41,10 @@ highlight current line
 Ensure that files are reloaded from disk (when switching branches, or from dropbox sync)
 #+begin_src emacs-lisp
 (global-auto-revert-mode 1)
-    (setq auto-revert-interval 1
-          ring-bell-function 'ignore       
-          scroll-margin 1 ; Space between cursor and top/bottom
-          )
+(setq auto-revert-interval 1
+        ring-bell-function 'ignore       
+        scroll-margin 1 ; Space between cursor and top/bottom
+    )
 
 
   (fset 'yes-or-no-p 'y-or-n-p)
@@ -79,11 +87,25 @@ no startup message
 #+end_src
 
 use [[https://github.com/technomancy/better-defaults][better defaults]]
-#+begin_src emacs-listp
-(require 'better-defaults)
+#+begin_src emacs-lisp
+(use-package better-defaults :ensure t)
+#+end_src
+
+disable lockfiles
+#+begin_src emacs-lisp
+  (setq create-lockfiles nil)
 #+end_src
 
 
+show column numbers in the mode line
+#+begin_src emacs-lisp
+(column-number-mode)
+#+end_src
+
+#+begin_src emacs-lisp
+  (setq-default show-trailing-whitespace t)
+  (setq-default indicate-empty-lines t)
+#+end_src
 No tabs!
 #+begin_src emacs-lisp
 (setq-default indent-tabs-mode nil)
@@ -109,7 +131,7 @@ When we switch windows or scroll, for example, we get a wave of light near the c
 #+begin_src emacs-lisp
 (use-package beacon
   :diminish
-  :config (setq beacon-color "#666600")
+  :config (setq beacon-color "#666600") (setq beacon-blink-when-window-scrolls t) (setq beacon-blink-when-window-changes t)
   :hook   ((org-mode text-mode) . beacon-mode))
 #+end_src
 
@@ -144,7 +166,6 @@ No toolbar.
 #+end_src
 
 
-
 * Templates
 ** Enable easy templates (from [[https://emacs.stackexchange.com/a/46992][here]])
 #+begin_src emacs-lisp 
@@ -157,6 +178,8 @@ No toolbar.
 Lets keep `C-c d` for personal shortcuts.
 #+begin_src emacs-lisp 
 (global-set-key (kbd "C-c d p") #'org-pomodoro)
+
+(global-set-key (kbd "C-c d g") #'org-gcal-post-at-point)
 #+end_src
 
 recompile.
@@ -177,7 +200,7 @@ indent all org mode files
     (setq org-refile-targets '((org-agenda-files :maxlevel . 3)))
     (setq org-refile-use-outline-path 'file)
     (setq org-directory "~/org-roam")
-  (setq  org-download-image-dir (concat org-directory "/images"))
+    (setq  org-download-image-dir (concat org-directory "/images"))
 
 #+end_src
 
@@ -263,12 +286,29 @@ done tasks get a [[https://github.com/lmintmate/emacs.d#strikethrough-for-done-t
            (file "~/Dropbox/orgmode/template-morning-work-checklist.org"))))
 #+end_src
 
+** Anki Capture
+#+begin_src elisp
+
+  (setq org-my-anki-file (concat org-directory "/anki.org"))
+  (add-to-list 'org-capture-templates
+               '("a" "Anki basic"
+                 entry
+                 (file+headline org-my-anki-file "INBOX")
+                 "* %<%H:%M>   %^g\n:PROPERTIES:\n:ANKI_NOTE_TYPE: Basic\n:ANKI_DECK: Mega\n:END:\n** Front\n%?\n** Back\n%x\n"))
+  (add-to-list 'org-capture-templates
+               '("A" "Anki cloze"
+                 entry
+                 (file+headline org-my-anki-file "INBOX")
+                 "* %<%H:%M>   %^g\n:PROPERTIES:\n:ANKI_NOTE_TYPE: Cloze\n:ANKI_DECK: Mega\n:END:\n** Text\n%x\n** Extra\n"))
+
+#+end_src
 ** custom agenda
 
 Create a custom agenda view.
 
 #+begin_src emacs-lisp
-(setq org-agenda-files '("~/org-roam"))
+(setq org-agenda-files (list org-directory 
+                             (concat org-directory "/daily")))
 #+end_src
 
 
@@ -343,15 +383,20 @@ Fancy TODO states
 #+end_src
 
 #+begin_src emacs-lisp
-(setq org-todo-keyword-faces
-      (quote (("TODO" :foreground "red" :weight bold)
-              ("NEXT" :foreground "blue" :weight bold)
-              ("DONE" :foreground "forest green" :weight bold)
-              ("WAITING" :foreground "orange" :weight bold)
-              ("HOLD" :foreground "magenta" :weight bold)
-              ("CANCELLED" :foreground "forest green" :weight bold)
-              ("MEETING" :foreground "forest green" :weight bold)
-              ("PHONE" :foreground "forest green" :weight bold))))
+  (setq org-todo-keyword-faces
+        (quote (("TODO" :foreground "red" :weight bold)
+                ("NEXT" :foreground "blue" :weight bold)
+                ("DONE" :foreground "forest green" :weight bold)
+                ("WAITING" :foreground "orange" :weight bold)
+                ("HOLD" :foreground "magenta" :weight bold)
+                ("CANCELLED" :foreground "forest green" :weight bold)
+                ("MEETING" :foreground "forest green" :weight bold)
+                ("PHONE" :foreground "forest green" :weight bold))))
+  
+  
+  ; highlight the current task in agenda mode
+(add-hook 'org-agenda-mode-hook '(lambda ()
+                                   (hl-line-mode 1)) 'append)
 #+end_src
 ** Shortcuts
 org-agenda everywhere.
@@ -485,23 +530,27 @@ dimmer, highlight current buffer
 
 org-roam
 #+begin_src emacs-lisp 
-;; keybindings for org-roam
-(use-package org-roam
-      :ensure t
-      :hook
-      (after-init . org-roam-mode)
-      :custom
-      (org-roam-directory "~/org-roam")
-      :bind (:map org-roam-mode-map
-              (("C-c n l" . org-roam)
-               ("C-c n f" . org-roam-find-file)
-               ("C-c n t" . org-roam-dailies-today)
-               ("C-c n y" . org-roam-dailies-yesterday)
-               ("C-c n n" . org-roam-dailies-tomorrow)
-               ("C-c n g" . org-roam-graph))
-              :map org-mode-map
-              (("C-c n i" . org-roam-insert))
-              (("C-c n I" . org-roam-insert-immediate))))
+    ;; keybindings for org-roam
+  
+  
+    (use-package org-roam
+    :ensure t
+    :custom
+    (org-roam-directory (file-truename "~/org-roam"))
+    :bind (("C-c n l" . org-roam-buffer-toggle)
+           ("C-c n f" . org-roam-node-find)
+           ("C-c n g" . org-roam-graph)
+           ("C-c n i" . org-roam-node-insert)
+           ("C-c n c" . org-roam-capture)
+           ("C-c n t" . org-roam-dailies-find-today)
+           ("C-c n y" . org-roam-dailies-find-yesterday)
+           ("C-c n n" . org-roam-dailies-find-tomorrow) 
+           ;; Dailies
+  )
+    :config
+    (org-roam-db-autosync-mode)
+    ;; If using org-roam-protocol
+    (require 'org-roam-protocol))
 #+end_src
 
 helm
@@ -648,15 +697,25 @@ Fuzzy? matching. ~org refi~, matches ~org-refile~ and ~org-agenda-refile~
 
  ** Evil Mode 😈
  #+begin_src elisp
-     (use-package evil
-       :ensure t
-       :config
-       (require 'evil)
-       (evil-mode 1)
-       )
-
+   (use-package evil
+     :ensure t
+     :config
+     (require 'evil)
+     (evil-mode 1)
+     )
+   
+   (evil-define-key 'normal org-mode-map (kbd "<tab>") #'org-cycle)
  #+end_src
 
+ ** Pretty links
+ #+begin_src elisp
+   (use-package org-link-beautify
+     :ensure t
+     :config
+     (org-link-beautify-mode 1)
+     )
+   
+ #+end_src
 
  ** Tide (Typescript interactive development environment for mac)
 
@@ -722,22 +781,60 @@ Fuzzy? matching. ~org refi~, matches ~org-refile~ and ~org-agenda-refile~
     (advice-add 'compilation-filter :around #'my/advice-compilation-filter))
 #+end_src
 
-
 ** Compile mode improvements
 From [[https://massimilianomirra.com/notes/lightweight-external-command-integration-in-emacs-via-compilation-mode/][here]].
 #+begin_src emacs-lisp
   (setq compilation-scroll-output 'first-error)
   (setq scroll-conservatively 101)
 #+end_src
+** Anki
+#+begin_src elisp
+  (use-package anki-editor
+    :ensure t
+    :config
+    ; I like making decks
+    (setq anki-editor-create-decks 't))
+    (customize-set-variable 'org-anki-default-deck "Mega::org-anki")
+#+end_src
+** Gcal
+#+begin_src elisp
+  (use-package org-gcal
+    :ensure t
+    :after org
+    :config
+    (setq org-gcal-header-alist '(("dmitrym@gmail.com" . "#+PROPERTY: TIMELINE_FACE \"pink\"\n"))
+          org-gcal-file-alist '(("dmitrym@gmail.com" .  "~/Dropbox/orgmode/gcal.org"))
+          org-gcal-auto-archive nil
+          org-gcal-notify-p nil))
+
+    ;(add-hook 'org-agenda-mode-hook 'org-gcal-fetch)
+    ;(add-hook 'org-capture-after-finalize-hook 'org-gcal-fetch))
+
+#+end_src
+** Org-capture-popout frame
+#+begin_src emacs-lisp
+  (load-file "~/.emacs.d/extra/capture.el")
+#+end_src
+
 * Last 
 Start maximized
 ** TODO There's some issue with this; probably due to the order of operations?
 #+begin_src emacs-lisp
-(add-hook 'window-setup-hook 'toggle-frame-maximized t)
-(toggle-frame-maximized)
-(add-to-list 'initial-frame-alist '(fullscreen . maximized))
-
+  (add-hook 'window-setup-hook 'toggle-frame-maximized t)
+  (toggle-frame-maximized)
+  (add-to-list 'initial-frame-alist '(fullscreen . maximized))
+  
 #+end_src
 
 
+** start server
+#+begin_src emacs-lisp
+  (unless (server-running-p)
+  (server-start))
+#+end_src
+
+** misc
+#+begin_src emacs-lisp
+(add-hook 'org-after-todo-state-change-hook (lambda () (run-with-idle-timer 20 nil (lambda () (load-file "/Users/dmitry/workspace/github/agenda-html/agenda-html.el")))))
+#+end_src
 
