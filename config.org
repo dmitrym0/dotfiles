@@ -1,4 +1,4 @@
-:PROPERTIES:
+projectile-project-search-path:PROPERTIES:
 :ID:       1859DDBD-1924-4A25-910F-4DBD4965B8CB
 :END:
 #+TITLE: DotConfig
@@ -42,7 +42,7 @@ Ensure that files are reloaded from disk (when switching branches, or from dropb
 #+begin_src emacs-lisp
 (global-auto-revert-mode 1)
 (setq auto-revert-interval 1
-        ring-bell-function 'ignore       
+        ring-bell-function 'ignore
         scroll-margin 1 ; Space between cursor and top/bottom
     )
 
@@ -78,6 +78,7 @@ Preserve emacs open buffers. Restore 5 on open and then when emacs is idle open 
 
 turn on variable syntax highlighting
 #+begin_src emacs-lisp 
+(use-package color-identifiers-mode :ensure t)
 (add-hook 'after-init-hook 'global-color-identifiers-mode) 
 #+end_src
 
@@ -88,7 +89,7 @@ no startup message
 
 use [[https://github.com/technomancy/better-defaults][better defaults]]
 #+begin_src emacs-lisp
-(use-package better-defaults :ensure t)
+;(use-package better-defaults :ensure t)
 #+end_src
 
 disable lockfiles
@@ -102,8 +103,9 @@ show column numbers in the mode line
 (column-number-mode)
 #+end_src
 
+show trailing whitespaces, kinda makes emacs ugly.
 #+begin_src emacs-lisp
-  (setq-default show-trailing-whitespace t)
+  (setq-default show-trailing-whitespace nil)
   (setq-default indicate-empty-lines t)
 #+end_src
 No tabs!
@@ -177,9 +179,9 @@ No toolbar.
 
 Lets keep `C-c d` for personal shortcuts.
 #+begin_src emacs-lisp 
-(global-set-key (kbd "C-c d p") #'org-pomodoro)
-
-(global-set-key (kbd "C-c d g") #'org-gcal-post-at-point)
+    (global-set-key (kbd "C-c d p") #'org-pomodoro)
+    (global-set-key (kbd "C-c d g") #'org-gcal-post-at-point)
+    (global-set-key (kbd "C-c d i") #'org-anki-sync-entry)
 #+end_src
 
 recompile.
@@ -253,38 +255,47 @@ done tasks get a [[https://github.com/lmintmate/emacs.d#strikethrough-for-done-t
           ("l" "Log" entry
            (file+olp+datetree ,(concat org-directory "/log.org"))
            "* Entered on %U
-  %?
-  ")
+           %?
+           ")
           ("t" "TODO" entry
            (file+headline ,(concat org-directory "/inbox.org") "INBOX")
            "* TODO %?
-    %i
-    %a")
+             %i
+             %a")
           ("h" "how do i" entry
            (file+headline ,(concat org-directory "/20200422070715_howdoi.org") "INBOX")
            "* %?
-    %i
-    %a")
+             %i
+             %a")
           ("d" "Dailies")
           ("p" "potatr")
           ("pj" "Journal" entry
            (file+olp+datetree "~/Dropbox/orgmode/potatr.org" "Log")
            "* Entered on %U
-  %?
-  ")
+           %?
+           ")
           ("di" "Important thing daily" entry
-/           (file+olp+datetree ,(concat org-directory  "/important-things-daily-2021.org"))
+           (file+olp+datetree ,(concat org-directory  "/important-things-daily-2022.org"))
            "* Entered on %U
-  %?")
-
+%?")
+  
           ("dj" "Journal" entry
-           (file+olp+datetree ,(concat org-directory "/personal-daily-2021.org"))
+           (file+olp+datetree ,(concat org-directory "/personal-daily-2022.org"))
            "* Entered on %U
-  %?")
+           %?")
           ("dc" "Daily Checkbox" entry
            (file+olp+datetree ,(concat org-directory "~/work-log-2021.org"))
            (file "~/Dropbox/orgmode/template-morning-work-checklist.org"))))
-#+end_src
+  
+  
+  
+  (setq org-roam-dailies-capture-templates
+        '(("d" "default" entry
+           (file "~/Dropbox/orgmode/template-morning-work-checklist.org")
+           :if-new
+           (file+head "%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n")
+           )))
+                    #+end_src
 
 ** Anki Capture
 #+begin_src elisp
@@ -467,8 +478,9 @@ A file browser.
 ** Projectile
 
 #+begin_src emacs-lisp 
-(projectile-mode +1)
-(define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+  (projectile-mode +1)
+  (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+  (setq projectile-project-search-path '("~/workspace/" "~/workspace/github" ("~/Exercism/emacs-lisp/" . 1)))
 #+end_src
 
 ** Random
@@ -551,6 +563,28 @@ org-roam
     (org-roam-db-autosync-mode)
     ;; If using org-roam-protocol
     (require 'org-roam-protocol))
+  (setq org-roam-db-node-include-function
+      (lambda ()
+        (not (member "DO_NOT_ORG_ROAM" (org-get-tags)))))
+#+end_src
+
+
+org-roam-ui
+#+begin_src emacs-lisp
+    (use-package org-roam-ui
+      :ensure t
+      :after org-roam
+  ;;         normally we'd recommend hooking orui after org-roam, but since org-roam does not have
+  ;;         a hookable mode anymore, you're advised to pick something yourself
+  ;;         if you don't care about startup time, use
+  ;;  :hook (after-init . org-roam-ui-mode)
+      :config
+      (setq org-roam-ui-sync-theme t
+            org-roam-ui-follow t
+            org-roam-ui-update-on-save t
+            org-roam-ui-open-on-start t)
+            (run-with-idle-timer 10 nil (lambda () org-roam-ui-mode))
+  )
 #+end_src
 
 helm
@@ -829,8 +863,8 @@ Start maximized
 
 ** start server
 #+begin_src emacs-lisp
-  (unless (server-running-p)
-  (server-start))
+  ;(unless (server-running-p)
+  ;(server-start))
 #+end_src
 
 ** misc
