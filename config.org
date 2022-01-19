@@ -1,4 +1,5 @@
-projectile-project-search-path:PROPERTIES:
+projectile-project-search-path
+:PROPERTIES:
 :ID:       1859DDBD-1924-4A25-910F-4DBD4965B8CB
 :END:
 #+TITLE: DotConfig
@@ -722,7 +723,7 @@ Fuzzy? matching. ~org refi~, matches ~org-refile~ and ~org-agenda-refile~
 ;(add-to-list 'org-export-filter-plain-text-functions 'my-html-mark-tag)
 
  #+end_src
- ** ox-hugo
+** ox-hugo
  #+begin_src elisp
     (use-package ox-hugo
       :ensure t
@@ -733,7 +734,7 @@ Fuzzy? matching. ~org refi~, matches ~org-refile~ and ~org-agenda-refile~
       ))
  #+end_src
 
- ** js2 (TypeScript refactoring)
+** js2 (TypeScript refactoring)
  #+begin_src elisp
    ;; (use-package js2-refactor
    ;;   :ensure t
@@ -745,14 +746,14 @@ Fuzzy? matching. ~org refi~, matches ~org-refile~ and ~org-agenda-refile~
  #+end_src
 
 
- ** Mocha (JS testing support)
+** Mocha (JS testing support)
  #+begin_src elisp
    (use-package mocha
      :ensure t)
 
  #+end_src
 
- ** Evil Mode 😈
+** Evil Mode 😈
  #+begin_src elisp
    (use-package evil
      :ensure t
@@ -764,7 +765,7 @@ Fuzzy? matching. ~org refi~, matches ~org-refile~ and ~org-agenda-refile~
    (evil-define-key 'normal org-mode-map (kbd "<tab>") #'org-cycle)
  #+end_src
 
- ** Pretty links
+** Pretty links
  #+begin_src elisp
    ; (use-package org-link-beautify
    ;   :ensure t
@@ -773,7 +774,7 @@ Fuzzy? matching. ~org refi~, matches ~org-refile~ and ~org-agenda-refile~
    ;   )
  #+end_src
 
- ** Tide (Typescript interactive development environment for mac)
+** Tide (Typescript interactive development environment for mac)
 
  #+begin_src elisp
    ;; (use-package tide
@@ -795,7 +796,7 @@ Fuzzy? matching. ~org refi~, matches ~org-refile~ and ~org-agenda-refile~
 
 
 
- ** LSP Mode
+** LSP Mode
 #+begin_src elisp
     (use-package lsp-mode
   :ensure t
