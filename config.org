@@ -20,9 +20,11 @@ My emacs init file.
 
 * MELPA
 #+begin_src emacs-lisp 
-(require 'package)
-(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
-(push (expand-file-name "~/.emacs.d/extra") load-path)
+    (require 'package)
+    (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
+    (add-to-list 'package-archives '("nongnu" . "https://elpa.nongnu.org/nongnu/") t)
+    (add-to-list 'package-archives '("gnu" . "https://elpa.gnu.org/packages/") t)
+    (push (expand-file-name "~/.emacs.d/extra") load-path)
 #+end_src
 
 * Init
@@ -255,45 +257,45 @@ done tasks get a [[https://github.com/lmintmate/emacs.d#strikethrough-for-done-t
           ("l" "Log" entry
            (file+olp+datetree ,(concat org-directory "/log.org"))
            "* Entered on %U
-           %?
-           ")
+                 %?
+                 ")
           ("t" "TODO" entry
            (file+headline ,(concat org-directory "/inbox.org") "INBOX")
            "* TODO %?
-             %i
-             %a")
+                   %i
+                   %a")
           ("h" "how do i" entry
            (file+headline ,(concat org-directory "/20200422070715_howdoi.org") "INBOX")
            "* %?
-             %i
-             %a")
+                   %i
+                   %a")
           ("d" "Dailies")
           ("p" "potatr")
           ("pj" "Journal" entry
            (file+olp+datetree "~/Dropbox/orgmode/potatr.org" "Log")
            "* Entered on %U
-           %?
-           ")
+                 %?
+                 ")
           ("di" "Important thing daily" entry
            (file+olp+datetree ,(concat org-directory  "/important-things-daily-2022.org"))
            "* Entered on %U
-%?")
-  
+      %?")
+
           ("dj" "Journal" entry
            (file+olp+datetree ,(concat org-directory "/personal-daily-2022.org"))
            "* Entered on %U
-           %?")
+      %?")
           ("dc" "Daily Checkbox" entry
            (file+olp+datetree ,(concat org-directory "~/work-log-2021.org"))
            (file "~/Dropbox/orgmode/template-morning-work-checklist.org"))))
-  
-  
-  
+
+
+
   (setq org-roam-dailies-capture-templates
-        '(("d" "default" entry
-           (file "~/Dropbox/orgmode/template-morning-work-checklist.org")
-           :if-new
-           (file+head "%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n")
+        '(("d" "default" plain (file "~/Dropbox/orgmode/template-morning-work-checklist.org")
+           :target (file+head "%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n")
+  :jump-to-captured
+
            )))
                     #+end_src
 
@@ -424,10 +426,25 @@ Show a tabbar at the top of the screen.
 #+begin_src emacs-lisp 
 (use-package tabbar
 :ensure t
-:config (tabbar-mode 1)
+:config (tabbar-mode 0)
 )
 #+end_src
 
+
+#+begin_src emacs-lisp
+(global-tab-line-mode 0)
+#+end_src
+
+
+#+begin_src emacs-lisp
+  (use-package centaur-tabs :ensure t
+  :demand
+  :config
+  (centaur-tabs-mode t)
+  :bind
+  ("C-<prior>" . centaur-tabs-backward)
+  ("C-<next>" . centaur-tabs-forward))
+#+end_src
 ** Treemacs
 A file browser.
 
@@ -743,12 +760,11 @@ Fuzzy? matching. ~org refi~, matches ~org-refile~ and ~org-agenda-refile~
 
  ** Pretty links
  #+begin_src elisp
-   (use-package org-link-beautify
-     :ensure t
-     :config
-     (org-link-beautify-mode 1)
-     )
-   
+   ; (use-package org-link-beautify
+   ;   :ensure t
+   ;   :config
+   ;   (org-link-beautify-mode 0)
+   ;   )
  #+end_src
 
  ** Tide (Typescript interactive development environment for mac)
@@ -849,6 +865,25 @@ From [[https://massimilianomirra.com/notes/lightweight-external-command-integrat
 #+begin_src emacs-lisp
   (load-file "~/.emacs.d/extra/capture.el")
 #+end_src
+** 
+** Company mode (autocompletion)
+#+begin_src elisp
+  (use-package company
+  :ensure t
+  :bind (:map company-active-map
+         ("C-n" . company-select-next)
+         ("C-p" . company-select-previous))
+  :config
+  (setq company-idle-delay 0.3)
+  (global-company-mode t))
+
+#+end_src
+** [[https://github.com/alphapapa/ts.el][ts.el]] (time manipulation)
+#+begin_src elisp
+   (use-package ts :ensure t)
+
+ 
+#+end_src
 
 * Last 
 Start maximized
@@ -872,3 +907,16 @@ Start maximized
 (add-hook 'org-after-todo-state-change-hook (lambda () (run-with-idle-timer 20 nil (lambda () (load-file "/Users/dmitry/workspace/github/agenda-html/agenda-html.el")))))
 #+end_src
 
+* Custom LISP
+** pomodoro support
+#+begin_src emacs-lisp
+  (defun jx/produce-pomodoro-string-for-menu-bar ()
+  "Produce the string for the current pomodoro counter to display on the menu bar"
+  (let ((prefix (cl-case org-pomodoro-state
+            (:pomodoro "P")
+            (:overtime "O")
+            (:short-break "B")
+            (:long-break "LB"))))
+          (if (and (org-pomodoro-active-p) (> (length prefix) 0))
+            (list prefix (org-pomodoro-format-seconds)) "N/A")))
+#+end_src
