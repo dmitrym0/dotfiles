@@ -131,6 +131,12 @@ Highlight everything between two exclamation marks (!highlighted!)
 #+end_src
 
 
+enable wakatime
+#+begin_src elisp
+   (global-wakatime-mode)
+
+#+end_src
+
 When we switch windows or scroll, for example, we get a wave of light near the cursor.
 #+begin_src emacs-lisp
 (use-package beacon
