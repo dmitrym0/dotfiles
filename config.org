@@ -17,7 +17,7 @@ My emacs init file.
 ** Still needs doing:
 
 - Change highlight color. Selecting with a mouse or ~C-SPC~ I can't see the highlight.
-
+  
 * MELPA
 #+begin_src emacs-lisp 
     (require 'package)
@@ -425,6 +425,21 @@ org-agenda everywhere.
 #+end_src
 
 * Modules
+** paredit
+#+begin_src elisp
+  (use-package paredit
+  :ensure t
+  :config
+  (add-hook 'emacs-lisp-mode-hook #'paredit-mode)
+  ;; enable in the *scratch* buffer
+  (add-hook 'lisp-interaction-mode-hook #'paredit-mode)
+  (add-hook 'ielm-mode-hook #'paredit-mode)
+  (add-hook 'lisp-mode-hook #'paredit-mode)
+  (add-hook 'eval-expression-minibuffer-setup-hook #'paredit-mode)
+;  (diminish 'paredit-mode "()")
+)
+
+#+end_src
 ** Tabbar
 
 Show a tabbar at the top of the screen.
