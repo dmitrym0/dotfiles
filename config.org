@@ -42,14 +42,17 @@ highlight current line
 
 Ensure that files are reloaded from disk (when switching branches, or from dropbox sync)
 #+begin_src emacs-lisp
-(global-auto-revert-mode 1)
-(setq auto-revert-interval 1
-        ring-bell-function 'ignore
-        scroll-margin 1 ; Space between cursor and top/bottom
-    )
+    (global-auto-revert-mode 1)
+    (setq auto-revert-interval 1
+            ring-bell-function 'ignore
+            scroll-margin 1 ; Space between cursor and top/bottom
+        )
 
 
-  (fset 'yes-or-no-p 'y-or-n-p)
+      (fset 'yes-or-no-p 'y-or-n-p)
+
+  (global-activity-watch-mode t)
+  (setq use-package-compute-statistics t)
 
 #+end_src
 
@@ -430,12 +433,12 @@ org-agenda everywhere.
   (use-package paredit
   :ensure t
   :config
-  (add-hook 'emacs-lisp-mode-hook #'paredit-mode)
+  ;(add-hook 'emacs-lisp-mode-hook #'paredit-mode)
   ;; enable in the *scratch* buffer
-  (add-hook 'lisp-interaction-mode-hook #'paredit-mode)
-  (add-hook 'ielm-mode-hook #'paredit-mode)
-  (add-hook 'lisp-mode-hook #'paredit-mode)
-  (add-hook 'eval-expression-minibuffer-setup-hook #'paredit-mode)
+  ;(add-hook 'lisp-interaction-mode-hook #'paredit-mode)
+  ;(add-hook 'ielm-mode-hook #'paredit-mode)
+  ;(add-hook 'lisp-mode-hook #'paredit-mode)
+  ;(add-hook 'eval-expression-minibuffer-setup-hook #'paredit-mode)
 ;  (diminish 'paredit-mode "()")
 )
 
@@ -574,7 +577,7 @@ dimmer, highlight current buffer
   :ensure t
   :config
    (dimmer-configure-which-key)
-   (dimmer-configure-helm)
+;   (dimmer-configure-helm)
    (dimmer-mode t))
 #+end_src
 
@@ -620,7 +623,7 @@ org-roam-ui
       (setq org-roam-ui-sync-theme t
             org-roam-ui-follow t
             org-roam-ui-update-on-save t
-            org-roam-ui-open-on-start t)
+            org-roam-ui-open-on-start nil)
             (run-with-idle-timer 10 nil (lambda () org-roam-ui-mode))
   )
 #+end_src
@@ -628,13 +631,14 @@ org-roam-ui
 helm
 
 #+begin_src emacs-lisp 
-(use-package helm
-  :ensure t
-  :config
-(global-set-key (kbd "M-x") #'helm-M-x)
-(global-set-key (kbd "C-x r b") #'helm-filtered-bookmarks)
-(global-set-key (kbd "C-x C-f") #'helm-find-files)
-(helm-mode 1))
+  ;; (use-package helm
+  ;;   :ensure t
+  ;;   :config
+  ;; (global-set-key (kbd "M-x") #'helm-M-x)
+  ;; (global-set-key (kbd "C-x r b") #'helm-filtered-bookmarks)
+  ;; (global-set-key (kbd "C-x C-f") #'helm-find-files)
+  ;; ;(helm-mode 1)
+  ;; )
 #+end_src
 
 python
@@ -905,7 +909,46 @@ From [[https://massimilianomirra.com/notes/lightweight-external-command-integrat
 
  
 #+end_src
+** selectrum
+#+begin_src emacs-lisp
+  ;;   (use-package selectrum :ensure t
+  ;;   :init
+  ;;   (selectrum-mode +1)
+  ;;   ;; to make sorting and filtering more intelligent
+  ;; (selectrum-prescient-mode +1)
 
+  ;; ;; to save your command history on disk, so the sorting gets more
+  ;; ;; intelligent over time
+  ;; (prescient-persist-mode +1)
+  ;;   (setq completion-styles '(orderless)))
+  ;;   ;(setq completion-styles '(flex substring partial-completion)))
+
+
+
+
+
+  ;; (setq mini-frame-show-parameters                                        
+  ;;     (lambda ()                                                                
+  ;;       (let* ((info (posframe-poshandler-argbuilder))
+  ;;              (posn (posframe-poshandler-point-bottom-left-corner info))
+  ;;              (left (car posn))
+  ;;              (top (cdr posn)))
+  ;;         `((left . ,left)
+  ;;           (top . ,top)))))
+#+end_src
+** evil goggles
+#+begin_src elisp
+  (use-package evil-goggles
+  :ensure t
+  :config
+  (evil-goggles-mode)
+
+  ;; optionally use diff-mode's faces; as a result, deleted text
+  ;; will be highlighed with `diff-removed` face which is typically
+  ;; some red color (as defined by the color theme)
+  ;; other faces such as `diff-added` will be used for other actions
+  (evil-goggles-use-diff-faces))
+#+end_src
 * Last 
 Start maximized
 ** TODO There's some issue with this; probably due to the order of operations?
@@ -919,8 +962,7 @@ Start maximized
 
 ** start server
 #+begin_src emacs-lisp
-  ;(unless (server-running-p)
-  ;(server-start))
+  (server-start)
 #+end_src
 
 ** misc
