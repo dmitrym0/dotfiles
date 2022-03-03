@@ -33,6 +33,8 @@ soft wrap lines (wrap around past screen boundary)
   (global-visual-line-mode 1)
   (show-paren-mode 1)
   (setq show-paren-delay 0)
+  (winner-mode 1)
+  (require 'org-pomodoro)
 #+end_src
 
 highlight current line
@@ -125,12 +127,22 @@ Autoload files that have been changed on disk, but not locally
 
 Highlight everything between two exclamation marks (!highlighted!)
 #+begin_src emacs-lisp
-(defun org-add-my-extra-markup ()
-  "Add highlight emphasis."
-  (add-to-list 'org-font-lock-extra-keywords
-               '("[^\\w]\\(:\\[^\n\r\t]+:\\)[^\\w]"
-                 (1 '(face highlight invisible nil)))))
-(add-hook 'org-font-lock-set-keywords-hook #'org-add-my-extra-markup)
+    ;; (defun org-add-my-extra-markup ()
+    ;;   "Add highlight emphasis."
+    ;;   (add-to-list 'org-font-lock-extra-keywords
+    ;;                '("[^\\w]\\(:\\[^\n\r\t]+:\\)[^\\w]"
+    ;;                  (1 '(face highlight invisible nil)))))
+    ;; (add-hook 'org-font-lock-set-keywords-hook #'org-add-my-extra-markup)
+
+
+
+    ;; ;; (defun my-html-mark-tag (text backend info)
+    ;; ;; "Transcode :blah: into <mark>blah</mark> in body text."
+    ;; ;; (when (org-export-derived-backend-p backend 'html)
+    ;; ;;   (let ((text (replace-regexp-in-string "[^\\w]\\(:\\)[^\n\t\r]+\\(:\\)[^\\w]" "<mark>"  text nil nil 1 nil)))
+    ;; ;;     (replace-regexp-in-string "[^\\w]\\(<mark>\\)[^\n\t\r]+\\(:\\)[^\\w]" "</mark>" text nil nil 2 nil))))
+
+ ; (add-to-list 'org-export-filter-plain-text-functions 'my-html-mark-tag) ;
 #+end_src
 
 
@@ -159,9 +171,9 @@ Use solarized-dark theme from doom-themes.
 
 Use dome modeline
 #+begin_src emacs-lisp
-  (use-package doom-modeline :diminish :ensure t
-  :config (doom-modeline-mode 1)
-          (winner-mode 1))
+  ;; (use-package doom-modeline :diminish :ensure t
+  ;; :config (doom-modeline-mode 1)
+  ;;         (winner-mode 1))
 
 #+end_src
 
@@ -206,14 +218,16 @@ recompile.
 
 indent all org mode files
 #+begin_src emacs-lisp
-    (setq org-download-image-dir "images")
-    (setq org-startup-indented t)
-    (setq org-ellipsis "↪")
-    (setq org-outline-path-complete-in-steps nil)
-    (setq org-refile-targets '((org-agenda-files :maxlevel . 3)))
-    (setq org-refile-use-outline-path 'file)
-    (setq org-directory "~/org-roam")
-    (setq  org-download-image-dir (concat org-directory "/images"))
+  (setq org-startup-indented t)
+  (setq org-ellipsis "↪")
+  (setq org-outline-path-complete-in-steps nil)
+  (setq org-refile-targets '((org-agenda-files :maxlevel . 3)))
+  (setq org-refile-use-outline-path 'file)
+  (setq org-directory "~/org-roam")
+  (setq org-download-image-dir (concat org-directory "/images"))
+  (setq org-image-actual-width 300)
+  (setq org-download-screenshot-method "/opt/homebrew/bin/pngpaste %s")
+
 
 #+end_src
 
@@ -266,34 +280,34 @@ done tasks get a [[https://github.com/lmintmate/emacs.d#strikethrough-for-done-t
           ("l" "Log" entry
            (file+olp+datetree ,(concat org-directory "/log.org"))
            "* Entered on %U
-                 %?
-                 ")
+                         %?
+                         ")
           ("t" "TODO" entry
            (file+headline ,(concat org-directory "/inbox.org") "INBOX")
            "* TODO %?
-                   %i
-                   %a")
+                           %i
+                           %a")
           ("h" "how do i" entry
            (file+headline ,(concat org-directory "/20200422070715_howdoi.org") "INBOX")
            "* %?
-                   %i
-                   %a")
+                           %i
+                           %a")
           ("d" "Dailies")
           ("p" "potatr")
           ("pj" "Journal" entry
            (file+olp+datetree "~/Dropbox/orgmode/potatr.org" "Log")
            "* Entered on %U
-                 %?
-                 ")
+                         %?
+                         ")
           ("di" "Important thing daily" entry
            (file+olp+datetree ,(concat org-directory  "/important-things-daily-2022.org"))
            "* Entered on %U
-      %?")
+              %?")
 
           ("dj" "Journal" entry
            (file+olp+datetree ,(concat org-directory "/personal-daily-2022.org"))
            "* Entered on %U
-      %?")
+              %?")
           ("dc" "Daily Checkbox" entry
            (file+olp+datetree ,(concat org-directory "~/work-log-2021.org"))
            (file "~/Dropbox/orgmode/template-morning-work-checklist.org"))))
@@ -303,10 +317,25 @@ done tasks get a [[https://github.com/lmintmate/emacs.d#strikethrough-for-done-t
   (setq org-roam-dailies-capture-templates
         '(("d" "default" plain (file "~/Dropbox/orgmode/template-morning-work-checklist.org")
            :target (file+head "%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n")
-  :jump-to-captured
+           :jump-to-captured
 
            )))
-                    #+end_src
+
+
+  (setq org-roam-capture-templates
+        '(("d" "default" plain "%?"
+           :target (file+head "${slug}.org"
+                              "#+title: ${title}\n")
+           :unnarrowed t)
+        ("b" "book" plain (file "~/Dropbox/orgmode/book-review-template.org")
+           :target (file+head "${slug}.org" "#+title: ${title}\n")
+           :jump-to-captured
+           ))
+
+
+  )
+
+#+end_src
 
 ** Anki Capture
 #+begin_src elisp
@@ -428,6 +457,21 @@ org-agenda everywhere.
 #+end_src
 
 * Modules
+** straight.el
+#+begin_src elisp
+(defvar bootstrap-version)
+(let ((bootstrap-file
+       (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
+      (bootstrap-version 5))
+  (unless (file-exists-p bootstrap-file)
+    (with-current-buffer
+        (url-retrieve-synchronously
+         "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
+         'silent 'inhibit-cookies)
+      (goto-char (point-max))
+      (eval-print-last-sexp)))
+  (load bootstrap-file nil 'nomessage))
+#+end_src
 ** paredit
 #+begin_src elisp
   (use-package paredit
@@ -461,13 +505,13 @@ Show a tabbar at the top of the screen.
 
 
 #+begin_src emacs-lisp
-  (use-package centaur-tabs :ensure t
-  :demand
-  :config
-  (centaur-tabs-mode t)
-  :bind
-  ("C-<prior>" . centaur-tabs-backward)
-  ("C-<next>" . centaur-tabs-forward))
+  ;; (use-package centaur-tabs :ensure t
+  ;; :demand
+  ;; :config
+  ;; (centaur-tabs-mode t)
+  ;; :bind
+  ;; ("C-<prior>" . centaur-tabs-backward)
+  ;; ("C-<next>" . centaur-tabs-forward))
 #+end_src
 ** Treemacs
 A file browser.
@@ -583,10 +627,10 @@ dimmer, highlight current buffer
 
 org-roam
 #+begin_src emacs-lisp 
-    ;; keybindings for org-roam
-  
-  
-    (use-package org-roam
+  ;; keybindings for org-roam
+
+
+  (use-package org-roam
     :ensure t
     :custom
     (org-roam-directory (file-truename "~/org-roam"))
@@ -594,20 +638,26 @@ org-roam
            ("C-c n f" . org-roam-node-find)
            ("C-c n g" . org-roam-graph)
            ("C-c n i" . org-roam-node-insert)
+           ("C-c n I" . org-roam-node-insert-immediate)
            ("C-c n c" . org-roam-capture)
-           ("C-c n t" . org-roam-dailies-find-today)
-           ("C-c n y" . org-roam-dailies-find-yesterday)
-           ("C-c n n" . org-roam-dailies-find-tomorrow) 
+           ("C-c n t" . org-roam-dailies-goto-today)
+           ("C-c n y" . org-roam-dailies-goto-previous-note)
+           ("C-c n n" . org-roam-dailies-goto-tomorrow) 
            ;; Dailies
-  )
+           )
     :config
     (org-roam-db-autosync-mode)
     ;; If using org-roam-protocol
-    (require 'org-roam-protocol))
-  (setq org-roam-db-node-include-function
-      (lambda ()
-        (not (member "DO_NOT_ORG_ROAM" (org-get-tags)))))
+    (require 'org-roam-protocol)
+    (setq org-roam-db-node-include-function
+          (lambda ()
+            (not (member "DO_NOT_ORG_ROAM" (org-get-tags)))))
+    )
+
 #+end_src
+
+#+RESULTS:
+| lambda | nil | (not (member DO_NOT_ORG_ROAM (org-get-tags))) |
 
 
 org-roam-ui
@@ -621,24 +671,31 @@ org-roam-ui
   ;;  :hook (after-init . org-roam-ui-mode)
       :config
       (setq org-roam-ui-sync-theme t
-            org-roam-ui-follow t
+            org-roam-ui-follow nil 
             org-roam-ui-update-on-save t
             org-roam-ui-open-on-start nil)
-            (run-with-idle-timer 10 nil (lambda () org-roam-ui-mode))
+            (run-with-idle-timer 100 nil (lambda () org-roam-ui-mode))
   )
+
+
+  ;; dont save for desktop.el
+    (add-to-list 'desktop-minor-mode-table
+               '(org-roam-ui-mode nil))
+  (add-to-list 'desktop-minor-mode-table
+               '(org-roam-ui-follow-mode nil))
 #+end_src
 
 helm
 
 #+begin_src emacs-lisp 
-  ;; (use-package helm
-  ;;   :ensure t
-  ;;   :config
-  ;; (global-set-key (kbd "M-x") #'helm-M-x)
-  ;; (global-set-key (kbd "C-x r b") #'helm-filtered-bookmarks)
-  ;; (global-set-key (kbd "C-x C-f") #'helm-find-files)
-  ;; ;(helm-mode 1)
-  ;; )
+   (use-package helm
+     :ensure t
+     :config
+   (global-set-key (kbd "M-x") #'helm-M-x)
+   (global-set-key (kbd "C-x r b") #'helm-filtered-bookmarks)
+   (global-set-key (kbd "C-x C-f") #'helm-find-files)
+  (helm-mode 1)
+  )
 #+end_src
 
 python
@@ -681,6 +738,17 @@ Use `C-M g` to jump.
      :config
       (setq xref-backend-functions (remq 'etags--xref-backend xref-backend-functions))
        (add-to-list 'xref-backend-functions #'dumb-jump-xref-activate t))
+#+end_src
+
+
+git-auto-commit-mode
+
+track every change in git.
+#+begin_src emacs-lisp
+    (use-package git-auto-commit-mode
+      :ensure t
+  )
+
 #+end_src
 
 [[https://github.com/emacsorphanage/helm-ag][helm-ag]]
@@ -737,7 +805,7 @@ Fuzzy? matching. ~org refi~, matches ~org-refile~ and ~org-agenda-refile~
     (let ((text (replace-regexp-in-string "\\(!\\)\\([^\n\r\t]+?\\)\\(!\\)" "<mark>"  text nil nil 1 nil)))
       (replace-regexp-in-string "\\(<mark>\\)\\([^\n\r\t]+?\\)\\(!\\)" "</mark>" text nil nil 3 nil))))
 
-; TODO
+; TODO it looks like it's not available during load. need to arrange it in correct order.
 ;(add-to-list 'org-export-filter-plain-text-functions 'my-html-mark-tag)
 
  #+end_src
@@ -878,12 +946,14 @@ From [[https://massimilianomirra.com/notes/lightweight-external-command-integrat
     :after org
     :config
     (setq org-gcal-header-alist '(("dmitrym@gmail.com" . "#+PROPERTY: TIMELINE_FACE \"pink\"\n"))
-          org-gcal-file-alist '(("dmitrym@gmail.com" .  "~/Dropbox/orgmode/gcal.org"))
+          org-gcal-file-alist '(("dmitrym@gmail.com" .  "~/Dropbox/orgmode/gcal.org")
+                                ("dmitry@vericatch.com" .  "~/Dropbox/orgmode/vericatch_gcal.org")
+                                )
           org-gcal-auto-archive nil
           org-gcal-notify-p nil))
 
-    ;(add-hook 'org-agenda-mode-hook 'org-gcal-fetch)
-    ;(add-hook 'org-capture-after-finalize-hook 'org-gcal-fetch))
+                                          ;(add-hook 'org-agenda-mode-hook 'org-gcal-fetch)
+                                          ;(add-hook 'org-capture-after-finalize-hook 'org-gcal-fetch))
 
 #+end_src
 ** Org-capture-popout frame
@@ -938,17 +1008,95 @@ From [[https://massimilianomirra.com/notes/lightweight-external-command-integrat
 #+end_src
 ** evil goggles
 #+begin_src elisp
-  (use-package evil-goggles
-  :ensure t
-  :config
-  (evil-goggles-mode)
+  ;; (use-package evil-goggles
+  ;; :ensure t
+  ;; :config
+  ;; (evil-goggles-mode)
 
-  ;; optionally use diff-mode's faces; as a result, deleted text
-  ;; will be highlighed with `diff-removed` face which is typically
-  ;; some red color (as defined by the color theme)
-  ;; other faces such as `diff-added` will be used for other actions
-  (evil-goggles-use-diff-faces))
+  ;; ;; optionally use diff-mode's faces; as a result, deleted text
+  ;; ;; will be highlighed with `diff-removed` face which is typically
+  ;; ;; some red color (as defined by the color theme)
+  ;; ;; other faces such as `diff-added` will be used for other actions
+;;  (evil-goggles-use-diff-faces))
 #+end_src
+
+#+RESULTS:
+
+
+** dark room
+#+begin_src
+  (use-package darkroom :ensure t)
+#+end_src
+
+** raindbow delimeters
+#+begin_src
+  (use-package rainbow-delimiters :ensure t
+    :hook ((emacs-lisp-mode . rainbow-delimiters-mode)
+           (clojure-mode . rainbow-delimiters-mode))
+    )
+#+end_src
+
+
+** [[https://github.com/publicimageltd/delve][delve]]
+
+]]#+begin_src elisp
+ #  (use-package delve :ensure t
+ #  :straight (:repo "publicimageltd/delve"
+ #             :host github
+ #             :type git)
+ #  ;;:bind
+ #  ;; the main entry point, offering a list of all stored collections
+ #  ;; and of all open Delve buffers:
+ #  ;;(("<f12>" . delve))
+ #  :config
+ #  ;; set meaningful tag names for the dashboard query
+ #  ;;(setq delve-dashboard-tags '("Tag1" "Tag2"))
+ # ;; turn on delve-minor-mode when org roam file is opened:
+ #  (delve-global-minor-mode))
+#+end_src
+
+
+** roam timestamps
+#+begin_src elisp
+
+(use-package org-roam-timestamps
+  :after org-roam
+  :config (org-roam-timestamps-mode) (setq org-roam-timestamps-remember-timestamps t))
+
+#+end_src
+
+** org-pomodoro-third-time
+#+begin_src elisp
+    (use-package org-pomodoro-third-time :ensure t :init (org-pomodoro-third-time-mode +1)
+  :straight (:repo "telotortium/org-pomodoro-third-time"
+             :host github
+             :type git))
+ 
+
+#+end_src
+
+
+** PlantUML
+#+begin_src elisp
+    ;;  (use-package plantuml-mode :ensure t :init (setq plantuml-executable-path "/opt/homebrew/bin/plantuml" plantuml-default-exec-mode 'executable) :mode (("\\.plantuml\\'" . plantuml-mode)))
+
+    (use-package plantuml-mode :ensure t :init
+      ;; Sample executable configuration
+      (setq org-plantuml-executable-path "/opt/homebrew/bin/plantuml")
+      (setq org-plantuml-exec-mode 'plantuml)
+      (add-to-list 'org-src-lang-modes '("plantuml" . plantuml))
+      (org-babel-do-load-languages 'org-babel-load-languages '((plantuml . t)))
+      (org-babel-do-load-languages 'org-babel-load-languages '((shell . t)))
+    (setq org-confirm-babel-evaluate nil)
+
+  )
+
+
+    ;; dont ask to evaluate blocks 
+
+
+#+end_src
+
 * Last 
 Start maximized
 ** TODO There's some issue with this; probably due to the order of operations?
@@ -966,20 +1114,215 @@ Start maximized
 #+end_src
 
 ** misc
+timer setup.
 #+begin_src emacs-lisp
-(add-hook 'org-after-todo-state-change-hook (lambda () (run-with-idle-timer 20 nil (lambda () (load-file "/Users/dmitry/workspace/github/agenda-html/agenda-html.el")))))
+
+  (setq dmm-agenda-timer nil)
+  (run-with-idle-timer (* 60 30) t (lambda () (org-gcal-sync)))
+  (defun dm/set-timer ()
+    (when dmm-agenda-timer (cancel-timer dmm-agenda-timer))
+    (setq dmm-agenda-timer (run-with-idle-timer 20 nil (lambda () (load-file "~/workspace/github/agenda-html/agenda-html.el")))))
+  (add-hook 'org-after-todo-state-change-hook 'dm/set-timer)
 #+end_src
 
 * Custom LISP
 ** pomodoro support
 #+begin_src emacs-lisp
   (defun jx/produce-pomodoro-string-for-menu-bar ()
-  "Produce the string for the current pomodoro counter to display on the menu bar"
-  (let ((prefix (cl-case org-pomodoro-state
-            (:pomodoro "P")
-            (:overtime "O")
-            (:short-break "B")
-            (:long-break "LB"))))
-          (if (and (org-pomodoro-active-p) (> (length prefix) 0))
-            (list prefix (org-pomodoro-format-seconds)) "N/A")))
+    "Produce the string for the current pomodoro counter to display on the menu bar"
+    (let ((prefix (cl-case org-pomodoro-state
+                    (:pomodoro "P")
+                    (:overtime "O")
+                    (:short-break "B")
+                    (:long-break "LB"))))
+      (if (and (org-pomodoro-active-p) (> (length prefix) 0))
+          (list prefix (org-pomodoro-format-seconds)) "N/A")))
+
+
+
+  (defun org-pomodoro-third-time-increment ()
+    (org-pomodoro-third-time-end-in (floor ( / (+ (org-pomodoro-remaining-seconds) 300) 60))))
+
+
+  (defun org-pomodoro-third-time-decrement ()
+    (org-pomodoro-third-time-end-in (floor ( / (- (org-pomodoro-remaining-seconds) 300) 60))))
+
+
+  (defun org-pomodoro-restart ()
+    (org-pomodoro-kill)
+    (org-pomodoro '(16)))
+#+end_src
+
+** bind immediate
+#+begin_src elisp
+  (defun org-roam-node-insert-immediate (arg &rest args)
+    (interactive "P")
+    (let ((args (cons arg args))
+          (org-roam-capture-templates (list (append (car org-roam-capture-templates)
+                                                    '(:immediate-finish t)))))
+      (apply #'org-roam-node-insert args)))
+#+end_src
+
+
+
+** time stamps in warnings
+#+begin_src elisp
+    (defun sh/current-time-microseconds ()
+    "Return the current time formatted to include microseconds."
+    (let* ((nowtime (current-time))
+           (now-ms (nth 2 nowtime)))
+      (concat (format-time-string "[%Y-%m-%dT%T" nowtime) (format ".%d]" now-ms))))
+
+  (defun sh/ad-timestamp-message (FORMAT-STRING &rest args)
+    "Advice to run before `message' that prepends a timestamp to each message.
+
+  ;; Activate this advice with:
+  ;; (advice-add 'message :before 'sh/ad-timestamp-message)"
+    (unless (string-equal FORMAT-STRING "%s%s")
+      (let ((deactivate-mark nil)
+            (inhibit-read-only t))
+        (with-current-buffer "*Messages*"
+          (goto-char (point-max))
+          (if (not (bolp))
+            (newline))
+          (insert (sh/current-time-microseconds) " ")))))
+
+  (advice-add 'message :before 'sh/ad-timestamp-message)
+
+#+end_src
+
+
+
+
+
+* Testing
+
+Always save M-x history even when it fails [[https://emacs.stackexchange.com/questions/45069/how-do-i-persist-m-x-calls-so-they-can-be-displayed-in-mru-order][source]].
+Preserve M-x commands (MRU).
+
+#+begin_quote elisp
+(setq helm-M-x-always-save-history t)
+
+#+end_quote
+
+** From [[https://systemcrafters.net/emacs-from-scratch/the-best-default-settings/][source]] [2022-02-22 Tue]
+
+Remember recent files, 
+#+begin_src elisp
+(recentf-mode 1)
+#+end_src
+
+Remember minibuffer
+#+begin_src elisp
+  (setq history-length 25)
+  (savehist-mode 1)
+#+end_src
+
+
+Remember and restore the last cursor location of opened files
+#+begin_src elisp
+  (save-place-mode 1)
+#+end_src
+
+
+Move customization variables to a separate file and load it
+#+begin_src elisp
+(setq custom-file (locate-user-emacs-file "custom-vars.el"))
+#+end_src
+
+#+begin_src elisp
+  (global-auto-revert-mode 1)
+(setq global-auto-revert-non-file-buffers t)
+
+
+
+#+end_src
+
+
+** [2022-02-24 Thu]
+*** [[https://github.com/nobiot/org-transclusion][org-transclusion]] include nodes from other
+
+Suggested keymappings:
+
+
+(define-key global-map (kbd "<f12>") #'org-transclusion-add)
+(define-key global-map (kbd "C-n t") #'org-transclusion-mode)
+
+
+#+begin_src elisp
+  (use-package org-transclusion :ensure t
+  :after org)
+#+end_src
+
+
+*** export path for org-export/babel
+[[http://rwx.io/posts/org-export-configurations/][source]]
+
+#+begin_src elisp
+  ;; (defvar org-export-output-directory-prefix "export_" "prefix of directory used for org-mode export")
+
+  ;; (defadvice org-export-output-file-name (before org-add-export-dir activate)
+  ;;   "Modifies org-export to place exported files in a different directory"
+  ;;   (when (not pub-dir)
+  ;;     (setq pub-dir (concat org-export-output-directory-prefix (substring extension 1)))
+  ;;     (when (not (file-directory-p pub-dir))
+  ;;       (make-directory pub-dir))))
+
+
+
+  ;; (defun org-export-output-file-name-modified (orig-fun extension &optional subtreep pub-dir)
+  ;;   (unless pub-dir
+  ;;     (setq pub-dir "exported-org-files")
+  ;;     (unless (file-directory-p pub-dir)
+  ;;       (make-directory pub-dir)))
+  ;;   (apply orig-fun extension subtreep pub-dir nil))
+  ;; (advice-add 'org-export-output-file-name :around #'org-export-output-file-name-modified) 
+    #+end_src
+
+
+
+#+begin_src elisp
+
+  (setq org-publish-project-alist
+        '(("org-notes"
+           :base-directory "~/org-roam/"
+           :publishing-directory "~/org-roam/export"
+           :publishing-function org-html-publish-to-html
+          )
+
+          ("org-static"
+           :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf"
+           :base-directory "~/org-roam/"
+           :publishing-directory "~/org-roam/export"
+           :recursive t
+           :publishing-function org-publish-attachment
+           )
+
+          ("org" :components ("org-notes" "org-static"))
+
+          )
+        )
+
+#+end_src
+
+
+
+** [2022-02-26 Sat]o
+
+focus-autosave-mode, save all emacs buffers when emacs loses focus
+#+begin_src elisp
+  (use-package focus-autosave-mode :ensure t :init (focus-autosave-mode))
+
+
+#+end_src
+
+** [2022-03-03 Thu]
+#+begin_src elisp
+  (push (expand-file-name "/Users/dmitry/workspace/org-hyperscheduler") load-path)
+#+end_src
+
+#+begin_src elisp
+  (use-package org-hyperscheduler
+    :bind (("C-c d t" . org-hs-open)
+           ))
 #+end_src
