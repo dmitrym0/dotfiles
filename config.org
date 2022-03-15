@@ -35,6 +35,7 @@ soft wrap lines (wrap around past screen boundary)
   (setq show-paren-delay 0)
   (winner-mode 1)
   (require 'org-pomodoro)
+(setq mac-option-modifier 'meta)
 #+end_src
 
 highlight current line
@@ -81,6 +82,7 @@ Preserve emacs open buffers. Restore 5 on open and then when emacs is idle open 
   (desktop-save-mode 1)
   (desktop-read)
   (setq desktop-path '("~/.emacs.d/.cache/"))
+
 #+end_src
 
 turn on variable syntax highlighting
@@ -154,10 +156,10 @@ enable wakatime
 
 When we switch windows or scroll, for example, we get a wave of light near the cursor.
 #+begin_src emacs-lisp
-(use-package beacon
-  :diminish
-  :config (setq beacon-color "#666600") (setq beacon-blink-when-window-scrolls t) (setq beacon-blink-when-window-changes t)
-  :hook   ((org-mode text-mode) . beacon-mode))
+  ;; (use-package beacon
+  ;;   :diminish
+  ;;   :config (setq beacon-color "#666600") (setq beacon-blink-when-window-scrolls t) (setq beacon-blink-when-window-changes t)
+  ;;   :hook   ((org-mode text-mode) . beacon-mode))
 #+end_src
 
 Use solarized-dark theme from doom-themes.
@@ -337,22 +339,6 @@ done tasks get a [[https://github.com/lmintmate/emacs.d#strikethrough-for-done-t
 
 #+end_src
 
-** Anki Capture
-#+begin_src elisp
-
-  (setq org-my-anki-file (concat org-directory "/anki.org"))
-  (add-to-list 'org-capture-templates
-               '("a" "Anki basic"
-                 entry
-                 (file+headline org-my-anki-file "INBOX")
-                 "* %<%H:%M>   %^g\n:PROPERTIES:\n:ANKI_NOTE_TYPE: Basic\n:ANKI_DECK: Mega\n:END:\n** Front\n%?\n** Back\n%x\n"))
-  (add-to-list 'org-capture-templates
-               '("A" "Anki cloze"
-                 entry
-                 (file+headline org-my-anki-file "INBOX")
-                 "* %<%H:%M>   %^g\n:PROPERTIES:\n:ANKI_NOTE_TYPE: Cloze\n:ANKI_DECK: Mega\n:END:\n** Text\n%x\n** Extra\n"))
-
-#+end_src
 ** custom agenda
 
 Create a custom agenda view.
@@ -492,15 +478,15 @@ org-agenda everywhere.
 Show a tabbar at the top of the screen.
 
 #+begin_src emacs-lisp 
-(use-package tabbar
-:ensure t
-:config (tabbar-mode 0)
-)
+  ;; (use-package tabbar
+  ;; :ensure t
+  ;; :config (tabbar-mode 0)
+  ;; )
 #+end_src
 
 
 #+begin_src emacs-lisp
-(global-tab-line-mode 0)
+;(global-tab-line-mode 1)
 #+end_src
 
 
@@ -518,43 +504,43 @@ A file browser.
 
 #+begin_src emacs-lisp 
 
- (use-package treemacs
-    :ensure t
-    :defer t
-    :config
-    (progn
+  ;; (use-package treemacs
+  ;;    :ensure t
+  ;;    :defer t
+  ;;    :config
+  ;;    (progn
 
-      (setq treemacs-follow-after-init          t
-            treemacs-width                      35
-            treemacs-indentation                2
-            treemacs-git-integration            t
-            treemacs-collapse-dirs              3
-            treemacs-silent-refresh             nil
-            treemacs-change-root-without-asking nil
-            treemacs-sorting                    'alphabetic-desc
-            treemacs-show-hidden-files          t
-            treemacs-never-persist              nil
-            treemacs-is-never-other-window      nil
-            treemacs-goto-tag-strategy          'refetch-index)
+  ;;      (setq treemacs-follow-after-init          t
+  ;;            treemacs-width                      35
+  ;;            treemacs-indentation                2
+  ;;            treemacs-git-integration            t
+  ;;            treemacs-collapse-dirs              3
+  ;;            treemacs-silent-refresh             nil
+  ;;            treemacs-change-root-without-asking nil
+  ;;            treemacs-sorting                    'alphabetic-desc
+  ;;            treemacs-show-hidden-files          t
+  ;;            treemacs-never-persist              nil
+  ;;            treemacs-is-never-other-window      nil
+  ;;            treemacs-goto-tag-strategy          'refetch-index)
 
-      (treemacs-follow-mode t)
-      (treemacs-filewatch-mode t))
-    :bind
-    (:map global-map
-          ([f8]        . treemacs-toggle)
-          ([f9]        . treemacs-projectile-toggle)
-          ("<C-M-tab>" . treemacs-toggle)
-          ("M-0"       . treemacs-select-window)
-          ("C-c 1"     . treemacs-delete-other-windows)
-        ))
+  ;;      (treemacs-follow-mode t)
+  ;;      (treemacs-filewatch-mode t))
+  ;;    :bind
+  ;;    (:map global-map
+  ;;          ([f8]        . treemacs-toggle)
+  ;;          ([f9]        . treemacs-projectile-toggle)
+  ;;          ("<C-M-tab>" . treemacs-toggle)
+  ;;          ("M-0"       . treemacs-select-window)
+  ;;          ("C-c 1"     . treemacs-delete-other-windows)
+  ;;        ))
 
 
-  (use-package treemacs-projectile
-    :defer t
-    :ensure t
-    :config
-    (setq treemacs-header-function #'treemacs-projectile-create-header)
-    )
+  ;;  (use-package treemacs-projectile
+  ;;    :defer t
+  ;;    :ensure t
+  ;;    :config
+  ;;    (setq treemacs-header-function #'treemacs-projectile-create-header)
+  ;;    )
 
 
 
@@ -575,7 +561,7 @@ A file browser.
 
 fzf support
 #+begin_src emacs-lisp 
-(use-package fzf :ensure t)
+;(use-package fzf :ensure t)
 #+end_src
 
 #+begin_src emacs-lisp 
@@ -586,8 +572,7 @@ fzf support
 
 [[https://github.com/gregsexton/origami.el/tree/e558710a975e8511b9386edc81cd6bdd0a5bda74][Fancy text folding]]
 #+begin_src emacs-lisp 
-(use-package origami
-:ensure t)
+;(use-package origami :ensure t)
 #+end_src
 
 Highlight current line
@@ -617,12 +602,13 @@ WhichKey
 
 dimmer, highlight current buffer
 #+begin_src emacs-lisp 
-(use-package dimmer
-  :ensure t
-  :config
-   (dimmer-configure-which-key)
-;   (dimmer-configure-helm)
-   (dimmer-mode t))
+  (use-package dimmer
+    :ensure t
+    :config
+(setq dimmer-adjustment-mode :both)
+     (dimmer-configure-which-key)
+  ;   (dimmer-configure-helm)
+     (dimmer-mode t))
 #+end_src
 
 org-roam
@@ -643,6 +629,7 @@ org-roam
              ("C-c n t" . org-roam-dailies-goto-today)
              ("C-c n y" . org-roam-dailies-goto-previous-note)
              ("C-c n n" . org-roam-dailies-goto-tomorrow) 
+             ("C-c n u" . org-roam-ui-open) 
              ;; Dailies
              )
       :config
@@ -1042,7 +1029,7 @@ From [[https://massimilianomirra.com/notes/lightweight-external-command-integrat
 
 ** [[https://github.com/publicimageltd/delve][delve]]
 
-]]#+begin_src elisp
+]#+begin_src elisp
  #  (use-package delve :ensure t
  #  :straight (:repo "publicimageltd/delve"
  #             :host github
@@ -1081,21 +1068,26 @@ From [[https://massimilianomirra.com/notes/lightweight-external-command-integrat
 
 ** PlantUML
 #+begin_src elisp
-    ;;  (use-package plantuml-mode :ensure t :init (setq plantuml-executable-path "/opt/homebrew/bin/plantuml" plantuml-default-exec-mode 'executable) :mode (("\\.plantuml\\'" . plantuml-mode)))
+  ;;  (use-package plantuml-mode :ensure t :init (setq plantuml-executable-path "/opt/homebrew/bin/plantuml" plantuml-default-exec-mode 'executable) :mode (("\\.plantuml\\'" . plantuml-mode)))
 
-    (use-package plantuml-mode :ensure t :init
-      ;; Sample executable configuration
-      (setq org-plantuml-executable-path "/opt/homebrew/bin/plantuml")
-      (setq org-plantuml-exec-mode 'plantuml)
-      (add-to-list 'org-src-lang-modes '("plantuml" . plantuml))
-      (org-babel-do-load-languages 'org-babel-load-languages '((plantuml . t)))
-      (org-babel-do-load-languages 'org-babel-load-languages '((shell . t)))
-    (setq org-confirm-babel-evaluate nil)
+  (use-package plantuml-mode :ensure t :init
+    ;; Sample executable configuration
+    ;; this is for org  mode export
+    (setq org-plantuml-executable-path "/opt/homebrew/bin/plantuml")
+    (setq org-plantuml-exec-mode 'plantuml)
 
-  )
+  ;; this is for the majhor mode :facepalm
+    (setq plantuml-executable-path "/opt/homebrew/bin/plantuml")
+    (setq plantuml-default-exec-mode 'executable)
 
 
-    ;; dont ask to evaluate blocks 
+    (add-to-list 'org-src-lang-modes '("plantuml" . plantuml))
+    (org-babel-do-load-languages 'org-babel-load-languages '((plantuml . t)))
+    (org-babel-do-load-languages 'org-babel-load-languages '((shell . t)))
+    (setq org-confirm-babel-evaluate nil))
+
+
+  ;; dont ask to evaluate blocks 
 
 
 #+end_src
@@ -1170,27 +1162,27 @@ timer setup.
 
 ** time stamps in warnings
 #+begin_src elisp
-    (defun sh/current-time-microseconds ()
-    "Return the current time formatted to include microseconds."
-    (let* ((nowtime (current-time))
-           (now-ms (nth 2 nowtime)))
-      (concat (format-time-string "[%Y-%m-%dT%T" nowtime) (format ".%d]" now-ms))))
+  ;;   (defun sh/current-time-microseconds ()
+  ;;   "Return the current time formatted to include microseconds."
+  ;;   (let* ((nowtime (current-time))
+  ;;          (now-ms (nth 2 nowtime)))
+  ;;     (concat (format-time-string "[%Y-%m-%dT%T" nowtime) (format ".%d]" now-ms))))
 
-  (defun sh/ad-timestamp-message (FORMAT-STRING &rest args)
-    "Advice to run before `message' that prepends a timestamp to each message.
+  ;; (defun sh/ad-timestamp-message (FORMAT-STRING &rest args)
+  ;;   "Advice to run before `message' that prepends a timestamp to each message.
 
-  ;; Activate this advice with:
-  ;; (advice-add 'message :before 'sh/ad-timestamp-message)"
-    (unless (string-equal FORMAT-STRING "%s%s")
-      (let ((deactivate-mark nil)
-            (inhibit-read-only t))
-        (with-current-buffer "*Messages*"
-          (goto-char (point-max))
-          (if (not (bolp))
-            (newline))
-          (insert (sh/current-time-microseconds) " ")))))
+  ;; ;; Activate this advice with:
+  ;; ;; (advice-add 'message :before 'sh/ad-timestamp-message)"
+  ;;   (unless (string-equal FORMAT-STRING "%s%s")
+  ;;     (let ((deactivate-mark nil)
+  ;;           (inhibit-read-only t))
+  ;;       (with-current-buffer "*Messages*"
+  ;;         (goto-char (point-max))
+  ;;         (if (not (bolp))
+  ;;           (newline))
+  ;;         (insert (sh/current-time-microseconds) " ")))))
 
-  (advice-add 'message :before 'sh/ad-timestamp-message)
+  ;; (advice-add 'message :before 'sh/ad-timestamp-message)
 
 #+end_src
 
@@ -1356,3 +1348,101 @@ blogging with ox-hugo
   :pin melpa  ;`package-archives' should already have ("melpa" . "https://melpa.org/packages/")
   :after ox)
 #+end_src
+
+
+** [2022-03-14 Mon]
+#+begin_src elisp
+  (setq mac-command-modifier 'super)
+  (global-set-key (kbd "s-v") 'org-yank)
+#+end_src
+
+
+** [2022-03-14 Mon]
+#+begin_src elisp
+  (use-package centaur-tabs
+  :ensure t
+  :hook
+  (dashboard-mode . centaur-tabs-local-mode)
+  (vterm-mode . centaur-tabs-local-mode)
+  (calendar-mode . centaur-tabs-local-mode)
+  (org-agenda-mode . centaur-tabs-local-mode)
+  (helpful-mode . centaur-tabs-local-mode)
+  (xwidget-webkit-mode . centaur-tabs-local-mode)
+  :config
+  (centaur-tabs-mode)
+  (centaur-tabs-headline-match)
+  (centaur-tabs-group-by-projectile-project)
+  (setq centaur-tabs-style "box"
+                centaur-tabs-height 27
+        centaur-tabs-gray-out-icons 'buffer
+                centaur-tabs-set-modified-marker t
+                centaur-tabs-show-navigation-buttons nil
+                centaur-tabs-plain-icons t
+                centaur-tabs-set-icons t
+                uniquify-buffer-name-style 'forward)
+  :bind
+  (:map evil-normal-state-map
+             ("g t" . centaur-tabs-forward)
+             ("g T" . centaur-tabs-backward)))
+
+#+end_src
+
+
+
+
+#+begin_src elisp
+
+      (use-package evil :ensure t
+        :hook (after-init . evil-mode)
+        :init
+        (setq evil-undo-system 'undo-redo)
+        (setq evil-want-integration t)
+        (setq evil-want-keybinding nil)
+        (setq evil-want-C-u-scroll t)
+        (setq evil-want-C-i-jump nil)
+        :config
+        (setq evil-emacs-state-cursor '("#A3D4D5" box))
+        (setq evil-normal-state-cursor '("#A3D4D5" box))
+        (setq evil-visual-state-cursor '("#7FB4CA" box))
+        (setq evil-insert-state-cursor '("#FF9E3B" bar))
+        (setq evil-replace-state-cursor '("red" hbar))
+        (setq evil-operator-state-cursor '("red" hollow))
+
+        (evil-ex-define-cmd "q[uit]" 'kill-buffer-and-window)
+
+        (define-key evil-motion-state-map (kbd "M-u") #'evil-undo)
+        (define-key evil-motion-state-map (kbd "M-U") #'evil-redo)
+        (define-key evil-motion-state-map (kbd "M-0") #'treemacs)
+        (define-key evil-motion-state-map (kbd "q") #'exit-minibuffer)
+        (define-key evil-motion-state-map (kbd "C-f") #'deadgrep)
+        (define-key evil-motion-state-map "/" 'swiper))
+
+
+
+    (use-package evil-collection
+      :after evil
+      :config
+      (evil-collection-init))
+
+
+
+  ;; Search files, and do it with speed and style
+  (use-package swiper :ensure t
+    :config
+    (setq swiper-goto-start-of-match t))
+
+
+
+
+  (use-package block-nav :ensure t
+  :commands (block-nav-next-block block-nav-previous-block block-nav-next-indentation-level block-nav-previous-indentation-level)
+  :bind
+  ("C-c C-j" . block-nav-next-block)
+  ("C-c C-k" . block-nav-previous-block)
+  ("C-c C-l" . block-nav-next-indentation-level)
+  ("C-c C-h" . block-nav-previous-indentation-level))
+#+end_src
+
+
+
+
