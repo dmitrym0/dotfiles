@@ -259,17 +259,19 @@ No toolbar.
 
 Lets keep `C-c d` for personal shortcuts.
 #+begin_src emacs-lisp
-    (global-set-key (kbd "C-c d p") #'org-pomodoro)
-    (global-set-key (kbd "C-c d g") #'org-gcal-post-at-point)
-    (global-set-key (kbd "C-c d i") #'org-anki-sync-entry)
-    ;; lets schedule everything at 10am today.
-    (global-set-key (kbd "C-c d r") #'dm/set-schedule-today-now)
+  (global-set-key (kbd "C-c d p") #'org-pomodoro)
+  (global-set-key (kbd "C-c d g") #'org-gcal-post-at-point)
+  (global-set-key (kbd "C-c d i") #'org-anki-sync-entry)
+  ;; lets schedule everything at 10am today.
+  (global-set-key (kbd "C-c d r") #'dm/set-schedule-today-now)
+  (global-set-key (kbd "C-c d s") #'dm/hydra-inbox-sweep/body)
+  (global-set-key (kbd "C-c d l") #'dm/move-task-to-today-and-reset-schedule)
 
-    (defun dm/set-schedule-today-now ()
-      (interactive)
-      (let* ((hour (+ (% (abs (random)) 7) 10))
-      (timestamp (format "%s:00" hour)))
-      (org-schedule "today" timestamp)))
+  (defun dm/set-schedule-today-now ()
+    (interactive)
+    (let* ((hour (+ (% (abs (random)) 7) 10))
+    (timestamp (format "%s:00" hour)))
+    (org-schedule "today" timestamp)))
 
 #+end_src
 
@@ -2217,9 +2219,38 @@ Use ~gd~ to jump to definitions in evil mode.
 
 
 
-* Capture a headline into today's daily.
+* [dm] Capture a headline into today's daily.
 
 #+begin_src elisp
+
+  (defun dm/goto-tasks-heading ()
+    "Find the tasks heading"
+    (search-forward "* Tasks"))
+
+
+  (defun dm/get-todays-daily-file ()
+    "Gets the path to today's daily file"
+    (let* ((daily-file (format "%s.org" (format-time-string "%Y-%m-%d")))
+           (full-path (concat org-roam-directory org-roam-dailies-directory daily-file )))
+      full-path)
+    )
+
+  (defun dm/move-task-to-today-and-reset-schedule ()
+    "Moves a task from an old daily note to today's note"
+    (let* ((daily-file (dm/get-todays-daily-file)))
+      (save-window-excursion
+        (org-agenda-goto)
+        (org-cut-subtree)
+        (find-file daily-file)
+        (goto-line 1)
+        (dm/goto-tasks-heading)
+        (org-paste-subtree)
+        (org-schedule nil (format-time-string  "%Y-%m-%d 12:00"))
+        )
+      ))
+
+
+
   (defun dm/link-todo-into-todays-daily ()
     "Links the headline at point into today's tasks in the daily note."
     (let* ((daily-file (format "%s.org" (format-time-string "%Y-%m-%d")))
@@ -2229,7 +2260,7 @@ Use ~gd~ to jump to definitions in evil mode.
       (save-window-excursion
         (find-file full-path)
         (goto-line 1)
-        (search-forward "* Tasks")
+        (dm/goto-tasks-heading)
         (evil-org-end-of-line)
         (org-insert-todo-subheading "")
         (org-insert-link nil (format "id:%s" heading-id) heading)
