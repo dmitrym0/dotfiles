@@ -775,40 +775,49 @@ org-roam
 
 org-roam-ui
 #+begin_src emacs-lisp
-    (use-package org-roam-ui
-      :ensure t
-      :after org-roam
-  ;;         normally we'd recommend hooking orui after org-roam, but since org-roam does not have
-  ;;         a hookable mode anymore, you're advised to pick something yourself
-  ;;         if you don't care about startup time, use
-  ;;  :hook (after-init . org-roam-ui-mode)
-      :config
-      (setq org-roam-ui-sync-theme t
-            org-roam-ui-follow nil
-            org-roam-ui-update-on-save t
-            org-roam-ui-open-on-start nil)
-            (run-with-idle-timer 100 nil (lambda () org-roam-ui-mode))
-  )
+       (use-package org-roam-ui
+         :ensure t
+         :after org-roam
+    ;;         normally we'd recommend hooking orui after org-roam, but since org-roam does not have
+    ;;         a hookable mode anymore, you're advised to pick something yourself
+    ;;         if you don't care about startup time, use
+    ;;  :hook (after-init . org-roam-ui-mode)
+         :config
+         (setq org-roam-ui-sync-theme t
+               org-roam-ui-follow nil
+               org-roam-ui-update-on-save t
+               org-roam-ui-open-on-start nil)
+    ;;           (run-with-idle-timer 100 nil (lambda () org-roam-ui-mode))
+     )
 
 
-  ;; dont save for desktop.el
-;;    (add-to-list 'desktop-minor-mode-table
- ;;              '(org-roam-ui-mode nil))
-  ;;(add-to-list 'desktop-minor-mode-table
-   ;;            '(org-roam-ui-follow-mode nil))
+    ;; dont save for desktop.el
+      (add-to-list 'desktop-minor-mode-table
+                 '(org-roam-ui-mode nil))
+    (add-to-list 'desktop-minor-mode-table
+                '(org-roam-ui-follow-mode nil))
 #+end_src
 
 helm
 
 #+begin_src emacs-lisp
-   (use-package helm
-     :ensure t
-     :config
-   (global-set-key (kbd "M-x") #'helm-M-x)
-   (global-set-key (kbd "C-x r b") #'helm-filtered-bookmarks)
-   (global-set-key (kbd "C-x C-f") #'helm-find-files)
-  (helm-mode 1)
-  )
+  (use-package helm
+    :ensure t
+    :config
+    (global-set-key (kbd "M-x") #'helm-M-x)
+    (global-set-key (kbd "C-x r b") #'helm-filtered-bookmarks)
+    (global-set-key (kbd "C-x C-f") #'helm-find-files)
+    (helm-mode 1))
+
+
+  (defvar helm-M-x-map
+    (let ((map (make-sparse-keymap)))
+      (set-keymap-parent map helm-comp-read-map)
+      (define-key map (kbd "C-u") nil)
+      (define-key map (kbd "C-u") #'helm-M-x-universal-argument)
+      (define-key map (kbd "C-]") #'helm-M-x-toggle-short-doc)
+      map))
+
 #+end_src
 
 python
@@ -1429,23 +1438,11 @@ Load hyperscheduler locally and bind a key.
 
 #+begin_src elisp
   (use-package org-hyperscheduler
-    :bind (("C-c d t" . org-hyperscheduler-open)
-           ))
+    :load-path "/Users/dmitry/workspace/org-hyperscheduler"
+    :bind (("C-c d t" . org-hyperscheduler-open))
+    :config
+    (org-hs--log-set-level 'debug))
 #+end_src
-
-
-
-Nano emacs theme
-#+begin_src elisp
-;  (straight-use-package
-;  '(nano-emacs :type git :host github :repo "rougier/nano-emacs"))
-  ;(use-package nano)
-; (use-package nano-theme-dark)
- ; (use-package nano-faces)
- ; (use-package nano)
-
-#+end_src
-
 
 ** [2022-03-09 Wed]
 blogging with ox-hugo
@@ -1706,17 +1703,6 @@ modern orgmode https://github.com/minad/org-modern
    (scroll-bar-mode -1)
 
   ;; Add frame borders and window dividers
-  (modify-all-frames-parameters
-   '((right-divider-width . 10)
-     (internal-border-width . 10)))
-  (dolist (face '(window-divider
-                  window-divider-first-pixel
-                  window-divider-last-pixel))
-    (face-spec-reset-face face)
-    (set-face-foreground face (face-attribute 'default :background)))
-  (set-face-background 'fringe (face-attribute 'default :background))
-
-
 #+end_src
 
 
@@ -1993,16 +1979,16 @@ Sourced from [[https://quinoa42.github.io/en/dot-emacs/#evil][here]].
 
 ** Hyperscheduler
 #+begin_src elisp
-  (use-package org-hyperscheduler
-  :ensure t
-  :straight
-  (:repo "dmitrym0/org-hyperscheduler"
-   :host github
-   :type git
-   :files ("*")))
+;;   (use-package org-hyperscheduler
+;;   :ensure t
+;;   :straight
+;;   (:repo "dmitrym0/org-hyperscheduler"
+;;    :host github
+;;    :type git
+;;    :files ("*")))
 
 
-(message "Done with hyperscheduler")
+;; (message "Done with hyperscheduler")
 
 #+end_src
 
@@ -2239,7 +2225,8 @@ Use ~gd~ to jump to definitions in evil mode.
     "Moves a task from an old daily note to today's note"
     (let* ((daily-file (dm/get-todays-daily-file)))
       (save-window-excursion
-        (org-agenda-goto)
+        (when (string-equal "org-agenda-mode" major-mode)
+          (org-agenda-goto))
         (org-cut-subtree)
         (find-file daily-file)
         (goto-line 1)
@@ -2340,4 +2327,15 @@ Use ~gd~ to jump to definitions in evil mode.
 Preserve emacs open buffers. Restore 5 on open and then when emacs is idle open more.
 #+begin_src emacs-lisp
   (desktop-read)
+#+end_src
+
+
+
+
+
+* Finish
+
+#+begin_src elisp
+  (message "Done loading.")
+
 #+end_src
