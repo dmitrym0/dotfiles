@@ -24,7 +24,7 @@ My emacs init file.
 
 #+begin_src elisp
   (setq user-emacs-directory "~/.emacs.d")
-  (setq org-directory "~/org-roam")
+  (setq org-directory "~/org-roam/")
 #+end_src
 
 Preserve desktop
@@ -405,11 +405,11 @@ done tasks get a [[https://github.com/lmintmate/emacs.d#strikethrough-for-done-t
 
 
               (setq org-roam-capture-templates
-                    '(("d" "default" plain "%?"
+                    `(("d" "default" plain "%?"
                        :target (file+head "${slug}.org"
                                           "#+title: ${title}\n")
                        :unnarrowed t)
-                      ("b" "book" plain (file "~/Dropbox/orgmode/book-review-template.org")
+                      ("b" "book" plain (file ,(concat org-directory "/book-review-template.org"))
                        :target (file+head "${slug}.org" "#+title: ${title}\n")
                        :jump-to-captured
                        ))
@@ -428,8 +428,8 @@ done tasks get a [[https://github.com/lmintmate/emacs.d#strikethrough-for-done-t
 Create a custom agenda view.
 
 #+begin_src emacs-lisp
-(setq org-agenda-files (list org-directory
-                             (concat org-directory "/daily")))
+;; (setq org-agenda-files (list org-directory
+;;                              (concat org-directory "/daily")))
 #+end_src
 
 
@@ -576,7 +576,11 @@ org-agenda everywhere.
 * Modules
 ** Magit
 #+begin_src elisp
-(use-package magit :ensure t)
+  (use-package magit :ensure t)
+
+
+  (use-package forge :ensure t
+  :after magit)
 #+end_src
 
 ** straight.el
@@ -867,7 +871,7 @@ git-auto-commit-mode
 
 track every change in git.
 #+begin_src emacs-lisp
-    (use-package git-auto-commit-mode :ensure t)
+(use-package git-auto-commit-mode :ensure t)
 
 #+end_src
 
@@ -1051,17 +1055,20 @@ From [[https://massimilianomirra.com/notes/lightweight-external-command-integrat
 #+end_src
 ** Gcal
 #+begin_src elisp
-  (use-package org-gcal
-    :ensure t
-    :after org
-    :config
-    (setq org-gcal-header-alist '(("dmitrym@gmail.com" . "#+PROPERTY: TIMELINE_FACE \"pink\"\n"))
-          org-gcal-file-alist `(("dmitrym@gmail.com" .  ,(concat org-directory "/gcal.org")))
-          org-gcal-auto-archive nil
-          org-gcal-notify-p nil))
+      (use-package org-gcal
+        :ensure t
+        :after org
+        :config
+        (setq org-gcal-header-alist '(("dmitrym@gmail.com" . "#+PROPERTY: TIMELINE_FACE \"pink\"\n"))
+              org-gcal-file-alist `(
+    ("dmitrym@gmail.com" .  ,(concat org-directory "/gcal.org"))
+    ("dmitry.markushevich@varsitytutors.com" .  ,(concat org-directory "/vtcal.org"))
+  )
+              org-gcal-auto-archive nil
+              org-gcal-notify-p nil))
 
-                                          ;(add-hook 'org-agenda-mode-hook 'org-gcal-fetch)
-                                          ;(add-hook 'org-capture-after-finalize-hook 'org-gcal-fetch))
+                                              ;(add-hook 'org-agenda-mode-hook 'org-gcal-fetch)
+                                              ;(add-hook 'org-capture-after-finalize-hook 'org-gcal-fetch))
 
 #+end_src
 ** Org-capture-popout frame
@@ -1432,13 +1439,13 @@ Load hyperscheduler locally and bind a key.
 
 
 #+begin_src elisp
-;  (push (expand-file-name "/Users/dmitry/workspace/org-hyperscheduler") load-path)
+;  (push (expand-file-name "~/workspace/org-hyperscheduler") load-path)
 ;  (require 'org-hyperscheduler)
 #+end_src
 
 #+begin_src elisp
   (use-package org-hyperscheduler
-    :load-path "/Users/dmitry/workspace/org-hyperscheduler"
+    :load-path "~/workspace/org-hyperscheduler"
     :bind (("C-c d t" . org-hyperscheduler-open))
     :config
     (org-hs--log-set-level 'debug))
@@ -1697,8 +1704,9 @@ modern orgmode https://github.com/minad/org-modern
   ;; (add-hook 'org-mode-hook #'org-modern-mode)
   ;; (add-hook 'org-agenda-finalize-hook #'org-modern-agenda)
 
-  ;; (menu-bar-mode -1)
-   (menu-bar-mode -1)
+  ;; https://github.com/koekeishiya/yabai/issues/1197#issuecomment-1100977096
+  ;; this is needed so that emacs doesn't steal/loose focus
+   (menu-bar-mode t)
    (tool-bar-mode -1)
    (scroll-bar-mode -1)
 
@@ -2018,7 +2026,7 @@ Sourced from [[https://quinoa42.github.io/en/dot-emacs/#evil][here]].
 
 * org-dc
 #+begin_src elisp
-(load-file "/Users/dmitry/workspace/org-dynamics-checklists/org-dc.el")
+(load-file "~/workspace/org-dynamics-checklists/org-dc.el")
 #+end_src
 
 
@@ -2092,7 +2100,7 @@ Sourced from [[https://quinoa42.github.io/en/dot-emacs/#evil][here]].
 
 #+begin_src elisp
   (defun dm/get-active-agenda-files ()
-    (let* ((shell-output (shell-command-to-string "ag -l -r 'TODO|org-gcal' /Users/dmitry/org-roam|grep -v 'archive' | grep '\\.org$'")))
+    (let* ((shell-output (shell-command-to-string "ag -l -r 'TODO|org-gcal' ~/org-roam|grep -v 'archive' | grep '\\.org$'")))
       (split-string (substring shell-output 0 (- (length shell-output) 1))
                     "\n")))
 
@@ -2217,7 +2225,7 @@ Use ~gd~ to jump to definitions in evil mode.
   (defun dm/get-todays-daily-file ()
     "Gets the path to today's daily file"
     (let* ((daily-file (format "%s.org" (format-time-string "%Y-%m-%d")))
-           (full-path (concat org-roam-directory org-roam-dailies-directory daily-file )))
+           (full-path (concat org-roam-directory "/" org-roam-dailies-directory daily-file )))
       full-path)
     )
 
@@ -2241,7 +2249,7 @@ Use ~gd~ to jump to definitions in evil mode.
   (defun dm/link-todo-into-todays-daily ()
     "Links the headline at point into today's tasks in the daily note."
     (let* ((daily-file (format "%s.org" (format-time-string "%Y-%m-%d")))
-           (full-path (concat org-roam-directory org-roam-dailies-directory daily-file ))
+           (full-path (concat org-roam-directory "/" org-roam-dailies-directory daily-file ))
            (heading-id (org-id-get-create))
            (heading (cdr (assoc "ITEM" (org-entry-properties)))))
       (save-window-excursion
@@ -2271,7 +2279,7 @@ Use ~gd~ to jump to definitions in evil mode.
   (defun dm/get-journaling-prompt ()
     "Returns a single line from journaling prompts."
     (save-window-excursion
-      (find-file (concat org-roam-directory "journaling_prompts.org"))
+      (find-file (concat (file-truename org-roam-directory) "/journaling_prompts.org"))
       (goto-char (point-max))
       (let* ((number-of-prompts (- (line-number-at-pos) 10)))
         (goto-line (+ 10 (random number-of-prompts)))
@@ -2287,9 +2295,9 @@ Use ~gd~ to jump to definitions in evil mode.
 * org-noter-fork
 
 #+begin_src elisp
-      (push "/Users/dmitry/workspace/org-noter-plus-djvu" load-path)
-      (push "/Users/dmitry/workspace/org-noter-plus-djvu/other" load-path)
-      (push "/Users/dmitry/workspace/org-noter-plus-djvu/modules" load-path)
+      (push "~/workspace/org-noter-plus-djvu" load-path)
+      (push "~/workspace/org-noter-plus-djvu/other" load-path)
+      (push "~/workspace/org-noter-plus-djvu/modules" load-path)
       (require 'org-noter)
       (require 'org-noter-nov)
       (require 'org-noter-pdf)
@@ -2330,6 +2338,12 @@ Preserve emacs open buffers. Restore 5 on open and then when emacs is idle open 
 #+end_src
 
 
+* conflict resolution
+#+begin_src elisp
+  (use-package emacs-conflict
+  :straight (emacs-conflict :type git :host github :repo "ibizaman/emacs-conflict" :branch "master"))
+
+#+end_src
 
 
 
