@@ -63,21 +63,26 @@ Move customization variables to a separate file and load it
 * Init
 soft wrap lines (wrap around past screen boundary)
 #+begin_src emacs-lisp
-    (global-visual-line-mode 1)
-    (show-paren-mode 1)
-    (setq show-paren-delay 0)
-    (winner-mode 1)
-    (use-package org-pomodoro :ensure t)
-  (setq mac-option-modifier 'meta)
+     (global-visual-line-mode 1)
+     (show-paren-mode 1)
+     (setq show-paren-delay 0)
+     (winner-mode 1)
+     (use-package org-pomodoro :ensure t)
+   (setq mac-option-modifier 'meta)
 
-  (setq org-hyperscheduler-readonly-mode nil)
+   (setq org-hyperscheduler-readonly-mode nil)
 
 
- ;; save all org buffers
+  ;; save all org buffers
+  ;; this is very slow. disable for now?
   (add-hook 'auto-save-hook 'org-save-all-org-buffers)
 #+end_src
 
 
+Weeks start on mondays.
+#+begin_src elisp
+  (setq-default calendar-week-start-day 1)
+#+end_src
 
 I never want whitespace at the end of lines. Remove it on save.
 
@@ -106,7 +111,7 @@ Ensure that files are reloaded from disk (when switching branches, or from dropb
 #+begin_src emacs-lisp
 (use-package activity-watch-mode :ensure t)
     (global-auto-revert-mode 1)
-    (setq auto-revert-interval 1
+    (setq auto-revert-interval 10
             ring-bell-function 'ignore
             scroll-margin 1 ; Space between cursor and top/bottom
         )
@@ -811,6 +816,7 @@ helm
     (global-set-key (kbd "M-x") #'helm-M-x)
     (global-set-key (kbd "C-x r b") #'helm-filtered-bookmarks)
     (global-set-key (kbd "C-x C-f") #'helm-find-files)
+    (helm-autoresize-mode 1)
     (helm-mode 1))
 
 
@@ -883,8 +889,11 @@ track every change in git.
 
 
 #+begin_src emacs-lisp
-(use-package emojify :ensure t
-  :hook (after-init . global-emojify-mode))
+  (use-package emojify :ensure t
+
+  ;; do i really need emojis?
+  ;;  :hook (after-init . global-emojify-mode)
+  )
 #+end_src
 
 [[https://melpa.org/#/expand-region][expand-region]], intelligently adjust selection
@@ -978,7 +987,7 @@ Fuzzy? matching. ~org refi~, matches ~org-refile~ and ~org-agenda-refile~
   :init
   (define-derived-mode typescript-tsx-mode typescript-mode "tsx")
   :config
-  (setq typescript-indent-level 2)
+  (setq typescript-indent-level 4)
   (add-hook 'typescript-mode #'subword-mode)
   (add-to-list 'auto-mode-alist '("\\.tsx?\\'" . typescript-tsx-mode)))
 
@@ -1086,7 +1095,9 @@ From [[https://massimilianomirra.com/notes/lightweight-external-command-integrat
          ("C-p" . company-select-previous))
   :config
   (setq company-idle-delay 0.3)
+  (setq company-backends '((company-capf company-dabbrev-code)))
   (global-company-mode t))
+
 
 #+end_src
 ** [[https://github.com/alphapapa/ts.el][ts.el]] (time manipulation)
@@ -1203,6 +1214,7 @@ timer setup.
     (when dmm-agenda-timer (cancel-timer dmm-agenda-timer))
     (setq dmm-agenda-timer (run-with-idle-timer 20 nil (lambda () (load-file "~/workspace/github/agenda-html/agenda-html.el")))))
   (add-hook 'org-after-todo-state-change-hook 'dm/set-timer)
+  (run-with-idle-timer (* 60 5) nil (lambda () (dm/update-agenda-file-list)))
 #+end_src
 
 * Custom LISP
@@ -1852,109 +1864,111 @@ Sourced from [[https://quinoa42.github.io/en/dot-emacs/#evil][here]].
 
 #+begin_src elisp
 
-  (use-package general
-    :ensure t
-    :after which-key
-    :config
-    (general-evil-setup)
-    (general-create-definer my/leader-def
-      ;; :prefix my-leader
-      :prefix "C-c d")
-    )
+    (use-package general
+      :ensure t
+      :after which-key
+      :config
+      (general-evil-setup)
+      (general-create-definer my/leader-def
+        ;; :prefix my-leader
+        :prefix "C-c d")
+      )
 
-  (setq evil-want-keybinding nil)
-  (use-package evil
-    :ensure t
-    :demand t
-    :after swiper
-    :custom
-    (evil-esc-delay 0.001 "avoid ESC/meta mixups")
-    (evil-shift-width 4)
-    (evil-search-module 'evil-search)
-    :general
-    ;;([remap evil-ex-search-forward] '(lambda () (interactive) (swiper (format "%s" (thing-at-point 'symbol)))))
-    ;;([remap evil-ex-search-backward] '(lambda () (interactive) (swiper-backward (format "%s" (thing-at-point 'symbol)))))
-    ([remap evil-emacs-state] 'evil-normal-state)
-    ([remap evil-undo] 'undo-tree-undo)
-    ([remap evil-redo] 'undo-tree-redo)
-    (setq evil-disable-insert-state-bindings t)
-    (setq evil-undo-system 'undo-redo)
-    ;;(define-key evil-motion-state-map "/" 'swiper)
-    ;;(define-key evil-motion-state-map "*" '(lambda () (interactive) (swiper (format "%s" (thing-at-point 'symbol)))))
-    :config
-    ;; Enable evil-mode in all buffers.
-    (evil-mode 1))
-
-  (message "Basic evil loaded.")
-
-
-  (setq evil-want-keybinding nil)
-  (use-package evil-collection
-    :after evil
-    :ensure t
-    :config
     (setq evil-want-keybinding nil)
-    (evil-collection-init))
+    (use-package evil
+      :ensure t
+      :demand t
+      :after swiper
+      :custom
+      (evil-esc-delay 0.001 "avoid ESC/meta mixups")
+      (evil-shift-width 4)
+      (evil-search-module 'evil-search)
+      :general
+      ;;([remap evil-ex-search-forward] '(lambda () (interactive) (swiper (format "%s" (thing-at-point 'symbol)))))
+      ;;([remap evil-ex-search-backward] '(lambda () (interactive) (swiper-backward (format "%s" (thing-at-point 'symbol)))))
+      ([remap evil-emacs-state] 'evil-normal-state)
+      ([remap evil-undo] 'undo-tree-undo)
+      ([remap evil-redo] 'undo-tree-redo)
+      (setq evil-disable-insert-state-bindings t)
+      (setq evil-undo-system 'undo-tree)
+      ;;(define-key evil-motion-state-map "/" 'swiper)
+      ;;(define-key evil-motion-state-map "*" '(lambda () (interactive) (swiper (format "%s" (thing-at-point 'symbol)))))
+      :config
+      ;; Enable evil-mode in all buffers.
+      (evil-mode 1))
+
+    (message "Basic evil loaded.")
 
 
-  (use-package helm-config
-    :demand t
-    :general
-    ([remap find-file]                'helm-find-files)
-    ([remap occur]                    'helm-occur)
-    ([remap list-buffers]             'helm-buffers-list)
-    ([remap dabbrev-expand]           'helm-dabbrev)
-    ([remap execute-extended-command] 'helm-M-x)
-    (general-nmap "gO" 'helm-semantic-or-imenu)
+    (setq evil-want-keybinding nil)
+    (use-package evil-collection
+      :after evil
+      :ensure t
+      :config
+      (setq evil-want-keybinding nil)
+      (evil-collection-init))
+
+
+    (use-package helm-config
+      :demand t
+      :general
+      ([remap find-file]                'helm-find-files)
+      ([remap occur]                    'helm-occur)
+      ([remap list-buffers]             'helm-buffers-list)
+      ([remap dabbrev-expand]           'helm-dabbrev)
+      ([remap execute-extended-command] 'helm-M-x)
+      (general-nmap "gO" 'helm-semantic-or-imenu)
+      :init
+      ; manual for helm's own frame: https://github.com/emacs-helm/helm/wiki/frame
+      (general-setq helm-display-function #'helm-display-buffer-in-own-frame)
+      (general-setq helm-show-completion-display-function #'helm-display-buffer-in-own-frame)
+      (general-setq helm-command-prefix-key "C-c h")
+      (general-setq helm-ff-skip-boring-files t)
+      (unless (boundp 'completion-in-region-function)
+        (general-def lisp-interaction-mode-map [remap completion-at-point] 'helm-lisp-completion-at-point)
+        (general-def emacs-lisp-mode-map       [remap completion-at-point] 'helm-lisp-completion-at-point)))
+
+
+    ;; (use-package swiper-helm
+    ;;   :ensure t
+    ;;   :after (helm-config swiper)
+    ;;   :general ("C-s" 'swiper-helm))
+
+
+    (use-package highlight-indent-guides
+      :ensure t
+      :hook (prog-mode . highlight-indent-guides-mode)
+      :init
+      (general-setq highlight-indent-guides-responsive 'top)
+      (general-setq highlight-indent-guides-method 'character)
+      (general-setq highlight-indent-guides-character ?│))
+
+
+    (use-package evil-org
+      :ensure t
+      :after (org evil)
+      :hook
+      (org-mode . (lambda () (evil-org-mode 1)))
+      (org-agenda-mode . (lambda () (evil-org-mode 1)))
+      :general
+      (org-src-mode-map [remap evil-write] 'org-edit-src-save)
+      :commands org-agenda
+      :config
+      (evil-org-set-key-theme)
+      (require 'evil-org-agenda)
+      (evil-org-agenda-set-keys))
+
+
+    ; this is way more powerful.
+    (use-package evil-nerd-commenter :ensure t
+      :config
+      (global-set-key (kbd "M-;") 'evilnc-comment-or-uncomment-lines))
+
+  (use-package evil-matchit :ensure t
     :init
-    (general-setq helm-display-function #'helm-display-buffer-in-own-frame)
-    (general-setq helm-command-prefix-key "C-c h")
-    (general-setq helm-ff-skip-boring-files t)
-    (unless (boundp 'completion-in-region-function)
-      (general-def lisp-interaction-mode-map [remap completion-at-point] 'helm-lisp-completion-at-point)
-      (general-def emacs-lisp-mode-map       [remap completion-at-point] 'helm-lisp-completion-at-point)))
+    (global-evil-matchit-mode 1))
 
-
-  (use-package swiper-helm
-    :ensure t
-    :after (helm-config swiper)
-    :general ("C-s" 'swiper-helm))
-
-
-  (use-package highlight-indent-guides
-    :ensure t
-    :hook (prog-mode . highlight-indent-guides-mode)
-    :init
-    (general-setq highlight-indent-guides-responsive 'top)
-    (general-setq highlight-indent-guides-method 'character)
-    (general-setq highlight-indent-guides-character ?│))
-
-
-  (use-package evil-org
-    :ensure t
-    :after (org evil)
-    :hook
-    (org-mode . (lambda () (evil-org-mode 1)))
-    (org-agenda-mode . (lambda () (evil-org-mode 1)))
-    :general
-    (org-src-mode-map [remap evil-write] 'org-edit-src-save)
-    :commands org-agenda
-    :config
-    (evil-org-set-key-theme)
-    (require 'evil-org-agenda)
-    (evil-org-agenda-set-keys))
-
-
-  ; this is way more powerful.
-  (use-package evil-nerd-commenter :ensure t
-    :config
-    (global-set-key (kbd "M-;") 'evilnc-comment-or-uncomment-lines))
-
-(use-package evil-matchit :ensure t
-  :init
-  (global-evil-matchit-mode 1))
-
-  (message "done with evil.")
+    (message "done with evil.")
 
 
 #+end_src
@@ -2093,19 +2107,15 @@ Sourced from [[https://quinoa42.github.io/en/dot-emacs/#evil][here]].
 
 * Agenda files optimization
 
-
-
-
-
-
 #+begin_src elisp
   (defun dm/get-active-agenda-files ()
-    (let* ((shell-output (shell-command-to-string "ag -l -r 'TODO|org-gcal' ~/org-roam|grep -v 'archive' | grep '\\.org$'")))
+    (let* ((shell-output (shell-command-to-string "ag -l -r '\\*\\s+TODO' /Users/dmitry/org-roam|grep -v 'archive' | grep '\\.org$'")))
       (split-string (substring shell-output 0 (- (length shell-output) 1))
                     "\n")))
 
 
-  (setq org-agenda-files (dm/get-active-agenda-files))
+  (defun dm/update-agenda-file-list ()
+    (setq org-agenda-files (flatten-tree (append (dm/get-active-agenda-files) (concat org-directory "/gcal.org") (concat org-directory "/vtcal.org")))))
 
 
 
@@ -2302,13 +2312,14 @@ Use ~gd~ to jump to definitions in evil mode.
       (require 'org-noter-nov)
       (require 'org-noter-pdf)
       (require 'org-noter-nov-overlay)
+    ;; doesn't work. (require 'org-noter-integration)
 
 
-      (use-package pdf-tools-org-noter-helpers :ensure t
-      :straight (
-                 :type git :repo "https://github.com/analyticd/pdf-tools-org-noter-helpers")
-      :config
-    (require 'pdf-tools-org-noter-helpers))
+    (use-package pdf-tools-org-noter-helpers :ensure t
+    :straight (
+               :type git :repo "https://github.com/analyticd/pdf-tools-org-noter-helpers")
+    :config
+  (require 'pdf-tools-org-noter-helpers))
 
 
 #+end_src
@@ -2344,8 +2355,21 @@ Preserve emacs open buffers. Restore 5 on open and then when emacs is idle open 
   :straight (emacs-conflict :type git :host github :repo "ibizaman/emacs-conflict" :branch "master"))
 
 #+end_src
+#+begin_src elisp
+  (require 'helm-swoop)
+  (setq helm-swoop-split-direction 'split-window-vertically)
+  (global-set-key (kbd "C-s") 'helm-swoop-without-pre-input)
+
+#+end_src
 
 
+* pdf-tools
+
+#+begin_src elisp
+  (setq pdf-view-use-scaling t)
+  (pdf-tools-install)
+
+#+end_src
 
 * Finish
 
