@@ -23,8 +23,8 @@ My emacs init file.
 * Paths
 
 #+begin_src elisp
-  (setq user-emacs-directory "~/.emacs.d")
-  (setq org-directory "~/org-roam/")
+  (setq user-emacs-directory (file-truename "~/.emacs.d"))
+  (setq org-directory (file-truename "~/org-roam/"))
 #+end_src
 
 Preserve desktop
@@ -42,15 +42,15 @@ Preserve desktop
 #+begin_src emacs-lisp
 
 
-  (require 'package)
-  (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
-  (add-to-list 'package-archives '("nongnu" . "https://elpa.nongnu.org/nongnu/") t)
-  (add-to-list 'package-archives '("gnu" . "https://elpa.gnu.org/packages/") t)
-  (push (expand-file-name "extra" user-emacs-directory) load-path)
-  (push (expand-file-name "./elpa/project-0.8.1") load-path)
-  (use-package projectile :ensure t)
-  (use-package wakatime-mode :ensure t)
-;	(use-package org-roam-timestamps :ensure t)
+    (require 'package)
+    (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
+    (add-to-list 'package-archives '("nongnu" . "https://elpa.nongnu.org/nongnu/") t)
+    (add-to-list 'package-archives '("gnu" . "https://elpa.gnu.org/packages/") t)
+    (push (expand-file-name "extra" user-emacs-directory) load-path)
+    (push (expand-file-name "./elpa/project-0.8.1") load-path)
+    (use-package projectile :ensure t)
+    (use-package wakatime-mode :ensure t)
+  ;	(use-package org-roam-timestamps :ensure t)
 #+end_src
 
 Move customization variables to a separate file and load it
@@ -63,7 +63,7 @@ Move customization variables to a separate file and load it
 * Init
 soft wrap lines (wrap around past screen boundary)
 #+begin_src emacs-lisp
-     (global-visual-line-mode 1)
+     ;(global-visual-line-mode 1)
      (show-paren-mode 1)
      (setq show-paren-delay 0)
      (winner-mode 1)
@@ -71,6 +71,9 @@ soft wrap lines (wrap around past screen boundary)
    (setq mac-option-modifier 'meta)
 
    (setq org-hyperscheduler-readonly-mode nil)
+   (setq org-hyperscheduler-exclude-from-org-roam t)
+
+  (add-hook 'text-mode-hook 'visual-line-mode)
 
 
   ;; save all org buffers
@@ -291,22 +294,24 @@ recompile.
 
 indent all org mode files
 #+begin_src emacs-lisp
-  (setq org-startup-indented t)
-  (setq org-ellipsis "↪")
-  (setq org-outline-path-complete-in-steps nil)
-  (setq org-refile-targets '((org-agenda-files :maxlevel . 3)))
-  (setq org-refile-use-outline-path 'file)
-  (setq org-download-image-dir (concat org-directory "/images"))
-  (setq org-image-actual-width '(1.0))
-  (setq org-download-heading-lvl nil) ; dont use headings when creating image names
-  (setq org-download-screenshot-method "/opt/homebrew/bin/pngpaste %s")
-
-
+    (setq org-startup-indented t)
+    (setq org-ellipsis "↪")
+    (setq org-outline-path-complete-in-steps nil)
+    (setq org-refile-targets '((org-agenda-files :maxlevel . 3)))
+    (setq org-refile-use-outline-path 'file)
+    (setq org-download-image-dir (concat org-directory "/images"))
+    (setq org-image-actual-width '(1.0))
+    (setq org-download-heading-lvl nil) ; dont use headings when creating image names
+    (setq org-download-screenshot-method "/opt/homebrew/bin/pngpaste %s")
+  ;; for performance
+    (setq org-agenda-dim-blocked-tasks nil)
+  ;; Stop preparing agenda buffers on startup:
+  (setq org-agenda-inhibit-startup t)
 #+end_src
 
 enable automated indent mode for org files
 #+begin_src emacs-lisp
-(add-hook 'org-mode-hook 'org-indent-mode)
+;;(add-hook 'org-mode-hook 'org-indent-mode)
 #+end_src
 
 Disable done tasks in agenda view.
@@ -433,8 +438,8 @@ done tasks get a [[https://github.com/lmintmate/emacs.d#strikethrough-for-done-t
 Create a custom agenda view.
 
 #+begin_src emacs-lisp
-;; (setq org-agenda-files (list org-directory
-;;                              (concat org-directory "/daily")))
+(setq org-agenda-files (list org-directory
+                             (concat org-directory "/daily")))
 #+end_src
 
 
@@ -647,6 +652,13 @@ Show a tabbar at the top of the screen.
 ** Treemacs
 A file browser.
 
+(use-package treemacs :ensure t)
+(use-package treemacs-projectile :ensure t)
+(use-package treemacs-all-the-icons :ensure t)
+
+
+
+
 #+begin_src emacs-lisp
 
   ;; (use-package treemacs
@@ -810,25 +822,75 @@ org-roam-ui
 helm
 
 #+begin_src emacs-lisp
-  (use-package helm
-    :ensure t
-    :config
-    (global-set-key (kbd "M-x") #'helm-M-x)
-    (global-set-key (kbd "C-x r b") #'helm-filtered-bookmarks)
-    (global-set-key (kbd "C-x C-f") #'helm-find-files)
-    (helm-autoresize-mode 1)
-    (helm-mode 1))
+  ;; (use-package helm
+  ;;   :ensure t
+  ;;   :config
+  ;;   (global-set-key (kbd "M-x") #'helm-M-x)
+  ;;   (global-set-key (kbd "C-x r b") #'helm-filtered-bookmarks)
+  ;;   (global-set-key (kbd "C-x C-f") #'helm-find-files)
+  ;;   (helm-autoresize-mode 1)
+  ;;   (helm-mode 1))
 
 
-  (defvar helm-M-x-map
-    (let ((map (make-sparse-keymap)))
-      (set-keymap-parent map helm-comp-read-map)
-      (define-key map (kbd "C-u") nil)
-      (define-key map (kbd "C-u") #'helm-M-x-universal-argument)
-      (define-key map (kbd "C-]") #'helm-M-x-toggle-short-doc)
-      map))
+  ;; (defvar helm-M-x-map
+  ;;   (let ((map (make-sparse-keymap)))
+  ;;     (set-keymap-parent map helm-comp-read-map)
+  ;;     (define-key map (kbd "C-u") nil)
+  ;;     (define-key map (kbd "C-u") #'helm-M-x-universal-argument)
+  ;;     (define-key map (kbd "C-]") #'helm-M-x-toggle-short-doc)
+  ;;     map))
+
+
+  ;; (use-package helm-swoop :ensure t
+  ;; :config
+  ;; (setq helm-swoop-split-direction 'split-window-vertically)
+  ;; (global-set-key (kbd "C-s") 'helm-swoop-without-pre-input))
+
+
 
 #+end_src
+
+
+
+[[https://github.com/emacsorphanage/helm-ag][helm-ag]]
+#+begin_src emacs-lisp
+  ;; (use-package helm-ag
+  ;;    :ensure t)
+#+end_src
+
+Always save M-x history even when it fails [[https://emacs.stackexchange.com/questions/45069/how-do-i-persist-m-x-calls-so-they-can-be-displayed-in-mru-order][source]].
+Preserve M-x commands (MRU).
+
+#+begin_quote elisp
+;;(setq helm-M-x-always-save-history t)
+
+#+end_quote
+
+
+#+begin_src elisp
+      ;; (use-package helm-config
+      ;; :demand t
+      ;; :general
+      ;; ([remap find-file]                'helm-find-files)
+      ;; ([remap occur]                    'helm-occur)
+      ;; ([remap list-buffers]             'helm-buffers-list)
+      ;; ([remap dabbrev-expand]           'helm-dabbrev)
+      ;; ([remap execute-extended-command] 'helm-M-x)
+      ;; (general-nmap "gO" 'helm-semantic-or-imenu)
+      ;; :init
+      ;; ; manual for helm's own frame: https://github.com/emacs-helm/helm/wiki/frame
+      ;; (general-setq helm-display-function #'helm-display-buffer-in-own-frame)
+      ;; (general-setq helm-show-completion-display-function #'helm-display-buffer-in-own-frame)
+      ;; (general-setq helm-command-prefix-key "C-c h")
+      ;; (general-setq helm-ff-skip-boring-files t)
+      ;; (unless (boundp 'completion-in-region-function)
+      ;;   (general-def lisp-interaction-mode-map [remap completion-at-point] 'helm-lisp-completion-at-point)
+      ;;   (general-def emacs-lisp-mode-map       [remap completion-at-point] 'helm-lisp-completion-at-point)))
+
+
+
+#+end_src
+
 
 python
 
@@ -881,12 +943,6 @@ track every change in git.
 
 #+end_src
 
-[[https://github.com/emacsorphanage/helm-ag][helm-ag]]
-#+begin_src emacs-lisp
-  (use-package helm-ag
-     :ensure t)
-#+end_src
-
 
 #+begin_src emacs-lisp
   (use-package emojify :ensure t
@@ -903,12 +959,6 @@ track every change in git.
 #+end_src
 
 Fuzzy? matching. ~org refi~, matches ~org-refile~ and ~org-agenda-refile~
-#+begin_src emacs-lisp
-(use-package orderless
-  :ensure t
-  :custom (completion-styles '(orderless)))
-#+end_src
-
 
 #+begin_src emacs-lisp
 (defun org-add-my-extra-fonts ()
@@ -1021,7 +1071,7 @@ Fuzzy? matching. ~org refi~, matches ~org-refile~ and ~org-agenda-refile~
     ;; optionally
     (use-package lsp-ui :ensure t :commands lsp-ui-mode)
     ;; if you are helm user
-    (use-package helm-lsp :ensure t :commands helm-lsp-workspace-symbol)
+;    (use-package helm-lsp :ensure t :commands helm-lsp-workspace-symbol)
     ;; if you are ivy user
     (use-package lsp-treemacs :ensure t :commands lsp-treemacs-errors-list)
 
@@ -1068,6 +1118,7 @@ From [[https://massimilianomirra.com/notes/lightweight-external-command-integrat
         :ensure t
         :after org
         :config
+        (setq org-gcal-remove-api-cancelled-event t) ;; delete removed events without asking.
         (setq org-gcal-header-alist '(("dmitrym@gmail.com" . "#+PROPERTY: TIMELINE_FACE \"pink\"\n"))
               org-gcal-file-alist `(
     ("dmitrym@gmail.com" .  ,(concat org-directory "/gcal.org"))
@@ -1213,7 +1264,7 @@ timer setup.
   (defun dm/set-timer ()
     (when dmm-agenda-timer (cancel-timer dmm-agenda-timer))
     (setq dmm-agenda-timer (run-with-idle-timer 20 nil (lambda () (load-file "~/workspace/github/agenda-html/agenda-html.el")))))
-  (add-hook 'org-after-todo-state-change-hook 'dm/set-timer)
+;;  (add-hook 'org-after-todo-state-change-hook 'dm/set-timer)
   (run-with-idle-timer (* 60 5) nil (lambda () (dm/update-agenda-file-list)))
 #+end_src
 
@@ -1288,14 +1339,6 @@ timer setup.
 
 
 * Testing
-
-Always save M-x history even when it fails [[https://emacs.stackexchange.com/questions/45069/how-do-i-persist-m-x-calls-so-they-can-be-displayed-in-mru-order][source]].
-Preserve M-x commands (MRU).
-
-#+begin_quote elisp
-(setq helm-M-x-always-save-history t)
-
-#+end_quote
 
 ** From [[https://systemcrafters.net/emacs-from-scratch/the-best-default-settings/][source]] [2022-02-22 Tue]
 
@@ -1456,11 +1499,11 @@ Load hyperscheduler locally and bind a key.
 #+end_src
 
 #+begin_src elisp
-  (use-package org-hyperscheduler
-    :load-path "~/workspace/org-hyperscheduler"
-    :bind (("C-c d t" . org-hyperscheduler-open))
-    :config
-    (org-hs--log-set-level 'debug))
+  ;; (use-package org-hyperscheduler
+  ;;   :load-path "~/workspace/org-hyperscheduler"
+  ;;   :bind (("C-c d t" . org-hyperscheduler-open))
+  ;;   :config
+  ;;   (org-hs--log-set-level 'debug))
 #+end_src
 
 ** [2022-03-09 Wed]
@@ -1718,7 +1761,6 @@ modern orgmode https://github.com/minad/org-modern
 
   ;; https://github.com/koekeishiya/yabai/issues/1197#issuecomment-1100977096
   ;; this is needed so that emacs doesn't steal/loose focus
-   (menu-bar-mode t)
    (tool-bar-mode -1)
    (scroll-bar-mode -1)
 
@@ -1832,7 +1874,7 @@ modern orgmode https://github.com/minad/org-modern
 
 #+begin_src elisp
 
-  (require 'org-review)
+(use-package org-review :ensure t)
 
   (defun dm/org-review-agenda-skip ()
     (and (not (or (org-review-toreview-p) (not (org-review-last-review-prop))))
@@ -1860,115 +1902,100 @@ modern orgmode https://github.com/minad/org-modern
 
 ** evil mode
 
-Sourced from [[https://quinoa42.github.io/en/dot-emacs/#evil][here]].
+Sourced from [[https://github.com/hiecaq/quinoa42.github.io/blob/gh-pages/org/dot-emacs.org][here]].
 
 #+begin_src elisp
 
-    (use-package general
-      :ensure t
-      :after which-key
-      :config
-      (general-evil-setup)
-      (general-create-definer my/leader-def
-        ;; :prefix my-leader
-        :prefix "C-c d")
-      )
+      (use-package general
+        :ensure t
+        :after which-key
+        :config
+        (general-evil-setup)
+        (general-create-definer my/leader-def
+          ;; :prefix my-leader
+          :prefix "C-c d")
+        )
 
-    (setq evil-want-keybinding nil)
-    (use-package evil
-      :ensure t
-      :demand t
-      :after swiper
-      :custom
-      (evil-esc-delay 0.001 "avoid ESC/meta mixups")
-      (evil-shift-width 4)
-      (evil-search-module 'evil-search)
-      :general
-      ;;([remap evil-ex-search-forward] '(lambda () (interactive) (swiper (format "%s" (thing-at-point 'symbol)))))
-      ;;([remap evil-ex-search-backward] '(lambda () (interactive) (swiper-backward (format "%s" (thing-at-point 'symbol)))))
-      ([remap evil-emacs-state] 'evil-normal-state)
-      ([remap evil-undo] 'undo-tree-undo)
-      ([remap evil-redo] 'undo-tree-redo)
-      (setq evil-disable-insert-state-bindings t)
-      (setq evil-undo-system 'undo-tree)
-      ;;(define-key evil-motion-state-map "/" 'swiper)
-      ;;(define-key evil-motion-state-map "*" '(lambda () (interactive) (swiper (format "%s" (thing-at-point 'symbol)))))
-      :config
-      ;; Enable evil-mode in all buffers.
-      (evil-mode 1))
-
-    (message "Basic evil loaded.")
-
-
-    (setq evil-want-keybinding nil)
-    (use-package evil-collection
-      :after evil
-      :ensure t
-      :config
       (setq evil-want-keybinding nil)
-      (evil-collection-init))
+      (use-package evil
+        :ensure t
+        :demand t
+        :after swiper
+        :custom
+        (evil-esc-delay 0.001 "avoid ESC/meta mixups")
+        (evil-shift-width 4)
+        (evil-search-module 'evil-search)
+        (evil-symbol-word-search t) ;; search for symbols at point
+        :general
+  ;;      ([remap evil-ex-search-forward] '(lambda () (interactive) (swiper (format "%s" (thing-at-point 'symbol)))))
+  ;;      ([remap evil-ex-search-backward] '(lambda () (interactive) (swiper-backward (format "%s" (thing-at-point 'symbol)))))
+        ([remap evil-emacs-state] 'evil-normal-state)
+        ([remap evil-undo] 'undo-tree-undo)
+        ([remap evil-redo] 'undo-tree-redo)
+        (setq evil-disable-insert-state-bindings t)
+        (setq evil-undo-system 'undo-tree)
+        ;;(define-key evil-motion-state-map "/" 'swiper)
+        ;;(define-key evil-motion-state-map "*" '(lambda () (interactive) (swiper (format "%s" (thing-at-point 'symbol)))))
+        :config
+        ;; Enable evil-mode in all buffers.
+        (evil-mode 1))
+
+      (message "Basic evil loaded.")
 
 
-    (use-package helm-config
-      :demand t
-      :general
-      ([remap find-file]                'helm-find-files)
-      ([remap occur]                    'helm-occur)
-      ([remap list-buffers]             'helm-buffers-list)
-      ([remap dabbrev-expand]           'helm-dabbrev)
-      ([remap execute-extended-command] 'helm-M-x)
-      (general-nmap "gO" 'helm-semantic-or-imenu)
+      (setq evil-want-keybinding nil)
+      (use-package evil-collection
+        :after evil
+        :ensure t
+        :config
+        (setq evil-want-keybinding nil)
+        (evil-collection-init))
+
+
+
+      ;; (use-package swiper-helm
+      ;;   :ensure t
+      ;;   :after (helm-config swiper)
+      ;;   :general ("C-s" 'swiper-helm))
+
+
+      (use-package highlight-indent-guides
+        :ensure t
+        :hook (prog-mode . highlight-indent-guides-mode)
+        :init
+        (general-setq highlight-indent-guides-responsive 'top)
+        (general-setq highlight-indent-guides-method 'character)
+        (general-setq highlight-indent-guides-character ?│))
+
+
+      (use-package evil-org
+        :ensure t
+        :after (org evil)
+        :hook
+        (org-mode . (lambda () (evil-org-mode 1)))
+        (org-agenda-mode . (lambda () (evil-org-mode 1)))
+        :general
+        (org-src-mode-map [remap evil-write] 'org-edit-src-save)
+        :commands org-agenda
+        :config
+        (evil-org-set-key-theme)
+        (require 'evil-org-agenda)
+        (evil-org-agenda-set-keys))
+
+
+      ; this is way more powerful.
+      (use-package evil-nerd-commenter :ensure t
+        :config
+        (global-set-key (kbd "M-;") 'evilnc-comment-or-uncomment-lines))
+
+    (use-package evil-matchit :ensure t
       :init
-      ; manual for helm's own frame: https://github.com/emacs-helm/helm/wiki/frame
-      (general-setq helm-display-function #'helm-display-buffer-in-own-frame)
-      (general-setq helm-show-completion-display-function #'helm-display-buffer-in-own-frame)
-      (general-setq helm-command-prefix-key "C-c h")
-      (general-setq helm-ff-skip-boring-files t)
-      (unless (boundp 'completion-in-region-function)
-        (general-def lisp-interaction-mode-map [remap completion-at-point] 'helm-lisp-completion-at-point)
-        (general-def emacs-lisp-mode-map       [remap completion-at-point] 'helm-lisp-completion-at-point)))
+      (global-evil-matchit-mode 1))
 
 
-    ;; (use-package swiper-helm
-    ;;   :ensure t
-    ;;   :after (helm-config swiper)
-    ;;   :general ("C-s" 'swiper-helm))
 
 
-    (use-package highlight-indent-guides
-      :ensure t
-      :hook (prog-mode . highlight-indent-guides-mode)
-      :init
-      (general-setq highlight-indent-guides-responsive 'top)
-      (general-setq highlight-indent-guides-method 'character)
-      (general-setq highlight-indent-guides-character ?│))
-
-
-    (use-package evil-org
-      :ensure t
-      :after (org evil)
-      :hook
-      (org-mode . (lambda () (evil-org-mode 1)))
-      (org-agenda-mode . (lambda () (evil-org-mode 1)))
-      :general
-      (org-src-mode-map [remap evil-write] 'org-edit-src-save)
-      :commands org-agenda
-      :config
-      (evil-org-set-key-theme)
-      (require 'evil-org-agenda)
-      (evil-org-agenda-set-keys))
-
-
-    ; this is way more powerful.
-    (use-package evil-nerd-commenter :ensure t
-      :config
-      (global-set-key (kbd "M-;") 'evilnc-comment-or-uncomment-lines))
-
-  (use-package evil-matchit :ensure t
-    :init
-    (global-evil-matchit-mode 1))
-
-    (message "done with evil.")
+      (message "done with evil.")
 
 
 #+end_src
@@ -2048,22 +2075,27 @@ Sourced from [[https://quinoa42.github.io/en/dot-emacs/#evil][here]].
 
 #+begin_src elisp
 
-  (setq refile-file (concat org-directory "/refile.org"))
+   (setq refile-file (concat org-directory "/refile.org"))
 
-    (defhydra dm/hydra-inbox-sweep (:color pink
-                               :hint nil)
-    "
-  _c_: content       _p_: pin           _f_: fitness       _m_: misc
-  _l_: not now
-  "
-    ("c" (dm/refile-to refile-file "Content"))
-    ("p" (dm/refile-to refile-file "To Pin"))
-    ("f" (dm/refile-to refile-file "Fitness"))
-    ("m" (dm/refile-to refile-file "Misc"))
-    ("l" (dm/refile-to refile-file "Not Now"))
-    ("q" nil "quit" :color blue))
+     (defhydra dm/hydra-inbox-sweep (:color pink
+                                :hint nil)
+     "
+   _c_: content       _p_: pin           _f_: fitness       _m_: misc     _w_: wishlist
+   _e_: eating/food   _b_: books
+   _l_: not now
+   "
+     ("c" (dm/refile-to refile-file "Content"))
+     ("p" (dm/refile-to refile-file "To Pin"))
+     ("f" (dm/refile-to refile-file "Fitness"))
+     ("m" (dm/refile-to refile-file "Misc"))
+     ("l" (dm/refile-to refile-file "Not Now"))
+     ("w" (dm/refile-to refile-file "Wishlist"))
+     ("e" (dm/refile-to refile-file "Food"))
+     ("b" (dm/refile-to refile-file "Books"))
 
- (message "Done with my refile hydra")
+     ("q" nil "quit" :color blue))
+
+  (message "Done with my refile hydra")
 #+end_src
 
 
@@ -2092,8 +2124,8 @@ Sourced from [[https://quinoa42.github.io/en/dot-emacs/#evil][here]].
 #+begin_src elisp
   (defun dm/ankify-heading ()
     (let* ((heading (cdr (assoc "ITEM" (org-entry-properties)))))
-      (message "Ankifying: \"%s\"" heading)
-      (when (not (eq heading "Anki")) ; ignore Anki headings; kinda ugly.
+      (when (not (equal heading "Anki")) ; ignore Anki headings; kinda ugly.
+        (message "Ankifying: \"%s\"" heading)
         (sleep-for 0.1)
         (org-anki-sync-entry))))
 
@@ -2109,13 +2141,13 @@ Sourced from [[https://quinoa42.github.io/en/dot-emacs/#evil][here]].
 
 #+begin_src elisp
   (defun dm/get-active-agenda-files ()
-    (let* ((shell-output (shell-command-to-string "ag -l -r '\\*\\s+TODO' /Users/dmitry/org-roam|grep -v 'archive' | grep '\\.org$'")))
-      (split-string (substring shell-output 0 (- (length shell-output) 1))
-                    "\n")))
+    (let* ((shell-output (shell-command-to-string (format "ag -l -r '\\*\\s+TODO' %s |grep -v 'archive' | grep -v '.stversion' | grep '\\.org$'" org-roam-directory))))
+      (split-string (substring shell-output 0 (- (length shell-output) 1)) "\n")))
 
 
   (defun dm/update-agenda-file-list ()
-    (setq org-agenda-files (flatten-tree (append (dm/get-active-agenda-files) (concat org-directory "/gcal.org") (concat org-directory "/vtcal.org")))))
+    (setq org-agenda-files (flatten-tree
+                            (append (dm/get-active-agenda-files) `(,(concat org-directory "gcal.org") ,(concat org-directory "vtcal.org"))))))
 
 
 
@@ -2187,7 +2219,8 @@ Use ~gd~ to jump to definitions in evil mode.
 * Epub, nov.el mode,
 
 #+begin_src elisp
-  (require 'nov)
+
+(use-package nov :ensure t)
   (add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode))
 
   (message "nov.el Loaded")
@@ -2305,6 +2338,8 @@ Use ~gd~ to jump to definitions in evil mode.
 * org-noter-fork
 
 #+begin_src elisp
+
+(use-package pdf-tools :ensure t)
       (push "~/workspace/org-noter-plus-djvu" load-path)
       (push "~/workspace/org-noter-plus-djvu/other" load-path)
       (push "~/workspace/org-noter-plus-djvu/modules" load-path)
@@ -2356,10 +2391,6 @@ Preserve emacs open buffers. Restore 5 on open and then when emacs is idle open 
 
 #+end_src
 #+begin_src elisp
-  (require 'helm-swoop)
-  (setq helm-swoop-split-direction 'split-window-vertically)
-  (global-set-key (kbd "C-s") 'helm-swoop-without-pre-input)
-
 #+end_src
 
 
@@ -2371,9 +2402,360 @@ Preserve emacs open buffers. Restore 5 on open and then when emacs is idle open 
 
 #+end_src
 
+
+* Misc
+
+https://adam.kruszewski.name/2022-05-08-org-publish-call-org-fold-core-region-error.html
+#+begin_quote
+To workaround it, just set org-fold-core-style to its pre org-mode 9.6 default value (it changed with 9.6), like this:
+#+end_quote
+
+#+begin_src elisp
+  (setq org-fold-core-style  'overlay)
+#+end_src
+
+
 * Finish
 
 #+begin_src elisp
+
+
+   (menu-bar-mode t) ;; necessary for spaces focusing properly.
+      (push "/opt/homebrew/Cellar/emacs-mac/emacs-28.1-mac-9.0/share/emacs/28.1/lisp/org" load-path)
   (message "Done loading.")
 
+#+end_src
+
+
+
+* VERTICO
+
+#+begin_src elisp
+           (use-package consult :ensure t)
+           (use-package vertico :ensure t
+             :init
+             (vertico-mode)
+
+             ;; Different scroll margin
+             (setq vertico-scroll-margin 0)
+
+             ;; Show more candidates
+             (setq vertico-count 20)
+
+             ;; Grow and shrink the Vertico minibuffer
+             ;;(setq vertico-resize t)
+
+             ;; Optionally enable cycling for `vertico-next' and `vertico-previous'.
+             (setq vertico-cycle t)
+             )
+
+
+           ;; Persist history over Emacs restarts. Vertico sorts by history position.
+           (use-package savehist
+             :init
+             (savehist-mode))
+
+
+           (use-package orderless
+             :init
+             ;; Configure a custom style dispatcher (see the Consult wiki)
+             ;; (setq orderless-style-dispatchers '(+orderless-dispatch)
+             ;;       orderless-component-separator #'orderless-escapable-split-on-space)
+             (setq completion-styles '(orderless basic)
+                   completion-category-defaults nil
+                   completion-category-overrides '((file (styles partial-completion)))))
+
+           (require 'vertico-posframe)
+           (vertico-posframe-mode 1)
+
+
+           (use-package marginalia
+             :after vertico
+             :ensure t
+             :custom
+             (marginalia-annotators '(marginalia-annotators-heavy marginalia-annotators-light nil))
+             :init
+             (marginalia-mode))
+
+
+
+           ;; this is what does completion in the minibuffer
+           ;; Use `consult-completion-in-region' if Vertico is enabled.
+           ;; Otherwise use the default `completion--in-region' function.
+           (setq completion-in-region-function
+                 (lambda (&rest args)
+                   (apply (if vertico-mode
+                              #'consult-completion-in-region
+                            #'completion--in-region)
+                          args)))
+
+
+           ;; since global-visual-line-mode is enabled
+           ;; make sure we invoke kill-line in vertico
+           (define-key vertico-map (kbd "C-k") #'kill-line)
+      (define-key vertico-map "C-k" #'kill-line)
+     (define-key consult-narrow-map  (kbd "C-k") #'kill-line
+
+
+        ;; work around for org-refile
+
+        ;; Alternative 2: Complete full paths
+      (setq org-refile-use-outline-path 'file
+            org-outline-path-complete-in-steps nil)
+
+
+    ;;   (setq org-refile-use-outline-path 'file
+    ;;       org-outline-path-complete-in-steps t)
+    ;; (advice-add #'org-olpath-completing-read :around
+    ;;             (lambda (&rest args)
+    ;;               (minibuffer-with-setup-hook
+    ;;                   (lambda () (setq-local completion-styles '(basic)))
+    ;;                 (apply args))))
+
+#+end_src
+
+
+* Corfu
+
+#+begin_src elisp
+  (use-package corfu :ensure t
+  ;; Optional customizations
+  :custom
+  (corfu-cycle t)                ;; Enable cycling for `corfu-next/previous'
+  (corfu-auto t)                 ;; Enable auto completion
+  (corfu-separator ?\s)          ;; Orderless field separator
+  (corfu-quit-at-boundary nil)   ;; Never quit at completion boundary
+  (corfu-quit-no-match nil)      ;; Never quit, even if there is no match
+  (corfu-preview-current nil)    ;; Disable current candidate preview
+  (corfu-preselect-first nil)    ;; Disable candidate preselection
+  (corfu-on-exact-match nil)     ;; Configure handling of exact matches
+  (corfu-echo-documentation nil) ;; Disable documentation in the echo area
+  (corfu-scroll-margin 5)        ;; Use scroll margin
+
+  ;; Enable Corfu only for certain modes.
+  ;; :hook ((prog-mode . corfu-mode)
+  ;;        (shell-mode . corfu-mode)
+  ;;        (eshell-mode . corfu-mode))
+
+  ;; Recommended: Enable Corfu globally.
+  ;; This is recommended since Dabbrev can be used globally (M-/).
+  ;; See also `corfu-excluded-modes'.
+  :init
+  (global-corfu-mode))
+
+
+#+end_src
+
+
+Orderless, borrowed from [[https://kristofferbalintona.me/posts/202202211546/][here]].
+
+#+begin_src
+  (use-package orderless :ensure t
+  :custom
+  (completion-styles '(orderless))      ; Use orderless
+  (completion-category-defaults nil)    ; I want to be in control!
+  (completion-category-overrides
+   '((file (styles basic-remote ; For `tramp' hostname completion with `vertico'
+                   orderless)))))
+
+
+#+end_src
+
+
+
+* Consult
+
+
+
+#+begin_src elisp
+  (use-package consult
+  ;; Replace bindings. Lazily loaded due by `use-package'.
+  :bind (;; C-c bindings (mode-specific-map)
+         ("C-c h" . consult-history)
+         ("C-c m" . consult-mode-command)
+         ("C-c k" . consult-kmacro)
+         ;; C-x bindings (ctl-x-map)
+         ("C-x M-:" . consult-complex-command)     ;; orig. repeat-complex-command
+         ("C-x b" . consult-buffer)                ;; orig. switch-to-buffer
+         ("C-x 4 b" . consult-buffer-other-window) ;; orig. switch-to-buffer-other-window
+         ("C-x 5 b" . consult-buffer-other-frame)  ;; orig. switch-to-buffer-other-frame
+         ("C-x r b" . consult-bookmark)            ;; orig. bookmark-jump
+         ("C-x p b" . consult-project-buffer)      ;; orig. project-switch-to-buffer
+         ;; Custom M-# bindings for fast register access
+         ("M-#" . consult-register-load)
+         ("M-'" . consult-register-store)          ;; orig. abbrev-prefix-mark (unrelated)
+         ("C-M-#" . consult-register)
+         ;; Other custom bindings
+         ("M-y" . consult-yank-pop)                ;; orig. yank-pop
+         ("<help> a" . consult-apropos)            ;; orig. apropos-command
+         ;; M-g bindings (goto-map)
+         ("M-g e" . consult-compile-error)
+         ("M-g f" . consult-flymake)               ;; Alternative: consult-flycheck
+         ("M-g g" . consult-goto-line)             ;; orig. goto-line
+         ("M-g M-g" . consult-goto-line)           ;; orig. goto-line
+         ("M-g o" . consult-outline)               ;; Alternative: consult-org-heading
+         ("M-g m" . consult-mark)
+         ("M-g k" . consult-global-mark)
+         ("M-g i" . consult-imenu)
+         ("M-g I" . consult-imenu-multi)
+         ;; M-s bindings (search-map)
+         ("M-s d" . consult-find)
+         ("M-s D" . consult-locate)
+         ("M-s g" . consult-grep)
+         ("M-s G" . consult-git-grep)
+         ("M-s r" . consult-ripgrep)
+         ("M-s l" . consult-line)
+         ("M-s L" . consult-line-multi)
+         ("M-s m" . consult-multi-occur)
+         ("M-s k" . consult-keep-lines)
+         ("M-s u" . consult-focus-lines)
+         ;; Isearch integration
+         ("M-s e" . consult-isearch-history)
+         :map isearch-mode-map
+         ("M-e" . consult-isearch-history)         ;; orig. isearch-edit-string
+         ("M-s e" . consult-isearch-history)       ;; orig. isearch-edit-string
+         ("M-s l" . consult-line)                  ;; needed by consult-line to detect isearch
+         ("M-s L" . consult-line-multi)            ;; needed by consult-line to detect isearch
+         ;; Minibuffer history
+         :map minibuffer-local-map
+         ("M-s" . consult-history)                 ;; orig. next-matching-history-element
+         ("M-r" . consult-history))                ;; orig. previous-matching-history-element
+
+  ;; Enable automatic preview at point in the *Completions* buffer. This is
+  ;; relevant when you use the default completion UI.
+  :hook (completion-list-mode . consult-preview-at-point-mode)
+
+  ;; The :init configuration is always executed (Not lazy)
+  :init
+
+  ;; Optionally configure the register formatting. This improves the register
+  ;; preview for `consult-register', `consult-register-load',
+  ;; `consult-register-store' and the Emacs built-ins.
+  (setq register-preview-delay 0.5
+        register-preview-function #'consult-register-format)
+
+  ;; Optionally tweak the register preview window.
+  ;; This adds thin lines, sorting and hides the mode line of the window.
+  (advice-add #'register-preview :override #'consult-register-window)
+
+  ;; Use Consult to select xref locations with preview
+  (setq xref-show-xrefs-function #'consult-xref
+        xref-show-definitions-function #'consult-xref)
+
+  ;; Configure other variables and modes in the :config section,
+  ;; after lazily loading the package.
+  :config
+
+  ;; Optionally configure preview. The default value
+  ;; is 'any, such that any key triggers the preview.
+  ;; (setq consult-preview-key 'any)
+  ;; (setq consult-preview-key (kbd "M-."))
+  ;; (setq consult-preview-key (list (kbd "<S-down>") (kbd "<S-up>")))
+  ;; For some commands and buffer sources it is useful to configure the
+  ;; :preview-key on a per-command basis using the `consult-customize' macro.
+  (consult-customize
+   consult-theme
+   :preview-key '(:debounce 0.2 any)
+   consult-ripgrep consult-git-grep consult-grep
+   consult-bookmark consult-recent-file consult-xref
+   consult--source-bookmark consult--source-recent-file
+   consult--source-project-recent-file
+   :preview-key (kbd "M-."))
+
+  ;; Optionally configure the narrowing key.
+  ;; Both < and C-+ work reasonably well.
+  (setq consult-narrow-key "<") ;; (kbd "C-+")
+
+  ;; Optionally make narrowing help available in the minibuffer.
+  ;; You may want to use `embark-prefix-help-command' or which-key instead.
+  ;; (define-key consult-narrow-map (vconcat consult-narrow-key "?") #'consult-narrow-help)
+
+  ;; By default `consult-project-function' uses `project-root' from project.el.
+  ;; Optionally configure a different project root function.
+  ;; There are multiple reasonable alternatives to chose from.
+  ;;;; 1. project.el (the default)
+  ;; (setq consult-project-function #'consult--default-project--function)
+  ;;;; 2. projectile.el (projectile-project-root)
+  ;; (autoload 'projectile-project-root "projectile")
+  ;; (setq consult-project-function (lambda (_) (projectile-project-root)))
+  ;;;; 3. vc.el (vc-root-dir)
+  ;; (setq consult-project-function (lambda (_) (vc-root-dir)))
+  ;;;; 4. locate-dominating-file
+  ;; (setq consult-project-function (lambda (_) (locate-dominating-file "." ".git")))
+)
+
+#+end_src
+
+
+* syncthing conflicts
+
+#+begin_src elisp
+    (use-package emacs-conflict
+      :straight (emacs-conflict :type git :host github :repo "ibizaman/emacs-conflict" :branch "master"))
+
+
+    (global-set-key (kbd "C-c r r") 'emacs-conflict-resolve-conflicts)
+  (global-set-key (kbd "C-c r d") 'emacs-conflict-resolve-conflict-dired)
+
+
+  (defun ediff-copy-both-to-C ()
+  (interactive)
+  (ediff-copy-diff ediff-current-difference nil 'C nil
+                   (concat
+                    (ediff-get-region-contents ediff-current-difference 'A ediff-control-buffer)
+                    (ediff-get-region-contents ediff-current-difference 'B ediff-control-buffer))))
+(defun add-d-to-ediff-mode-map () (define-key ediff-mode-map "d" 'ediff-copy-both-to-C))
+(add-hook 'ediff-keymap-setup-hook 'add-d-to-ediff-mode-map)
+#+end_src
+
+
+
+* nursery
+:LOGBOOK:
+CLOCK: [2022-08-22 Mon 09:12]--[2022-08-22 Mon 09:37] =>  0:25
+:END:
+
+#+begin_src elisp
+  (add-to-list 'load-path "/Users/dmitrymarkushevich/workspace/github/nursery/lisp")
+
+  (use-package org-drill :ensure t)
+
+  (use-package org-roam-review
+  :commands (org-roam-review
+             org-roam-review-list-by-maturity
+             org-roam-review-list-recently-added)
+
+  ;; ;; Optional - tag all newly-created notes as seedlings.
+  :hook (org-roam-capture-new-node . org-roam-review-set-seedling)
+
+  ;; ;; Optional - keybindings for applying Evergreen note properties.
+  ;; :general
+  ;; (:keymaps 'org-mode-map
+  ;; "C-c r r" '(org-roam-review-accept :wk "accept")
+  ;; "C-c r u" '(org-roam-review-bury :wk "bury")
+  ;; "C-c r x" '(org-roam-review-set-excluded :wk "set excluded")
+  ;; "C-c r b" '(org-roam-review-set-budding :wk "set budding")
+  ;; "C-c r s" '(org-roam-review-set-seedling :wk "set seedling")
+  ;; "C-c r e" '(org-roam-review-set-evergreen :wk "set evergreen"))
+
+  ;; ;; Optional - bindings for evil-mode compatability.
+  ;; :general
+  ;; (:states '(normal) :keymaps 'org-roam-review-mode-map
+  ;; "TAB" 'magit-section-cycle
+  ;; "g r" 'org-roam-review-refresh)
+  )
+#+end_src
+
+
+* FIN
+
+
+#+begin_src emacs-lisp
+
+        (setq org-gcal-remove-api-cancelled-events t) ;; delete removed events without asking.
+  (toggle-frame-maximized)
+
+  (setq gc-cons-threshold (* 50 1000 1000))
+
+(advice-add 'org-schedule :after #'dm/update-agenda-file-list)
 #+end_src
