@@ -2145,7 +2145,7 @@ Sourced from [[https://github.com/hiecaq/quinoa42.github.io/blob/gh-pages/org/do
       (split-string (substring shell-output 0 (- (length shell-output) 1)) "\n")))
 
 
-  (defun dm/update-agenda-file-list ()
+  (defun dm/update-agenda-file-list (&rest args)
     (setq org-agenda-files (flatten-tree
                             (append (dm/get-active-agenda-files) `(,(concat org-directory "gcal.org") ,(concat org-directory "vtcal.org"))))))
 
@@ -2746,6 +2746,36 @@ CLOCK: [2022-08-22 Mon 09:12]--[2022-08-22 Mon 09:37] =>  0:25
   )
 #+end_src
 
+
+
+* vt-repos
+
+#+begin_src elisp
+  (defun dm/get-fav-urls ()
+    "Get Urls from ~/.urls"
+    (let ((choices
+           (split-string
+            (shell-command-to-string "cat ~/.urls")
+            )))
+      (completing-read "Urls: " choices)))
+
+  (defun dm/open-fav-urls ()
+    "Launches a browser with the url suppplied"
+    (interactive)
+    (let ((url (dm/get-fav-urls)))
+      (shell-command
+       (format "open %s" url))
+      ))
+
+  (defun dm/popup-url-selector ()
+    (get-buffer-create "URLS")
+    (switch-to-buffer "URLS")
+    (org-set-frame-title "URLS")
+    (x-focus-frame nil)
+    (dm/open-fav-urls)
+    (delete-frame))
+
+#+end_src
 
 * FIN
 
