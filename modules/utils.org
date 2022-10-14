@@ -1,0 +1,12 @@
+
+Pretty handy when you want to reload your .emacs without quitting.
+
+
+#+begin_src elisp
+  (defun reload-init-file ()
+    "Reload .emacs"
+    (interactive)
+    (load-file user-init-file))
+
+  (global-set-key (kbd "C-c C-l") 'reload-init-file)
+#+end_src
