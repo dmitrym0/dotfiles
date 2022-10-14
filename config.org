@@ -20,50 +20,56 @@ My emacs init file.
 
 
 
-* Paths
 
-#+begin_src elisp
-  (setq user-emacs-directory (file-truename "~/.emacs.d"))
-  (setq org-directory (file-truename "~/org-roam/"))
-#+end_src
+* Includes
 
-Preserve desktop
 
 #+begin_src emacs-lisp
-  (setq desktop-lazy-idle-delay 25)
-  (setq desktop-restore-eager 5)
-  (desktop-save-mode 1)
-  (setq desktop-path (list user-emacs-directory))
-  ;;(setq desktop-path `(,(concat user-emacs-directory ".cache/")))
+  (message "Loading startup")
+  (org-babel-load-file "/Users/dmitrymarkushevich/dotfiles/modules/startup.org")
+  (message "Loading Utils")
+  (org-babel-load-file "/Users/dmitrymarkushevich/dotfiles/modules/utils.org")
 #+end_src
 
 
-* MELPA
-#+begin_src emacs-lisp
+Emacs Nursery; stuff that I'm working on.
 
 
-    (require 'package)
-    (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
-    (add-to-list 'package-archives '("nongnu" . "https://elpa.nongnu.org/nongnu/") t)
-    (add-to-list 'package-archives '("gnu" . "https://elpa.gnu.org/packages/") t)
-    (push (expand-file-name "extra" user-emacs-directory) load-path)
-    (push (expand-file-name "./elpa/project-0.8.1") load-path)
-    (use-package projectile :ensure t)
-    (use-package wakatime-mode :ensure t)
-  ;	(use-package org-roam-timestamps :ensure t)
-#+end_src
 
-Move customization variables to a separate file and load it
 #+begin_src elisp
-  (setq custom-file (locate-user-emacs-file "custom-vars.el"))
-  (load custom-file)
+  (add-to-list 'load-path "~/workspace/emacs-nursery")
+  (use-package dm-dueapp-integration)
+  (use-package dm-org-journal-in-current-buffer)
 #+end_src
+
+Can also do it like so:
+
+#+begin_example
+(use-package hydra
+  :load-path "site-lisp/hydra")
+#+end_example
+
+Can also do it like so:
+
+#+begin_example
+(use-package hydra
+  :load-path "site-lisp/hydra")
+#+end_example
+
+
+more in [[https://jwiegley.github.io/use-package/keywords/][use-package docs.]]
+
+* Init
+soft wrap lines (wrap around past screen
 
 
 * Init
 soft wrap lines (wrap around past screen boundary)
 #+begin_src emacs-lisp
+     (message "Basic init")
      ;(global-visual-line-mode 1)
+  ;; show where the newline starts in visual line mode
+      (setq visual-line-fringe-indicators '(left-curly-arrow right-curly-arrow))
      (show-paren-mode 1)
      (setq show-paren-delay 0)
      (winner-mode 1)
@@ -195,8 +201,10 @@ show trailing whitespaces, kinda makes emacs ugly.
   (setq-default show-trailing-whitespace t)
   (setq-default indicate-empty-lines t)
 #+end_src
+
 No tabs!
 #+begin_src emacs-lisp
+(message "No tabs")
 (setq-default indent-tabs-mode nil)
 #+end_src
 
@@ -232,8 +240,9 @@ When we switch windows or scroll, for example, we get a wave of light near the c
 #+end_src
 
 
-Use dome modeline
+Use doom modeline
 #+begin_src emacs-lisp
+  (message "Enable doom modeline")
   (use-package doom-modeline :diminish :ensure t
     :config (doom-modeline-mode 1)
     ;; Whether to use hud instead of default bar. It's only respected in GUI.
@@ -267,6 +276,7 @@ No toolbar.
 
 Lets keep `C-c d` for personal shortcuts.
 #+begin_src emacs-lisp
+  (message "Enable personal shortcuts")
   (global-set-key (kbd "C-c d p") #'org-pomodoro)
   (global-set-key (kbd "C-c d g") #'org-gcal-post-at-point)
   (global-set-key (kbd "C-c d i") #'org-anki-sync-entry)
@@ -294,13 +304,14 @@ recompile.
 
 indent all org mode files
 #+begin_src emacs-lisp
+    (message "Init org")
     (setq org-startup-indented t)
     (setq org-ellipsis "↪")
     (setq org-outline-path-complete-in-steps nil)
     (setq org-refile-targets '((org-agenda-files :maxlevel . 3)))
     (setq org-refile-use-outline-path 'file)
     (setq org-download-image-dir (concat org-directory "/images"))
-    (setq org-image-actual-width '(1.0))
+    (setq org-image-actual-width '(300))
     (setq org-download-heading-lvl nil) ; dont use headings when creating image names
     (setq org-download-screenshot-method "/opt/homebrew/bin/pngpaste %s")
   ;; for performance
@@ -353,6 +364,7 @@ done tasks get a [[https://github.com/lmintmate/emacs.d#strikethrough-for-done-t
 
 
 #+begin_src emacs-lisp
+ (message "Enabling capture templates")
               (setq org-capture-templates
                     `(
                       ("l" "Log" entry
@@ -397,6 +409,9 @@ done tasks get a [[https://github.com/lmintmate/emacs.d#strikethrough-for-done-t
                        (file "~/Dropbox/orgmode/template-morning-work-checklist.org"))))
 
 
+(message "Enable org-roam-dailies-templates")
+
+
 
               (setq org-roam-dailies-capture-templates
                     '(
@@ -414,6 +429,7 @@ done tasks get a [[https://github.com/lmintmate/emacs.d#strikethrough-for-done-t
                       ))
 
 
+(message "Enable org-roam-capture-templates")
               (setq org-roam-capture-templates
                     `(("d" "default" plain "%?"
                        :target (file+head "${slug}.org"
@@ -455,96 +471,111 @@ Create a custom agenda view.
 
 #+begin_src emacs-lisp
 
-          (setq org-agenda-start-on-weekday 1)
-          (setq calendar-week-start-day 1)
+  (message "Enable custom agenda")
+  (setq org-agenda-start-on-weekday 1)
+  (setq calendar-week-start-day 1)
 
-          (setq org-agenda-custom-commands
-                '(("D" "Overview for today"
-                   ((tags-todo "WORK:URGENT"
-                               ((org-agenda-overriding-header "Urgent Work")
-                                (org-agenda-skip-function 'org-agenda-skip-if-scheduled-later)))
-                    (tags-todo "WORK:IMPORTANT"
-                               ((org-agenda-overriding-header "Important Work")
-                                (org-agenda-skip-function 'org-agenda-skip-if-run-with-idle-timerscheduled-later)))
-                    (tags-todo "-WORK:URGENT"
-                               ((org-agenda-overriding-header "Mine Urgent")
-                                (org-agenda-skip-function 'org-agenda-skip-if-scheduled-later)))
-                    (tags-todo "-WORK:IMPORTANT"
-                               ((org-agenda-overriding-header "Mine Important")
-                                (org-agenda-skip-function 'org-agenda-skip-if-scheduled-later)))
-                    (agenda ""
-                            ((org-agenda-overriding-header "Today")
-                             (org-agenda-span 1)
-                             (org-agenda-sorting-strategy
-                              '(time-up priority-down))))))
-                  ("R" "Review projects" tags-todo "-CANCELLED/"
-                   ((org-agenda-overriding-header "Reviews Scheduled")
-                    (org-agenda-skip-function 'dm/org-review-agenda-skip)
-                    (org-agenda-cmp-user-defined 'org-review-compare)
-                    (org-agenda-sorting-strategy
-                     '(user-defined-down))))
-                  ("n" "Agenda and all TODOs"
-                   ((agenda "" nil)
-                    (alltodo "" nil))
-                   nil)
+  (setq org-agenda-custom-commands
+        '(("D" "Overview for today"
+           ((tags-todo "WORK:URGENT"
+                       ((org-agenda-overriding-header "Urgent Work")
+                        (org-agenda-skip-function 'org-agenda-skip-if-scheduled-later)))
+            (tags-todo "WORK:IMPORTANT"
+                       ((org-agenda-overriding-header "Important Work")
+                        (org-agenda-skip-function 'org-agenda-skip-if-run-with-idle-timerscheduled-later)))
+            (tags-todo "-WORK:URGENT"
+                       ((org-agenda-overriding-header "Mine Urgent")
+                        (org-agenda-skip-function 'org-agenda-skip-if-scheduled-later)))
+            (tags-todo "-WORK:IMPORTANT"
+                       ((org-agenda-overriding-header "Mine Important")
+                        (org-agenda-skip-function 'org-agenda-skip-if-scheduled-later)))
+            (agenda ""
+                    ((org-agenda-overriding-header "Today")
+                     (org-agenda-span 1)
+                     (org-agenda-sorting-strategy
+                      '(time-up priority-down))))))
+          ("R" "Review projects" tags-todo "-CANCELLED/"
+           ((org-agenda-overriding-header "Reviews Scheduled")
+            (org-agenda-skip-function 'dm/org-review-agenda-skip)
+            (org-agenda-cmp-user-defined 'org-review-compare)
+            (org-agenda-sorting-strategy
+             '(user-defined-down))))
+          ("n" "Agenda and all TODOs"
+           ((agenda "" nil)
+            (alltodo "" nil))
+           nil)
+          ("k" "All items with time logged, but no tag"
+           ((alltodo "" ((org-agenda-skip-function
+                          (lambda ()
+                            (if (and (null (org-get-tags))
+                                     (>= (org-clock-sum-current-item) 1))
+                                nil
+                              (or (outline-next-heading)
+                                  (point-max)))))))nil )
 
-    ;-----
+                                          ;-----
 
-  ("N" "Notes" tags "NOTE"
-                 ((org-agenda-overriding-header "Notes")
-                  (org-tags-match-list-sublevels t)))
-                ("h" "Habits" tags-todo "STYLE=\"habit\""
-                 ((org-agenda-overriding-header "Habits")
-                  (org-agenda-sorting-strategy
-                   '(todo-state-down effort-up category-keep))))
-                (" " "Agenda"
-                 (
-                      (tags-todo "-WORK:URGENT"
-                             ((org-agenda-overriding-header "Mine Urgent")
-                              (org-agenda-skip-function 'org-agenda-skip-if-scheduled-later)))
-                  (tags-todo "-WORK:IMPORTANT"
-                             ((org-agenda-overriding-header "Mine Important")
-                              (org-agenda-skip-function 'org-agenda-skip-if-scheduled-later)))
-                  (agenda ""
-                          ((org-agenda-overriding-header "Today")
-                           (org-agenda-span 1)
-                           (org-agenda-sorting-strategy
-                            '(time-up priority-down))))
-                  (tags "REFILE"
-                        ((org-agenda-overriding-header "Tasks to Refile")
-                         (org-tags-match-list-sublevels nil)))
-                  (tags-todo "-CANCELLED/!"
-                             ((org-agenda-overriding-header "Stuck Projects")
-                              (org-agenda-skip-function 'bh/skip-non-stuck-projects)
-                              (org-agenda-sorting-strategy
-                               '(category-keep))))
-                  (tags-todo "-CANCELLED/!NEXT"
-                             ((org-agenda-overriding-header (concat "Project Next Tasks"
-                                                                    (if bh/hide-scheduled-and-waiting-next-tasks
-                                                                        ""
-                                                                      " (including WAITING and SCHEDULED tasks)")))
-                              (org-agenda-skip-function 'bh/skip-projects-and-habits-and-single-tasks)
-                              (org-tags-match-list-sublevels t)
-                              (org-agenda-todo-ignore-scheduled bh/hide-scheduled-and-waiting-next-tasks)
-                              (org-agenda-todo-ignore-deadlines bh/hide-scheduled-and-waiting-next-tasks)
-                              (org-agenda-todo-ignore-with-date bh/hide-scheduled-and-waiting-next-tasks)
-                              (org-agenda-sorting-strategy
-                               '(todo-state-down effort-up category-keep))))
-                  (tags-todo "-CANCELLED+WAITING|HOLD/!"
-                             ((org-agenda-overriding-header (concat "Waiting and Postponed Tasks"
-                                                                    (if bh/hide-scheduled-and-waiting-next-tasks
-                                                                        ""
-                                                                      " (including WAITING and SCHEDULED tasks)")))
-                              (org-agenda-skip-function 'bh/skip-non-tasks)
-                              (org-tags-match-list-sublevels nil)
-                              (org-agenda-todo-ignore-scheduled bh/hide-scheduled-and-waiting-next-tasks)
-                              (org-agenda-todo-ignore-deadlines bh/hide-scheduled-and-waiting-next-tasks)))
-                 nil)))
+           ("N" "Notes" tags "NOTE"
+            ((org-agenda-overriding-header "Notes")
+             (org-tags-match-list-sublevels t)))
+           ("h" "Habits" tags-todo "STYLE=\"habit\""
+            ((org-agenda-overriding-header "Habits")
+             (org-agenda-sorting-strategy
+              '(todo-state-down effort-up category-keep))))
+           (" " "Agenda"
+            (
+             (tags-todo "-WORK:URGENT"
+                        ((org-agenda-overriding-header "Mine Urgent")
+                         (org-agenda-skip-function 'org-agenda-skip-if-scheduled-later)))
+             (tags-todo "-WORK:IMPORTANT"
+                        ((org-agenda-overriding-header "Mine Important")
+                         (org-agenda-skip-function 'org-agenda-skip-if-scheduled-later)))
+             (agenda ""
+                     ((org-agenda-overriding-header "Today")
+                      (org-agenda-span 1)
+                      (org-agenda-sorting-strategy
+                       '(time-up priority-down))))
+             (tags "REFILE"
+                   ((org-agenda-overriding-header "Tasks to Refile")
+                    (org-tags-match-list-sublevels nil)))
+             (tags-todo "-CANCELLED/!"
+                        ((org-agenda-overriding-header "Stuck Projects")
+                         (org-agenda-skip-function 'bh/skip-non-stuck-projects)
+                         (org-agenda-sorting-strategy
+                          '(category-keep))))
+             (tags-todo "-CANCELLED/!NEXT"
+                        ((org-agenda-overriding-header (concat "Project Next Tasks"
+                                                               (if bh/hide-scheduled-and-waiting-next-tasks
+                                                                   ""
+                                                                 " (including WAITING and SCHEDULED tasks)")))
+                         (org-agenda-skip-function 'bh/skip-projects-and-habits-and-single-tasks)
+                         (org-tags-match-list-sublevels t)
+                         (org-agenda-todo-ignore-scheduled bh/hide-scheduled-and-waiting-next-tasks)
+                         (org-agenda-todo-ignore-deadlines bh/hide-scheduled-and-waiting-next-tasks)
+                         (org-agenda-todo-ignore-with-date bh/hide-scheduled-and-waiting-next-tasks)
+                         (org-agenda-sorting-strategy
+                          '(todo-state-down effort-up category-keep))))
+             (tags-todo "-CANCELLED+WAITING|HOLD/!"
+                        ((org-agenda-overriding-header (concat "Waiting and Postponed Tasks"
+                                                               (if bh/hide-scheduled-and-waiting-next-tasks
+                                                                   ""
+                                                                 " (including WAITING and SCHEDULED tasks)")))
+                         (org-agenda-skip-function 'bh/skip-non-tasks)
+                         (org-tags-match-list-sublevels nil)
+                         (org-agenda-todo-ignore-scheduled bh/hide-scheduled-and-waiting-next-tasks)
+                         (org-agenda-todo-ignore-deadlines bh/hide-scheduled-and-waiting-next-tasks)))
+             nil)))
 
 
-    ;-----
 
-    )
+          ))
+
+
+(message "custom agenda loaded")
+
+
+
+
 #+end_src
 
 **** Custom org functions
@@ -569,6 +600,7 @@ should be continued."
 ** Other
 Fancy TODO states
 #+begin_src emacs-lisp
+  (message "Fancy todo states")
   (setq org-todo-keywords
         '((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
                 (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)" "PHONE" "MEETING")))
@@ -761,6 +793,7 @@ dimmer, highlight current buffer
 
 org-roam
 #+begin_src emacs-lisp
+    (message "Org-roam")
     ;; keybindings for org-roam
 
 
@@ -813,10 +846,10 @@ org-roam-ui
 
 
     ;; dont save for desktop.el
-      (add-to-list 'desktop-minor-mode-table
-                 '(org-roam-ui-mode nil))
-    (add-to-list 'desktop-minor-mode-table
-                '(org-roam-ui-follow-mode nil))
+    ;;  (add-to-list 'desktop-minor-mode-table
+    ;;             '(org-roam-ui-mode nil))
+    ;;(add-to-list 'desktop-minor-mode-table
+    ;;            '(org-roam-ui-follow-mode nil))
 #+end_src
 
 helm
@@ -1148,6 +1181,11 @@ From [[https://massimilianomirra.com/notes/lightweight-external-command-integrat
   (setq company-idle-delay 0.3)
   (setq company-backends '((company-capf company-dabbrev-code)))
   (global-company-mode t))
+
+
+  ;; With use-package:
+(use-package company-box :ensure t
+  :hook (company-mode . company-box-mode))
 
 
 #+end_src
@@ -2146,6 +2184,8 @@ Sourced from [[https://github.com/hiecaq/quinoa42.github.io/blob/gh-pages/org/do
 
 
   (defun dm/update-agenda-file-list (&rest args)
+  "Update agenda list with latest files"
+  (interactive)
     (setq org-agenda-files (flatten-tree
                             (append (dm/get-active-agenda-files) `(,(concat org-directory "gcal.org") ,(concat org-directory "vtcal.org"))))))
 
@@ -2247,6 +2287,7 @@ Use ~gd~ to jump to definitions in evil mode.
 * evil work arounds
 
 #+begin_src elisp
+  (message "Evil work arounds loaded")
   (evil-set-initial-state 'nov-mode 'emacs)
   (evil-set-initial-state 'pocket-reader-mode 'emacs)
   (add-hook 'org-fc-review-flip-mode-hook 'evil-emacs-state)
@@ -2259,6 +2300,8 @@ Use ~gd~ to jump to definitions in evil mode.
 * [dm] Capture a headline into today's daily.
 
 #+begin_src elisp
+  (message "enable my custom functions")
+
 
   (defun dm/goto-tasks-heading ()
     "Find the tasks heading"
@@ -2274,6 +2317,7 @@ Use ~gd~ to jump to definitions in evil mode.
 
   (defun dm/move-task-to-today-and-reset-schedule ()
     "Moves a task from an old daily note to today's note"
+    (interactive)
     (let* ((daily-file (dm/get-todays-daily-file)))
       (save-window-excursion
         (when (string-equal "org-agenda-mode" major-mode)
@@ -2338,6 +2382,7 @@ Use ~gd~ to jump to definitions in evil mode.
 * org-noter-fork
 
 #+begin_src elisp
+(message "load org noter fork.")
 
 (use-package pdf-tools :ensure t)
       (push "~/workspace/org-noter-plus-djvu" load-path)
@@ -2372,25 +2417,26 @@ Use ~gd~ to jump to definitions in evil mode.
 * ws-butler
 
 #+begin_src elisp
-  (use-package ws-butler :ensure t
-  :config
-  (ws-butler-global-mode))
+  ;; (use-package ws-butler :ensure t
+  ;; :config
+  ;; (ws-butler-global-mode))
 
 #+end_src
 
 Preserve emacs open buffers. Restore 5 on open and then when emacs is idle open more.
+
 #+begin_src emacs-lisp
+  (message "Load desktop")
   (desktop-read)
 #+end_src
 
 
 * conflict resolution
 #+begin_src elisp
+  (message "Enable conflict resolution with sync thing")
   (use-package emacs-conflict
   :straight (emacs-conflict :type git :host github :repo "ibizaman/emacs-conflict" :branch "master"))
 
-#+end_src
-#+begin_src elisp
 #+end_src
 
 
@@ -2415,93 +2461,107 @@ To workaround it, just set org-fold-core-style to its pre org-mode 9.6 default v
 #+end_src
 
 
-* Finish
-
-#+begin_src elisp
-
-
-   (menu-bar-mode t) ;; necessary for spaces focusing properly.
-      (push "/opt/homebrew/Cellar/emacs-mac/emacs-28.1-mac-9.0/share/emacs/28.1/lisp/org" load-path)
-  (message "Done loading.")
-
-#+end_src
-
-
-
 * VERTICO
 
 #+begin_src elisp
-           (use-package consult :ensure t)
-           (use-package vertico :ensure t
-             :init
-             (vertico-mode)
+    (message "Enable vertico")
+    (use-package consult :ensure t)
+    (use-package vertico :ensure t
+    :general
+    (:keymaps 'vertico-map
+              "C-f" 'vertico-next-group)
+      :init
+      (vertico-mode)
 
-             ;; Different scroll margin
-             (setq vertico-scroll-margin 0)
+      ;; Different scroll margin
+      (setq vertico-scroll-margin 0)
 
-             ;; Show more candidates
-             (setq vertico-count 20)
+      ;; Show more candidates
+      (setq vertico-count 20)
 
-             ;; Grow and shrink the Vertico minibuffer
-             ;;(setq vertico-resize t)
+      ;; Grow and shrink the Vertico minibuffer
+      ;;(setq vertico-resize t)
 
-             ;; Optionally enable cycling for `vertico-next' and `vertico-previous'.
-             (setq vertico-cycle t)
-             )
-
-
-           ;; Persist history over Emacs restarts. Vertico sorts by history position.
-           (use-package savehist
-             :init
-             (savehist-mode))
+      ;; Optionally enable cycling for `vertico-next' and `vertico-previous'.
+      (setq vertico-cycle t)
+      )
 
 
-           (use-package orderless
-             :init
-             ;; Configure a custom style dispatcher (see the Consult wiki)
-             ;; (setq orderless-style-dispatchers '(+orderless-dispatch)
-             ;;       orderless-component-separator #'orderless-escapable-split-on-space)
-             (setq completion-styles '(orderless basic)
-                   completion-category-defaults nil
-                   completion-category-overrides '((file (styles partial-completion)))))
-
-           (require 'vertico-posframe)
-           (vertico-posframe-mode 1)
+    ;; Persist history over Emacs restarts. Vertico sorts by history position.
+    (use-package savehist
+      :init
+      (savehist-mode))
 
 
-           (use-package marginalia
-             :after vertico
-             :ensure t
-             :custom
-             (marginalia-annotators '(marginalia-annotators-heavy marginalia-annotators-light nil))
-             :init
-             (marginalia-mode))
+    (use-package orderless
+      :init
+      ;; Configure a custom style dispatcher (see the Consult wiki)
+      ;; (setq orderless-style-dispatchers '(+orderless-dispatch)
+      ;;       orderless-component-separator #'orderless-escapable-split-on-space)
+      (setq completion-styles '(orderless basic)
+            completion-category-defaults nil
+            completion-category-overrides '((file (styles partial-completion)))))
+
+    (require 'vertico-posframe)
+    (vertico-posframe-mode 1)
+
+
+    (use-package marginalia
+      :after vertico
+      :general
+      (:keymaps 'minibuffer-local-map
+                "M-A" 'marginalia-cycle
+                "M-Q" 'vertico-scroll-down
+                )
+      :ensure t
+      :custom
+      (marginalia-annotators '(marginalia-annotators-heavy marginalia-annotators-light nil))
+      :init
+      (marginalia-mode))
+
+  (use-package all-the-icons-completion :ensure t
+    :after (marginalia all-the-icons)
+    :hook (marginalia-mode . all-the-icons-completion-marginalia-setup)
+    :init
+    (all-the-icons-completion-mode))
+
+    ;; this is what does completion in the minibuffer
+    ;; Use `consult-completion-in-region' if Vertico is enabled.
+    ;; Otherwise use the default `completion--in-region' function.
+    (setq completion-in-region-function
+          (lambda (&rest args)
+            (apply (if vertico-mode
+                       #'consult-completion-in-region
+                     #'completion--in-region)
+                   args)))
+
+
+    ;; since global-visual-line-mode is enabled
+    ;; make sure we invoke kill-line in vertico
+    ;; (define-key vertico-map (kbd "C-k") #'kill-line)
+    ;; (define-key vertico-map "C-k" #'kill-line)
+    ;; (define-key vertico-map "C-f" #'evil-scroll-page-down)
+    ;; (define-key consult-narrow-map "C-f" #'evil-scroll-page-down)
+    ;; (define-key minibuffer-local-map "C-f" #'evil-scroll-page-down)
+
+    ;; (define-key consult-narrow-map  (kbd "C-k") #'kill-line)
+    ;; (define-key consult-narrow-map  (kbd "C-k") #'kill-line)
+    ;; (define-key vertico-map (kbd "C-f") #'scroll-down-command)
+    (define-key vertico-map (kbd "<next>") #'vertico-scroll-up)
+  (define-key vertico-map (kbd "<prior>") #'vertico-scroll-down)
+
+      (add-hook 'minibuffer-setup-hook (lambda ()
+                                       (visual-line-mode -1)))
 
 
 
-           ;; this is what does completion in the minibuffer
-           ;; Use `consult-completion-in-region' if Vertico is enabled.
-           ;; Otherwise use the default `completion--in-region' function.
-           (setq completion-in-region-function
-                 (lambda (&rest args)
-                   (apply (if vertico-mode
-                              #'consult-completion-in-region
-                            #'completion--in-region)
-                          args)))
+    ;; work around for org-refile
 
-
-           ;; since global-visual-line-mode is enabled
-           ;; make sure we invoke kill-line in vertico
-           (define-key vertico-map (kbd "C-k") #'kill-line)
-      (define-key vertico-map "C-k" #'kill-line)
-     (define-key consult-narrow-map  (kbd "C-k") #'kill-line
-
-
-        ;; work around for org-refile
-
-        ;; Alternative 2: Complete full paths
-      (setq org-refile-use-outline-path 'file
-            org-outline-path-complete-in-steps nil)
+    ;; Alternative 2: Complete full paths
+    (setq org-refile-use-outline-path 'file
+          org-outline-path-complete-in-steps nil)
+  ;;(pos
+    ;;(pos
 
 
     ;;   (setq org-refile-use-outline-path 'file
@@ -2568,122 +2628,149 @@ Orderless, borrowed from [[https://kristofferbalintona.me/posts/202202211546/][h
 
 
 #+begin_src elisp
-  (use-package consult
-  ;; Replace bindings. Lazily loaded due by `use-package'.
-  :bind (;; C-c bindings (mode-specific-map)
-         ("C-c h" . consult-history)
-         ("C-c m" . consult-mode-command)
-         ("C-c k" . consult-kmacro)
-         ;; C-x bindings (ctl-x-map)
-         ("C-x M-:" . consult-complex-command)     ;; orig. repeat-complex-command
-         ("C-x b" . consult-buffer)                ;; orig. switch-to-buffer
-         ("C-x 4 b" . consult-buffer-other-window) ;; orig. switch-to-buffer-other-window
-         ("C-x 5 b" . consult-buffer-other-frame)  ;; orig. switch-to-buffer-other-frame
-         ("C-x r b" . consult-bookmark)            ;; orig. bookmark-jump
-         ("C-x p b" . consult-project-buffer)      ;; orig. project-switch-to-buffer
-         ;; Custom M-# bindings for fast register access
-         ("M-#" . consult-register-load)
-         ("M-'" . consult-register-store)          ;; orig. abbrev-prefix-mark (unrelated)
-         ("C-M-#" . consult-register)
-         ;; Other custom bindings
-         ("M-y" . consult-yank-pop)                ;; orig. yank-pop
-         ("<help> a" . consult-apropos)            ;; orig. apropos-command
-         ;; M-g bindings (goto-map)
-         ("M-g e" . consult-compile-error)
-         ("M-g f" . consult-flymake)               ;; Alternative: consult-flycheck
-         ("M-g g" . consult-goto-line)             ;; orig. goto-line
-         ("M-g M-g" . consult-goto-line)           ;; orig. goto-line
-         ("M-g o" . consult-outline)               ;; Alternative: consult-org-heading
-         ("M-g m" . consult-mark)
-         ("M-g k" . consult-global-mark)
-         ("M-g i" . consult-imenu)
-         ("M-g I" . consult-imenu-multi)
-         ;; M-s bindings (search-map)
-         ("M-s d" . consult-find)
-         ("M-s D" . consult-locate)
-         ("M-s g" . consult-grep)
-         ("M-s G" . consult-git-grep)
-         ("M-s r" . consult-ripgrep)
-         ("M-s l" . consult-line)
-         ("M-s L" . consult-line-multi)
-         ("M-s m" . consult-multi-occur)
-         ("M-s k" . consult-keep-lines)
-         ("M-s u" . consult-focus-lines)
-         ;; Isearch integration
-         ("M-s e" . consult-isearch-history)
-         :map isearch-mode-map
-         ("M-e" . consult-isearch-history)         ;; orig. isearch-edit-string
-         ("M-s e" . consult-isearch-history)       ;; orig. isearch-edit-string
-         ("M-s l" . consult-line)                  ;; needed by consult-line to detect isearch
-         ("M-s L" . consult-line-multi)            ;; needed by consult-line to detect isearch
-         ;; Minibuffer history
-         :map minibuffer-local-map
-         ("M-s" . consult-history)                 ;; orig. next-matching-history-element
-         ("M-r" . consult-history))                ;; orig. previous-matching-history-element
+  (message "Enabling consult.")
+      (use-package consult
+      ;; Replace bindings. Lazily loaded due by `use-package'.
+      :bind (;; C-c bindings (mode-specific-map)
+             ("C-c h" . consult-history)
+             ("C-c m" . consult-mode-command)
+             ("C-c k" . consult-kmacro)
+             ;; C-x bindings (ctl-x-map)
+             ("C-x M-:" . consult-complex-command)     ;; orig. repeat-complex-command
+             ("C-x b" . consult-buffer)                ;; orig. switch-to-buffer
+             ("C-x 4 b" . consult-buffer-other-window) ;; orig. switch-to-buffer-other-window
+             ("C-x 5 b" . consult-buffer-other-frame)  ;; orig. switch-to-buffer-other-frame
+             ("C-x r b" . consult-bookmark)            ;; orig. bookmark-jump
+             ("C-x p b" . consult-project-buffer)      ;; orig. project-switch-to-buffer
+             ;; Custom M-# bindings for fast register access
+             ("M-#" . consult-register-load)
+             ("M-'" . consult-register-store)          ;; orig. abbrev-prefix-mark (unrelated)
+             ("C-M-#" . consult-register)
+             ;; Other custom bindings
+             ("M-y" . consult-yank-pop)                ;; orig. yank-pop
+             ("<help> a" . consult-apropos)            ;; orig. apropos-command
+             ;; M-g bindings (goto-map)
+             ("M-g e" . consult-compile-error)
+             ("M-g f" . consult-flymake)               ;; Alternative: consult-flycheck
+             ("M-g g" . consult-goto-line)             ;; orig. goto-line
+             ("M-g M-g" . consult-goto-line)           ;; orig. goto-line
+             ("M-g o" . consult-outline)               ;; Alternative: consult-org-heading
+             ("M-g m" . consult-mark)
+             ("M-g k" . consult-global-mark)
+             ("M-g i" . consult-imenu)
+             ("M-g I" . consult-imenu-multi)
+             ;; M-s bindings (search-map)
+             ("M-s d" . consult-find)
+             ("M-s D" . consult-locate)
+             ("M-s g" . consult-grep)
+             ("M-s G" . consult-git-grep)
+             ("M-s r" . consult-ripgrep)
+             ("M-s l" . consult-line)
+             ("M-s L" . consult-line-multi)
+             ("M-s m" . consult-multi-occur)
+             ("M-s k" . consult-keep-lines)
+             ("M-s u" . consult-focus-lines)
+             ;; Isearch integration
+             ("M-s e" . consult-isearch-history)
+             :map isearch-mode-map
+             ("M-e" . consult-isearch-history)         ;; orig. isearch-edit-string
+             ("M-s e" . consult-isearch-history)       ;; orig. isearch-edit-string
+             ("M-s l" . consult-line)                  ;; needed by consult-line to detect isearch
+             ("M-s L" . consult-line-multi)            ;; needed by consult-line to detect isearch
+             ;; Minibuffer history
+             :map minibuffer-local-map
+             ("M-s" . consult-history)                 ;; orig. next-matching-history-element
+             ("M-r" . consult-history))                ;; orig. previous-matching-history-element
 
-  ;; Enable automatic preview at point in the *Completions* buffer. This is
-  ;; relevant when you use the default completion UI.
-  :hook (completion-list-mode . consult-preview-at-point-mode)
+      ;; Enable automatic preview at point in the *Completions* buffer. This is
+      ;; relevant when you use the default completion UI.
+      :hook (completion-list-mode . consult-preview-at-point-mode)
 
-  ;; The :init configuration is always executed (Not lazy)
-  :init
+      ;; The :init configuration is always executed (Not lazy)
+      :init
 
-  ;; Optionally configure the register formatting. This improves the register
-  ;; preview for `consult-register', `consult-register-load',
-  ;; `consult-register-store' and the Emacs built-ins.
-  (setq register-preview-delay 0.5
-        register-preview-function #'consult-register-format)
+      ;; Optionally configure the register formatting. This improves the register
+      ;; preview for `consult-register', `consult-register-load',
+      ;; `consult-register-store' and the Emacs built-ins.
+      (setq register-preview-delay 0.5
+            register-preview-function #'consult-register-format)
 
-  ;; Optionally tweak the register preview window.
-  ;; This adds thin lines, sorting and hides the mode line of the window.
-  (advice-add #'register-preview :override #'consult-register-window)
+      ;; Optionally tweak the register preview window.
+      ;; This adds thin lines, sorting and hides the mode line of the window.
+      (advice-add #'register-preview :override #'consult-register-window)
 
-  ;; Use Consult to select xref locations with preview
-  (setq xref-show-xrefs-function #'consult-xref
-        xref-show-definitions-function #'consult-xref)
+      ;; Use Consult to select xref locations with preview
+      (setq xref-show-xrefs-function #'consult-xref
+            xref-show-definitions-function #'consult-xref)
 
-  ;; Configure other variables and modes in the :config section,
-  ;; after lazily loading the package.
-  :config
+      ;; Configure other variables and modes in the :config section,
+      ;; after lazily loading the package.
+      :config
 
-  ;; Optionally configure preview. The default value
-  ;; is 'any, such that any key triggers the preview.
-  ;; (setq consult-preview-key 'any)
-  ;; (setq consult-preview-key (kbd "M-."))
-  ;; (setq consult-preview-key (list (kbd "<S-down>") (kbd "<S-up>")))
-  ;; For some commands and buffer sources it is useful to configure the
-  ;; :preview-key on a per-command basis using the `consult-customize' macro.
-  (consult-customize
-   consult-theme
-   :preview-key '(:debounce 0.2 any)
-   consult-ripgrep consult-git-grep consult-grep
-   consult-bookmark consult-recent-file consult-xref
-   consult--source-bookmark consult--source-recent-file
-   consult--source-project-recent-file
-   :preview-key (kbd "M-."))
+      ;; Optionally configure preview. The default value
+      ;; is 'any, such that any key triggers the preview.
+      ;; (setq consult-preview-key 'any)
+      ;; (setq consult-preview-key (kbd "M-."))
+      ;; (setq consult-preview-key (list (kbd "<S-down>") (kbd "<S-up>")))
+      ;; For some commands and buffer sources it is useful to configure the
+      ;; :preview-key on a per-command basis using the `consult-customize' macro.
+      (consult-customize
+       consult-theme
+       :preview-key '(:debounce 0.2 any)
+       consult-ripgrep consult-git-grep consult-grep
+       consult-bookmark consult-recent-file consult-xref
+       consult--source-bookmark consult--source-recent-file
+       consult--source-project-recent-file
+       :preview-key (kbd "M-."))
 
-  ;; Optionally configure the narrowing key.
-  ;; Both < and C-+ work reasonably well.
-  (setq consult-narrow-key "<") ;; (kbd "C-+")
+      ;; Optionally configure the narrowing key.
+      ;; Both < and C-+ work reasonably well.
+      (setq consult-narrow-key "<") ;; (kbd "C-+")
 
-  ;; Optionally make narrowing help available in the minibuffer.
-  ;; You may want to use `embark-prefix-help-command' or which-key instead.
-  ;; (define-key consult-narrow-map (vconcat consult-narrow-key "?") #'consult-narrow-help)
+      ;; Optionally make narrowing help available in the minibuffer.
+      ;; You may want to use `embark-prefix-help-command' or which-key instead.
+      ;; (define-key consult-narrow-map (vconcat consult-narrow-key "?") #'consult-narrow-help)
 
-  ;; By default `consult-project-function' uses `project-root' from project.el.
-  ;; Optionally configure a different project root function.
-  ;; There are multiple reasonable alternatives to chose from.
-  ;;;; 1. project.el (the default)
-  ;; (setq consult-project-function #'consult--default-project--function)
-  ;;;; 2. projectile.el (projectile-project-root)
-  ;; (autoload 'projectile-project-root "projectile")
-  ;; (setq consult-project-function (lambda (_) (projectile-project-root)))
-  ;;;; 3. vc.el (vc-root-dir)
-  ;; (setq consult-project-function (lambda (_) (vc-root-dir)))
-  ;;;; 4. locate-dominating-file
-  ;; (setq consult-project-function (lambda (_) (locate-dominating-file "." ".git")))
-)
+      ;; By default `consult-project-function' uses `project-root' from project.el.
+      ;; Optionally configure a different project root function.
+      ;; There are multiple reasonable alternatives to chose from.
+      ;;;; 1. project.el (the default)
+      ;; (setq consult-project-function #'consult--default-project--function)
+      ;;;; 2. projectile.el (projectile-project-root)
+      ;; (autoload 'projectile-project-root "projectile")
+      ;; (setq consult-project-function (lambda (_) (projectile-project-root)))
+      ;;;; 3. vc.el (vc-root-dir)
+      ;; (setq consult-project-function (lambda (_) (vc-root-dir)))
+      ;;;; 4. locate-dominating-file
+      ;; (setq consult-project-function (lambda (_) (locate-dominating-file "." ".git")))
+    )
 
+
+
+  (use-package consult-projectile
+  :straight (consult-projectile :type git :host gitlab :repo "OlMon/consult-projectile" :branch "master"))
+
+    (global-set-key (kbd "C-c r p") 'consult-projectile)
+
+
+
+  (use-package consult-org-roam
+   :ensure t
+   :init
+   (require 'consult-org-roam)
+   ;; Activate the minor-mode
+   (consult-org-roam-mode 1)
+   :custom
+   (consult-org-roam-grep-func #'consult-ripgrep)
+   :config
+   ;; Eventually suppress previewing for certain functions
+   (consult-customize
+    consult-org-roam-forward-links
+    :preview-key (kbd "M-."))
+   :bind
+   ("C-c n e" . consult-org-roam-file-find)
+   ("C-c n b" . consult-org-roam-backlinks)
+   ("C-c n r" . consult-org-roam-search))
 #+end_src
 
 
@@ -2711,9 +2798,6 @@ Orderless, borrowed from [[https://kristofferbalintona.me/posts/202202211546/][h
 
 
 * nursery
-:LOGBOOK:
-CLOCK: [2022-08-22 Mon 09:12]--[2022-08-22 Mon 09:37] =>  0:25
-:END:
 
 #+begin_src elisp
   (add-to-list 'load-path "/Users/dmitrymarkushevich/workspace/github/nursery/lisp")
@@ -2749,33 +2833,71 @@ CLOCK: [2022-08-22 Mon 09:12]--[2022-08-22 Mon 09:37] =>  0:25
 
 
 * vt-repos
+:PROPERTIES:
+:org-gcal-managed: org
+:END:
 
 #+begin_src elisp
-  (defun dm/get-fav-urls ()
-    "Get Urls from ~/.urls"
-    (let ((choices
-           (split-string
-            (shell-command-to-string "cat ~/.urls")
-            )))
-      (completing-read "Urls: " choices)))
+    (defun dm/get-fav-urls ()
+      "Get Urls from ~/.urls"
+      (let ((choices
+             (split-string
+              (shell-command-to-string "cat ~/.urls")
+              )))
+        (completing-read "Urls: " choices)))
 
-  (defun dm/open-fav-urls ()
-    "Launches a browser with the url suppplied"
-    (interactive)
-    (let ((url (dm/get-fav-urls)))
-      (shell-command
-       (format "open %s" url))
-      ))
+    (defun dm/open-fav-urls ()
+      "Launches a browser with the url suppplied"
+      (interactive)
+      (let ((url (dm/get-fav-urls)))
+        (shell-command
+         (format "open %s" url))
+        ))
 
-  (defun dm/popup-url-selector ()
-    (get-buffer-create "URLS")
-    (switch-to-buffer "URLS")
-    (org-set-frame-title "URLS")
-    (x-focus-frame nil)
-    (dm/open-fav-urls)
-    (delete-frame))
+    (defun dm/popup-url-selector ()
+      (get-buffer-create "URLS")
+      (switch-to-buffer "URLS")
+      (org-set-frame-title "URLS")
+      (x-focus-frame nil)
+      (dm/open-fav-urls)
+      (delete-frame))
+
+
+      (defun dm/popup-org-roam-node-find ()
+      (get-buffer-create "URLS")
+      (switch-to-buffer "URLS")
+      (org-set-frame-title "URLS")
+      (x-focus-frame nil)
+    (org-roam-node-find)
+  (current-buffer-journal 1)
+  )
+
 
 #+end_src
+
+
+#+begin_src elisp
+    (defun dm/org-insert-log()
+     (interactive)
+     (org-insert-heading)
+     (org-time-stamp-inactive '(16))
+     (insert "\n"))
+
+
+  (define-key org-mode-map (kbd "C-c d h") #'dm/org-insert-log)
+
+#+end_src
+
+Preserve desktop
+
+#+begin_src emacs-lisp
+  (setq desktop-lazy-idle-delay 25)
+  (setq desktop-restore-eager 5)
+  (desktop-save-mode 1)
+  (setq desktop-path (list user-emacs-directory))
+  ;;(setq desktop-path `(,(concat user-emacs-directory ".cache/")))
+#+end_src
+
 
 * FIN
 
@@ -2787,5 +2909,15 @@ CLOCK: [2022-08-22 Mon 09:12]--[2022-08-22 Mon 09:37] =>  0:25
 
   (setq gc-cons-threshold (* 50 1000 1000))
 
-(advice-add 'org-schedule :after #'dm/update-agenda-file-list)
+;;(advice-add 'org-schedule :after #'dm/update-agenda-file-list)
+#+end_src
+* Finish
+
+#+begin_src elisp
+
+
+   (menu-bar-mode t) ;; necessary for spaces focusing properly.
+      (push "/opt/homebrew/Cellar/emacs-mac/emacs-28.1-mac-9.0/share/emacs/28.1/lisp/org" load-path)
+  (message "Done loading.")
+
 #+end_src
