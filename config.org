@@ -1,3 +1,5 @@
+;; -*- eval: (git-auto-commit-mode 1) -*-
+
 :PROPERTIES:
 :ID:       1859DDBD-1924-4A25-910F-4DBD4965B8CB
 :END:
@@ -2265,22 +2267,6 @@ Use ~gd~ to jump to definitions in evil mode.
 
 
 
-* org-fc
-
-#+begin_src elisp
-(straight-use-package 'hydra)
-(straight-use-package
- '(org-fc
-   :type git :repo "https://git.sr.ht/~l3kn/org-fc"
-   :files (:defaults "awk" "demo.org")
-   :custom (org-fc-directories `(,(file-truename org-roam-directory)))
-   :config
-   (require 'org-fc-hydra)))
-#+end_src
-
-
-
-
 * evil work arounds
 
 #+begin_src elisp
@@ -2521,6 +2507,7 @@ To workaround it, just set org-fold-core-style to its pre org-mode 9.6 default v
 
 
     (use-package orderless
+      :ensure t
       :init
       ;; Configure a custom style dispatcher (see the Consult wiki)
       ;; (setq orderless-style-dispatchers '(+orderless-dispatch)
@@ -2741,14 +2728,22 @@ Orderless, borrowed from [[https://kristofferbalintona.me/posts/202202211546/][h
       ;; (setq consult-preview-key (list (kbd "<S-down>") (kbd "<S-up>")))
       ;; For some commands and buffer sources it is useful to configure the
       ;; :preview-key on a per-command basis using the `consult-customize' macro.
-      (consult-customize
-       consult-theme
-       :preview-key '(:debounce 0.2 any)
-       consult-ripgrep consult-git-grep consult-grep
-       consult-bookmark consult-recent-file consult-xref
-       consult--source-bookmark consult--source-recent-file
-       consult--source-project-recent-file
-       :preview-key (kbd "M-."))
+
+
+(consult-customize consult-theme
+                   :preview-key
+                   '("M-."
+                     :debounce 0.5 "<up>" "<down>"
+                     :debounce 1 any))
+
+;      (consult-customize
+;       consult-theme
+;       :preview-key '(:debounce 0.2 any)
+;       consult-ripgrep consult-git-grep consult-grep
+;       consult-bookmark consult-recent-file consult-xref
+;       consult--source-bookmark consult--source-recent-file
+;       consult--source-project-recent-file
+;`       :preview-key (kbd "M-."))
 
       ;; Optionally configure the narrowing key.
       ;; Both < and C-+ work reasonably well.
@@ -3080,23 +3075,7 @@ We are using :input-buffer of INFO."
 
 
 
-* hop
-
-#+begin_src elisp
-
-  (use-package pcre
-  ;; :straight if you use stright.el
-  :straight (pcre :host github :repo "syohex/emacs-pcre"
-                  :pre-build ("make" "all")
-                  :files ("pcre.el" "pcre-core.so")))
-
-
-  (use-package hop
-  :straight (hop :host github :repo "Animeshz/hop.el"))
-
-#+end_src
 * FIN
-
 
 #+begin_src emacs-lisp
 
@@ -3108,6 +3087,31 @@ We are using :input-buffer of INFO."
 ;;(advice-add 'org-schedule :after #'dm/update-agenda-file-list)
 #+end_src
 
+* org-modern-indent
+
+https://github.com/jdtsmith/org-modern-indent
+
+#+begin_src elisp
+ (use-package org-modern-indent
+  :straight (org-modern-indent :type git :host github :repo "jdtsmith/org-modern-indent")
+  :config ; add late to hook
+  (add-hook 'org-mode-hook #'org-modern-indent-mode 90))
+#+end_src
+
+
+* org-ql
+
+Patched org-ql. Insert a link to the issue that was patched.
+
+#+begin_src elisp
+  (use-package org-ql :ensure t
+    :straight (:repo "dmitrym0/org-ql"
+                     :host github
+                     :type git))
+
+
+
+#+end_src
 
 * Finish
 
