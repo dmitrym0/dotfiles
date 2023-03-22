@@ -2373,7 +2373,7 @@ Use ~gd~ to jump to definitions in evil mode.
   (global-set-key (kbd "M-i") #'dm/insert-precise)
 
   (defun dm/insert-precise ()
-  (org-noter-insert-preci
+  (org-noter-insert-precise-note 't))
 
   (use-package pdf-tools :ensure t)
   ;; (push "~/workspace/org-noter-plus-djvu" load-path)
