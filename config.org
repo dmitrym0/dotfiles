@@ -2370,6 +2370,11 @@ Use ~gd~ to jump to definitions in evil mode.
   (setq org-noter-max-short-length 80000)
 
 
+  (global-set-key (kbd "M-i") #'dm/insert-precise)
+
+  (defun dm/insert-precise ()
+  (org-noter-insert-preci
+
   (use-package pdf-tools :ensure t)
   ;; (push "~/workspace/org-noter-plus-djvu" load-path)
   ;; (push "~/workspace/org-noter-plus-djvu/other" load-path)
