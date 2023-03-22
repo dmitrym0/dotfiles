@@ -2374,6 +2374,7 @@ Use ~gd~ to jump to definitions in evil mode.
   (define-key org-noter-doc-mode-map (kbd "M-i") #'dm/insert-precise)
 
   (defun dm/insert-precise ()
+    (interactive "P")
     (org-noter-insert-precise-note 't))
 
   (use-package pdf-tools :ensure t)
