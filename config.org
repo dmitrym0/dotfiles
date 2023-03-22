@@ -2371,6 +2371,7 @@ Use ~gd~ to jump to definitions in evil mode.
 
 
   (define-key org-noter-doc-mode-map (kbd "M-i") nil)
+  (define-key -doc-mode-map (kbd "M-i") nil)
   (define-key org-noter-doc-mode-map (kbd "M-i") #'dm/insert-precise)
 
   (defun dm/insert-precise (&optional optional)
