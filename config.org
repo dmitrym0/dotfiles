@@ -2364,6 +2364,8 @@ Use ~gd~ to jump to definitions in evil mode.
 #+begin_src elisp
   (message "load org noter fork.")
 
+  (use-package org-noter :ensure t)
+
   (setq org-noter-max-short-selected-text-length 700000)
   (setq org-noter-max-short-length 80000)
 
@@ -2377,7 +2379,6 @@ Use ~gd~ to jump to definitions in evil mode.
   ;; (require 'org-noter-nov)
   ;; (require 'org-noter-pdf)
 
-  (use-package org-noter :ensure t)
 
   (define-advice org-noter--insert-heading (:after (level title &optional newlines-number location) add-full-body-quote)
     "Advice for org-noter--insert-heading.
