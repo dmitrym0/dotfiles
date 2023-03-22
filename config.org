@@ -2370,6 +2370,7 @@ Use ~gd~ to jump to definitions in evil mode.
   (setq org-noter-max-short-length 80000)
 
 
+  (define-key org-noter-doc-mode-map (kbd "M-i") nil)
   (define-key org-noter-doc-mode-map (kbd "M-i") #'dm/insert-precise)
 
   (defun dm/insert-precise ()
