@@ -3065,6 +3065,14 @@ We are using :input-buffer of INFO."
 
 
 
+
+* gptel
+
+#+begin_src elisp
+  (use-package gptel :ensure t)
+
+#+end_src
+
 * jira
 
 #+begin_src elisp
