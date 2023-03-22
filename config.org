@@ -2379,8 +2379,7 @@ Use ~gd~ to jump to definitions in evil mode.
 
   (use-package org-noter :ensure t)
 
-  ;; (define-a
-    dvice org-noter--insert-heading (:after (level title &optional newlines-number location) add-full-body-quote)
+  (define-advice org-noter--insert-heading (:after (level title &optional newlines-number location) add-full-body-quote)
     "Advice for org-noter--insert-heading.
 
   When inserting a precise note insert the text of the note in the body as an org mode QUOTE block.
@@ -3091,10 +3090,10 @@ We are using :input-buffer of INFO."
 https://github.com/jdtsmith/org-modern-indent
 
 #+begin_src elisp
-(use-package org-modern-indent
- :straight (org-modern-indent :type git :host github :repo "jdtsmith/org-modern-indent")
- :config ; add late to hook
- (add-hook 'org-mode-hook #'org-modern-indent-mode 90))
+;; (use-package org-modern-indent
+;;  :straight (org-modern-indent :type git :host github :repo "jdtsmith/org-modern-indent")
+;;  :config ; add late to hook
+;;  (add-hook 'org-mode-hook #'org-modern-indent-mode 90))
 #+end_src
 
 
