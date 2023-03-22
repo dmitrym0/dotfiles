@@ -666,21 +666,6 @@ org-agenda everywhere.
   :after magit)
 #+end_src
 
-** straight.el
-#+begin_src elisp
-(defvar bootstrap-version)
-(let ((bootstrap-file
-       (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
-      (bootstrap-version 5))
-  (unless (file-exists-p bootstrap-file)
-    (with-current-buffer
-        (url-retrieve-synchronously
-         "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
-         'silent 'inhibit-cookies)
-      (goto-char (point-max))
-      (eval-print-last-sexp)))
-  (load bootstrap-file nil 'nomessage))
-#+end_src
 ** paredit
 #+begin_src elisp
   (use-package paredit
@@ -2384,16 +2369,17 @@ Use ~gd~ to jump to definitions in evil mode.
 
 
   (use-package pdf-tools :ensure t)
-  (push "~/workspace/org-noter-plus-djvu" load-path)
-  (push "~/workspace/org-noter-plus-djvu/other" load-path)
-  (push "~/workspace/org-noter-plus-djvu/modules" load-path)
+  ;; (push "~/workspace/org-noter-plus-djvu" load-path)
+  ;; (push "~/workspace/org-noter-plus-djvu/other" load-path)
+  ;; (push "~/workspace/org-noter-plus-djvu/modules" load-path)
 
-  (require 'org-noter)
-  (require 'org-noter-nov)
-  (require 'org-noter-pdf)
+  ;; (require 'org-noter)
+  ;; (require 'org-noter-nov)
+  ;; (require 'org-noter-pdf)
 
 
-  (define-advice org-noter--insert-heading (:after (level title &optional newlines-number location) add-full-body-quote)
+  ;; (define-a
+    dvice org-noter--insert-heading (:after (level title &optional newlines-number location) add-full-body-quote)
     "Advice for org-noter--insert-heading.
 
   When inserting a precise note insert the text of the note in the body as an org mode QUOTE block.
