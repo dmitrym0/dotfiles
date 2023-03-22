@@ -2377,6 +2377,7 @@ Use ~gd~ to jump to definitions in evil mode.
   ;; (require 'org-noter-nov)
   ;; (require 'org-noter-pdf)
 
+  (use-package org-noter :ensure t)
 
   ;; (define-a
     dvice org-noter--insert-heading (:after (level title &optional newlines-number location) add-full-body-quote)
