@@ -2370,7 +2370,7 @@ Use ~gd~ to jump to definitions in evil mode.
   (setq org-noter-max-short-length 80000)
 
 
-  (global-unset-key (kbd "M-i"))
+  (define-key org-noter-doc-mode-map (kbd "M-i") dm/insert-precise)
   (global-set-key (kbd "M-i") #'dm/insert-precise)
 
   (defun dm/insert-precise ()
