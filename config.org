@@ -3104,10 +3104,10 @@ We are using :input-buffer of INFO."
 https://github.com/jdtsmith/org-modern-indent
 
 #+begin_src elisp
- (use-package org-modern-indent
-  :straight (org-modern-indent :type git :host github :repo "jdtsmith/org-modern-indent")
-  :config ; add late to hook
-  (add-hook 'org-mode-hook #'org-modern-indent-mode 90))
+(use-package org-modern-indent
+ :straight (org-modern-indent :type git :host github :repo "jdtsmith/org-modern-indent")
+ :config ; add late to hook
+ (add-hook 'org-mode-hook #'org-modern-indent-mode 90))
 #+end_src
 
 
