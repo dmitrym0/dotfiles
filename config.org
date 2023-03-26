@@ -627,7 +627,8 @@ should be continued."
 #+end_src
 
 ** packages
-Time trakcing
+Time tracking with org-pomodoro.
+
 #+begin_src elisp
   (use-package org-pomodoro)
 #+end_src
