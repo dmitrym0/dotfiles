@@ -861,15 +861,6 @@ Python
                                           ;(use-package dap-python  :config (dap-mode 1) (dap-ui-mode 1))
 #+end_src
 
-https://github.com/zk-phi/indent-guide
-show vertical lines to guide indentation
-#+begin_src emacs-lisp
-  ;; (use-package indent-guide
-  ;;
-  ;;   :config
-  ;;   (indent-guide-global-mode))
-#+end_src
-
 
 git-auto-commit-mode
 
@@ -914,15 +905,10 @@ Fuzzy? matching. ~org refi~, matches ~org-refile~ and ~org-agenda-refile~
 ;(add-to-list 'org-export-filter-plain-text-functions 'my-html-mark-tag)
 
  #+end_src
+
 ** ox-hugo
  #+begin_src elisp
-    (use-package ox-hugo
-
-      :config
-        (use-package ox-hugo
-
-      :config
-      ))
+   (use-package ox-hugo)
  #+end_src
 
 ** js2 (TypeScript refactoring)
