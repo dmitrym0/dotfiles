@@ -678,10 +678,11 @@ Show a tabbar at the top of the screen.
 ** Treemacs
 A file browser.
 
-(use-package treemacs )
-(use-package treemacs-projectile )
-(use-package treemacs-all-the-icons )
-
+#+begin_src elisp
+  (use-package treemacs )
+  (use-package treemacs-projectile )
+  (use-package treemacs-all-the-icons )
+#+end_src
 
 
 
