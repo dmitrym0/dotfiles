@@ -10,6 +10,7 @@
 
 My emacs init file.
 
+Gets tangled by =~/.emacs=
 
 
 ** Don't forget
