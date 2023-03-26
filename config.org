@@ -81,11 +81,7 @@ Soft wrap lines (wrap around past screen boundary)
   (use-package org-pomodoro )
   (setq mac-option-modifier 'meta)
 
-  (setq org-hyperscheduler-readonly-mode nil)
-  (setq org-hyperscheduler-exclude-from-org-roam t)
-
   (add-hook 'text-mode-hook 'visual-line-mode)
-
 
   ;; save all org buffers
   ;; this is very slow. disable for now?
