@@ -8,7 +8,7 @@
 
 My emacs init file.
 
-This file gets tangled via =~/.ea
+This file gets tangled via =~/.emacs=.
 
 ** Don't forget
 
@@ -40,6 +40,7 @@ When idling GC is triggered and a low threshold is set.
 
 * Includes
 
+Attempting to refactor and break this file apart a bit.
 
 #+begin_src emacs-lisp
   (message "Loading startup")
