@@ -4,7 +4,6 @@
 :END:
 #+TITLE: DotConfig
 
-
 * Intro
 
 My emacs init file.
@@ -20,9 +19,9 @@ My emacs init file.
 - Change highlight color. Selecting with a mouse or ~C-SPC~ I can't see the highlight.
 
 
-* garbage collection hack
+* Garbage collection hack
 
-[[https://github.com/emacsmirror/gcmh][garbage collection magic hack]]
+[[https://github.com/emacsmirror/gcmh][Garbage collection magic hack]]
 
 #+begin_quote
 Enforce a sneaky Garbage Collection strategy to minimize GC interference with user activity.
@@ -38,10 +37,6 @@ When idling GC is triggered and a low threshold is set.
 #+end_src
 
 
-** [2022-11-16 Wed]
-
-Coming back to emacs after a while (hours?), it sometimes hangs. This is an attempt at fixing this issue.
-
 * Includes
 
 
@@ -56,8 +51,9 @@ Coming back to emacs after a while (hours?), it sometimes hangs. This is an atte
 Emacs Nursery; stuff that I'm working on.
 
 #+begin_src elisp
-(straight-use-package '(dm-dueapp-integration :type git :local-repo "~/workspace/emacs-nursery" :no-build t :no-install t))
-;;  (use-package 'dm-org-journal-in-current-buffer)
+  (straight-use-package '(dm-dueapp-integration :type git :local-repo "~/workspace/emacs-nursery" :no-build t :no-install t))
+  (straight-use-package '(dm-org-journal-in-current-buffer :type git :local-repo "~/workspace/emacs-nursery" :no-build t :no-install t))
+  ;;  (use-package )
 #+end_src
 
 Can also do it like so:
