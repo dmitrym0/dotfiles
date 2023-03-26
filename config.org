@@ -144,40 +144,40 @@ Ensure that files are reloaded from disk (when switching branches, or from dropb
 
 Store autosaves elsewhere, borrowed from [[https://github.com/larstvei/dot-emacs][here]]
 #+begin_src emacs-lisp
-(defvar emacs-autosave-directory
-  (concat user-emacs-directory "autosaves/")
-  "This variable dictates where to put auto saves. It is set to a
-  directory called autosaves located wherever your .emacs.d/ is
-  located.")
+  (defvar emacs-autosave-directory
+    (concat user-emacs-directory "autosaves/")
+    "This variable dictates where to put auto saves. It is set to a
+    directory called autosaves located wherever your .emacs.d/ is
+    located.")
 
-;; Sets all files to be backed up and auto saved in a single directory.
-(setq backup-directory-alist
-      `((".*" . ,emacs-autosave-directory))
-      auto-save-file-name-transforms
-      `((".*" ,emacs-autosave-directory t)))
+  ;; Sets all files to be backed up and auto saved in a single directory.
+  (setq backup-directory-alist
+        `((".*" . ,emacs-autosave-directory))
+        auto-save-file-name-transforms
+        `((".*" ,emacs-autosave-directory t)))
 #+end_src
 
 
-turn on variable syntax highlighting
+Turn on variable syntax highlighting
 #+begin_src emacs-lisp
-(use-package color-identifiers-mode )
-(add-hook 'after-init-hook 'global-color-identifiers-mode)
+  (use-package color-identifiers-mode )
+  (add-hook 'after-init-hook 'global-color-identifiers-mode)
 #+end_src
 
-no startup message
+No startup message
 #+begin_src emacs-lisp
-(setq inhibit-startup-message t)
+  (setq inhibit-startup-message t)
 #+end_src
 
-disable lockfiles
+Disable lockfiles
 #+begin_src emacs-lisp
   (setq create-lockfiles nil)
 #+end_src
 
 
-show column numbers in the mode line
+Show column numbers in the mode line
 #+begin_src emacs-lisp
-(column-number-mode)
+  (column-number-mode)
 #+end_src
 
 #+begin_src elisp
@@ -192,7 +192,7 @@ show column numbers in the mode line
     (add-hook mode (lambda () (display-line-numbers-mode 0))))
 #+end_src
 
-show trailing whitespaces, kinda makes emacs ugly.
+Show trailing whitespaces, kinda makes emacs ugly.
 #+begin_src emacs-lisp
   (setq-default show-trailing-whitespace t)
   (setq-default indicate-empty-lines t)
@@ -226,25 +226,20 @@ Highlight everything between two exclamation marks (!highlighted!)
 #+end_src
 
 
-enable wakatime
+Enable wakatime
 #+begin_src elisp
   (global-wakatime-mode)
-#+end_src
-
-When we switch windows or scroll, for example, we get a wave of light near the cursor.
-#+begin_src emacs-lisp
 #+end_src
 
 
 Use doom modeline
 #+begin_src emacs-lisp
   (message "Enable doom modeline")
- (use-package doom-modeline :diminish
-   :config (doom-modeline-mode 1)
-   ;; Whether to use hud instead of default bar. It's only respected in GUI.
-   (setq doom-modeline-hud nil)
-   (winner-mode 1))
-
+  (use-package doom-modeline :diminish
+    :config (doom-modeline-mode 1)
+    ;; Whether to use hud instead of default bar. It's only respected in GUI.
+    (setq doom-modeline-hud nil)
+    (winner-mode 1))
 #+end_src
 
 
