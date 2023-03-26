@@ -60,6 +60,14 @@ Emacs Nursery; stuff that I'm working on.
 (straight-use-package '(dm-org-journal-in-current-buffer :type git :local-repo "~/workspace/emacs-nursery" :no-build t :no-install t))
 #+end_src
 
+
+* Hyperscheduler
+#+begin_src elisp
+(setq org-hyperscheduler-readonly-mode nil)
+(setq org-hyperscheduler-exclude-from-org-roam t)
+#+end_src
+
+
 * Init
 
 When something weird happens and you hammer ~C-g~ or kill with ~USR2~ try to get a trace to see what's going on.
