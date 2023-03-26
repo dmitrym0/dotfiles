@@ -1033,25 +1033,27 @@ From [[https://massimilianomirra.com/notes/lightweight-external-command-integrat
     (setq anki-editor-create-decks 't))
     (customize-set-variable 'org-anki-default-deck "Mega::org-anki")
 #+end_src
+
 ** Gcal
 #+begin_src elisp
-      (use-package org-gcal
+  (use-package org-gcal
 
-        :after org
-        :config
-        (setq org-gcal-remove-api-cancelled-event t) ;; delete removed events without asking.
-        (setq org-gcal-header-alist '(("dmitrym@gmail.com" . "#+PROPERTY: TIMELINE_FACE \"pink\"\n"))
-              org-gcal-file-alist `(
-    ("dmitrym@gmail.com" .  ,(concat org-directory "/gcal.org"))
-    ("dmitry.markushevich@varsitytutors.com" .  ,(concat org-directory "/vtcal.org"))
-  )
-              org-gcal-auto-archive nil
-              org-gcal-notify-p nil))
+    :after org
+    :config
+    (setq org-gcal-remove-api-cancelled-event t) ;; delete removed events without asking.
+    (setq org-gcal-header-alist '(("dmitrym@gmail.com" . "#+PROPERTY: TIMELINE_FACE \"pink\"\n"))
+          org-gcal-file-alist `(
+                                ("dmitrym@gmail.com" .  ,(concat org-directory "/gcal.org"))
+                                ("dmitry.markushevich@varsitytutors.com" .  ,(concat org-directory "/vtcal.org"))
+                                )
+          org-gcal-auto-archive nil
+          org-gcal-notify-p nil))
 
-                                              ;(add-hook 'org-agenda-mode-hook 'org-gcal-fetch)
-                                              ;(add-hook 'org-capture-after-finalize-hook 'org-gcal-fetch))
+    ;(add-hook 'org-agenda-mode-hook 'org-gcal-fetch)
+    ;(add-hook 'org-capture-after-finalize-hook 'org-gcal-fetch))
 
 #+end_src
+
 ** Org-capture-popout frame
 #+begin_src emacs-lisp
   (load-file "~/.emacs.d/extra/capture.el")
