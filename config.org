@@ -245,7 +245,6 @@ Use doom modeline
 
 #+begin_src emacs-lisp
   (use-package golden-ratio
-
     :diminish golden-ratio-mode
     :init (golden-ratio-mode 1))
 #+end_src
