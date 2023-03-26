@@ -78,22 +78,23 @@ Keywords: errors
 #+end_src
 
 Soft wrap lines (wrap around past screen boundary)
+
 #+begin_src emacs-lisp
-  (message "Basic init")
-                                          ;(global-visual-line-mode 1)
-  ;; show where the newline starts in visual line mode
-  (setq visual-line-fringe-indicators '(left-curly-arrow right-curly-arrow))
-  (show-paren-mode 1)
-  (setq show-paren-delay 0)
-  (winner-mode 1)
-  (use-package org-pomodoro )
-  (setq mac-option-modifier 'meta)
+(message "Basic init")
+;(global-visual-line-mode 1)
+;; show where the newline starts in visual line mode
+(setq visual-line-fringe-indicators '(left-curly-arrow right-curly-arrow))
+(show-paren-mode 1)
+(setq show-paren-delay 0)
+(winner-mode 1)
+(use-package org-pomodoro )
+(setq mac-option-modifier 'meta)
 
-  (add-hook 'text-mode-hook 'visual-line-mode)
+(add-hook 'text-mode-hook 'visual-line-mode)
 
-  ;; save all org buffers
-  ;; this is very slow. disable for now?
-  (add-hook 'auto-save-hook 'org-save-all-org-buffers)
+;; save all org buffers
+;; this is very slow. disable for now?
+(add-hook 'auto-save-hook 'org-save-all-org-buffers)
 #+end_src
 
 
