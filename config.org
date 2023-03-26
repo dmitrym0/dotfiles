@@ -596,6 +596,116 @@ org-agenda everywhere.
 #+end_src
 
 * Modules
+
+** [[https://github.com/nobiot/org-transclusion][org-transclusion]]
+
+Include nodes from other files
+
+Suggested keymappings:
+
+
+(define-key global-map (kbd "<f12>") #'org-transclusion-add)
+(define-key global-map (kbd "C-n t") #'org-transclusion-mode)
+
+
+#+begin_src elisp
+  (use-package org-transclusion
+    :after org)
+
+  ;; dont include the first section since it's usually metadata
+  (setq org-transclusion-include-first-section nil)
+  (set-face-attribute
+   'org-transclusion-fringe nil
+   :foreground "green"
+   :background "green")
+#+end_src
+
+
+*** export path for org-export/babel
+[[http://rwx.io/posts/org-export-configurations/][source]]
+
+#+begin_src elisp
+  ;; (defvar org-export-output-directory-prefix "export_" "prefix of directory used for org-mode export")
+
+  ;; (defadvice org-export-output-file-name (before org-add-export-dir activate)
+  ;;   "Modifies org-export to place exported files in a different directory"
+  ;;   (when (not pub-dir)
+  ;;     (setq pub-dir (concat org-export-output-directory-prefix (substring extension 1)))
+  ;;     (when (not (file-directory-p pub-dir))
+  ;;       (make-directory pub-dir))))
+
+
+
+  ;; (defun org-export-output-file-name-modified (orig-fun extension &optional subtreep pub-dir)
+  ;;   (unless pub-dir
+  ;;     (setq pub-dir "exported-org-files")
+  ;;     (unless (file-directory-p pub-dir)
+  ;;       (make-directory pub-dir)))
+  ;;   (apply orig-fun extension subtreep pub-dir nil))
+  ;; (advice-add 'org-export-output-file-name :around #'org-export-output-file-name-modified)
+    #+end_src
+
+
+
+#+begin_src elisp
+
+  (require 'ox-publish)
+  (setq org-publish-project-alist
+        '(
+          ("org-notes"
+           :base-directory "~/Dropbox/orgmode/"
+           :publishing-directory "~/export"
+           :publishing-function org-md-publish-to-md
+           )
+
+          ("org-notes-1"
+           :base-directory "~/org-roam/"
+           :publishing-directory "~/export"
+           :publishing-function org-md-publish-to-md
+           )
+
+          ("org-static"
+           :base-extension "png"
+           :base-directory "~/Dropbox/orgmode/"
+           :publishing-directory "~/export"
+           :publishing-function org-publish-attachment
+           )
+
+          ("org-static-1"
+           :base-extension "png"
+           :base-directory "~/org-roam/"
+           :publishing-directory "~/export"
+           :publishing-function org-publish-attachment
+           )
+
+
+
+          ("falcon-docs"
+           :base-directory "~/org-roam/"
+           :publishing-function org-md-publish-to-morg-md-publish-to-md
+           :publishing-directory "~/org-roam/export/falcon"
+           :exclude ".*"
+           :include ["~/org-roam/falcon_environments.org" "~/org-roam/falcon_gateway_v1.org" "~/org-roam/falcon_changelog.org" "~/org-roam/falcon_v1_build_process.org" "~/org-roam/falcon_api.org" "~/org-roam/falcon_plugins.org"]
+           )
+
+          ("falcon-static"
+           :base-extension "png"
+           :base-directory "~/org-roam/falcon/"
+           :publishing-directory "~/org-roam/export/falcon/falcon/"
+           :publishing-function org-publish-attachment)
+
+
+          ("org-project" :components ("org-notes" "org-static" "org-notes-1" "org-static-1"))
+          ("falcon-project" :components ("falcon-docs" "falcon-static"))
+
+
+          ))
+
+
+
+#+end_src
+
+
 ** Magit
 #+begin_src elisp
   (use-package magit )
@@ -1214,6 +1324,7 @@ From [[https://massimilianomirra.com/notes/lightweight-external-command-integrat
 
 #+end_src
 
+
 * Last
 Start maximized
 ** TODO There's some issue with this; probably due to the order of operations?
@@ -1345,115 +1456,6 @@ Inotify is a linux feature; doesn't work on mac.
   (global-auto-revert-mode 1)
   (setq auto-revert-use-notify nil)
   (setq global-auto-revert-non-file-buffers nil)
-#+end_src
-
-
-** [2022-02-24 Thu]
-*** [[https://github.com/nobiot/org-transclusion][org-transclusion]] include nodes from other files
-
-Suggested keymappings:
-
-
-(define-key global-map (kbd "<f12>") #'org-transclusion-add)
-(define-key global-map (kbd "C-n t") #'org-transclusion-mode)
-
-
-#+begin_src elisp
-  (use-package org-transclusion
-  :after org)
-
-
-  ;; dont include the first section since it's usually metadata
-  (setq org-transclusion-include-first-section nil)
-  (set-face-attribute
- 'org-transclusion-fringe nil
- :foreground "green"
- :background "green")
-#+end_src
-
-
-*** export path for org-export/babel
-[[http://rwx.io/posts/org-export-configurations/][source]]
-
-#+begin_src elisp
-  ;; (defvar org-export-output-directory-prefix "export_" "prefix of directory used for org-mode export")
-
-  ;; (defadvice org-export-output-file-name (before org-add-export-dir activate)
-  ;;   "Modifies org-export to place exported files in a different directory"
-  ;;   (when (not pub-dir)
-  ;;     (setq pub-dir (concat org-export-output-directory-prefix (substring extension 1)))
-  ;;     (when (not (file-directory-p pub-dir))
-  ;;       (make-directory pub-dir))))
-
-
-
-  ;; (defun org-export-output-file-name-modified (orig-fun extension &optional subtreep pub-dir)
-  ;;   (unless pub-dir
-  ;;     (setq pub-dir "exported-org-files")
-  ;;     (unless (file-directory-p pub-dir)
-  ;;       (make-directory pub-dir)))
-  ;;   (apply orig-fun extension subtreep pub-dir nil))
-  ;; (advice-add 'org-export-output-file-name :around #'org-export-output-file-name-modified)
-    #+end_src
-
-
-
-#+begin_src elisp
-
-  (require 'ox-publish)
-  (setq org-publish-project-alist
-        '(
-          ("org-notes"
-           :base-directory "~/Dropbox/orgmode/"
-           :publishing-directory "~/export"
-           :publishing-function org-md-publish-to-md
-           )
-
-          ("org-notes-1"
-           :base-directory "~/org-roam/"
-           :publishing-directory "~/export"
-           :publishing-function org-md-publish-to-md
-           )
-
-          ("org-static"
-           :base-extension "png"
-           :base-directory "~/Dropbox/orgmode/"
-           :publishing-directory "~/export"
-           :publishing-function org-publish-attachment
-           )
-
-          ("org-static-1"
-           :base-extension "png"
-           :base-directory "~/org-roam/"
-           :publishing-directory "~/export"
-           :publishing-function org-publish-attachment
-           )
-
-
-
-          ("falcon-docs"
-           :base-directory "~/org-roam/"
-           :publishing-function org-md-publish-to-morg-md-publish-to-md
-           :publishing-directory "~/org-roam/export/falcon"
-           :exclude ".*"
-           :include ["~/org-roam/falcon_environments.org" "~/org-roam/falcon_gateway_v1.org" "~/org-roam/falcon_changelog.org" "~/org-roam/falcon_v1_build_process.org" "~/org-roam/falcon_api.org" "~/org-roam/falcon_plugins.org"]
-           )
-
-          ("falcon-static"
-           :base-extension "png"
-           :base-directory "~/org-roam/falcon/"
-           :publishing-directory "~/org-roam/export/falcon/falcon/"
-           :publishing-function org-publish-attachment)
-
-
-          ("org-project" :components ("org-notes" "org-static" "org-notes-1" "org-static-1"))
-          ("falcon-project" :components ("falcon-docs" "falcon-static"))
-
-
-          ))
-
-
-
 #+end_src
 
 
