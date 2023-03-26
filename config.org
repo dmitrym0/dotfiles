@@ -1315,65 +1315,6 @@ blogging with ox-hugo
 #+end_src
 
 
-** [2022-03-14 Mon]
-#+begin_src elisp
-  ;; (use-package centaur-tabs
-  ;;
-  ;; :hook
-  ;; (dashboard-mode . centaur-tabs-local-mode)
-  ;; (vterm-m/ode . centaur-tabs-local-mode)
-  ;; (calendar-mode . centaur-tabs-local-mode)
-  ;; (org-agenda-mode .ecentaur-tabs-local-mode)
-  ;; (helpful-mode . centaur-tabs-local-mode)
-  ;; (xwidget-webkit-mode . centaur-tabs-local-mode)
-  ;; :config
-  ;; (centaur-tabs-mode)
-  ;; (centaur-tabs-headline-match)
-  ;; (centaur-tabs-group-by-projectile-project)
-  ;; (setq centaur-tabs-style "box"
-  ;;               centaur-tabs-height 27
-  ;;               centaur-tabs-gray-out-icons 'buffer
-  ;;               centaur-tabs-set-modified-marker t
-  ;;               centaur-tabs-show-navigation-buttons nil
-  ;;               centaur-tabs-plain-icons t
-  ;;               centaur-tabs-set-icons nil
-  ;;               uniquify-buffer-name-style 'forward)
-  ;; :bind
-  ;; (setq centaur-tabs-set-icons nil))
-#+end_src
-
-#+begin_src elisp
-
-
-#+end_src
-
-
-#+begin_src elisp
-
-
-
-  ;; Search files, and do it with speed and style
-  (use-package swiper
-    :config
-    (setq swiper-goto-start-of-match t))
-
-
-
-
-  (use-package block-nav
-  :commands (block-nav-next-block block-nav-previous-block block-nav-next-indentation-level block-nav-previous-indentation-level)
-  :bind
-  ("C-c C-j" . block-nav-next-block)
-  ("C-c C-k" . block-nav-previous-block)
-  ("C-c C-l" . block-nav-next-indentation-level)
-  ("C-c C-h" . block-nav-previous-indentation-level))
-#+end_src
-
-
-
-
-
-
 * [2022-03-15 Tue]
 
 Take care of weird mac bindings in emacs-mac from [[https://gist.github.com/railwaycat/3498096][here]].
