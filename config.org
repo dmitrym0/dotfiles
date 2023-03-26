@@ -629,10 +629,7 @@ Suggested keymappings:
 ** Magit
 #+begin_src elisp
   (use-package magit )
-
-
-  (use-package forge
-  :after magit)
+  (use-package forge :after magit)
 #+end_src
 
 ** paredit
