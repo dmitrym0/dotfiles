@@ -1,5 +1,4 @@
 ;; -*- eval: (git-auto-commit-mode 1) -*-
-
 :PROPERTIES:
 :ID:       1859DDBD-1924-4A25-910F-4DBD4965B8CB
 :END:
