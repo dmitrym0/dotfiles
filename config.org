@@ -243,6 +243,7 @@ Use doom modeline
 #+end_src
 
 
+When splitting frames, do it nicely.
 #+begin_src emacs-lisp
   (use-package golden-ratio
     :diminish golden-ratio-mode
