@@ -1064,18 +1064,18 @@ From [[https://massimilianomirra.com/notes/lightweight-external-command-integrat
 #+begin_src elisp
   (use-package company
 
-  :bind (:map company-active-map
-         ("C-n" . company-select-next)
-         ("C-p" . company-select-previous))
-  :config
-  (setq company-idle-delay 0.3)
-  (setq company-backends '((company-capf company-dabbrev-code)))
-  (global-company-mode t))
+    :bind (:map company-active-map
+                ("C-n" . company-select-next)
+                ("C-p" . company-select-previous))
+    :config
+    (setq company-idle-delay 0.3)
+    (setq company-backends '((company-capf company-dabbrev-code)))
+    (global-company-mode t))
 
 
   ;; With use-package:
-(use-package company-box
-  :hook (company-mode . company-box-mode))
+  (use-package company-box
+    :hook (company-mode . company-box-mode))
 
 
 #+end_src
