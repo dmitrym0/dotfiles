@@ -1326,17 +1326,13 @@ Create an org-roam node and insert a link to it in the current buffer. Helpful w
 
 #+end_src
 
-
-
-
-
 * Testing
 
 ** From [[https://systemcrafters.net/emacs-from-scratch/the-best-default-settings/][source]] [2022-02-22 Tue]
 
 Remember recent files,
 #+begin_src elisp
-(recentf-mode 1)
+  (recentf-mode 1)
 #+end_src
 
 Remember minibuffer
@@ -1353,6 +1349,7 @@ Remember and restore the last cursor location of opened files
 
 
 * Auto revert
+Refresh buffer
 inotify is a linux feature; doesn't work on mac.
 
 #+begin_src elisp
