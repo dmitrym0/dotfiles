@@ -775,12 +775,10 @@ WhichKey
 dimmer, highlight current buffer
 #+begin_src emacs-lisp
   (use-package dimmer
-
     :config
-(setq dimmer-adjustment-mode :both)
-     (dimmer-configure-which-key)
-  ;   (dimmer-configure-helm)
-     (dimmer-mode t))
+    (setq dimmer-adjustment-mode :both)
+    (dimmer-configure-which-key)
+    (dimmer-mode t))
 #+end_src
 
 org-roam
