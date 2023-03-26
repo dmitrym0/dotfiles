@@ -1079,11 +1079,10 @@ From [[https://massimilianomirra.com/notes/lightweight-external-command-integrat
 
 
 #+end_src
+
 ** [[https://github.com/alphapapa/ts.el][ts.el]] (time manipulation)
 #+begin_src elisp
    (use-package ts )
-
-
 #+end_src
 
 ** dark room
@@ -1099,9 +1098,12 @@ From [[https://massimilianomirra.com/notes/lightweight-external-command-integrat
     )
 #+end_src
 
+
+** Anki
 #+begin_src elisp
   (use-package org-anki )
 #+end_src
+
 ** [[https://github.com/publicimageltd/delve][delve]]
 
 ** roam timestamps
