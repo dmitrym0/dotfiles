@@ -1108,7 +1108,6 @@ From [[https://massimilianomirra.com/notes/lightweight-external-command-integrat
 
 ** roam timestamps
 #+begin_src elisp
-
   ;; (use-package org-roam-timestamps
   ;;   :after org-roam
   ;;   :config (org-roam-timestamps-mode) (setq org-roam-timestamps-remember-timestamps t))
