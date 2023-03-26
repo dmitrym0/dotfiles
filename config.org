@@ -840,6 +840,27 @@ org-roam-ui
 #+end_src
 
 
+Python
+
+#+begin_src emacs-lisp
+  (use-package elpy
+    :config
+    :defer t ; dont load this immediately
+    :init
+    (advice-add 'python-mode :before 'elpy-enable))
+
+  ;; Enable Flycheck
+  (when (require 'flycheck nil t)
+    (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
+    (add-hook 'elpy-mode-hook 'flycheck-mode))
+
+  ;; python formatter
+  (use-package blacken )
+  (use-package dap-mode )
+                                          ;(use-package dap-ui )
+                                          ;(use-package dap-python  :config (dap-mode 1) (dap-ui-mode 1))
+#+end_src
+
 https://github.com/zk-phi/indent-guide
 show vertical lines to guide indentation
 #+begin_src emacs-lisp
