@@ -1637,8 +1637,7 @@ Sourced from [[https://github.com/hiecaq/quinoa42.github.io/blob/gh-pages/org/do
 
         (setq evil-want-keybinding nil)
         (use-package evil
-
-                          :custom
+         :custom
           (evil-esc-delay 0.001 "avoid ESC/meta mixups")
           (evil-shift-width 4)
           (evil-search-module 'evil-search)
