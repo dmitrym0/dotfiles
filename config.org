@@ -62,6 +62,18 @@ Emacs Nursery; stuff that I'm working on.
 
 
 * Hyperscheduler
+
+#+begin_src elisp
+  (use-package org-hyperscheduler
+    :load-path "~/workspace/org-hyperscheduler"
+    :bind (("C-c d t" . org-hyperscheduler-open))
+    :config
+    (org-hs--log-set-level 'debug))
+#+end_src
+
+
+
+
 #+begin_src elisp
 (setq org-hyperscheduler-readonly-mode nil)
 (setq org-hyperscheduler-exclude-from-org-roam t)
@@ -1382,23 +1394,6 @@ focus-autosave-mode, save all emacs buffers when emacs loses focus
 
 #+begin_src elisp
   (use-package focus-autosave-mode  :init (focus-autosave-mode))
-#+end_src
-
-** [2022-03-03 Thu]
-Load hyperscheduler locally and bind a key.
-
-
-#+begin_src elisp
-;  (push (expand-file-name "~/workspace/org-hyperscheduler") load-path)
-;  (require 'org-hyperscheduler)
-#+end_src
-
-#+begin_src elisp
-  (use-package org-hyperscheduler
-    :load-path "~/workspace/org-hyperscheduler"
-    :bind (("C-c d t" . org-hyperscheduler-open))
-    :config
-    (org-hs--log-set-level 'debug))
 #+end_src
 
 ** [2022-03-09 Wed]
