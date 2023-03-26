@@ -1115,10 +1115,10 @@ From [[https://massimilianomirra.com/notes/lightweight-external-command-integrat
 
 ** org-pomodoro-third-time
 #+begin_src elisp
-    (use-package org-pomodoro-third-time  :init (org-pomodoro-third-time-mode +1)
-  :straight (:repo "telotortium/org-pomodoro-third-time"
-             :host github
-             :type git))
+  (use-package org-pomodoro-third-time  :init (org-pomodoro-third-time-mode +1)
+    :straight (:repo "telotortium/org-pomodoro-third-time"
+                     :host github
+                     :type git))
 
 
 #+end_src
