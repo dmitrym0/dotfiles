@@ -8,6 +8,7 @@
 
 My emacs init file.
 
+This file gets tangled via =~/.ea
 
 ** Don't forget
 
@@ -53,18 +54,7 @@ Emacs Nursery; stuff that I'm working on.
 #+begin_src elisp
   (straight-use-package '(dm-dueapp-integration :type git :local-repo "~/workspace/emacs-nursery" :no-build t :no-install t))
   (straight-use-package '(dm-org-journal-in-current-buffer :type git :local-repo "~/workspace/emacs-nursery" :no-build t :no-install t))
-  ;;  (use-package )
 #+end_src
-
-Can also do it like so:
-
-#+begin_example
-(use-package hydra
-  :load-path "site-lisp/hydra")
-#+end_example
-
-
-more in [[https://jwiegley.github.io/use-package/keywords/][use-package docs.]]
 
 
 * Init
