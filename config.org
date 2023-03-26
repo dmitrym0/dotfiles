@@ -343,18 +343,19 @@ find symbol under cursor in current project
 
 indent all org mode files
 #+begin_src emacs-lisp
-    (message "Init org")
-    (setq org-startup-indented t)
-    (setq org-ellipsis "↪")
-    (setq org-outline-path-complete-in-steps nil)
-    (setq org-refile-targets '((org-agenda-files :maxlevel . 3)))
-    (setq org-refile-use-outline-path 'file)
-    (setq org-download-image-dir (concat org-directory "/images"))
-    (setq org-image-actual-width '(300))
-    (setq org-download-heading-lvl nil) ; dont use headings when creating image names
-    (setq org-download-screenshot-method "/opt/homebrew/bin/pngpaste %s")
+  (message "Init org")
+  (setq org-fold-core-style 'text-properties)
+  (setq org-startup-indented t)
+  (setq org-ellipsis "↪")
+  (setq org-outline-path-complete-in-steps nil)
+  (setq org-refile-targets '((org-agenda-files :maxlevel . 3)))
+  (setq org-refile-use-outline-path 'file)
+  (setq org-download-image-dir (concat org-directory "/images"))
+  (setq org-image-actual-width '(300))
+  (setq org-download-heading-lvl nil) ; dont use headings when creating image names
+  (setq org-download-screenshot-method "/opt/homebrew/bin/pngpaste %s")
   ;; for performance
-    (setq org-agenda-dim-blocked-tasks nil)
+  (setq org-agenda-dim-blocked-tasks nil)
   ;; Stop preparing agenda buffers on startup:
   (setq org-agenda-inhibit-startup t)
 #+end_src
