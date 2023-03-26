@@ -1285,7 +1285,10 @@ Call this from xbar to show remaining pomodoro time.
     (org-pomodoro '(16)))
 #+end_src
 
-** bind immediate
+** Bind Immediate
+
+Create an org
+
 #+begin_src elisp
   (defun org-roam-node-insert-immediate (arg &rest args)
     (interactive "P")
