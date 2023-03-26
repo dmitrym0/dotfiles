@@ -647,6 +647,7 @@ Suggested keymappings:
 )
 
 #+end_src
+
 ** Tabbar
 
 Show a tabbar at the top of the screen.
@@ -673,6 +674,7 @@ Show a tabbar at the top of the screen.
   ;; ("C-<prior>" . centaur-tabs-backward)
   ;; ("C-<next>" . centaur-tabs-forward))
 #+end_src
+
 ** Treemacs
 A file browser.
 
