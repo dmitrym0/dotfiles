@@ -61,18 +61,6 @@ Emacs Nursery; stuff that I'm working on.
 #+end_src
 
 
-* Hyperscheduler
-
-#+begin_src elisp
-  (use-package org-hyperscheduler
-    :load-path "~/workspace/org-hyperscheduler"
-    :bind (("C-c d t" . org-hyperscheduler-open))
-    :config
-    (org-hs--log-set-level 'debug))
-#+end_src
-
-
-
 
 #+begin_src elisp
   (use-package org-hyperscheduler
