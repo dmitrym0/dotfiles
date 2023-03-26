@@ -1236,7 +1236,7 @@ Start maximized
 #+end_src
 
 
-** start server
+** Start Emacs server
 #+begin_src emacs-lisp
   (server-start)
 #+end_src
@@ -1255,7 +1255,10 @@ timer setup.
 #+end_src
 
 * Custom LISP
-** pomodoro support
+** Pomodoro support
+
+Call this from xbar to show remaining pomodoro time.
+
 #+begin_src emacs-lisp
   (defun jx/produce-pomodoro-string-for-menu-bar ()
     "Produce the string for the current pomodoro counter to display on the menu bar"
