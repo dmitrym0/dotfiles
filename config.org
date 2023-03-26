@@ -124,19 +124,8 @@ Highlight current line
   (global-hl-line-mode t)
 #+end_src
 
-Ensure that files are reloaded from disk (when switching branches, or from dropbox sync)
 #+begin_src emacs-lisp
-  (use-package activity-watch-mode )
-  (global-auto-revert-mode 1)
-  (setq auto-revert-interval 10
-        ring-bell-function 'ignore
-        scroll-margin 1 ; Space between cursor and top/bottom
-        )
-
-
   (fset 'yes-or-no-p 'y-or-n-p)
-
-  (global-activity-watch-mode t)
   (setq use-package-compute-statistics t)
 
 #+end_src
@@ -1349,9 +1338,9 @@ Remember and restore the last cursor location of opened files
 
 
 * Auto revert
-Refresh buffer
-inotify is a linux feature; doesn't work on mac.
+Ensure that files are reloaded from disk (when switching branches, or from dropbox sync)
 
+Inotify is a linux feature; doesn't work on mac.
 #+begin_src elisp
   (global-auto-revert-mode 1)
   (setq auto-revert-use-notify nil)
