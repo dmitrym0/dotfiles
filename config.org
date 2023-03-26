@@ -1126,8 +1126,6 @@ From [[https://massimilianomirra.com/notes/lightweight-external-command-integrat
 
 ** PlantUML
 #+begin_src elisp
-  ;;  (use-package plantuml-mode  :init (setq plantuml-executable-path "/opt/homebrew/bin/plantuml" plantuml-default-exec-mode 'executable) :mode (("\\.plantuml\\'" . plantuml-mode)))
-
   (use-package plantuml-mode  :init
     ;; Sample executable configuration
     ;; this is for org  mode export
@@ -1285,7 +1283,7 @@ Inotify is a linux feature; doesn't work on mac.
 
 * Testing
 
-** [2022-02-26 Sat]o
+** [2022-02-26 Sat]
 
 focus-autosave-mode, save all emacs buffers when emacs loses focus
 
