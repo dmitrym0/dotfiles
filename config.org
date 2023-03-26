@@ -1371,7 +1371,7 @@ Inotify is a linux feature; doesn't work on mac.
   (setq global-auto-revert-non-file-buffers nil)
 #+end_src
 
-
+* Testing
 
 ** [2022-02-26 Sat]o
 
@@ -1379,7 +1379,7 @@ focus-autosave-mode, save all emacs buffers when emacs loses focus
 
 - [2022-11-16 Wed] is this causing delays on leaving emacs?
 #+begin_src elisp
-;;  (use-package focus-autosave-mode  :init (focus-autosave-mode))
+(use-package focus-autosave-mode  :init (focus-autosave-mode))
 
 #+end_src
 
