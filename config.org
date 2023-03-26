@@ -99,16 +99,15 @@ Soft wrap lines (wrap around past screen boundary)
 
 Weeks start on mondays.
 #+begin_src elisp
-  (setq-default calendar-week-start-day 1)
+(setq-default calendar-week-start-day 1)
 #+end_src
 
 I never want whitespace at the end of lines. Remove it on save.
-
 #+begin_src elisp
-  (add-hook 'before-save-hook 'delete-trailing-whitespace)
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
 #+end_src
 
-highlight current line
+Highlight current line
 #+begin_src emacs-lisp
   (defface dm/hl-line-face
     '((default :extend t)
@@ -127,42 +126,18 @@ highlight current line
 
 Ensure that files are reloaded from disk (when switching branches, or from dropbox sync)
 #+begin_src emacs-lisp
-(use-package activity-watch-mode )
-    (global-auto-revert-mode 1)
-    (setq auto-revert-interval 10
-            ring-bell-function 'ignore
-            scroll-margin 1 ; Space between cursor and top/bottom
+  (use-package activity-watch-mode )
+  (global-auto-revert-mode 1)
+  (setq auto-revert-interval 10
+        ring-bell-function 'ignore
+        scroll-margin 1 ; Space between cursor and top/bottom
         )
 
 
-      (fset 'yes-or-no-p 'y-or-n-p)
+  (fset 'yes-or-no-p 'y-or-n-p)
 
   (global-activity-watch-mode t)
   (setq use-package-compute-statistics t)
-
-#+end_src
-
-
-#+begin_src elisp
-  ;; Show a message when garbage collection happens? Useful while tuning the GC
-  (setq garbage-collection-messages nil)
-
-  ;; Temporarily set a high value of 256 MB to trigger less garbage collections
-  ;; during initialization. The Emacs default is a threshold of 800 KB
-  (setq gc-cons-threshold (* 256 1000000))
-
-  ;; Then lower the threshold to 4 MB during normal operation to prevent longer
-  ;; GC pauses, but still have it at a higher value than the default to
-  ;; experience less mini-interruptions – eg. while scrolling larger buffers.
-  (add-hook 'emacs-startup-hook
-            (lambda ()
-              (setq gc-cons-threshold (* 4 1000000))))
-
-
-  (add-function :after
-                after-focus-change-function
-                (lambda () (unless (frame-focus-state)
-                             (garbage-collect))))
 
 #+end_src
 
