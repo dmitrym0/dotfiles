@@ -2872,7 +2872,7 @@ Orderless, borrowed from [[https://kristofferbalintona.me/posts/202202211546/][h
   (use-package org-drill)
 
 
-  (use-package '(org-roam-review :type git :local-repo "~/workspace/emacs-nursery" :no-build t :no-install t)
+  (use-package org-roam-review :straight (org-roam-review :type git :local-repo "~/workspace/emacs-nursery" :no-build t :no-install t)
   :commands (org-roam-review
              org-roam-review-list-by-maturity
              org-roam-review-list-recently-added)
@@ -3120,11 +3120,13 @@ https://github.com/jdtsmith/org-modern-indent
 
 Patched org-ql. Insert a link to the issue that was patched.
 
+in .emacs.
+
 #+begin_src elisp
-  (use-package org-ql :straight t
-    :straight (:repo "dmitrym0/org-ql"
-                     :host github
-                     :type git))
+  ;; (use-package org-ql :straight t
+  ;;   :straight (:repo "dmitrym0/org-ql"
+  ;;                    :host github
+  ;;                    :type git))
 
 
 
