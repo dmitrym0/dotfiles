@@ -2443,7 +2443,7 @@ Use ~gd~ to jump to definitions in evil mode.
 
 #+end_src
 
-Preserve emacs open buffers. Restore 5 on open and then when emacs is idle open more.
+Preserve emacs open buffers. Restore 5 on open and then when emacs is idle open more. It's =~/.emacs.d/.emacs.desktop=
 
 #+begin_src emacs-lisp
   (message "Load desktop")
