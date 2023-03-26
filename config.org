@@ -735,7 +735,7 @@ A file browser.
 #+begin_src emacs-lisp
   (projectile-mode +1)
   (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
-  (setq projectile-project-search-path '("~/workspace/" "~/workspace/github" ("~/Exercism/emacs-lisp/" . 1)))
+  (setq projectile-project-search-path '("~/workspace/" "~/workspace/github" ))
 #+end_src
 
 ** Random
