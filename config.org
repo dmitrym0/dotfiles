@@ -2777,12 +2777,7 @@ We are using :input-buffer of INFO."
 
 #+begin_src emacs-lisp
 
-        (setq org-gcal-remove-api-cancelled-events t) ;; delete removed events without asking.
   (toggle-frame-maximized)
-
-  (setq gc-cons-threshold (* 50 1000 1000))
-
-;;(advice-add 'org-schedule :after #'dm/update-agenda-file-list)
 #+end_src
 
 * org-modern-indent
