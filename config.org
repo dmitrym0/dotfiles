@@ -75,8 +75,24 @@ Emacs Nursery; stuff that I'm working on.
 
 
 #+begin_src elisp
-(setq org-hyperscheduler-readonly-mode nil)
-(setq org-hyperscheduler-exclude-from-org-roam t)
+
+  #+begin_src elisp
+;;   (use-package org-hyperscheduler
+;;
+;;   :straight
+;;   (:repo "dmitrym0/org-hyperscheduler"
+;;    :host github
+;;    :type git
+;;    :files ("*")))
+
+  (setq org-hyperscheduler-readonly-mode nil)
+  (setq org-hyperscheduler-exclude-from-org-roam t)
+
+
+;; (message "Done with hyperscheduler")
+
+
+
 #+end_src
 
 
@@ -1913,18 +1929,6 @@ Sourced from [[https://github.com/hiecaq/quinoa42.github.io/blob/gh-pages/org/do
 
 
 ** Hyperscheduler
-#+begin_src elisp
-;;   (use-package org-hyperscheduler
-;;
-;;   :straight
-;;   (:repo "dmitrym0/org-hyperscheduler"
-;;    :host github
-;;    :type git
-;;    :files ("*")))
-
-
-;; (message "Done with hyperscheduler")
-
 #+end_src
 
 
