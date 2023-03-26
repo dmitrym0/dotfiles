@@ -1340,9 +1340,8 @@ Create an org-roam node and insert a link to it in the current buffer. Helpful w
 
 #+end_src
 
-* Testing
 
-** From [[https://systemcrafters.net/emacs-from-scratch/the-best-default-settings/][source]] [2022-02-22 Tue]
+* Remembering recent stuff
 
 Remember recent files,
 #+begin_src elisp
