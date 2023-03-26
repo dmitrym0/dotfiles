@@ -2804,13 +2804,10 @@ Patched org-ql. Insert a link to the issue that was patched.
 in .emacs.
 
 #+begin_src elisp
-  ;; (use-package org-ql
-  ;;   :straight (:repo "dmitrym0/org-ql"
-  ;;                    :host github
-  ;;                    :type git))
-
-
-
+  (use-package org-ql
+    :straight (:repo "dmitrym0/org-ql"
+                     :host github
+                     :type git))
 #+end_src
 
 
@@ -2819,7 +2816,6 @@ in .emacs.
 
 #+begin_src elisp
   (use-package auto-package-update
-
   :custom
   (auto-package-update-interval 7)
   (auto-package-update-prompt-before-update t)
@@ -2832,7 +2828,7 @@ in .emacs.
 
 
 
-* helpful
+* Helpful
 
 Expanded information about keys, functions (like =describe-function=, but better).
 
@@ -2840,8 +2836,7 @@ TODO: Figure out how to bind this properly.
 
 #+begin_src elisp
   (use-package helpful
-
-  :commands (helpful-callable helpful-variable helpful-command helpful-key))
+    :commands (helpful-callable helpful-variable helpful-command helpful-key))
 
 #+end_src
 * Finish
