@@ -785,10 +785,7 @@ org-roam
 #+begin_src emacs-lisp
     (message "Org-roam")
     ;; keybindings for org-roam
-
-
     (use-package org-roam
-
       :custom
       (org-roam-directory (file-truename org-directory))
       :bind (("C-c n l" . org-roam-buffer-toggle)
@@ -819,123 +816,29 @@ org-roam
 
 org-roam-ui
 #+begin_src emacs-lisp
-       (use-package org-roam-ui
+  (use-package org-roam-ui
 
-         :after org-roam
+    :after org-roam
     ;;         normally we'd recommend hooking orui after org-roam, but since org-roam does not have
     ;;         a hookable mode anymore, you're advised to pick something yourself
     ;;         if you don't care about startup time, use
     ;;  :hook (after-init . org-roam-ui-mode)
-         :config
-         (setq org-roam-ui-sync-theme t
-               org-roam-ui-follow nil
-               org-roam-ui-update-on-save t
-               org-roam-ui-open-on-start nil)
-    ;;           (run-with-idle-timer 100 nil (lambda () org-roam-ui-mode))
-     )
-
-
-    ;; dont save for desktop.el
-    ;;  (add-to-list 'desktop-minor-mode-table
-    ;;             '(org-roam-ui-mode nil))
-    ;;(add-to-list 'desktop-minor-mode-table
-    ;;            '(org-roam-ui-follow-mode nil))
-#+end_src
-
-helm
-
-#+begin_src emacs-lisp
-  ;; (use-package helm
-  ;;
-  ;;   :config
-  ;;   (global-set-key (kbd "M-x") #'helm-M-x)
-  ;;   (global-set-key (kbd "C-x r b") #'helm-filtered-bookmarks)
-  ;;   (global-set-key (kbd "C-x C-f") #'helm-find-files)
-  ;;   (helm-autoresize-mode 1)
-  ;;   (helm-mode 1))
-
-
-  ;; (defvar helm-M-x-map
-  ;;   (let ((map (make-sparse-keymap)))
-  ;;     (set-keymap-parent map helm-comp-read-map)
-  ;;     (define-key map (kbd "C-u") nil)
-  ;;     (define-key map (kbd "C-u") #'helm-M-x-universal-argument)
-  ;;     (define-key map (kbd "C-]") #'helm-M-x-toggle-short-doc)
-  ;;     map))
-
-
-  ;; (use-package helm-swoop
-  ;; :config
-  ;; (setq helm-swoop-split-direction 'split-window-vertically)
-  ;; (global-set-key (kbd "C-s") 'helm-swoop-without-pre-input))
-
-
-
-#+end_src
-
-
-
-[[https://github.com/emacsorphanage/helm-ag][helm-ag]]
-#+begin_src emacs-lisp
-  ;; (use-package helm-ag
-  ;;    )
-#+end_src
-
-Always save M-x history even when it fails [[https://emacs.stackexchange.com/questions/45069/how-do-i-persist-m-x-calls-so-they-can-be-displayed-in-mru-order][source]].
-Preserve M-x commands (MRU).
-
-#+begin_quote elisp
-;;(setq helm-M-x-always-save-history t)
-
-#+end_quote
-
-
-#+begin_src elisp
-      ;; (use-package helm-config
-      ;; :demand t
-      ;; :general
-      ;; ([remap find-file]                'helm-find-files)
-      ;; ([remap occur]                    'helm-occur)
-      ;; ([remap list-buffers]             'helm-buffers-list)
-      ;; ([remap dabbrev-expand]           'helm-dabbrev)
-      ;; ([remap execute-extended-command] 'helm-M-x)
-      ;; (general-nmap "gO" 'helm-semantic-or-imenu)
-      ;; :init
-      ;; ; manual for helm's own frame: https://github.com/emacs-helm/helm/wiki/frame
-      ;; (general-setq helm-display-function #'helm-display-buffer-in-own-frame)
-      ;; (general-setq helm-show-completion-display-function #'helm-display-buffer-in-own-frame)
-      ;; (general-setq helm-command-prefix-key "C-c h")
-      ;; (general-setq helm-ff-skip-boring-files t)
-      ;; (unless (boundp 'completion-in-region-function)
-      ;;   (general-def lisp-interaction-mode-map [remap completion-at-point] 'helm-lisp-completion-at-point)
-      ;;   (general-def emacs-lisp-mode-map       [remap completion-at-point] 'helm-lisp-completion-at-point)))
-
-
-
-#+end_src
-
-
-python
-
-#+begin_src emacs-lisp
-  (use-package elpy
-
     :config
-    :defer t ; dont load this immediately
-    :init
-    (advice-add 'python-mode :before 'elpy-enable))
+    (setq org-roam-ui-sync-theme t
+          org-roam-ui-follow nil
+          org-roam-ui-update-on-save t
+          org-roam-ui-open-on-start nil)
+    ;;           (run-with-idle-timer 100 nil (lambda () org-roam-ui-mode))
+    )
 
-  ;; Enable Flycheck
-  (when (require 'flycheck nil t)
-    (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
-    (add-hook 'elpy-mode-hook 'flycheck-mode))
 
-  ;; python formatter
-  (use-package blacken )
-  (use-package dap-mode )
-                                          ;(use-package dap-ui )
-                                          ;(use-package dap-python  :config (dap-mode 1) (dap-ui-mode 1))
+  ;; dont save for desktop.el
+  ;;  (add-to-list 'desktop-minor-mode-table
+  ;;             '(org-roam-ui-mode nil))
+  ;;(add-to-list 'desktop-minor-mode-table
+  ;;            '(org-roam-ui-follow-mode nil))
 #+end_src
+
 
 https://github.com/zk-phi/indent-guide
 show vertical lines to guide indentation
