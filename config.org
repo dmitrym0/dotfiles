@@ -1,4 +1,5 @@
 ;; -*- eval: (git-auto-commit-mode 1) -*-
+
 :PROPERTIES:
 :ID:       1859DDBD-1924-4A25-910F-4DBD4965B8CB
 :END:
@@ -89,7 +90,7 @@ soft wrap lines (wrap around past screen boundary)
      (show-paren-mode 1)
      (setq show-paren-delay 0)
      (winner-mode 1)
-     (use-package org-pomodoro :)
+     (use-package org-pomodoro )
    (setq mac-option-modifier 'meta)
 
    (setq org-hyperscheduler-readonly-mode nil)
@@ -134,7 +135,7 @@ highlight current line
 
 Ensure that files are reloaded from disk (when switching branches, or from dropbox sync)
 #+begin_src emacs-lisp
-(use-package activity-watch-mode :)
+(use-package activity-watch-mode )
     (global-auto-revert-mode 1)
     (setq auto-revert-interval 10
             ring-bell-function 'ignore
@@ -192,7 +193,7 @@ Store autosaves elsewhere, borrowed from [[https://github.com/larstvei/dot-emacs
 
 turn on variable syntax highlighting
 #+begin_src emacs-lisp
-(use-package color-identifiers-mode :)
+(use-package color-identifiers-mode )
 (add-hook 'after-init-hook 'global-color-identifiers-mode)
 #+end_src
 
@@ -271,7 +272,7 @@ When we switch windows or scroll, for example, we get a wave of light near the c
 Use doom modeline
 #+begin_src emacs-lisp
   (message "Enable doom modeline")
- (use-package doom-modeline :diminish :
+ (use-package doom-modeline :diminish
    :config (doom-modeline-mode 1)
    ;; Whether to use hud instead of default bar. It's only respected in GUI.
    (setq doom-modeline-hud nil)
@@ -282,7 +283,7 @@ Use doom modeline
 
 #+begin_src emacs-lisp
   (use-package golden-ratio
-    :
+
     :diminish golden-ratio-mode
     :init (golden-ratio-mode 1))
 #+end_src
@@ -379,7 +380,7 @@ Done tasks get a [[https://github.com/lmintmate/emacs.d#strikethrough-for-done-t
 
 
 #+begin_src emacs-lisp
-  (use-package org-superstar : :hook (org-mode . (lambda () (org-superstar-mode 1))))
+  (use-package org-superstar  :hook (org-mode . (lambda () (org-superstar-mode 1))))
   (add-hook 'org-mode-hook (lambda () (org-superstar-mode 1)))
 
   (setq org-superstar-headline-bullets-list '("🅐" "🅑" "🅒" "🅓"  "🅔"  "🅕"  "🅖"))
@@ -655,17 +656,17 @@ org-agenda everywhere.
 * Modules
 ** Magit
 #+begin_src elisp
-  (use-package magit :)
+  (use-package magit )
 
 
-  (use-package forge :
+  (use-package forge
   :after magit)
 #+end_src
 
 ** paredit
 #+begin_src elisp
   (use-package paredit
-  :
+
   :config
   ;(add-hook 'emacs-lisp-mode-hook #'paredit-mode)
   ;; enable in the *scratch* buffer
@@ -683,7 +684,7 @@ Show a tabbar at the top of the screen.
 
 #+begin_src emacs-lisp
   ;; (use-package tabbar
-  ;; :
+  ;;
   ;; :config (tabbar-mode 0)
   ;; )
 #+end_src
@@ -695,7 +696,7 @@ Show a tabbar at the top of the screen.
 
 
 #+begin_src emacs-lisp
-  ;; (use-package centaur-tabs :
+  ;; (use-package centaur-tabs
   ;; :demand
   ;; :config
   ;; (centaur-tabs-mode t)
@@ -706,9 +707,9 @@ Show a tabbar at the top of the screen.
 ** Treemacs
 A file browser.
 
-(use-package treemacs :)
-(use-package treemacs-projectile :)
-(use-package treemacs-all-the-icons :)
+(use-package treemacs )
+(use-package treemacs-projectile )
+(use-package treemacs-all-the-icons )
 
 
 
@@ -716,7 +717,7 @@ A file browser.
 #+begin_src emacs-lisp
 
   ;; (use-package treemacs
-  ;;    :
+  ;;
   ;;    :defer t
   ;;    :config
   ;;    (progn
@@ -748,7 +749,7 @@ A file browser.
 
   ;;  (use-package treemacs-projectile
   ;;    :defer t
-  ;;    :
+  ;;
   ;;    :config
   ;;    (setq treemacs-header-function #'treemacs-projectile-create-header)
   ;;    )
@@ -767,28 +768,28 @@ A file browser.
 
 ** Random
 #+begin_src emacs-lisp
-(use-package org-download : )
+(use-package org-download  )
 #+end_src
 
 fzf support
 #+begin_src emacs-lisp
-;(use-package fzf :)
+;(use-package fzf )
 #+end_src
 
 #+begin_src emacs-lisp
 (use-package all-the-icons
-:
+
 :defer 0.5)
 #+end_src
 
 [[https://github.com/gregsexton/origami.el/tree/e558710a975e8511b9386edc81cd6bdd0a5bda74][Fancy text folding]]
 #+begin_src emacs-lisp
-;(use-package origami :)
+;(use-package origami )
 #+end_src
 
 #+begin_src emacs-lisp
 (use-package color-theme-modern
-  :)
+  )
 
 #+end_src
 
@@ -796,7 +797,7 @@ WhichKey
 #+begin_src emacs-lisp
 
 (use-package which-key
-  :
+
   :config
   (which-key-mode))
 #+end_src
@@ -805,7 +806,7 @@ WhichKey
 dimmer, highlight current buffer
 #+begin_src emacs-lisp
   (use-package dimmer
-    :
+
     :config
 (setq dimmer-adjustment-mode :both)
      (dimmer-configure-which-key)
@@ -820,7 +821,7 @@ org-roam
 
 
     (use-package org-roam
-      :
+
       :custom
       (org-roam-directory (file-truename org-directory))
       :bind (("C-c n l" . org-roam-buffer-toggle)
@@ -852,7 +853,7 @@ org-roam
 org-roam-ui
 #+begin_src emacs-lisp
        (use-package org-roam-ui
-         :
+
          :after org-roam
     ;;         normally we'd recommend hooking orui after org-roam, but since org-roam does not have
     ;;         a hookable mode anymore, you're advised to pick something yourself
@@ -878,7 +879,7 @@ helm
 
 #+begin_src emacs-lisp
   ;; (use-package helm
-  ;;   :
+  ;;
   ;;   :config
   ;;   (global-set-key (kbd "M-x") #'helm-M-x)
   ;;   (global-set-key (kbd "C-x r b") #'helm-filtered-bookmarks)
@@ -896,7 +897,7 @@ helm
   ;;     map))
 
 
-  ;; (use-package helm-swoop :
+  ;; (use-package helm-swoop
   ;; :config
   ;; (setq helm-swoop-split-direction 'split-window-vertically)
   ;; (global-set-key (kbd "C-s") 'helm-swoop-without-pre-input))
@@ -910,7 +911,7 @@ helm
 [[https://github.com/emacsorphanage/helm-ag][helm-ag]]
 #+begin_src emacs-lisp
   ;; (use-package helm-ag
-  ;;    :)
+  ;;    )
 #+end_src
 
 Always save M-x history even when it fails [[https://emacs.stackexchange.com/questions/45069/how-do-i-persist-m-x-calls-so-they-can-be-displayed-in-mru-order][source]].
@@ -951,7 +952,7 @@ python
 
 #+begin_src emacs-lisp
   (use-package elpy
-    :
+
     :config
     :defer t ; dont load this immediately
     :init
@@ -963,17 +964,17 @@ python
     (add-hook 'elpy-mode-hook 'flycheck-mode))
 
   ;; python formatter
-  (use-package blacken :)
-  (use-package dap-mode :)
-                                          ;(use-package dap-ui :)
-                                          ;(use-package dap-python : :config (dap-mode 1) (dap-ui-mode 1))
+  (use-package blacken )
+  (use-package dap-mode )
+                                          ;(use-package dap-ui )
+                                          ;(use-package dap-python  :config (dap-mode 1) (dap-ui-mode 1))
 #+end_src
 
 https://github.com/zk-phi/indent-guide
 show vertical lines to guide indentation
 #+begin_src emacs-lisp
   ;; (use-package indent-guide
-  ;;   :
+  ;;
   ;;   :config
   ;;   (indent-guide-global-mode))
 #+end_src
@@ -983,13 +984,13 @@ git-auto-commit-mode
 
 track every change in git.
 #+begin_src emacs-lisp
-(use-package git-auto-commit-mode :)
+(use-package git-auto-commit-mode )
 
 #+end_src
 
 
 #+begin_src emacs-lisp
-  (use-package emojify :
+  (use-package emojify
 
   ;; do i really need emojis?
   ;;  :hook (after-init . global-emojify-mode)
@@ -998,7 +999,7 @@ track every change in git.
 
 [[https://melpa.org/#/expand-region][expand-region]], intelligently adjust selection
 #+begin_src emacs-lisp
-(use-package expand-region : :config
+(use-package expand-region  :config
     (global-set-key (kbd "C-=") 'er/expand-region))
 #+end_src
 
@@ -1025,10 +1026,10 @@ Fuzzy? matching. ~org refi~, matches ~org-refile~ and ~org-agenda-refile~
 ** ox-hugo
  #+begin_src elisp
     (use-package ox-hugo
-      :
+
       :config
         (use-package ox-hugo
-      :
+
       :config
       ))
  #+end_src
@@ -1036,7 +1037,7 @@ Fuzzy? matching. ~org refi~, matches ~org-refile~ and ~org-agenda-refile~
 ** js2 (TypeScript refactoring)
  #+begin_src elisp
    ;; (use-package js2-refactor
-   ;;   :
+   ;;
    ;;   :config
    ;;   (add-hook 'js2-mode-hook #'js2-refactor-mode)
    ;;   (js2r-add-keybindings-with-prefix "C-c C-m")
@@ -1048,7 +1049,7 @@ Fuzzy? matching. ~org refi~, matches ~org-refile~ and ~org-agenda-refile~
 ** Mocha (JS testing support)
  #+begin_src elisp
    (use-package mocha
-     :)
+     )
 
  #+end_src
 
@@ -1057,14 +1058,14 @@ Fuzzy? matching. ~org refi~, matches ~org-refile~ and ~org-agenda-refile~
 
  #+begin_src elisp
    ;; (use-package tide
-   ;;   :
+   ;;
    ;;   :after (typescript-mode company flycheck)
    ;;   :hook ((typescript-mode . tide-setup)
    ;;          (typescript-mode . tide-hl-identifier-mode)
    ;;          (before-save . tide-format-before-save)))
 
    ;; (use-package typescript-mode
-   ;;   :
+   ;;
    ;;   :config
    ;;   (require 'ansi-color) ;; clean up compiler output from tsc
    ;;   (defun colorize-compilation-buffer ()
@@ -1077,7 +1078,7 @@ Fuzzy? matching. ~org refi~, matches ~org-refile~ and ~org-agenda-refile~
 *** More typescript support
 #+begin_src elisp
 (use-package typescript-mode
-  :
+
   :init
   (define-derived-mode typescript-tsx-mode typescript-mode "tsx")
   :config
@@ -1086,12 +1087,12 @@ Fuzzy? matching. ~org refi~, matches ~org-refile~ and ~org-agenda-refile~
   (add-to-list 'auto-mode-alist '("\\.tsx?\\'" . typescript-tsx-mode)))
 
 (use-package tree-sitter
-  :
+
   :hook ((typescript-mode . tree-sitter-hl-mode)
 	 (typescript-tsx-mode . tree-sitter-hl-mode)))
 
 (use-package tree-sitter-langs
-  :
+
   :after tree-sitter
   :config
   (tree-sitter-require 'tsx)
@@ -1102,7 +1103,7 @@ Fuzzy? matching. ~org refi~, matches ~org-refile~ and ~org-agenda-refile~
 ** LSP Mode
 #+begin_src elisp
     (use-package lsp-mode
-  :
+
       :init
       ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
       (setq lsp-keymap-prefix "C-c l")
@@ -1113,15 +1114,15 @@ Fuzzy? matching. ~org refi~, matches ~org-refile~ and ~org-agenda-refile~
       :commands lsp)
 
     ;; optionally
-    (use-package lsp-ui : :commands lsp-ui-mode)
+    (use-package lsp-ui  :commands lsp-ui-mode)
     ;; if you are helm user
-;    (use-package helm-lsp : :commands helm-lsp-workspace-symbol)
+;    (use-package helm-lsp  :commands helm-lsp-workspace-symbol)
     ;; if you are ivy user
-    (use-package lsp-treemacs : :commands lsp-treemacs-errors-list)
+    (use-package lsp-treemacs  :commands lsp-treemacs-errors-list)
 
     ;; optionally if you want to use debugger
-  ;  (use-package dap-mode :)
-   ; (use-package dap-typescript :)
+  ;  (use-package dap-mode )
+   ; (use-package dap-typescript )
 
     ;; optional if you want which-key integration
     (use-package which-key
@@ -1132,7 +1133,7 @@ Fuzzy? matching. ~org refi~, matches ~org-refile~ and ~org-agenda-refile~
 #+end_src
 ** Color in terminal (like M-x compile)
 #+begin_src elisp
-  (use-package xterm-color :
+  (use-package xterm-color
     :config
     (require 'xterm-color)
     (setq compilation-environment '("TERM=xterm-256color"))
@@ -1150,7 +1151,7 @@ From [[https://massimilianomirra.com/notes/lightweight-external-command-integrat
 ** Ankiorg-
 #+begin_src elisp
   (use-package anki-editor
-    :
+
     :config
     ; I like making decks
     (setq anki-editor-create-decks 't))
@@ -1159,7 +1160,7 @@ From [[https://massimilianomirra.com/notes/lightweight-external-command-integrat
 ** Gcal
 #+begin_src elisp
       (use-package org-gcal
-        :
+
         :after org
         :config
         (setq org-gcal-remove-api-cancelled-event t) ;; delete removed events without asking.
@@ -1184,7 +1185,7 @@ From [[https://massimilianomirra.com/notes/lightweight-external-command-integrat
 ** Company mode (autocompletion)
 #+begin_src elisp
   (use-package company
-  :
+
   :bind (:map company-active-map
          ("C-n" . company-select-next)
          ("C-p" . company-select-previous))
@@ -1195,33 +1196,33 @@ From [[https://massimilianomirra.com/notes/lightweight-external-command-integrat
 
 
   ;; With use-package:
-(use-package company-box :
+(use-package company-box
   :hook (company-mode . company-box-mode))
 
 
 #+end_src
 ** [[https://github.com/alphapapa/ts.el][ts.el]] (time manipulation)
 #+begin_src elisp
-   (use-package ts :)
+   (use-package ts )
 
 
 #+end_src
 
 ** dark room
 #+begin_src
-  (use-package darkroom :)
+  (use-package darkroom )
 #+end_src
 
 ** raindbow delimeters
 #+begin_src elisp
-  (use-package rainbow-delimiters :
+  (use-package rainbow-delimiters
     :hook ((emacs-lisp-mode . rainbow-delimiters-mode)
            (clojure-mode . rainbow-delimiters-mode))
     )
 #+end_src
 
 #+begin_src elisp
-  (use-package org-anki :)
+  (use-package org-anki )
 #+end_src
 ** [[https://github.com/publicimageltd/delve][delve]]
 
@@ -1236,7 +1237,7 @@ From [[https://massimilianomirra.com/notes/lightweight-external-command-integrat
 
 ** org-pomodoro-third-time
 #+begin_src elisp
-    (use-package org-pomodoro-third-time : :init (org-pomodoro-third-time-mode +1)
+    (use-package org-pomodoro-third-time  :init (org-pomodoro-third-time-mode +1)
   :straight (:repo "telotortium/org-pomodoro-third-time"
              :host github
              :type git))
@@ -1247,9 +1248,9 @@ From [[https://massimilianomirra.com/notes/lightweight-external-command-integrat
 
 ** PlantUML
 #+begin_src elisp
-  ;;  (use-package plantuml-mode : :init (setq plantuml-executable-path "/opt/homebrew/bin/plantuml" plantuml-default-exec-mode 'executable) :mode (("\\.plantuml\\'" . plantuml-mode)))
+  ;;  (use-package plantuml-mode  :init (setq plantuml-executable-path "/opt/homebrew/bin/plantuml" plantuml-default-exec-mode 'executable) :mode (("\\.plantuml\\'" . plantuml-mode)))
 
-  (use-package plantuml-mode : :init
+  (use-package plantuml-mode  :init
     ;; Sample executable configuration
     ;; this is for org  mode export
     (setq org-plantuml-executable-path "/opt/homebrew/bin/plantuml")
@@ -1413,7 +1414,7 @@ Suggested keymappings:
 
 
 #+begin_src elisp
-  (use-package org-transclusion :
+  (use-package org-transclusion
   :after org)
 
 
@@ -1518,7 +1519,7 @@ focus-autosave-mode, save all emacs buffers when emacs loses focus
 
 - [2022-11-16 Wed] is this causing delays on leaving emacs?
 #+begin_src elisp
-;;  (use-package focus-autosave-mode : :init (focus-autosave-mode))
+;;  (use-package focus-autosave-mode  :init (focus-autosave-mode))
 
 #+end_src
 
@@ -1543,7 +1544,7 @@ Load hyperscheduler locally and bind a key.
 blogging with ox-hugo
 #+begin_src elisp
   (use-package ox-hugo
-  :   ;Auto-install the package from Melpa
+     ;Auto-install the package from Melpa
   :pin melpa  ;`package-archives' should already have ("melpa" . "https://melpa.org/packages/")
   :after ox)
 
@@ -1563,7 +1564,7 @@ blogging with ox-hugo
 ** [2022-03-14 Mon]
 #+begin_src elisp
   ;; (use-package centaur-tabs
-  ;; :
+  ;;
   ;; :hook
   ;; (dashboard-mode . centaur-tabs-local-mode)
   ;; (vterm-m/ode . centaur-tabs-local-mode)
@@ -1598,14 +1599,14 @@ blogging with ox-hugo
 
 
   ;; Search files, and do it with speed and style
-  (use-package swiper :
+  (use-package swiper
     :config
     (setq swiper-goto-start-of-match t))
 
 
 
 
-  (use-package block-nav :
+  (use-package block-nav
   :commands (block-nav-next-block block-nav-previous-block block-nav-next-indentation-level block-nav-previous-indentation-level)
   :bind
   ("C-c C-j" . block-nav-next-block)
@@ -1679,7 +1680,7 @@ Take care of weird mac bindings in emacs-mac from [[https://gist.github.com/rail
 
 
   (use-package pulsar
-    :
+
     :init
     (pulsar-global-mode 1)
     :config
@@ -1716,13 +1717,13 @@ Take care of weird mac bindings in emacs-mac from [[https://gist.github.com/rail
 ** [2022-03-21 Mon]
 #+begin_src elisp
   (use-package vulpea
-    :
+
     ;; hook into org-roam-db-autosync-mode you wish to enable
     ;; persistence of meta values (see respective section in README to
     ;; find out what meta means)
     :hook ((org-roam-db-autosync-mode . vulpea-db-autosync-enable)))
 
-  (use-package project :)
+  (use-package project )
 
 
 #+end_src
@@ -1745,12 +1746,12 @@ get all falcon external docs
 
 ** [2022-03-29 Tue]
 #+begin_src elisp
-  (use-package undo-fu :)
+  (use-package undo-fu )
 
 
 
   ;; (use-package undo-tree
-  ;;   :
+  ;;
   ;;   :diminish                       ;; Don't show an icon in the modeline
   ;;   :bind ("C-x u" . undo-tree-visualize)
   ;;   ;;    :hook (org-mode . undo-tree-mode) ;; For some reason, I need this. FIXME.
@@ -1776,7 +1777,7 @@ get all falcon external docs
 modern orgmode https://github.com/minad/org-modern
 
 #+begin_src emacs-lisp
-  ;; (use-package org-modern :)
+  ;; (use-package org-modern )
   ;; (add-hook 'org-mode-hook #'org-modern-mode)
   ;; (add-hook 'org-agenda-finalize-hook #'org-modern-agenda)
 
@@ -1895,7 +1896,7 @@ modern orgmode https://github.com/minad/org-modern
 
 #+begin_src elisp
 
-(use-package org-review :)
+(use-package org-review )
 
   (defun dm/org-review-agenda-skip ()
     (and (not (or (org-review-toreview-p) (not (org-review-last-review-prop))))
@@ -1918,7 +1919,7 @@ modern orgmode https://github.com/minad/org-modern
 
 ** reveal
 #+begin_src elisp
-(use-package org-re-reveal :)
+(use-package org-re-reveal )
 #+end_src
 
 ** evil mode
@@ -1928,7 +1929,7 @@ Sourced from [[https://github.com/hiecaq/quinoa42.github.io/blob/gh-pages/org/do
 #+begin_src elisp
 
         (use-package general
-          :
+
           :after which-key
           :config
           (general-evil-setup)
@@ -1939,7 +1940,7 @@ Sourced from [[https://github.com/hiecaq/quinoa42.github.io/blob/gh-pages/org/do
 
         (setq evil-want-keybinding nil)
         (use-package evil
-          :
+
           :demand t
           :after swiper
           :custom
@@ -1974,7 +1975,7 @@ Sourced from [[https://github.com/hiecaq/quinoa42.github.io/blob/gh-pages/org/do
         (setq evil-want-keybinding nil)
         (use-package evil-collection
           :after evil
-          :
+
           :config
           (setq evil-want-keybinding nil)
           (evil-collection-init))
@@ -1982,13 +1983,13 @@ Sourced from [[https://github.com/hiecaq/quinoa42.github.io/blob/gh-pages/org/do
 
 
         ;; (use-package swiper-helm
-        ;;   :
+        ;;
         ;;   :after (helm-config swiper)
         ;;   :general ("C-s" 'swiper-helm))
 
 
         (use-package highlight-indent-guides
-          :
+
           :hook (prog-mode . highlight-indent-guides-mode)
           :init
           (general-setq highlight-indent-guides-responsive 'top)
@@ -1998,7 +1999,7 @@ Sourced from [[https://github.com/hiecaq/quinoa42.github.io/blob/gh-pages/org/do
 
 
          (use-package evil-org
-          :
+
           :after (org evil)
           :hook
           (org-mode . (lambda () (evil-org-mode 1)))
@@ -2013,11 +2014,11 @@ Sourced from [[https://github.com/hiecaq/quinoa42.github.io/blob/gh-pages/org/do
 
 
         ; this is way more powerful.
-        (use-package evil-nerd-commenter :
+        (use-package evil-nerd-commenter
           :config
           (global-set-key (kbd "M-;") 'evilnc-comment-or-uncomment-lines))
 
-      (use-package evil-matchit :
+      (use-package evil-matchit
         :init
         (global-evil-matchit-mode 1))
 
@@ -2058,7 +2059,7 @@ Sourced from [[https://github.com/hiecaq/quinoa42.github.io/blob/gh-pages/org/do
 ** Hyperscheduler
 #+begin_src elisp
 ;;   (use-package org-hyperscheduler
-;;   :
+;;
 ;;   :straight
 ;;   (:repo "dmitrym0/org-hyperscheduler"
 ;;    :host github
@@ -2072,7 +2073,7 @@ Sourced from [[https://github.com/hiecaq/quinoa42.github.io/blob/gh-pages/org/do
 
 
 #+begin_src elisp
-    (use-package templatel :)
+    (use-package templatel )
 
 
 
@@ -2083,7 +2084,7 @@ Sourced from [[https://github.com/hiecaq/quinoa42.github.io/blob/gh-pages/org/do
 * [2022-06-06 Mon]
 #+begin_src elisp
   (use-package centered-cursor-mode
-  :
+
   :demand
   :config
   ;; Optional, enables centered-cursor-mode in all buffers.
@@ -2211,7 +2212,7 @@ Use ~gd~ to jump to definitions in evil mode.
 #+begin_src elisp
 
   (use-package dumb-jump
-    :
+
     :config
     (setq xref-show-definitions-function #'xref-show-definitions-completing-read)
     (add-hook 'xref-backend-functions #'dumb-jump-xref-activate) ; to use with evil
@@ -2239,7 +2240,7 @@ Use ~gd~ to jump to definitions in evil mode.
 * keyfreq
 
 #+begin_src elisp
-    (use-package keyfreq :
+    (use-package keyfreq
     :config
     (keyfreq-mode 1)
     (keyfreq-autosave-mode 1))
@@ -2252,7 +2253,7 @@ Use ~gd~ to jump to definitions in evil mode.
 
 #+begin_src elisp
 
-(use-package nov :)
+(use-package nov )
   (add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode))
 
   (message "nov.el Loaded")
@@ -2362,7 +2363,7 @@ Use ~gd~ to jump to definitions in evil mode.
 
   (use-package pdf-tools)
 
-  (use-package org-noter :)
+  (use-package org-noter )
 
   (setq org-noter-max-short-selected-text-length 700000)
   (setq org-noter-max-short-length 80000)
@@ -2401,7 +2402,7 @@ Use ~gd~ to jump to definitions in evil mode.
   ;; doesn't work. (require 'org-noter-integration)
 
 
-  ;;  (use-package pdf-tools-org-noter-helpers :
+  ;;  (use-package pdf-tools-org-noter-helpers
   ;;   :straight (
   ;;              :type git :repo "https://github.com/analyticd/pdf-tools-org-noter-helpers")
   ;;   :config
@@ -2423,7 +2424,7 @@ Use ~gd~ to jump to definitions in evil mode.
 
 * Move text
 #+begin_src elisp
-  (use-package move-text :
+  (use-package move-text
     :config
     (move-text-default-bindings)
     )
@@ -2434,7 +2435,7 @@ Use ~gd~ to jump to definitions in evil mode.
 * ws-butler
 
 #+begin_src elisp
-  ;; (use-package ws-butler :
+  ;; (use-package ws-butler
   ;; :config
   ;; (ws-butler-global-mode))
 
@@ -2482,8 +2483,8 @@ To workaround it, just set org-fold-core-style to its pre org-mode 9.6 default v
 
 #+begin_src elisp
     (message "Enable vertico")
-    (use-package consult :)
-    (use-package vertico :
+    (use-package consult )
+    (use-package vertico
     :general
     (:keymaps 'vertico-map
               "C-f" 'vertico-next-group)
@@ -2511,7 +2512,7 @@ To workaround it, just set org-fold-core-style to its pre org-mode 9.6 default v
 
 
     (use-package orderless
-      :
+
       :init
       ;; Configure a custom style dispatcher (see the Consult wiki)
       ;; (setq orderless-style-dispatchers '(+orderless-dispatch)
@@ -2531,13 +2532,13 @@ To workaround it, just set org-fold-core-style to its pre org-mode 9.6 default v
                 "M-A" 'marginalia-cycle
                 "M-Q" 'vertico-scroll-down
                 )
-      :
+
       :custom
       (marginalia-annotators '(marginalia-annotators-heavy marginalia-annotators-light nil))
       :init
       (marginalia-mode))
 
-  (use-package all-the-icons-completion :
+  (use-package all-the-icons-completion
     :after (marginalia all-the-icons)
     :hook (marginalia-mode . all-the-icons-completion-marginalia-setup)
     :init
@@ -2596,7 +2597,7 @@ To workaround it, just set org-fold-core-style to its pre org-mode 9.6 default v
 * Corfu
 
 #+begin_src elisp
-  (use-package corfu :
+  (use-package corfu
   ;; Optional customizations
   :custom
   (corfu-cycle t)                ;; Enable cycling for `corfu-next/previous'
@@ -2628,7 +2629,7 @@ To workaround it, just set org-fold-core-style to its pre org-mode 9.6 default v
 Orderless, borrowed from [[https://kristofferbalintona.me/posts/202202211546/][here]].
 
 #+begin_src
-  (use-package orderless :
+  (use-package orderless
   :custom
   (completion-styles '(orderless))      ; Use orderless
   (completion-category-defaults nil)    ; I want to be in control!
@@ -2781,7 +2782,7 @@ Orderless, borrowed from [[https://kristofferbalintona.me/posts/202202211546/][h
 
 
   (use-package consult-org-roam
-   :
+
    :init
    (require 'consult-org-roam)
    ;; Activate the minor-mode
@@ -2803,7 +2804,7 @@ Orderless, borrowed from [[https://kristofferbalintona.me/posts/202202211546/][h
 
 #+begin_src elisp
   (use-package embark
-  :
+
 
   :bind
   (("C-c d ." . embark-act)         ;; pick some comfortable binding
@@ -2830,7 +2831,7 @@ Orderless, borrowed from [[https://kristofferbalintona.me/posts/202202211546/][h
 
 ;; Consult users will also want the embark-consult package.
 (use-package embark-consult
-  : ; only need to install it, embark loads it after consult if found
+   ; only need to install it, embark loads it after consult if found
   :hook
   (embark-collect-mode . consult-preview-at-point-mode))
 
@@ -2963,7 +2964,7 @@ Then type the short form (eg ~inv~) and hit ~tab~ to expand.
 
 #+begin_src elisp
     (use-package yasnippet
-       :
+
        :init
        (yas-global-mode 1)
        :config
@@ -2982,7 +2983,7 @@ Then type the short form (eg ~inv~) and hit ~tab~ to expand.
 
 #+begin_src elisp
     (use-package symbol-overlay
-      :)
+      )
 
     ;;(define-key evil-motion-state-map (kbd "*") #'(lambda () ((symbol-overlay-put) (symbol-overlay-jump-next))))
 
@@ -2996,7 +2997,7 @@ Then type the short form (eg ~inv~) and hit ~tab~ to expand.
 #+begin_src elisp
   (use-package copilot
   :straight (:host github :repo "zerolfx/copilot.el" :files ("dist" "*.el"))
-  :)
+  )
 #+end_src
 
 
@@ -3047,7 +3048,7 @@ We are using :input-buffer of INFO."
 
 #+begin_src elisp
   (use-package blamer
-  :
+
   :defer 20
   :custom
   (blamer-idle-time 0.3)
@@ -3071,7 +3072,7 @@ We are using :input-buffer of INFO."
 * gptel
 
 #+begin_src elisp
-  (use-package gptel :)
+  (use-package gptel )
 
 #+end_src
 
@@ -3120,7 +3121,7 @@ Patched org-ql. Insert a link to the issue that was patched.
 in .emacs.
 
 #+begin_src elisp
-  ;; (use-package org-ql :
+  ;; (use-package org-ql
   ;;   :straight (:repo "dmitrym0/org-ql"
   ;;                    :host github
   ;;                    :type git))
@@ -3135,7 +3136,7 @@ in .emacs.
 
 #+begin_src elisp
   (use-package auto-package-update
-  :
+
   :custom
   (auto-package-update-interval 7)
   (auto-package-update-prompt-before-update t)
@@ -3156,7 +3157,7 @@ TODO: Figure out how to bind this properly.
 
 #+begin_src elisp
   (use-package helpful
-  :
+
   :commands (helpful-callable helpful-variable helpful-command helpful-key))
 
 #+end_src
