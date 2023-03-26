@@ -754,9 +754,7 @@ fzf support
 #+end_src
 
 #+begin_src emacs-lisp
-(use-package all-the-icons
-
-:defer 0.5)
+(use-package all-the-icons :defer 0.5)
 #+end_src
 
 [[https://github.com/gregsexton/origami.el/tree/e558710a975e8511b9386edc81cd6bdd0a5bda74][Fancy text folding]]
