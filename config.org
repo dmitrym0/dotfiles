@@ -1287,7 +1287,7 @@ Call this from xbar to show remaining pomodoro time.
 
 ** Bind Immediate
 
-Create an org
+Create an org-roam node and insert a link to it in the current buffer.
 
 #+begin_src elisp
   (defun org-roam-node-insert-immediate (arg &rest args)
