@@ -626,6 +626,11 @@ should be continued."
             subtree-end))))
 #+end_src
 
+** packages
+Time trakcing
+#+begin_src elisp
+  (use-package org-pomodoro)
+#+end_src
 
 ** Other
 Fancy TODO states
