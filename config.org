@@ -256,10 +256,9 @@ No toolbar.
 #+end_src
 
 
-* Templates
-** Enable easy templates (from [[https://emacs.stackexchange.com/a/46992][here]])
+* Enable easy templates (from [[https://emacs.stackexchange.com/a/46992][here]])
 #+begin_src emacs-lisp
-(require 'org-tempo)
+  (require 'org-tempo)
 #+end_src
 
 * Keybindings
@@ -284,12 +283,12 @@ Lets keep `C-c d` for personal shortcuts.
 
 #+end_src
 
-recompile.
+Recompile.
 #+begin_src emacs-lisp
 (global-set-key (kbd "C-c c") 'recompile)
 #+end_src
 
-find symbol under cursor in current project
+Find symbol under cursor in current project
 #+begin_src elisp
   (defun dm/consult-ag-under-cursor ()
     (interactive)
@@ -328,15 +327,15 @@ enable automated indent mode for org files
 
 Disable done tasks in agenda view.
 #+begin_src emacs-lisp
-(setq org-agenda-skip-scheduled-if-done t)
-(setq org-agenda-skip-deadline-if-done t)
+  (setq org-agenda-skip-scheduled-if-done t)
+  (setq org-agenda-skip-deadline-if-done t)
 #+end_src
 
 Done tasks get a [[https://github.com/lmintmate/emacs.d#strikethrough-for-done-tasks][strike through]]
 #+begin_src emacs-lisp
-(setq org-fontify-done-headline t)
-(set-face-attribute 'org-done nil :foreground "PaleGreen" :strike-through t :weight 'bold)
-(set-face-attribute 'org-headline-done nil :foreground "LightSalmon" :strike-through t)
+  (setq org-fontify-done-headline t)
+  (set-face-attribute 'org-done nil :foreground "PaleGreen" :strike-through t :weight 'bold)
+  (set-face-attribute 'org-headline-done nil :foreground "LightSalmon" :strike-through t)
 #+end_src
 
 
@@ -353,10 +352,6 @@ Done tasks get a [[https://github.com/lmintmate/emacs.d#strikethrough-for-done-t
                                           ("CANCELLED" . ?✘)
                                           ("DONE" . ?✓)))
 #+end_src
-
-
-
-
 
 
 ** Capture templates
@@ -442,8 +437,6 @@ Done tasks get a [[https://github.com/lmintmate/emacs.d#strikethrough-for-done-t
 
 ** custom agenda
 
-Create a custom agenda view.
-
 #+begin_src emacs-lisp
 (setq org-agenda-files (list org-directory
                              (concat org-directory "/daily")))
@@ -455,11 +448,7 @@ Disable done tasks in agenda view.
 (setq org-agenda-skip-scheduled-if-done t)
 #+end_src
 
-** custom agenda
-
 Create a custom agenda view.
-
-
 #+begin_src emacs-lisp
 
   (message "Enable custom agenda")
@@ -572,13 +561,9 @@ Create a custom agenda view.
 
 
   (message "custom agenda loaded")
-
-
-
-
 #+end_src
 
-**** Custom org functions
+** Custom org functions
 #+begin_src emacs-lisp
 (defun org-agenda-skip-if-scheduled-later ()
 "If this function returns nil, the current match should not be skipped.
