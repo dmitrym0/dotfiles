@@ -1287,7 +1287,7 @@ Call this from xbar to show remaining pomodoro time.
 
 ** Bind Immediate
 
-Create an org-roam node and insert a link to it in the current buffer.
+Create an org-roam node and insert a link to it in the current buffer. Helpful when you want to create a node but don't want to intterupt the current flow of writing.
 
 #+begin_src elisp
   (defun org-roam-node-insert-immediate (arg &rest args)
