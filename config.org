@@ -1656,11 +1656,11 @@ Sourced from [[https://github.com/hiecaq/quinoa42.github.io/blob/gh-pages/org/do
           ;;(define-key evil-motion-state-map "*" '(lambda () (interactive) (swiper (format "%s" (thing-at-point 'symbol)))))
           :config
           ;; Enable evil-mode in all buffers.
-          (evil-mode 1))
+          (evil-mode 1)
 
 
         ;; force the use of dumb jump when looking for definitions.
-        (define-key evil-motion-state-map (kbd "gd") #'dumb-jump-go)
+        (define-key evil-motion-state-map (kbd "gd") #'dumb-jump-go))
 
 
         (message "Basic evil loaded.")
