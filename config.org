@@ -87,7 +87,6 @@ Soft wrap lines (wrap around past screen boundary)
 (show-paren-mode 1)
 (setq show-paren-delay 0)
 (winner-mode 1)
-(use-package org-pomodoro )
 (setq mac-option-modifier 'meta)
 
 (add-hook 'text-mode-hook 'visual-line-mode)
