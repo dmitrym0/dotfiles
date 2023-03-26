@@ -352,7 +352,7 @@ indent all org mode files
   (setq org-refile-use-outline-path 'file)
   (setq org-download-image-dir (concat org-directory "/images"))
   (setq org-image-actual-width '(300))           ;; scale images to 300px when displaying them. Without this, things are too slow.
-  (setq org-download-heading-lvl nil) ; dont use headings when creating image names
+  (setq org-download-heading-lvl nil)            ;; dont use headings when creating image names
   (setq org-download-screenshot-method "/opt/homebrew/bin/pngpaste %s")
   ;; for performance
   (setq org-agenda-dim-blocked-tasks nil)
