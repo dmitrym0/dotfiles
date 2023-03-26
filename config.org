@@ -742,6 +742,7 @@ Navigating within projects.
 
 ** Random
 
+[[https://github.com/abo-abo/org-download/][org-download]]; copy and pasting images
 
 #+begin_src emacs-lisp
 (use-package org-download  )
