@@ -1111,7 +1111,6 @@ From [[https://massimilianomirra.com/notes/lightweight-external-command-integrat
   ;; (use-package org-roam-timestamps
   ;;   :after org-roam
   ;;   :config (org-roam-timestamps-mode) (setq org-roam-timestamps-remember-timestamps t))
-
 #+end_src
 
 ** org-pomodoro-third-time
