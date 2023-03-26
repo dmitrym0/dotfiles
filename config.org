@@ -763,19 +763,12 @@ fzf support
 ;(use-package origami )
 #+end_src
 
-#+begin_src emacs-lisp
-(use-package color-theme-modern
-  )
-
-#+end_src
 
 WhichKey
 #+begin_src emacs-lisp
-
-(use-package which-key
-
-  :config
-  (which-key-mode))
+  (use-package which-key
+    :config
+    (which-key-mode))
 #+end_src
 
 
