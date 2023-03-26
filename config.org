@@ -1024,6 +1024,7 @@ From [[https://massimilianomirra.com/notes/lightweight-external-command-integrat
   (setq compilation-scroll-output 'first-error)
   (setq scroll-conservatively 101)
 #+end_src
+
 ** Ankiorg-
 #+begin_src elisp
   (use-package anki-editor
