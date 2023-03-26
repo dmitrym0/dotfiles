@@ -1378,9 +1378,10 @@ Inotify is a linux feature; doesn't work on mac.
 focus-autosave-mode, save all emacs buffers when emacs loses focus
 
 - [2022-11-16 Wed] is this causing delays on leaving emacs?
-#+begin_src elisp
-(use-package focus-autosave-mode  :init (focus-autosave-mode))
+- [2023-03-26 Sun] re-enabling again.
 
+#+begin_src elisp
+  (use-package focus-autosave-mode  :init (focus-autosave-mode))
 #+end_src
 
 ** [2022-03-03 Thu]
