@@ -925,8 +925,7 @@ Fuzzy? matching. ~org refi~, matches ~org-refile~ and ~org-agenda-refile~
 
 ** Mocha (JS testing support)
  #+begin_src elisp
-   (use-package mocha
-     )
+   (use-package mocha)
 
  #+end_src
 
