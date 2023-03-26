@@ -1028,7 +1028,6 @@ From [[https://massimilianomirra.com/notes/lightweight-external-command-integrat
 ** Ankiorg-
 #+begin_src elisp
   (use-package anki-editor
-
     :config
     ; I like making decks
     (setq anki-editor-create-decks 't))
