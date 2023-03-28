@@ -56,8 +56,8 @@ Attempt to refactor this file a bit.
 Emacs Nursery; stuff that I'm working on.
 
 #+begin_src elisp
-(straight-use-package '(dm-dueapp-integration :type git :local-repo "~/workspace/emacs-nursery" :no-build t :no-install t))
-(straight-use-package '(dm-org-journal-in-current-buffer :type git :local-repo "~/workspace/emacs-nursery" :no-build t :no-install t))
+(use-package dm-dueapp-integration :straight (:type git :local-repo "~/workspace/emacs-nursery" :no-build t :no-install t))
+(use-package dm-org-journal-in-current-buffer :straight (:type git :local-repo "~/workspace/emacs-nursery" :no-build t :no-install t))
 #+end_src
 
 
