@@ -2043,60 +2043,61 @@ Use ~gd~ to jump to definitions in evil mode.
 * org-noter-fork
 
 #+begin_src elisp
-    (message "load org noter fork.")
+  (message "load org noter fork.")
 
-    (use-package pdf-tools)
+  (use-package pdf-tools)
 
-    (use-package pdf-tools-org-noter-helpers
-      :straight (
-                 :type git
-                :repo "https://github.com/analyticd/pdf-tools-org-noter-helpers"))
+  (use-package pdf-tools-org-noter-helpers
+    :straight (
+               :type git
+               :repo "https://github.com/analyticd/pdf-tools-org-noter-helpers"
+               :branch "bugfix/start-from-dired"
+               ))
 
-    ;;(use-package org-noter )
-    bugfix/start-from-dired
+  ;;(use-package org-noter )
 
-    (setq org-noter-max-short-selected-text-length 700000)
-    (setq org-noter-max-short-length 80000)
-
-
-    (define-key org-noter-doc-mode-map (kbd "M-i") nil)
-    (define-key pdf-view-mode-map (kbd "C-u") nil)
-    (define-key org-noter-doc-mode-map (kbd "M-i") #'dm/insert-precise)
-
-    (defun dm/insert-precise (&optional optional)
-      (interactive "P")
-      (org-noter-insert-precise-note 't))
-
-    ;; (push "~/workspace/org-noter-plus-djvu" load-path)
-    ;; (push "~/workspace/org-noter-plus-djvu/other" load-path)
-    ;; (push "~/workspace/org-noter-plus-djvu/modules" load-path)
-
-    ;; (require 'org-noter)
-    ;; (require 'org-noter-nov)
-    ;; (require 'org-noter-pdf)
+  (setq org-noter-max-short-selected-text-length 700000)
+  (setq org-noter-max-short-length 80000)
 
 
-    (define-advice org-noter--insert-heading (:after (level title &optional newlines-number location) add-full-body-quote)
-      "Advice for org-noter--insert-heading.
+  (define-key org-noter-doc-mode-map (kbd "M-i") nil)
+  (define-key pdf-view-mode-map (kbd "C-u") nil)
+  (define-key org-noter-doc-mode-map (kbd "M-i") #'dm/insert-precise)
+
+  (defun dm/insert-precise (&optional optional)
+    (interactive "P")
+    (org-noter-insert-precise-note 't))
+
+  ;; (push "~/workspace/org-noter-plus-djvu" load-path)
+  ;; (push "~/workspace/org-noter-plus-djvu/other" load-path)
+  ;; (push "~/workspace/org-noter-plus-djvu/modules" load-path)
+
+  ;; (require 'org-noter)
+  ;; (require 'org-noter-nov)
+  ;; (require 'org-noter-pdf)
+
+
+  (define-advice org-noter--insert-heading (:after (level title &optional newlines-number location) add-full-body-quote)
+    "Advice for org-noter--insert-heading.
 
     When inserting a precise note insert the text of the note in the body as an org mode QUOTE block.
 
     =org-noter-max-short-length= should be set to a large value to short circuit the normal behavior:
     =(setq org-noter-max-short-length 80000)="
 
-      ;; this tells us it's a precise note that's being invoked.
-      (if (consp location)
-          (insert (format "#+BEGIN_QUOTE\n%s\n#+END_QUOTE" title))))
+    ;; this tells us it's a precise note that's being invoked.
+    (if (consp location)
+        (insert (format "#+BEGIN_QUOTE\n%s\n#+END_QUOTE" title))))
 
-    ;; ;; (require 'org-noter-nov-overlay)
-    ;; doesn't work. (require 'org-noter-integration)
+  ;; ;; (require 'org-noter-nov-overlay)
+  ;; doesn't work. (require 'org-noter-integration)
 
 
-    ;;  (use-package pdf-tools-org-noter-helpers
-    ;;   :straight (
-    ;;              :type git :repo "https://github.com/analyticd/pdf-tools-org-noter-helpers")
-    ;;   :config
-    ;; (require 'pdf-tools-org-noter-helpers))
+  ;;  (use-package pdf-tools-org-noter-helpers
+  ;;   :straight (
+  ;;              :type git :repo "https://github.com/analyticd/pdf-tools-org-noter-helpers")
+  ;;   :config
+  ;; (require 'pdf-tools-org-noter-helpers))
 
 
 #+end_src
