@@ -2175,6 +2175,7 @@ To workaround it, just set org-fold-core-style to its pre org-mode 9.6 default v
 #+begin_src elisp
     (message "Enable vertico")
     (use-package consult )
+    (use-package consult-ag)
     (use-package vertico
     :general
     (:keymaps 'vertico-map
