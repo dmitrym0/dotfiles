@@ -2045,7 +2045,7 @@ Use ~gd~ to jump to definitions in evil mode.
 #+begin_src elisp
   (message "load org noter fork.")
 
-  (use-package pdf-tools)
+  ;;(use-package pdf-tools)
 
   (use-package org-noter
     :straight (
