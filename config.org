@@ -58,7 +58,8 @@ Emacs Nursery; stuff that I'm working on.
 #+begin_src elisp
 (use-package dm-dueapp-integration :straight (:type git :local-repo "~/workspace/emacs-nursery" :no-build t :no-install t))
 (use-package dm-org-journal-in-current-buffer :straight (:type git :local-repo "~/workspace/emacs-nursery" :no-build t :no-install t))
-(use-package dm-jira :straight (:type git :local-repo "~/workspace/emacs-nursery" :no-build t :no-install t))
+(use-package dm-jira :after embark
+                     :straight (:type git :local-repo "~/workspace/emacs-nursery" :no-build t :no-install t))
 #+end_src
 
 
@@ -2046,7 +2047,7 @@ Use ~gd~ to jump to definitions in evil mode.
 
   (use-package pdf-tools)
 
-  (use-package org-noter )
+  ;;(use-package org-noter )
 
   (setq org-noter-max-short-selected-text-length 700000)
   (setq org-noter-max-short-length 80000)
