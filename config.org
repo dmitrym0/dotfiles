@@ -2815,22 +2815,6 @@ in .emacs.
 
 
 
-* auto-package-update
-
-#+begin_src elisp
-  (use-package auto-package-update
-  :custom
-  (auto-package-update-interval 7)
-  (auto-package-update-prompt-before-update t)
-  (auto-package-update-hide-results t)
-  :config
-  (auto-package-update-maybe)
-  (auto-package-update-at-time "09:00"))
-
-#+end_src
-
-
-
 * Helpful
 
 Expanded information about keys, functions (like =describe-function=, but better).
