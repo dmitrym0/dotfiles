@@ -2050,7 +2050,7 @@ Use ~gd~ to jump to definitions in evil mode.
   (use-package org-noter
     :straight (
                :type git
-               :repo "
+               :repo "https://github.com/org-noter/org-noter"
                :branch "bugfix/start-from-dired"
                ))
 
