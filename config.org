@@ -2047,7 +2047,7 @@ Use ~gd~ to jump to definitions in evil mode.
 
   (use-package pdf-tools)
 
-  (use-package pdf-tools-org-noter-helpers
+  (use-package org-noter
     :straight (
                :type git
                :repo "https://github.com/analyticd/pdf-tools-org-noter-helpers"
