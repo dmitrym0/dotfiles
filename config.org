@@ -2819,7 +2819,7 @@ in .emacs.
 
 * mermaid
 #+begin_src elisp
-  (use-package mermaid
+  (use-package mermaid-mode)
 
 #+end_src
 
