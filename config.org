@@ -2817,6 +2817,12 @@ in .emacs.
 #+end_src
 
 
+* mermaid
+#+begin_src elisp
+  (use-package mermaid
+
+#+end_src
+
 
 * Helpful
 
