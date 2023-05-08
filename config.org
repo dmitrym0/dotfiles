@@ -2689,6 +2689,8 @@ Then type the short form (eg ~inv~) and hit ~tab~ to expand.
 #+begin_src elisp
   (use-package copilot
   :straight (:host github :repo "zerolfx/copilot.el" :files ("dist" "*.el"))
+  :config
+  (add-hook 'prog-mode-hook 'copilot-mode)
   )
 #+end_src
 
