@@ -2775,6 +2775,10 @@ We are using :input-buffer of INFO."
 * jira
 
 #+begin_src elisp
+
+  (use-package org-jira)
+
+
   (setq org-jira-custom-jqls
         '(
           (:jql " Sprint in openSprints() AND statusCategory in (2, 4) AND assignee in (62eac8cc5111209f4fdeb0eb) ORDER BY cf[11975] ASC, cf[12020] "
