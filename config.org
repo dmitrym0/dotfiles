@@ -2839,6 +2839,16 @@ TODO: Figure out how to bind this properly.
     :commands (helpful-callable helpful-variable helpful-command helpful-key))
 
 #+end_src
+
+
+
+
+
+* hl-diff
+
+#+begin_quote
+
+#+end_quote
 * Finish
 
 #+begin_src elisp
