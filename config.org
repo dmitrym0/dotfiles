@@ -2847,8 +2847,13 @@ TODO: Figure out how to bind this properly.
 * hl-diff
 
 #+begin_quote
-
+diff-hl-mode highlights uncommitted changes on the left side of the window (area also known as the "gutter"), allows you to jump between and revert them selectively.
 #+end_quote
+
+
+#+begin_src elisp
+(use-package
+#+end_src
 * Finish
 
 #+begin_src elisp
