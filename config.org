@@ -2852,7 +2852,9 @@ diff-hl-mode highlights uncommitted changes on the left side of the window (area
 
 
 #+begin_src elisp
-(use-package
+    (use-package diff-hl
+    :init
+  )
 #+end_src
 * Finish
 
