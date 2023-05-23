@@ -1264,7 +1264,6 @@ Remember recent files,
 Remember minibuffer
 #+begin_src elisp
   (setq history-length 25)
-  (savehist-mode 1)
 #+end_src
 
 
@@ -2197,9 +2196,7 @@ To workaround it, just set org-fold-core-style to its pre org-mode 9.6 default v
 
 
     ;; Persist history over Emacs restarts. Vertico sorts by history position.
-    (use-package savehist
-      :init
-      (savehist-mode))
+    ;;(use-package savehist :init (savehist-mode))
 
 
     (use-package orderless
@@ -2865,6 +2862,7 @@ diff-hl-mode highlights uncommitted changes on the left side of the window (area
   (message "Done loading.")
 
 #+end_src
+
 
 
 
