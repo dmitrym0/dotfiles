@@ -1872,7 +1872,7 @@ Sourced from [[https://github.com/hiecaq/quinoa42.github.io/blob/gh-pages/org/do
   "Update agenda list with latest files"
   (interactive)
     (setq org-agenda-files (flatten-tree
-                            (append (dm/get-active-agenda-files) `(,(concat org-directory "gcal.org") )))))
+                            (append (dm/get-active-agenda-files) `(,(concat org-directory "gcal.org") (concact org-directory "vt_cal.org")))))
 
 
 
