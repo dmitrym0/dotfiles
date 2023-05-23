@@ -1898,6 +1898,9 @@ Refiles current headline to ~FILE~ and ~HEADLINE~. Headline must be an exact mat
 
 #+end_src
 
+#+RESULTS:
+: dm/refile-to
+
 
 
 * dumb jump
