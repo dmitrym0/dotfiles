@@ -1052,15 +1052,15 @@ From [[https://massimilianomirra.com/notes/lightweight-external-command-integrat
     (setq org-gcal-header-alist '(("dmitrym@gmail.com" . "#+PROPERTY: TIMELINE_FACE \"pink\"\n"))
           org-gcal-file-alist `(
                                 ("dmitrym@gmail.com" .  ,(concat org-directory "/gcal.org"))
-                                                               )
+                                )
           org-gcal-auto-archive nil
           org-gcal-notify-p nil))
 
 
 
   (setq org-gcal-remove-api-cancelled-events t) ;; delete removed events without asking.
-    ;(add-hook 'org-agenda-mode-hook 'org-gcal-fetch)
-    ;(add-hook 'org-capture-after-finalize-hook 'org-gcal-fetch))
+                                          ;(add-hook 'org-agenda-mode-hook 'org-gcal-fetch)
+                                          ;(add-hook 'org-capture-after-finalize-hook 'org-gcal-fetch))
 
 #+end_src
 
