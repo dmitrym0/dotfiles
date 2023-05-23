@@ -1057,6 +1057,8 @@ From [[https://massimilianomirra.com/notes/lightweight-external-command-integrat
           org-gcal-notify-p nil))
 
 
+  (setq plstore-cache-passphrase-for-symmetric-encryption t)
+
 
   (setq org-gcal-remove-api-cancelled-events t) ;; delete removed events without asking.
                                           ;(add-hook 'org-agenda-mode-hook 'org-gcal-fetch)
