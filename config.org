@@ -1038,6 +1038,12 @@ From [[https://massimilianomirra.com/notes/lightweight-external-command-integrat
 
 ** Gcal
 #+begin_src elisp
+  (require 'plstore)
+  (add-to-list 'plstore-encrypt-to '("0CB2B08EF0157101"))
+#+end_src
+
+
+#+begin_src elisp
   (use-package org-gcal
 
     :after org
@@ -1049,6 +1055,7 @@ From [[https://massimilianomirra.com/notes/lightweight-external-command-integrat
                                                                )
           org-gcal-auto-archive nil
           org-gcal-notify-p nil))
+
 
 
   (setq org-gcal-remove-api-cancelled-events t) ;; delete removed events without asking.
