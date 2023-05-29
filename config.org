@@ -371,8 +371,8 @@ Done tasks get a [[https://github.com/lmintmate/emacs.d#strikethrough-for-done-t
                          "* %?
                                                %i
                                                %a")
-                         ("h" "how do i" entry
-                       (file+headline ,(concat org-directory "/til.org") "INBOX")
+                         ("i" "TIL" entry
+                       (file+headline ,(concat org-directory "/til.org"))
                        "* %?
                                              %i
                                              %a")
