@@ -2621,7 +2621,7 @@ Orderless, borrowed from [[https://kristofferbalintona.me/posts/202202211546/][h
     (defun dm/open-fav-urls ()
       "Launches a browser with the url suppplied"
       (interactive)
-      (let ((url (dm/get-fav-urls-2)))
+      (let ((url (dm/get-fav-url-2)))
         (shell-command
          (format "open '%s'" url))
         ))
