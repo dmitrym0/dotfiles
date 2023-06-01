@@ -57,7 +57,7 @@ Emacs Nursery; stuff that I'm working on.
 
 #+begin_src elisp
 (use-package dm-dueapp-integration :straight (:type git :local-repo "~/workspace/emacs-nursery" :no-build t :no-install t))
-(use-package favurls (:type git :local-repo "~/workspace/emacs-nursery" :no-build t :no-install t))
+(use-package favurls (favurls :type git :local-repo "~/workspace/emacs-nursery" :no-build t :no-install t))
 (use-package dm-org-journal-in-current-buffer :straight (:type git :local-repo "~/workspace/emacs-nursery" :no-build t :no-install t))
 (use-package dm-jira :after embark
                      :straight (:type git :local-repo "~/workspace/emacs-nursery" :no-build t :no-install t))
