@@ -2888,6 +2888,12 @@ diff-hl-mode highlights uncommitted changes on the left side of the window (area
 #+end_src
 
 
+* [2023-06-18 Sun]
+#+begin_src elisp
+  (defun dm/get-clipboard-contents ()
+
+  )
+#+end_src
 
 
 * notes
