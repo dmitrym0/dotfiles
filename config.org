@@ -397,6 +397,14 @@ Done tasks get a [[https://github.com/lmintmate/emacs.d#strikethrough-for-done-t
 
   %?")
 
+  ("p" "Journal" entry
+                         (file+olp+datetree ,(concat org-directory "/inbox.org"))
+                         "* Entered on %U
+
+    %(dm/get-clipboard-contents)
+
+  %?")
+
                         ))
 
 
