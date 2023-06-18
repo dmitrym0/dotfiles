@@ -376,10 +376,7 @@ Done tasks get a [[https://github.com/lmintmate/emacs.d#strikethrough-for-done-t
                        (file ,(concat org-directory "/til.org"))
                        "* %? ")
 
-              ("w" "new job" entry
-                       (file+olp+datetree ,(concat org-directory "/post_vcatch_nj.org"))
-                       "* %U
-  %?")
+
                         ("d" "Dailies")
                         ("p" "potatr")
                         ("pj" "Journal" entry
