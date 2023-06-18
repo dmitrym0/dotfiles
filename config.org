@@ -2891,7 +2891,10 @@ diff-hl-mode highlights uncommitted changes on the left side of the window (area
 * [2023-06-18 Sun]
 #+begin_src elisp
   (defun dm/get-clipboard-contents ()
-    (yank))
+    (current-kill 0))
+
+
+
 
 #+end_src
 
