@@ -302,6 +302,7 @@ Find symbol under cursor in current project
 
 #+begin_src emacs-lisp
   (message "Init org")
+  (setq org-use-sub-superscript nil)
   (setq org-fold-core-style 'text-properties)    ;; org failing to org-cycle with org-mode 6.5.1. This is the work around.
   (setq org-export-with-sub-superscripts nil)  ;; dont export sub/superscript (because it converts stuff_like_this into <sub><sup>)
   (setq org-startup-indented t)
