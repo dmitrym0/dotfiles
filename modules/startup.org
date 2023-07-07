@@ -1,22 +1,21 @@
 * Paths
 
 #+begin_src elisp
-  (setq user-emacs-directory (file-truename "~/.emacs.d"))
+  (setq user-emacs-directory (file-truename "~/.emacs.d/"))
   (setq org-directory (file-truename "~/org-roam/"))
 #+end_src
 
 * MELPA
 #+begin_src emacs-lisp
-
-    (require 'package)
-    (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
-    (add-to-list 'package-archives '("nongnu" . "https://elpa.nongnu.org/nongnu/") t)
-    (add-to-list 'package-archives '("gnu" . "https://elpa.gnu.org/packages/") t)
-    (push (expand-file-name "extra" user-emacs-directory) load-path)
-    (push (expand-file-name "./elpa/project-0.8.1") load-path)
-    (use-package projectile :ensure t)
-    (use-package wakatime-mode :ensure t)
+  (require 'package)
+  (add-to-list 'package-archives '("nongnu" . "https://elpa.nongnu.org/nongnu/") t)
+  (add-to-list 'package-archives '("gnu" . "https://elpa.gnu.org/packages/") t)
+  (push (expand-file-name "extra" user-emacs-directory) load-path)
+  (push (expand-file-name "./elpa/project-0.8.1") load-path)
+  (use-package projectile :ensure t)
+  (use-package wakatime-mode :ensure t)
 #+end_src
+
 
 * Customizations
 
