@@ -1052,7 +1052,7 @@ From [[https://massimilianomirra.com/notes/lightweight-external-command-integrat
 ** Gcal
 #+begin_src elisp
    (require 'plstore)
-  (add-to-list 'plstore-encrypt-to '("0CB2B08EF0157101"))
+  (add-to-list 'plstore-encrypt-to '(""))
 #+end_src
 
 
