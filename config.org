@@ -1067,8 +1067,8 @@ From [[https://massimilianomirra.com/notes/lightweight-external-command-integrat
           org-gcal-file-alist `(
                                 ("dmitrym@gmail.com" .  ,(concat org-directory "/gcal.org"))
 ;;                                ("it5btt3khcv7lupc226ua48uc8f8bj3i@import.calendar.google.com" .  ,(concat org-directory "/vt_cal.org"))
-;;                                ("dmitry.markushevich@varsitytutors.com" .  ,(concat org-directory "/vt_cal.org"))
-                                )
+;;                                ("dmitry.markushevich@varsitytutors.com" .  ,(concat org-directory "/vt_cal.org")
+                                ))
           org-gcal-auto-archive nil
           org-gcal-notify-p nil))
 
