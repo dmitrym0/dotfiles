@@ -1053,6 +1053,7 @@ From [[https://massimilianomirra.com/notes/lightweight-external-command-integrat
 #+begin_src elisp
    (require 'plstore)
   (add-to-list 'plstore-encrypt-to '("8A2283088CD49937"))
+
 #+end_src
 
 
@@ -1072,7 +1073,7 @@ From [[https://massimilianomirra.com/notes/lightweight-external-command-integrat
           org-gcal-notify-p nil))
 
 
- ;; (setq plstore-cache-passphrase-for-symmetric-encryption t)
+ (setq plstore-cache-passphrase-for-symmetric-encryption t)
 
 
 
