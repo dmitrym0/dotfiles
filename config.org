@@ -2081,11 +2081,19 @@ Use ~gd~ to jump to definitions in evil mode.
 
   (use-package pdf-tools)
 
+  ;; (use-package org-noter
+  ;;   :straight (
+  ;;              :type git
+  ;;              :repo "https://github.com/org-noter/org-noter"
+  ;;              ))
+
   (use-package org-noter
-    :straight (
-               :type git
-               :repo "https://github.com/org-noter/org-noter"
-               ))
+	     :straight (:type git :local-repo "~/workspace/org-noter"
+			      :no-build t
+			      :no-install t
+			      :branch "feature/org-roam-integration")
+	     :after pdf-tools)
+
 
   ;;(use-package org-noter )
 
