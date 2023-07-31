@@ -2918,6 +2918,15 @@ diff-hl-mode highlights uncommitted changes on the left side of the window (area
 #+end_src
 
 
+
+* prettier
+#+begin_src elisp
+  (straight-use-package 'apheleia)
+
+
+#+end_src
+
+
 * notes
 
 =global-linum-mode= is bad apparently. Makes everything slow.
