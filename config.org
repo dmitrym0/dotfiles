@@ -2919,6 +2919,13 @@ diff-hl-mode highlights uncommitted changes on the left side of the window (area
 
 
 
+* [2023-08-14 Mon] emacs refactor
+
+#+begin_src elisp
+  (use-package emacs-ref
+
+#+end_src
+
 * prettier
 #+begin_src elisp
   (straight-use-package 'apheleia)
