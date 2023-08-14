@@ -2923,6 +2923,7 @@ diff-hl-mode highlights uncommitted changes on the left side of the window (area
 
 Refactoring support via =M-x emr-show-refactor-menu=
 
+
 #+begin_src elisp
   (use-package emacs-refactor)
 
