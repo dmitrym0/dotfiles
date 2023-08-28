@@ -2938,6 +2938,11 @@ Refactoring support via =M-x emr-show-refactor-menu=
 #+end_src
 
 
+* js?
+(add-hook 'js-mode '(flymake-eslint-enable))
+
+
+
 * notes
 
 =global-linum-mode= is bad apparently. Makes everything slow.
