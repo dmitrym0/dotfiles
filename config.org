@@ -972,6 +972,7 @@ Fuzzy? matching. ~org refi~, matches ~org-refile~ and ~org-agenda-refile~
 
     :init
     (define-derived-mode typescript-tsx-mode typescript-mode "tsx")
+    (flymake-eslint-enable)
     :config
     (setq typescript-indent-level 2)
     (add-hook 'typescript-mode #'subword-mode)
