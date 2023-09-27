@@ -1798,12 +1798,12 @@ Sourced from [[https://github.com/hiecaq/quinoa42.github.io/blob/gh-pages/org/do
 
 * [2022-06-06 Mon]
 #+begin_src elisp
-  (use-package centered-cursor-mode
+  ;; (use-package centered-cursor-mode
 
-  :demand
-  :config
-  ;; Optional, enables centered-cursor-mode in all buffers.
-  (global-centered-cursor-mode))
+  ;; :demand
+  ;; :config
+  ;; ;; Optional, enables centered-cursor-mode in all buffers.
+  ;; (global-centered-cursor-mode))
 
 #+end_src
 
