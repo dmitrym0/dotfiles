@@ -102,7 +102,7 @@ Soft wrap lines (wrap around past screen boundary)
 
 ;; save all org buffers
 ;; this is very slow. disable for now?
-(add-hook 'auto-save-hook 'org-save-all-org-buffers)
+;; (add-hook 'auto-save-hook 'org-save-all-org-buffers)
 #+end_src
 
 
@@ -2926,7 +2926,7 @@ Refactoring support via =M-x emr-show-refactor-menu=
 
 
 #+begin_src elisp
-  (use-package emacs-refactor)
+;;  (use-package emacs-refactor)
 
 #+end_src
 
