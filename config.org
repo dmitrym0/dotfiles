@@ -2088,15 +2088,16 @@ Use ~gd~ to jump to definitions in evil mode.
   ;;              :repo "https://github.com/org-noter/org-noter"
   ;;              ))
 
-  (use-package org-noter
-	     :straight (:type git :local-repo "~/workspace/org-noter"
-			      :no-build t
-			      :no-install t
-			      :branch "feature/org-roam-integration")
-	     :after pdf-tools)
+  ;; (use-package org-noter
+  ;;            :straight (:type git :local-repo "~/workspace/org-noter"
+  ;;       		      :no-build t
+  ;;       		      :no-install t
+  ;;       		      :branch "feature/org-roam-integration")
+  ;;            :after pdf-tools)
 
 
-  ;;(use-package org-noter )
+
+  (use-package org-noter )
 
   (setq org-noter-max-short-selected-text-length 700000)
   (setq org-noter-max-short-length 80000)
@@ -2550,7 +2551,7 @@ Orderless, borrowed from [[https://kristofferbalintona.me/posts/202202211546/][h
 
   ;; Show the Embark target at point via Eldoc.  You may adjust the Eldoc
   ;; strategy, if you want to see the documentation from multiple providers.
-  (add-hook 'eldoc-documentation-functions #'embark-eldoc-first-target)
+  ;; (add-hook 'eldoc-documentation-functions #'embark-eldoc-first-target)
   ;; (setq eldoc-documentation-strategy #'eldoc-documentation-compose-eagerly)
 
   :config
