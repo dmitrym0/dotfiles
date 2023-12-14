@@ -1419,6 +1419,7 @@ Take care of weird mac bindings in emacs-mac from [[https://gist.github.com/rail
   (add-hook 'minibuffer-setup-hook #'pulsar-pulse-line)
   (add-hook 'consult-after-jump-hook #'pulsar-recenter-top)
   (add-hook 'consult-after-jump-hook #'pulsar-reveal-entry)
+  (add-hook 'window-selection-change-functions #'pulsar-pulse-line)
   (setq pulsar-pulse t)
 #+end_src
 
