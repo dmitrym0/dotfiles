@@ -1405,18 +1405,20 @@ Take care of weird mac bindings in emacs-mac from [[https://gist.github.com/rail
     :group 'pulsar-faces)
 
 
-    (use-package pulsar
-      :init
-      (pulsar-global-mode 1)
-      :config
-      (setq pulsar-pulse-on-window-change t)
-      (setq pulsar-pulse t)
-      (setq pulsar-delay 0.055)
-      (setq pulsar-iterations 10)
-      (setq pulsar-face 'dm/pulsar-yellow)
-      (setq pulsar-highlight-face 'dm/pulsar-yellow))
+  (use-package pulsar
+    :init
+    (pulsar-global-mode 1)
+    :config
+    (setq pulsar-pulse-on-window-change t)
+    (setq pulsar-pulse t)
+    (setq pulsar-delay 0.055)
+    (setq pulsar-iterations 10)
+    (setq pulsar-face 'dm/pulsar-yellow)
+    (setq pulsar-highlight-face 'dm/pulsar-yellow))
 
   (add-hook 'minibuffer-setup-hook #'pulsar-pulse-line)
+  (add-hook 'consult-after-jump-hook #'pulsar-recenter-top)
+  (add-hook 'consult-after-jump-hook #'pulsar-reveal-entry)
 #+end_src
 
 
