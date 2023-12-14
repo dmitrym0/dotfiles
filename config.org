@@ -1406,7 +1406,6 @@ Take care of weird mac bindings in emacs-mac from [[https://gist.github.com/rail
 
 
   (use-package pulsar
-
     :init
     (pulsar-global-mode 1)
     :config
