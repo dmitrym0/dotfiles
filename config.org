@@ -2955,6 +2955,12 @@ Refactoring support via =M-x emr-show-refactor-menu=
 
 #+begin_src elisp
 
+(setq ediff-keep-variants nil)
+(setq ediff-make-buffers-readonly-at-startup nil)
+(set ediff-merge-revisions-with-ancestor t)
+(setq ediff-show-clashes-only t)
+(seta ediff-split-window-function 'split-window-horizontally)
+(seta ediff-window-setup-function 'ediff-setup-windows-plain)
 #+end_src
 
 
