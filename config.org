@@ -2953,6 +2953,11 @@ Refactoring support via =M-x emr-show-refactor-menu=
 * ediff from prot: https://www.youtube.com/watch?v=pSvsAutseO0
 
 
+#+begin_src elisp
+
+#+end_src
+
+
 * notes
 
 =global-linum-mode= is bad apparently. Makes everything slow.
