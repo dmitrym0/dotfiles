@@ -2952,7 +2952,6 @@ Refactoring support via =M-x emr-show-refactor-menu=
 
 * ediff from prot: https://www.youtube.com/watch?v=pSvsAutseO0
 
-
 #+begin_src elisp
   (setq ediff-keep-variants nil)
   (setq ediff-make-buffers-readonly-at-startup nil)
