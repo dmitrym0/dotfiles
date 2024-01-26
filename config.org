@@ -2545,6 +2545,7 @@ Orderless, borrowed from [[https://kristofferbalintona.me/posts/202202211546/][h
 #+begin_src elisp
   (message "loading Embark")
     (use-package embark
+    :demand
     :bind
     (("C-c d ." . embark-act)         ;; pick some comfortable binding
      ("C-;" . embark-dwim)        ;; good alternative: M-.
