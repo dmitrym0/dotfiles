@@ -2968,6 +2968,8 @@ Refactoring support via =M-x emr-show-refactor-menu=
 * [2024-03-18 Mon] kubel
 
 #+begin_src elisp
+
+  (use-package vterm)
   (use-package kubel
   :after (vterm)
   :config (kubel-vterm-setup))
