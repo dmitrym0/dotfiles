@@ -2964,6 +2964,18 @@ Refactoring support via =M-x emr-show-refactor-menu=
 #+end_src
 
 
+
+* [2024-03-18 Mon] kubel
+
+#+begin_src elisp
+  (use-package kubel
+  :after (vterm)
+  :config (kubel-vterm-setup))
+
+
+
+#+end_src
+
 * notes
 
 =global-linum-mode= is bad apparently. Makes everything slow.
