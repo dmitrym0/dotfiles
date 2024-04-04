@@ -2804,9 +2804,19 @@ We are using :input-buffer of INFO."
                     ;; :font "Input Mono Compressed"
                     :italic nil)))
   :config
-  (global-blamer-mode 1))
+  ;;(global-blamer-mode 1))
   ;; (set-face-attribute 'blamer-face nil :height 0.9)
   (setq blamer-commit-formatter "%s")
+
+
+  (defun dm/turn-on-blamer-mode ()
+  "Turn on blamer for everything other than org files."
+  (when (and buffer-file-name
+             (not (string-suffix-p ".excluded-extension" buffer-file-name)))
+    (my-minor-mode 1)))
+
+(add-hook 'find-file-hook #'my-turn-on-minor-mode)
+
 
 #+end_src
 
