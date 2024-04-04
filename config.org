@@ -2812,10 +2812,10 @@ We are using :input-buffer of INFO."
   (defun dm/turn-on-blamer-mode ()
   "Turn on blamer for everything other than org files."
   (when (and buffer-file-name
-             (not (string-suffix-p ".excluded-extension" buffer-file-name)))
-    (my-minor-mode 1)))
+             (not (string-suffix-p ".org" buffer-file-name)))
+    (blamer-mode 1)))
 
-(add-hook 'find-file-hook #'my-turn-on-minor-mode)
+(add-hook 'find-file-hook #'dm/turn-on-blamer-mode)
 
 
 #+end_src
