@@ -1217,33 +1217,36 @@ timer setup.
 Call this from xbar to show remaining pomodoro time.
 
 #+begin_src emacs-lisp
-  (defun jx/produce-pomodoro-string-for-menu-bar ()
-    "Produce the string for the current pomodoro counter to display on the menu bar"
-    (let ((prefix (cl-case org-pomodoro-state
-                    (:pomodoro "P")
-                    (:overtime "O")
-                    (:short-break "B")
-                    (:long-break "LB"))))
-      (if (and (org-pomodoro-active-p) (> (length prefix) 0))
-          (list prefix (org-pomodoro-format-seconds)) "N/A")))
+    (defun jx/produce-pomodoro-string-for-menu-bar ()
+      "Produce the string for the current pomodoro counter to display on the menu bar"
+      (let ((prefix (cl-case org-pomodoro-state
+                      (:pomodoro "P")
+                      (:overtime "O")
+                      (:short-break "B")
+                      (:long-break "LB"))))
+        (if (and (org-pomodoro-active-p) (> (length prefix) 0))
+            (list prefix (org-pomodoro-format-seconds)) "N/A")))
 
 
-  (defun org-pomodoro-reset-notification-markers()
-    "reset notification variables so that when we get close to the pomodor being over we get a notification"
-    (setq org-pomodoro-notified-getting-there nil)
-    (setq org-pomodor-notified-almost-over nil)
-    )
+    (defun org-pomodoro-reset-notification-markers()
+      "reset notification variables so that when we get close to the pomodor being over we get a notification"
+      (setq org-pomodoro-notified-getting-there nil)
+      (setq org-pomodor-notified-almost-over nil)
+      )
 
 
-( org-pomodoro-third-time-modify-end-time-hook nil
+  (add-hook 'minibuffer-setup-hook #'pulsar-pulse-line)
 
-  (defun org-pomodoro-third-time-decrement ()
-    (org-pomodoro-third-time-end-in (floor ( / (- (org-pomodoro-remaining-seconds) 300) 60))))
+  (add-hook 'org-pomodoro-third-time-modify-end-time-hook #org-pomodoro-reset-notification-markers)
 
 
-  (defun org-pomodoro-restart ()
-    (org-pomodoro-kill)
-    (org-pomodoro '(16)))
+    (defun org-pomodoro-third-time-decrement ()
+      (org-pomodoro-third-time-end-in (floor ( / (- (org-pomodoro-remaining-seconds) 300) 60))))
+
+
+    (defun org-pomodoro-restart ()
+      (org-pomodoro-kill)
+      (org-pomodoro '(16)))
 #+end_src
 
 ** Bind Immediate
