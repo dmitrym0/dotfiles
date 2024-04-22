@@ -1232,7 +1232,7 @@ Call this from xbar to show remaining pomodoro time.
       "reset notification variables so that when we get close to the pomodor being over we get a notification"
       (message "Reset org-pomodoro notification markers")
       (setq org-pomodoro-notified-getting-there nil)
-      (setq org-pomodor-notified-almost-over nil)
+      (setq org-pomodoro-notified-almost-over nil)
       )
 
 
