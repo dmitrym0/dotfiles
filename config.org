@@ -1228,7 +1228,7 @@ Call this from xbar to show remaining pomodoro time.
             (list prefix (org-pomodoro-format-seconds)) "N/A")))
 
 
-    (defun org-pomodoro-reset-notification-markers()
+    (defun org-pomodoro-reset-notification-markers(&opt )
       "reset notification variables so that when we get close to the pomodor being over we get a notification"
       (message "Reset org-pomodoro notification markers")
       (setq org-pomodoro-notified-getting-there nil)
