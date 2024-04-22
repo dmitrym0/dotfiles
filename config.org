@@ -1236,6 +1236,7 @@ Call this from xbar to show remaining pomodoro time.
       )
 
 
+  ;; time to run every 3 seconds to check how much pomodoro time is left
   (
 
   (add-hook 'org-pomodoro-third-time-modify-end-time-hook #'org-pomodoro-reset-notification-markers)
