@@ -1233,7 +1233,7 @@ Call this from xbar to show remaining pomodoro time.
       (message "Reset org-pomodoro notification markers")
       (setq org-pomodoro-notified-getting-there nil)
       (setq org-pomodoro-notified-almost-over nil)
-      )
+ )
 
 
   (load-file "~/workspace/emacs-nursery/pomodoro-notify.el")
