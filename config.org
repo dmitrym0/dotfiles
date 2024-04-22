@@ -1236,8 +1236,10 @@ Call this from xbar to show remaining pomodoro time.
       )
 
 
+  (load-file "~/workspace/emacs-nursery/pomodoro-notify.el")
+
   ;; time to run every 3 seconds to check how much pomodoro time is left
-  (
+  (run-with-timer 0 3 'dm/org-pomodoro-notify)
 
   (add-hook 'org-pomodoro-third-time-modify-end-time-hook #'org-pomodoro-reset-notification-markers)
   (add-hook 'org-pomodoro-started-hook #'org-pomodoro-reset-notification-markers)
