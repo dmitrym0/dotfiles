@@ -1247,6 +1247,8 @@ Call this from xbar to show remaining pomodoro time.
   (add-hook 'org-pomodoro-third-time-modify-end-time-hook #'org-pomodoro-reset-notification-markers)
   (add-hook 'org-pomodoro-started-hook #'org-pomodoro-reset-notification-markers)
 
+  (defun org-pomodoro-third-time-increment ()
+    (org-pomodoro-third-time-end-in (floor ( / (+ (org-pomodoro-remaining-seconds) 300) 60))))
 
   (defun org-pomodoro-third-time-decrement ()
     (org-pomodoro-third-time-end-in (floor ( / (- (org-pomodoro-remaining-seconds) 300) 60))))
