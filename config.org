@@ -2121,6 +2121,7 @@ Use ~gd~ to jump to definitions in evil mode.
         		      :branch "feature/org-roam-integration")
              :after pdf-tools)
 
+
   (setq org-noter-create-session-from-document-hook '(org-noter--create-session-from-document-file-supporting-org-roam))
 
 
