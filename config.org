@@ -2105,6 +2105,7 @@ Use ~gd~ to jump to definitions in evil mode.
    (message "load org noter fork.")
 
 
+
    (use-package pdf-tools)
 
    ;; (use-package org-noter
@@ -2119,6 +2120,8 @@ Use ~gd~ to jump to definitions in evil mode.
         		      :no-install t
         		      :branch "feature/org-roam-integration")
              :after pdf-tools)
+
+  (setq org-noter-create-session-from-document-hook '(org-noter--create-session-from-document-file-supporting-org-roam))
 
 
 
