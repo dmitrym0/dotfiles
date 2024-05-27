@@ -275,6 +275,7 @@ Lets keep `C-c d` for personal shortcuts.
   (global-set-key (kbd "C-c d l") #'dm/move-task-to-today-and-reset-schedule)
 
   (defun dm/set-schedule-today-now ()
+    "Set a SCHEDULED property on today's headline to a random timestamp."
     (interactive)
     (let* ((hour (+ (% (abs (random)) 7) 10))
            (is_scheduled_already (org-element-property :scheduled  (org-element-at-point))) ;; get :SCHEDULED property, nil if not set.
