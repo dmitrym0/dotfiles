@@ -277,7 +277,8 @@ Lets keep `C-c d` for personal shortcuts.
   (defun dm/set-schedule-today-now ()
     (interactive)
     (let* ((hour (+ (% (abs (random)) 7) 10))
-    (timestamp (format "%s:00" hour)))
+           (is_scheduled_already (org-element-property :scheduled  (org-element-at-point))))
+      (timestamp (format "%s:00" hour))
     (org-schedule "today" timestamp)))
 
 #+end_src
