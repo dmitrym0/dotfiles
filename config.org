@@ -2709,7 +2709,7 @@ Orderless, borrowed from [[https://kristofferbalintona.me/posts/202202211546/][h
     (switch-to-buffer "URLS")
     (org-set-frame-title "URLS")
     (x-focus-frame nil)
-    (org-roam-node-find)
+    (org-roam-dailies-goto-today)
     (current-buffer-journal 1)
     )
 
