@@ -2710,6 +2710,7 @@ Orderless, borrowed from [[https://kristofferbalintona.me/posts/202202211546/][h
     (org-set-frame-title "URLS")
     (x-focus-frame nil)
     (org-roam-dailies-goto-today)
+    (org-insert-new-date-in-log)
     (current-buffer-journal 1)
     )
 
