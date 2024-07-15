@@ -2670,39 +2670,50 @@ Orderless, borrowed from [[https://kristofferbalintona.me/posts/202202211546/][h
 :END:
 
 #+begin_src elisp
-    (defun dm/get-fav-urls ()
-      "Get Urls from ~/.urls"
-      (let ((choices
-             (split-string
-              (shell-command-to-string "cat ~/.urls")
-              )))
-        (completing-read "Urls: " choices)))
+  (defun dm/get-fav-urls ()
+    "Get Urls from ~/.urls"
+    (let ((choices
+           (split-string
+            (shell-command-to-string "cat ~/.urls")
+            )))
+      (completing-read "Urls: " choices)))
 
-    (defun dm/open-fav-urls ()
-      "Launches a browser with the url suppplied"
-      (interactive)
-      (let ((url (dm/get-fav-url-2)))
-        (shell-command
-         (format "open '%s'" url))
-        ))
+  (defun dm/open-fav-urls ()
+    "Launches a browser with the url suppplied"
+    (interactive)
+    (let ((url (dm/get-fav-url-2)))
+      (shell-command
+       (format "open '%s'" url))
+      ))
 
-    (defun dm/popup-url-selector ()
-      (get-buffer-create "URLS")
-      (switch-to-buffer "URLS")
-      (org-set-frame-title "URLS")
-      (x-focus-frame nil)
-      (dm/open-fav-urls)
-      (delete-frame))
+  (defun dm/popup-url-selector ()
+    (get-buffer-create "URLS")
+    (switch-to-buffer "URLS")
+    (org-set-frame-title "URLS")
+    (x-focus-frame nil)
+    (dm/open-fav-urls)
+    (delete-frame))
 
 
-      (defun dm/popup-org-roam-node-find ()
-      (get-buffer-create "URLS")
-      (switch-to-buffer "URLS")
-      (org-set-frame-title "URLS")
-      (x-focus-frame nil)
+  (defun dm/popup-org-roam-node-find ()
+    (get-buffer-create "URLS")
+    (switch-to-buffer "URLS")
+    (org-set-frame-title "URLS")
+    (x-focus-frame nil)
     (org-roam-node-find)
-  (current-buffer-journal 1)
-  )
+    (current-buffer-journal 1)
+    )
+
+    (defun dm/popup-daily-log ()
+    (get-buffer-create "URLS")
+    (switch-to-buffer "URLS")
+    (org-set-frame-title "URLS")
+    (x-focus-frame nil)
+    (org-roam-node-find)
+    (current-buffer-journal 1)
+    )
+
+
 
 
 #+end_src
