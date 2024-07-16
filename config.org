@@ -3032,6 +3032,23 @@ Refactoring support via =M-x emr-show-refactor-menu=
 
 * [2024-07-16 Tue] emacs-everywhere
 
+
+#+begin_src elisp
+    (defun dm/log-to-current-daily ()
+    "Dump the current buffer to a daily log file."
+    (let ((emacs-everywhere-contents   (buffer-substring-no-properties (point-min) (point-max))))
+      (with-temp-buffer
+        (org-roam-dailies-find-today)
+        (org-insert-new-date-in-log)
+        (insert emacs-everywhere-contents))))
+
+  (add-hook 'emacs-everywhere-final-hooks 'dm/log-to-current-daily)
+  (setq emacs-everywhere-frame-name-format "URLS")
+
+
+
+#+end_src
+
 * notes
 
 =global-linum-mode= is bad apparently. Makes everything slow.
