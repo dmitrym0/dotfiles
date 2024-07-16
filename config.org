@@ -3029,6 +3029,9 @@ Refactoring support via =M-x emr-show-refactor-menu=
 
 #+end_src
 
+
+* [2024-07-16 Tue] emacs-everywhere
+
 * notes
 
 =global-linum-mode= is bad apparently. Makes everything slow.
