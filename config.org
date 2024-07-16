@@ -3049,6 +3049,29 @@ Refactoring support via =M-x emr-show-refactor-menu=
 
 #+end_src
 
+
+* [2024-07-16 Tue] tabbar
+#+begin_src elisp
+  (setq tab-bar-show 1)                      ;; hide bar if <= 1 tabs open
+  (setq tab-bar-close-button-show t)       ;; hide tab close / x button
+  (setq tab-bar-new-tab-choice #'org-roam-goto-today);; buffer to show in new tabs
+  (setq tab-bar-tab-hints t)                 ;; show tab numbers
+  (setq tab-bar-format '(tab-bar-format-tabs tab-bar-separator))
+  ;; elements to include in bar
+
+
+  (tab-bar-mode 1)                           ;; enable tab bar
+
+  (global-set-key (kbd "H-{") 'tab-bar-switch-to-prev-tab)
+  (global-set-key (kbd "H-}") 'tab-bar-switch-to-next-tab)
+  (global-set-key (kbd "H-t") 'tab-bar-new-tab)
+  (global-set-key (kbd "H-w") 'tab-bar-close-tab)
+
+
+
+
+#+end_src
+
 * notes
 
 =global-linum-mode= is bad apparently. Makes everything slow.
