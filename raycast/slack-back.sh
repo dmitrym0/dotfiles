@@ -1,0 +1,1 @@
+/Users/dmitrymarkushevich/bin/slack-back.sh
