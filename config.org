@@ -34,7 +34,7 @@ When idling GC is triggered and a low threshold is set.
 #+end_quote
 
 #+begin_src elisp
-  (add-to-list 'load-path "/Users/dmitrymarkushevich/workspace/github/gcmh")
+  (add-to-list 'load-path "~/workspace/github/gcmh")
   (require 'gcmh)
   (gcmh-mode 1)
   (setq garbage-collection-messages t)
@@ -47,9 +47,9 @@ Attempt to refactor this file a bit.
 
 #+begin_src emacs-lisp
   (message "Loading startup")
-  (org-babel-load-file "/Users/dmitrymarkushevich/dotfiles/modules/startup.org")
+  (org-babel-load-file "~/dotfiles/modules/startup.org")
   (message "Loading Utils")
-  (org-babel-load-file "/Users/dmitrymarkushevich/dotfiles/modules/utils.org")
+  (org-babel-load-file "~/dotfiles/modules/utils.org")
 #+end_src
 
 
@@ -234,7 +234,10 @@ Enable wakatime
 Use doom modeline
 #+begin_src emacs-lisp
   (message "Enable doom modeline")
-  (use-package doom-modeline :diminish
+  (use-package nerd-icons)
+  (use-package doom-modeline
+:after nerd-icons
+:diminish
     :config (doom-modeline-mode 1)
     ;; Whether to use hud instead of default bar. It's only respected in GUI.
     (setq doom-modeline-hud nil)
@@ -793,11 +796,11 @@ WhichKey
 
 dimmer, highlight current buffer
 #+begin_src emacs-lisp
-  (use-package dimmer
-    :config
-    (setq dimmer-adjustment-mode :both)
-    (dimmer-configure-which-key)
-    (dimmer-mode t))
+;;  (use-package dimmer
+ ;;   :config
+ ;;   (setq dimmer-adjustment-mode :both)
+ ;;   (dimmer-configure-which-key)
+ ;;   (dimmer-mode t))
 #+end_src
 
 org-roam
@@ -972,8 +975,11 @@ Fuzzy? matching. ~org refi~, matches ~org-refile~ and ~org-agenda-refile~
 
 *** More typescript support
 #+begin_src elisp
-  (use-package typescript-mode
+(use-package flymake-eslint)
 
+
+  (use-package typescript-mode
+    :after flymake-eslint
     :init
     (define-derived-mode typescript-tsx-mode typescript-mode "tsx")
     (flymake-eslint-enable)
@@ -1091,8 +1097,8 @@ From [[https://massimilianomirra.com/notes/lightweight-external-command-integrat
 
 ** Org-capture-popout frame
 #+begin_src emacs-lisp
-  (load-file "~/.emacs.d/extra/capture.el")
-  (load-file "~/.emacs.d/extra/org-project.el")
+  (load-file "~/workspace/emacs-nursery/capture.el")
+  (load-file "~/workspace/emacs-nursery/org-project.el")
 #+end_src
 
 ** Company mode (autocompletion)
@@ -2120,7 +2126,7 @@ Use ~gd~ to jump to definitions in evil mode.
              :straight (:type git :local-repo "~/workspace/org-noter"
         		      :no-build t
         		      :no-install t
-        		      :branch "feature/org-roam-integration")
+        		      :branch "master")
              :after pdf-tools)
 
   (org-noter-enable-org-roam-integration)
@@ -2630,7 +2636,7 @@ Orderless, borrowed from [[https://kristofferbalintona.me/posts/202202211546/][h
 * nursery
 
 #+begin_src elisp
-  (add-to-list 'load-path "/Users/dmitrymarkushevich/workspace/github/nursery/lisp")
+  (add-to-list 'load-path "~/workspace/github/nursery/lisp")
 
 
   (use-package org-drill)
@@ -3019,11 +3025,11 @@ Refactoring support via =M-x emr-show-refactor-menu=
 
 #+begin_src elisp
 
-  (use-package vterm)
+  ;; (use-package vterm)
 
-  (use-package kubel
-  :after (vterm)
-  :config (kubel-vterm-setup))
+  ;; (use-package kubel
+  ;; :after (vterm)
+  ;; :config (kubel-vterm-setup))
 
 
 
