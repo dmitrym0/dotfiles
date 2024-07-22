@@ -2114,7 +2114,12 @@ Use ~gd~ to jump to definitions in evil mode.
 
 
 
-   (use-package pdf-tools)
+   (use-package pdf-tools
+:config
+(pdf-tools-install)
+  (setq pdf-view-use-scaling t)
+
+)
 
    ;; (use-package org-noter
    ;;   :straight (
@@ -2127,15 +2132,9 @@ Use ~gd~ to jump to definitions in evil mode.
         		      :no-build t
         		      :no-install t
         		      :branch "master")
-             :after pdf-tools)
-
-  (org-noter-enable-org-roam-integration)
-
-
-
-
-   ;; (use-package org-noter )
-
+             :after pdf-tools
+	     :config
+(org-noter-enable-org-roam-integration)
    (setq org-noter-max-short-selected-text-length 700000)
    (setq org-noter-max-short-length 80000)
 
@@ -2143,6 +2142,15 @@ Use ~gd~ to jump to definitions in evil mode.
    (define-key org-noter-doc-mode-map (kbd "M-i") nil)
    (define-key pdf-view-mode-map (kbd "C-u") nil)
    (define-key org-noter-doc-mode-map (kbd "M-i") #'dm/insert-precise)
+)
+
+
+
+
+
+
+   ;; (use-package org-noter )
+
 
    (defun dm/insert-precise (&optional optional)
      (interactive "P")
@@ -2232,9 +2240,6 @@ Preserve emacs open buffers. Restore 5 on open and then when emacs is idle open 
 * pdf-tools
 
 #+begin_src elisp
-  (setq pdf-view-use-scaling t)
-  (pdf-tools-install)
-
 #+end_src
 
 
@@ -2648,7 +2653,7 @@ Orderless, borrowed from [[https://kristofferbalintona.me/posts/202202211546/][h
              org-roam-review-list-recently-added)
 
   ;; ;; Optional - tag all newly-created notes as seedlings.
-  :hook (org-roam-capture-new-node . org-roam-review-set-seedling)
+  ;; :hook (org-roam-capture-new-node . org-roam-review-set-seedling)
 
   ;; ;; Optional - keybindings for applying Evergreen note properties.
   ;; :general
