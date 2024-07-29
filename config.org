@@ -507,6 +507,7 @@ Create a custom agenda view.
             (org-agenda-cmp-user-defined 'org-review-compare)
             (org-agenda-sorting-strategy
              '(user-defined-down))))
+
           ("n" "Agenda and all TODOs"
            ((agenda "" nil)
             (alltodo "" nil))
@@ -577,12 +578,12 @@ Create a custom agenda view.
 
         (setq org-agenda-custom-commands
               '(              ("r" "1SIE" agenda "-CANCELLED/"
-               ((org-agenda-overriding-header "SIE Reviews Scheduled")
-                (org-agenda-skip-function 'org-review-agenda-skip)
-                (org-agenda-cmp-user-defined 'org-review-compare)
-                (org-agenda-sorting-strategy '(user-defined-down))))))
+                               ((org-agenda-overriding-header "SIE Reviews Scheduled")
+                                (org-agenda-skip-function 'org-review-agenda-skip)
+                                (org-agenda-cmp-user-defined 'org-review-compare)
+                                (org-agenda-sorting-strategy '(user-defined-down))))))
 
-  (message "custom agenda loaded")
+        (message "custom agenda loaded")
 #+end_src
 
 ** Custom org functions
