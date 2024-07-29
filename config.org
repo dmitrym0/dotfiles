@@ -3088,6 +3088,7 @@ Refactoring support via =M-x emr-show-refactor-menu=
 
 #+begin_src elisp
   (use-package zetteldesk
+  :ensure t
   :straight (zetteldesk
              :type git :host github
              :repo "Vidianos-Giannitsis/zetteldesk.el"))
