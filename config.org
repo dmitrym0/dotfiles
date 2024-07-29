@@ -329,7 +329,7 @@ Find symbol under cursor in current project
 
 enable automated indent mode for org files
 #+begin_src emacs-lisp
-;;(add-hook 'org-mode-hook 'org-indent-mode)
+(add-hook 'org-mode-hook 'org-indent-mode)
 #+end_src
 
 Disable done tasks in agenda view.
@@ -2646,6 +2646,7 @@ Orderless, borrowed from [[https://kristofferbalintona.me/posts/202202211546/][h
 
     (use-package org-drill)
      (require 'org-roam-dblocks)
+     (require 'org-roam-links)
 
 
   ;;  (use-package org-roam-review :straight (org-roam-review :type git :local-repo "~/workspace/emacs-nursery" :no-build t :no-install t)
