@@ -493,7 +493,7 @@ Create a custom agenda view.
                       '(time-up priority-down))))))
 
 
-          ("r" "SIE" tags-todo "-CANCELLED/"
+          ("r" "1SIE" tags-todo "-CANCELLED/"
            ((org-agenda-overriding-header "SIE Reviews Scheduled")
             (org-agenda-skip-function 'org-review-agenda-skip)
             (org-agenda-cmp-user-defined 'org-review-compare)
@@ -574,7 +574,7 @@ Create a custom agenda view.
 
 
 
-          ))
+          )
 
 
   (message "custom agenda loaded")
