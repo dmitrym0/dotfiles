@@ -807,7 +807,7 @@ org-roam
 #+begin_src emacs-lisp
   (message "Org-roam")
   (defun dm/goto-index (&optional key)
-    (find-file (org-roam-node-file (org-roam-node-from-title-or-alias "index"))))
+    (find-file (org-roam-node-file (org-roam-node-from-title-or-alias "index"))) t)
   ;; keybindings for org-roam
   (use-package org-roam
     :custom
