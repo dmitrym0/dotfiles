@@ -2647,10 +2647,10 @@ Orderless, borrowed from [[https://kristofferbalintona.me/posts/202202211546/][h
   (use-package org-drill)
 
 
-  (use-package org-roam-review :straight (org-roam-review :type git :local-repo "~/workspace/emacs-nursery" :no-build t :no-install t)
-  :commands (org-roam-review
-             org-roam-review-list-by-maturity
-             org-roam-review-list-recently-added)
+;;  (use-package org-roam-review :straight (org-roam-review :type git :local-repo "~/workspace/emacs-nursery" :no-build t :no-install t)
+;;  :commands (org-roam-review
+;;             org-roam-review-list-by-maturity
+;;             org-roam-review-list-recently-added)
 
   ;; ;; Optional - tag all newly-created notes as seedlings.
   ;; :hook (org-roam-capture-new-node . org-roam-review-set-seedling)
@@ -2670,7 +2670,7 @@ Orderless, borrowed from [[https://kristofferbalintona.me/posts/202202211546/][h
   ;; (:states '(normal) :keymaps 'org-roam-review-mode-map
   ;; "TAB" 'magit-section-cycle
   ;; "g r" 'org-roam-review-refresh)
-  )
+  ;;)
 #+end_src
 
 
@@ -3082,6 +3082,8 @@ Refactoring support via =M-x emr-show-refactor-menu=
 
 
 #+end_src
+
+
 
 * notes
 
