@@ -820,7 +820,7 @@ org-roam
            ("C-c n y" . org-roam-dailies-goto-previous-note)
            ("C-c n n" . org-roam-dailies-goto-tomorrow)
            ("C-c n u" . org-roam-ui-open)
-           ("C-c n o" . (org-roam-node-file (org-roam-node-from-title-or-alias "index")))
+           ("C-c n ]" . '(find-buffer (org-roam-node-file (org-roam-node-from-title-or-alias "index"))))
            ;; Dailies
            )
     :config
