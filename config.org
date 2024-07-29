@@ -3088,19 +3088,21 @@ Refactoring support via =M-x emr-show-refactor-menu=
 
 #+begin_src elisp
   (use-package zetteldesk
-  :ensure t
-  :straight (zetteldesk
-             :type git :host github
-             :repo "Vidianos-Giannitsis/zetteldesk.el")
-  :config
+    :ensure t
+    :straight (zetteldesk
+               :type git :host github
+               :repo "Vidianos-Giannitsis/zetteldesk.el")
+    :config
+    (zetteldesk-mode 1)
+    (setq zetteldesk-kb-hydra-prefix (kbd "C-c z"))
 
-  )
+    )
 
 
   (use-package major-mode-hydra
-  :ensure t
-  :bind
-  ("M-SPC" . major-mode-hydra))
+    :ensure t
+    :bind
+    ("M-SPC" . major-mode-hydra))
 
 #+end_src
 
