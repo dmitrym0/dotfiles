@@ -3091,7 +3091,10 @@ Refactoring support via =M-x emr-show-refactor-menu=
   :ensure t
   :straight (zetteldesk
              :type git :host github
-             :repo "Vidianos-Giannitsis/zetteldesk.el"))
+             :repo "Vidianos-Giannitsis/zetteldesk.el")
+  :config
+
+  )
 
 
   (use-package major-mode-hydra
