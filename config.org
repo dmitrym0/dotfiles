@@ -3079,8 +3079,6 @@ Refactoring support via =M-x emr-show-refactor-menu=
   (global-set-key (kbd "H-w") 'tab-bar-close-tab)
 
 
-
-
 #+end_src
 
 
@@ -3088,6 +3086,7 @@ Refactoring support via =M-x emr-show-refactor-menu=
 
 #+begin_src elisp
   (use-package zetteldesk
+    :after major-mode-hyra
     :ensure t
     :straight (zetteldesk
                :type git :host github
@@ -3105,6 +3104,14 @@ Refactoring support via =M-x emr-show-refactor-menu=
     :bind
     ("M-SPC" . major-mode-hydra))
 
+
+
+  (use-package vulpea
+  :ensure t
+  ;; hook into org-roam-db-autosync-mode you wish to enable
+  ;; persistence of meta values (see respective section in README to
+  ;; find out what meta means)
+  :hook ((org-roam-db-autosync-mode . vulpea-db-autosync-enable)))
 #+end_src
 
 
