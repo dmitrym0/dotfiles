@@ -3092,6 +3092,12 @@ Refactoring support via =M-x emr-show-refactor-menu=
              :type git :host github
              :repo "Vidianos-Giannitsis/zetteldesk.el"))
 
+
+  (use-package major-mode-hydra
+  :ensure t
+  :bind
+  ("M-SPC" . major-mode-hydra))
+
 #+end_src
 
 
