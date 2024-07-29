@@ -468,118 +468,115 @@ Disable done tasks in agenda view.
 Create a custom agenda view.
 #+begin_src emacs-lisp
 
-      (message "Enable custom agenda")
-      (setq org-agenda-start-on-weekday 1)
-      (setq calendar-week-start-day 1)
+  (message "Enable custom agenda")
+  (setq org-agenda-start-on-weekday 1)
+  (setq calendar-week-start-day 1)
 
-      (setq org-agenda-custom-commands
-            '(
+  (setq org-agenda-custom-commands
+        '(
 
-              ("D" "Overview for today"
-               ((tags-todo "WORK:URGENT"
-                           ((org-agenda-overriding-header "Urgent Work")
-                            (org-agenda-skip-function 'org-agenda-skip-if-scheduled-later)))
-                (tags-todo "WORK:IMPORTANT"
-                           ((org-agenda-overriding-header "Important Work")
-                            (org-agenda-skip-function 'org-agenda-skip-if-run-with-idle-timerscheduled-later)))
-                (tags-todo "-WORK:URGENT"
-                           ((org-agenda-overriding-header "Mine Urgent")
-                            (org-agenda-skip-function 'org-agenda-skip-if-scheduled-later)))
-                (tags-todo "-WORK:IMPORTANT"
-                           ((org-agenda-overriding-header "Mine Important")
-                            (org-agenda-skip-function 'org-agenda-skip-if-scheduled-later)))
-                (agenda ""
-                        ((org-agenda-overriding-header "Today")
-                         (org-agenda-span 1)
+          ("D" "Overview for today"
+           ((tags-todo "WORK:URGENT"
+                       ((org-agenda-overriding-header "Urgent Work")
+                        (org-agenda-skip-function 'org-agenda-skip-if-scheduled-later)))
+            (tags-todo "WORK:IMPORTANT"
+                       ((org-agenda-overriding-header "Important Work")
+                        (org-agenda-skip-function 'org-agenda-skip-if-run-with-idle-timerscheduled-later)))
+            (tags-todo "-WORK:URGENT"
+                       ((org-agenda-overriding-header "Mine Urgent")
+                        (org-agenda-skip-function 'org-agenda-skip-if-scheduled-later)))
+            (tags-todo "-WORK:IMPORTANT"
+                       ((org-agenda-overriding-header "Mine Important")
+                        (org-agenda-skip-function 'org-agenda-skip-if-scheduled-later)))
+            (agenda ""
+                    ((org-agenda-overriding-header "Today")
+                     (org-agenda-span 1)
+                     (org-agenda-sorting-strategy
+                      '(time-up priority-down))))))
+
+
+          ("r" "1SIE" tags-todo "-CANCELLED/"
+           ((org-agenda-overriding-header "SIE Reviews Scheduled")
+            (org-agenda-skip-function 'org-review-agenda-skip)
+            (org-agenda-cmp-user-defined 'org-review-compare)
+            (org-agenda-sorting-strategy '(user-defined-down))))
+
+          ("R" "Review projects" tags-todo "-CANCELLED/"
+           ((org-agenda-overriding-header "Reviews Scheduled")
+            (org-agenda-skip-function 'dm/org-review-agenda-skip)
+            (org-agenda-cmp-user-defined 'org-review-compare)
+            (org-agenda-sorting-strategy
+             '(user-defined-down))))
+          ("n" "Agenda and all TODOs"
+           ((agenda "" nil)
+            (alltodo "" nil))
+           nil)
+
+          ("k" "All items with time logged, but no tag"
+           ((alltodo "" ((org-agenda-skip-function
+                          (lambda ()
+                            (if (and (null (org-get-tags))
+                                     (>= (org-clock-sum-current-item) 1))
+                                nil
+                              (or (outline-next-heading)
+                                  (point-max)))))))nil )
+
+                                          ;-----
+
+           ("N" "Notes" tags "NOTE"
+            ((org-agenda-overriding-header "Notes")
+             (org-tags-match-list-sublevels t)))
+           ("h" "Habits" tags-todo "STYLE=\"habit\""
+            ((org-agenda-overriding-header "Habits")
+             (org-agenda-sorting-strategy
+              '(todo-state-down effort-up category-keep))))
+           (" " "Agenda"
+            (
+             (tags-todo "-WORK:URGENT"
+                        ((org-agenda-overriding-header "Mine Urgent")
+                         (org-agenda-skip-function 'org-agenda-skip-if-scheduled-later)))
+             (tags-todo "-WORK:IMPORTANT"
+                        ((org-agenda-overriding-header "Mine Important")
+                         (org-agenda-skip-function 'org-agenda-skip-if-scheduled-later)))
+             (agenda ""
+                     ((org-agenda-overriding-header "Today")
+                      (org-agenda-span 1)
+                      (org-agenda-sorting-strategy
+                       '(time-up priority-down))))
+             (tags "REFILE"
+                   ((org-agenda-overriding-header "Tasks to Refile")
+                    (org-tags-match-list-sublevels nil)))
+             (tags-todo "-CANCELLED/!"
+                        ((org-agenda-overriding-header "Stuck Projects")
+                         (org-agenda-skip-function 'bh/skip-non-stuck-projects)
                          (org-agenda-sorting-strategy
-                          '(time-up priority-down))))))
+                          '(category-keep))))
+             (tags-todo "-CANCELLED/!NEXT"
+                        ((org-agenda-overriding-header (concat "Project Next Tasks"
+                                                               (if bh/hide-scheduled-and-waiting-next-tasks
+                                                                   ""
+                                                                 " (including WAITING and SCHEDULED tasks)")))
+                         (org-agenda-skip-function 'bh/skip-projects-and-habits-and-single-tasks)
+                         (org-tags-match-list-sublevels t)
+                         (org-agenda-todo-ignore-scheduled bh/hide-scheduled-and-waiting-next-tasks)
+                         (org-agenda-todo-ignore-deadlines bh/hide-scheduled-and-waiting-next-tasks)
+                         (org-agenda-todo-ignore-with-date bh/hide-scheduled-and-waiting-next-tasks)
+                         (org-agenda-sorting-strategy
+                          '(todo-state-down effort-up category-keep))))
+             (tags-todo "-CANCELLED+WAITING|HOLD/!"
+                        ((org-agenda-overriding-header (concat "Waiting and Postponed Tasks"
+                                                               (if bh/hide-scheduled-and-waiting-next-tasks
+                                                                   ""
+                                                                 " (including WAITING and SCHEDULED tasks)")))
+                         (org-agenda-skip-function 'bh/skip-non-tasks)
+                         (org-tags-match-list-sublevels nil)
+                         (org-agenda-todo-ignore-scheduled bh/hide-scheduled-and-waiting-next-tasks)
+                         (org-agenda-todo-ignore-deadlines bh/hide-scheduled-and-waiting-next-tasks)))
+             nil))))
 
 
-              ("r" "1SIE" tags-todo "-CANCELLED/"
-               ((org-agenda-overriding-header "SIE Reviews Scheduled")
-                (org-agenda-skip-function 'org-review-agenda-skip)
-                (org-agenda-cmp-user-defined 'org-review-compare)
-                (org-agenda-sorting-strategy '(user-defined-down))))
-
-              ("R" "Review projects" tags-todo "-CANCELLED/"
-               ((org-agenda-overriding-header "Reviews Scheduled")
-                (org-agenda-skip-function 'dm/org-review-agenda-skip)
-                (org-agenda-cmp-user-defined 'org-review-compare)
-                (org-agenda-sorting-strategy
-                 '(user-defined-down))))
-              ("n" "Agenda and all TODOs"
-               ((agenda "" nil)
-                (alltodo "" nil))
-               nil)
-
-              ("k" "All items with time logged, but no tag"
-               ((alltodo "" ((org-agenda-skip-function
-                              (lambda ()
-                                (if (and (null (org-get-tags))
-                                         (>= (org-clock-sum-current-item) 1))
-                                    nil
-                                  (or (outline-next-heading)
-                                      (point-max)))))))nil )
-
-                                              ;-----
-
-               ("N" "Notes" tags "NOTE"
-                ((org-agenda-overriding-header "Notes")
-                 (org-tags-match-list-sublevels t)))
-               ("h" "Habits" tags-todo "STYLE=\"habit\""
-                ((org-agenda-overriding-header "Habits")
-                 (org-agenda-sorting-strategy
-                  '(todo-state-down effort-up category-keep))))
-               (" " "Agenda"
-                (
-                 (tags-todo "-WORK:URGENT"
-                            ((org-agenda-overriding-header "Mine Urgent")
-                             (org-agenda-skip-function 'org-agenda-skip-if-scheduled-later)))
-                 (tags-todo "-WORK:IMPORTANT"
-                            ((org-agenda-overriding-header "Mine Important")
-                             (org-agenda-skip-function 'org-agenda-skip-if-scheduled-later)))
-                 (agenda ""
-                         ((org-agenda-overriding-header "Today")
-                          (org-agenda-span 1)
-                          (org-agenda-sorting-strategy
-                           '(time-up priority-down))))
-                 (tags "REFILE"
-                       ((org-agenda-overriding-header "Tasks to Refile")
-                        (org-tags-match-list-sublevels nil)))
-                 (tags-todo "-CANCELLED/!"
-                            ((org-agenda-overriding-header "Stuck Projects")
-                             (org-agenda-skip-function 'bh/skip-non-stuck-projects)
-                             (org-agenda-sorting-strategy
-                              '(category-keep))))
-                 (tags-todo "-CANCELLED/!NEXT"
-                            ((org-agenda-overriding-header (concat "Project Next Tasks"
-                                                                   (if bh/hide-scheduled-and-waiting-next-tasks
-                                                                       ""
-                                                                     " (including WAITING and SCHEDULED tasks)")))
-                             (org-agenda-skip-function 'bh/skip-projects-and-habits-and-single-tasks)
-                             (org-tags-match-list-sublevels t)
-                             (org-agenda-todo-ignore-scheduled bh/hide-scheduled-and-waiting-next-tasks)
-                             (org-agenda-todo-ignore-deadlines bh/hide-scheduled-and-waiting-next-tasks)
-                             (org-agenda-todo-ignore-with-date bh/hide-scheduled-and-waiting-next-tasks)
-                             (org-agenda-sorting-strategy
-                              '(todo-state-down effort-up category-keep))))
-                 (tags-todo "-CANCELLED+WAITING|HOLD/!"
-                            ((org-agenda-overriding-header (concat "Waiting and Postponed Tasks"
-                                                                   (if bh/hide-scheduled-and-waiting-next-tasks
-                                                                       ""
-                                                                     " (including WAITING and SCHEDULED tasks)")))
-                             (org-agenda-skip-function 'bh/skip-non-tasks)
-                             (org-tags-match-list-sublevels nil)
-                             (org-agenda-todo-ignore-scheduled bh/hide-scheduled-and-waiting-next-tasks)
-                             (org-agenda-todo-ignore-deadlines bh/hide-scheduled-and-waiting-next-tasks)))
-                 nil)))
-
-
-
-              )
-
-
-      (message "custom agenda loaded")
+        (setq org-agenda-custom-commands
+  (message "custom agenda loaded")
 #+end_src
 
 ** Custom org functions
