@@ -3095,7 +3095,7 @@ Refactoring support via =M-x emr-show-refactor-menu=
     :config
     (zetteldesk-mode 1)
     (setq zetteldesk-kb-hydra-prefix (kbd "C-c z"))
-
+    (require 'zetteldesk-kb)
     )
 
 
