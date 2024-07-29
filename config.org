@@ -575,18 +575,6 @@ Create a custom agenda view.
              nil)))))
 
 
-        (setq org-agenda-custom-commands
-              '(              ("r" "1SIE" search "-CANCELLED/"
-                               ((org-agenda-overriding-header "SIE Reviews Scheduled")
-                                (org-agenda-skip-function 'org-review-agenda-skip)
-                                (org-agenda-cmp-user-defined 'org-review-compare)
-                                (org-agenda-sorting-strategy '(user-defined-down))))
-
-  ("m" "Review items with SIE_NEXT_REVIEW"
-         agenda ""
-         ((org-ql-block '(property "SIE_NEXT_REVIEW")
-                        ((org-ql-block-header "Entries with SIE_NEXT_REVIEW property")
-                         (org-ql-search-directories (org-agenda-files))))))))
         (message "custom agenda loaded")
 #+end_src
 
