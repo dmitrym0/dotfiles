@@ -3094,7 +3094,7 @@ Refactoring support via =M-x emr-show-refactor-menu=
                :repo "Vidianos-Giannitsis/zetteldesk.el")
     :config
     (zetteldesk-mode 1)
-    (setq zetteldesk-kb-hydra-prefix (kbd "C-c z"))
+    (setq zetteldesk-kb-hydra-prefix (kbd "C-c x"))
     (add-to-list 'load-path "/Users/dmitry/.emacs.d/straight/repos/zetteldesk.el")
     (require 'zetteldesk-kb)
     )
