@@ -2645,8 +2645,7 @@ Orderless, borrowed from [[https://kristofferbalintona.me/posts/202202211546/][h
 
 
     (use-package org-drill)
-     (use-package org-roam-dblocks
-      :hook (org-mode . org-roam-dblocks-autoupdate-mode))
+     (require org-roam-dblocks)
 
 
   ;;  (use-package org-roam-review :straight (org-roam-review :type git :local-repo "~/workspace/emacs-nursery" :no-build t :no-install t)
