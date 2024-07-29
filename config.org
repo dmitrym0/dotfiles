@@ -806,6 +806,9 @@ dimmer, highlight current buffer
 org-roam
 #+begin_src emacs-lisp
   (message "Org-roam")
+  (defun dm/goto-index ()
+    (find-buffer (org-roam-node-file (org-roam-node-from-title-or-alias "index")))
+    )
   ;; keybindings for org-roam
   (use-package org-roam
     :custom
@@ -820,7 +823,7 @@ org-roam
            ("C-c n y" . org-roam-dailies-goto-previous-note)
            ("C-c n n" . org-roam-dailies-goto-tomorrow)
            ("C-c n u" . org-roam-ui-open)
-           ("C-c n ]" . '(find-buffer (org-roam-node-file (org-roam-node-from-title-or-alias "index"))))
+           ("C-c n ]" . dm/goto-index)
            ;; Dailies
            )
     :config
