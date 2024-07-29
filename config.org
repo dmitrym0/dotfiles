@@ -1922,18 +1922,6 @@ Sourced from [[https://github.com/hiecaq/quinoa42.github.io/blob/gh-pages/org/do
 * Agenda files optimization
 
 #+begin_src elisp
-  (defun dm/get-active-agenda-files ()
-    (let* ((shell-output (shell-command-to-string (format "ag -l -r '\\*\\s+TODO' %s |grep -v 'archive' | grep -v '.stversion' | grep '\\.org$'" org-roam-directory))))
-      (split-string (substring shell-output 0 (- (length shell-output) 1)) "\n")))
-
-
-  (defun dm/update-agenda-file-list (&rest args)
-  "Update agenda list with latest files"
-  (interactive)
-    (setq org-agenda-files (flatten-tree
-                            (append (dm/get-active-agenda-files) `(,(concat org-directory "gcal.org") ,(concat org-directory "vt-cal.org"))))))
-
-
 
 #+end_src
 
