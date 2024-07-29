@@ -576,6 +576,12 @@ Create a custom agenda view.
 
 
         (setq org-agenda-custom-commands
+              '(              ("r" "1SIE" tags-todo "-CANCELLED/"
+               ((org-agenda-overriding-header "SIE Reviews Scheduled")
+                (org-agenda-skip-function 'org-review-agenda-skip)
+                (org-agenda-cmp-user-defined 'org-review-compare)
+                (org-agenda-sorting-strategy '(user-defined-down))))))
+
   (message "custom agenda loaded")
 #+end_src
 
