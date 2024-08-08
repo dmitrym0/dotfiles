@@ -3117,6 +3117,18 @@ Refactoring support via =M-x emr-show-refactor-menu=
   :hook ((org-roam-db-autosync-mode . vulpea-db-autosync-enable)))
 #+end_src
 
+* org-sie
+
+#+begin_src elisp
+  (use-package sie
+    :straight (:repo "dmitrym0/org-sie"
+                     :host github
+                     :type git))
+
+
+
+#+end_src
+
 
 * notes
 
