@@ -3124,9 +3124,6 @@ Refactoring support via =M-x emr-show-refactor-menu=
     :straight (:repo "dmitrym0/org-sie"
                      :host github
                      :type git))
-
-
-
 #+end_src
 
 
