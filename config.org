@@ -3131,6 +3131,7 @@ Refactoring support via =M-x emr-show-refactor-menu=
 * org-modern
 
 #+begin_src elisp
+  (use-package org-modern)
 
 #+end_src
 
