@@ -3132,10 +3132,15 @@ Refactoring support via =M-x emr-show-refactor-menu=
 
 #+begin_src elisp
   (use-package org-modern)
-
 #+end_src
 
->>>>>>> 35b9e44 (config.org)
+#+begin_src elisp
+  (use-package citeproc)
+#+end_src
+
+
+
+
 * notes
 
 =global-linum-mode= is bad apparently. Makes everything slow.
