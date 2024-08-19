@@ -3084,8 +3084,6 @@ Refactoring support via =M-x emr-show-refactor-menu=
 
 #+end_src
 
-<<<<<<< HEAD
-
 * zettledesk
 
 #+begin_src elisp
