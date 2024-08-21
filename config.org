@@ -805,25 +805,11 @@ WhichKey
 
 dimmer, highlight current buffer
 #+begin_src emacs-lisp
-<<<<<<< HEAD
 ;;  (use-package dimmer
  ;;   :config
  ;;   (setq dimmer-adjustment-mode :both)
  ;;   (dimmer-configure-which-key)
  ;;   (dimmer-mode t))
-||||||| parent of bbdca81 (.)
-  (use-package dimmer
-    :config
-    (setq dimmer-adjustment-mode :both)
-    (dimmer-configure-which-key)
-    (dimmer-mode t))
-=======
-;;  (use-package dimmer
-;;    :config
- ;;   (setq dimmer-adjustment-mode :both)
- ;;   (dimmer-configure-which-key)
-  ;;`  (dimmer-mode t))
->>>>>>> bbdca81 (.)
 #+end_src
 
 org-roam
@@ -2621,6 +2607,8 @@ Orderless, borrowed from [[https://kristofferbalintona.me/posts/202202211546/][h
                  '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
                    nil
                    (window-parameters (mode-line-format . none)))))
+
+  (message "Loading embark-consult")
 
   ;; Consult users will also want the embark-consult package.
   (use-package embark-consult
