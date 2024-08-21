@@ -3084,6 +3084,7 @@ Refactoring support via =M-x emr-show-refactor-menu=
 
 #+end_src
 
+<<<<<<< HEAD
 
 * zettledesk
 
@@ -3127,6 +3128,15 @@ Refactoring support via =M-x emr-show-refactor-menu=
 #+end_src
 
 
+
+
+* org-modern
+
+#+begin_src elisp
+
+#+end_src
+
+>>>>>>> 35b9e44 (config.org)
 * notes
 
 =global-linum-mode= is bad apparently. Makes everything slow.
