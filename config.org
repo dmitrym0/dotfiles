@@ -3098,7 +3098,7 @@ Refactoring support via =M-x emr-show-refactor-menu=
     :config
     (zetteldesk-mode 1)
     (setq zetteldesk-kb-hydra-prefix (kbd "C-c x"))
-    (add-to-list 'load-path "/Users/dmitry/.emacs.d/straight/repos/zetteldesk.el")
+    (add-to-list 'load-path "~/.emacs.d/straight/repos/zetteldesk.el")
     (require 'zetteldesk-kb)
     )
 
