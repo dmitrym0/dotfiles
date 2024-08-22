@@ -1122,6 +1122,7 @@ From [[https://massimilianomirra.com/notes/lightweight-external-command-integrat
     :bind (:map company-active-map
                 ("C-n" . company-select-next)
                 ("C-p" . company-select-previous))
+    :hook (company-mode . evil-normalize-keymaps)
     :config
     (setq company-idle-delay 0.3)
     (setq company-backends '((company-capf company-dabbrev-code)))
