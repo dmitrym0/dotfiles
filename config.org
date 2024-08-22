@@ -1019,6 +1019,7 @@ Fuzzy? matching. ~org refi~, matches ~org-refile~ and ~org-agenda-refile~
 ** LSP Mode
 #+begin_src elisp
   (use-package lsp-mode
+    :after company
 
     :init
     ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
