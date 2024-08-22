@@ -3141,6 +3141,11 @@ Refactoring support via =M-x emr-show-refactor-menu=
   (use-package citeproc)
 #+end_src
 
+#+begin_src elisp
+
+  (use-package citar)
+
+#+end_src
 
 #+begin_src elisp
   (message "------- DONE LOADING ------")
