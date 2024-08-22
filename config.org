@@ -1137,8 +1137,7 @@ From [[https://massimilianomirra.com/notes/lightweight-external-command-integrat
     (setq company-box-show-single-candidate t
        company-box-backends-colors       nil
        company-box-max-candidates        50
-       company-box-icons-alist           'company-box-icons-all-the-icons
-       company-box-icons-all-the-icons))
+       company-box-icons-alist           'company-box-icons-all-the-icons))
 
 
 #+end_src
