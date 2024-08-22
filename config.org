@@ -3134,7 +3134,9 @@ Refactoring support via =M-x emr-show-refactor-menu=
 * org-modern
 
 #+begin_src elisp
-  (use-package org-modern)
+      (use-package org-modern
+        :config
+        (global-org-modern-mode))
 #+end_src
 
 #+begin_src elisp
@@ -3147,6 +3149,17 @@ Refactoring support via =M-x emr-show-refactor-menu=
     :custom
     (citar-bibliography '("~/org-roam/bibliography/zotero.bib")))
   (use-package citar-org-roam)
+
+#+end_src
+
+
+#+begin_src elisp
+  (defun dm/config ()
+    "Open up dmitry's config file"
+    (interactive)
+    (find-file "~/dotfiles/config.org"))
+
+
 
 #+end_src
 
