@@ -1132,6 +1132,7 @@ From [[https://massimilianomirra.com/notes/lightweight-external-command-integrat
   ;; With use-package:
   (use-package company-box
     :hook (company-mode . company-box-mode)
+
     (setq company-box-show-single-candidate t
        company-box-backends-colors       nil
        company-box-max-candidates        50
