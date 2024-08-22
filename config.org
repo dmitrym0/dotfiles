@@ -3145,7 +3145,7 @@ Refactoring support via =M-x emr-show-refactor-menu=
 
   (use-package citar
     :custom
-    (citar-bibliography '("~/org-roam/bibliorgraphy/zotero.bib")))
+    (citar-bibliography '("~/org-roam/bibliography/zotero.bib")))
   (use-package citar-org-roam)
 
 #+end_src
