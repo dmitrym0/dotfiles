@@ -1127,6 +1127,7 @@ From [[https://massimilianomirra.com/notes/lightweight-external-command-integrat
     :config
     (setq company-idle-delay 0.3)
     (setq company-backends '((company-capf company-dabbrev-code)))
+    (add-to-list 'copilot-disable-display-predicates #'company--active-p).
     (global-company-mode t))
 
 
