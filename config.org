@@ -3144,6 +3144,7 @@ Refactoring support via =M-x emr-show-refactor-menu=
 #+begin_src elisp
 
   (use-package citar)
+  (use-package citar-org-roam)
 
 #+end_src
 
