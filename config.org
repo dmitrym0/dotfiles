@@ -1120,6 +1120,7 @@ From [[https://massimilianomirra.com/notes/lightweight-external-command-integrat
   (use-package company
 
     :bind (:map company-active-map
+                ("TAB" . company-select-common)
                 ("C-n" . company-select-next)
                 ("C-p" . company-select-previous))
     :hook (company-mode . evil-normalize-keymaps)
