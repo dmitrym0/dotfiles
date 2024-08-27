@@ -2899,9 +2899,13 @@ We are using :input-buffer of INFO."
 
 * jira
 
+To get JQL from a board:
+1. Click on the '...'
+
 #+begin_src elisp
 
   (use-package org-jira)
+
 
 
   (setq org-jira-custom-jqls
