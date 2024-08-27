@@ -2906,15 +2906,28 @@ To get JQL from a board:
 
 #+begin_src elisp
 
-  (use-package org-jira)
+        (use-package org-jira)
 
 
 
-  (setq org-jira-custom-jqls
-        '(
-          (:jql "(project in (\"Customer Acquisition Consumer\", \"Comms Platform\") AND \"Team[Team]\" in (MEX, 0b76287e-7b0f-40d4-ab51-567e658d6502)) OR (project = MEX AND labels in (CAC)) OR (project = \"Customer Acquisition Consumer\" and labels in (CAC)) OR (project = \"Comms Platform\" and labels in (CAC)) OR (project = WORK and labels in (CAC)) ORDER BY Rank ASC"
-                :filename "mex-current-sprint")
-          ))
+        (setq org-jira-custom-jqls
+              '(
+                (:jql "(
+    (
+        (project in (\"Customer Acquisition Consumer\", \"Comms Platform\") AND \"Team[Team]\" in (MEX, 0b76287e-7b0f-40d4-ab51-567e658d6502))
+        OR (project = MEX AND labels in (CAC))
+        OR (project = \"Customer Acquisition Consumer\" and labels in (CAC))
+        OR (project = \"Comms Platform\" and labels in (CAC))
+        OR (project = WORK and labels in (CAC))
+    )
+    AND status not in (Done, Rejected)
+    AND assignee = currentUser()
+) ORDER BY Rank ASC"
+
+
+
+                      :filename "mex-current-sprint")
+                ))
 
 #+end_src
 
