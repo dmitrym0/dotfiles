@@ -2912,7 +2912,7 @@ To get JQL from a board:
 
   (setq org-jira-custom-jqls
         '(
-          (:jql "issuetype != Epic AND Sprint in openSprints() AND statusCategory in (2, 4) AND assignee in (62eac8cc5111209f4fdeb0eb) ORDER BY cf[11975] ASC, cf[12020] "
+          (:jql "
                 :filename "mex-current-sprint")
           ))
 
