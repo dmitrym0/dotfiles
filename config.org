@@ -3195,6 +3195,16 @@ Refactoring support via =M-x emr-show-refactor-menu=
 
 
 
+* om-dash
+
+org-mode dashboards
+
+#+begin_src elisp
+  (use-package om-dash  :init (org-pomodoro-third-time-mode +1)
+    :straight (:repo ""
+                     :host github
+                     :type git))
+#+end_src
 
 
 
