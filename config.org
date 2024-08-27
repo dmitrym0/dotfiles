@@ -2912,7 +2912,7 @@ To get JQL from a board:
 
   (setq org-jira-custom-jqls
         '(
-          (:jql "
+          (:jql "(project in ("Customer Acquisition Consumer", "Comms Platform") AND "Team[Team]" in (MEX, 0b76287e-7b0f-40d4-ab51-567e658d6502)) OR (project = MEX AND labels in (CAC)) OR (project = "Customer Acquisition Consumer" and labels in (CAC)) OR (project = "Comms Platform" and labels in (CAC)) OR (project = WORK and labels in (CAC)) ORDER BY Rank ASC"
                 :filename "mex-current-sprint")
           ))
 
