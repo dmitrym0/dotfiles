@@ -3193,10 +3193,6 @@ Refactoring support via =M-x emr-show-refactor-menu=
 
 #+end_src
 
-#+begin_src elisp
-  (message "------- DONE LOADING ------")
-#+end_src
-
 
 
 
@@ -3207,3 +3203,9 @@ Refactoring support via =M-x emr-show-refactor-menu=
 * notes
 
 =global-linum-mode= is bad apparently. Makes everything slow.
+
+* FIN
+
+#+begin_src elisp
+  (message "------- DONE LOADING ------")
+#+end_src
