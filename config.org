@@ -2901,6 +2901,8 @@ We are using :input-buffer of INFO."
 
 To get JQL from a board:
 1. Click on the '...'
+2. Select configure board
+3.
 
 #+begin_src elisp
 
