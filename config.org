@@ -3081,6 +3081,8 @@ Refactoring support via =M-x emr-show-refactor-menu=
 
 
 #+begin_src elisp
+
+    (use-package emacs-everywhere)
     (defun dm/log-to-current-daily ()
     "Dump the current buffer to a daily log file."
     (let ((emacs-everywhere-contents   (buffer-substring-no-properties (point-min) (point-max))))
