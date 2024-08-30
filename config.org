@@ -192,7 +192,7 @@ Show column numbers in the mode line
                   eshell-mode-hook
                   pdf-view-mode-hook))
     (add-hook mode (lambda ()
-                     (messagde "Disabling line numbers mode.")
+                     (message "Disabling line numbers mode.")
                      (display-line-numbers-mode 0))))
 #+end_src
 
