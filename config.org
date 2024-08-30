@@ -182,15 +182,16 @@ Show column numbers in the mode line
 #+end_src
 
 #+begin_src elisp
-  (global-display-line-numbers-mode t)
+    (global-display-line-numbers-mode t)
 
-  ;; Disable line numbers for some modes
-  (dolist (mode '(org-mode-hook
-                  term-mode-hook
-                  shell-mode-hook
-                  treemacs-mode-hook
-                  eshell-mode-hook))
-    (add-hook mode (lambda () (display-line-numbers-mode 0))))
+    ;; Disable line numbers for some modes
+    (dolist (mode '(org-mode-hook
+                    term-mode-hook
+                    shell-mode-hook
+                    treemacs-mode-hook
+                    eshell-mode-hook
+                    pdf-view))
+      (add-hook mode (lambda () (display-line-numbers-mode 0))))
 #+end_src
 
 Show trailing whitespaces, kinda makes emacs ugly.
