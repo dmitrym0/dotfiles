@@ -422,7 +422,7 @@ Done tasks get a [[https://github.com/lmintmate/emacs.d#strikethrough-for-done-t
           %?")
           ("u" "Unexpected task" function dm/capture-unexpected-task-into-org-roam-daily
          :empty-lines 1
-         :immediate-finish t)
+         )
 
                                 ))
 
