@@ -371,95 +371,98 @@ Done tasks get a [[https://github.com/lmintmate/emacs.d#strikethrough-for-done-t
 
 
 #+begin_src emacs-lisp
-         (message "Enabling capture templates")
-                      (setq org-capture-templates
-                            `(
-                              ("l" "Log" entry
-                               (file+olp+datetree ,(concat org-directory "/log.org"))
-                               "* Entered on %U
-                                                   %?
-                                                   ")
-                              ("t" "TODO" entry
-                               (file+headline ,(concat org-directory "/inbox.org") "INBOX")
-                               "* TODO %?")
-                              ("h" "how do i" entry
-                               (file+headline ,(concat org-directory "/20200422070715_howdoi.org") "INBOX")
-                               "* %?
-                                                     %i
-                                                     %a")
-                               ("i" "TIL" entry
-                             (file ,(concat org-directory "/til.org"))
-                             "* %? ")
+           (message "Enabling capture templates")
+                        (setq org-capture-templates
+                              `(
+                                ("l" "Log" entry
+                                 (file+olp+datetree ,(concat org-directory "/log.org"))
+                                 "* Entered on %U
+                                                     %?
+                                                     ")
+                                ("t" "TODO" entry
+                                 (file+headline ,(concat org-directory "/inbox.org") "INBOX")
+                                 "* TODO %?")
+                                ("h" "how do i" entry
+                                 (file+headline ,(concat org-directory "/20200422070715_howdoi.org") "INBOX")
+                                 "* %?
+                                                       %i
+                                                       %a")
+                                 ("i" "TIL" entry
+                               (file ,(concat org-directory "/til.org"))
+                               "* %? ")
 
 
-                              ("d" "Dailies")
-                              ("p" "potatr")
-                              ("pj" "Journal" entry
-                               (file+olp+datetree "~/Dropbox/orgmode/potatr.org" "Log")
-                               "* Entered on %U
-                                                   %?
-                                                   ")
-                              ("di" "Important thing daily" entry
-                               (file+olp+datetree ,(concat org-directory  "/important-things-daily-2023.org"))
-                               "* Entered on %U
-        %?")
+                                ("d" "Dailies")
+                                ("p" "potatr")
+                                ("pj" "Journal" entry
+                                 (file+olp+datetree "~/Dropbox/orgmode/potatr.org" "Log")
+                                 "* Entered on %U
+                                                     %?
+                                                     ")
+                                ("di" "Important thing daily" entry
+                                 (file+olp+datetree ,(concat org-directory  "/important-things-daily-2023.org"))
+                                 "* Entered on %U
+          %?")
 
-                              ("dj" "Journal" entry
-                               (file+olp+datetree ,(concat org-directory "/personal-daily-2023.org"))
-                               "* Entered on %U
+                                ("dj" "Journal" entry
+                                 (file+olp+datetree ,(concat org-directory "/personal-daily-2023.org"))
+                                 "* Entered on %U
 
-          Prompt: %(dm/get-journaling-prompt)
+            Prompt: %(dm/get-journaling-prompt)
 
-        %?")
+          %?")
 
-        ("P" "copy/paste" entry
+          ("P" "copy/paste" entry
 
-                               (file+headline ,(concat org-directory "/inbox.org") "INBOX")
-                               "* Entered on %U
+                                 (file+headline ,(concat org-directory "/inbox.org") "INBOX")
+                                 "* Entered on %U
 
-          %(dm/get-clipboard-contents)
+            %(dm/get-clipboard-contents)
 
-        %?")
+          %?")
+          ("u" "Unexpected task" function my-org-capture-custom-code
+         :empty-lines 1
+         :immediate-finish t)
 
-                              ))
-
-
-        (message "Enable org-roam-dailies-templates")
-
-
-
-                      (setq org-roam-dailies-capture-templates
-                            '(("d" "autogenerated" plain (function dm/template)
-                               :target (file+head "%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n")
-                               :jump-to-captured t
-                               )
+                                ))
 
 
-                              ))
+          (message "Enable org-roam-dailies-templates")
 
 
-        (message "Enable org-roam-capture-templates")
-                      (setq org-roam-capture-templates
-                            `(("d" "default" plain "%?"
-                               :target (file+head "${slug}.org"
-                                                  "#+title: ${title}\n")
-                               :unnarrowed t)
-                              ("b" "book" plain (file ,(concat org-directory "/book-review-template.org"))
-                               :target (file+head "${slug}.org" "#+title: ${title}\n")
-                               :jump-to-captured
-                               )
-("n" "literature note" plain
-         "%?"
-         :target
-         (file+head
-          "%(expand-file-name (or citar-org-roam-subdir \"\") org-roam-directory)/${citar-citekey}.org"
-          "#+title: ${citar-citekey} (${citar-date}). ${note-title}.\n#+created: %U\n#+last_modified: %U\n\n")
-         :unnarrowed t)
+
+                        (setq org-roam-dailies-capture-templates
+                              '(("d" "autogenerated" plain (function dm/template)
+                                 :target (file+head "%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n")
+                                 :jump-to-captured t
+                                 )
+
+
+                                ))
+
+
+          (message "Enable org-roam-capture-templates")
+                        (setq org-roam-capture-templates
+                              `(("d" "default" plain "%?"
+                                 :target (file+head "${slug}.org"
+                                                    "#+title: ${title}\n")
+                                 :unnarrowed t)
+                                ("b" "book" plain (file ,(concat org-directory "/book-review-template.org"))
+                                 :target (file+head "${slug}.org" "#+title: ${title}\n")
+                                 :jump-to-captured
+                                 )
+  ("n" "literature note" plain
+           "%?"
+           :target
+           (file+head
+            "%(expand-file-name (or citar-org-roam-subdir \"\") org-roam-directory)/${citar-citekey}.org"
+            "#+title: ${citar-citekey} (${citar-date}). ${note-title}.\n#+created: %U\n#+last_modified: %U\n\n")
+           :unnarrowed t)
+
+                                )
+
 
                               )
-
-
-                            )
 
 #+end_src
 
