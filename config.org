@@ -65,7 +65,7 @@ Emacs Nursery; stuff that I'm working on.
   (use-package dm-jira :after embark
                        :straight (:type git :local-repo "~/workspace/emacs-nursery" :no-build t :no-install t))
 
-  (load-file "~/workspace/emacs-nursery/dm
+  (load-file "~/workspace/emacs-nursery/dm-unexpected-task.el")
 #+end_src
 
 
