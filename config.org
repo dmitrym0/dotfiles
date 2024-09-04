@@ -66,6 +66,7 @@ Emacs Nursery; stuff that I'm working on.
                        :straight (:type git :local-repo "~/workspace/emacs-nursery" :no-build t :no-install t))
 
   (load-file "~/workspace/emacs-nursery/dm-unexpected-task.el")
+  (load-file "~/workspace/emacs-nursery/dm-due
 #+end_src
 
 
