@@ -67,6 +67,7 @@ Emacs Nursery; stuff that I'm working on.
 
   (load-file "~/workspace/emacs-nursery/dm-unexpected-task.el")
   (load-file "~/workspace/emacs-nursery/dm-dueapp-integration.el")
+  (load-file "~/workspace/emacs-nursery/dm-org-roam.el")
 #+end_src
 
 
