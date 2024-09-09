@@ -1081,7 +1081,7 @@ From [[https://massimilianomirra.com/notes/lightweight-external-command-integrat
     :config
     ; I like making decks
     (setq anki-editor-create-decks 't))
-    (customize-set-variable 'org-anki-default-deck "Mega::org-anki")
+    (customize-set-variable 'org-anki-default-deck "Mega::org-2024")
 #+end_src
 
 ** Gcal
