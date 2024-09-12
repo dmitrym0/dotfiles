@@ -2450,6 +2450,8 @@ To workaround it, just set org-fold-core-style to its pre org-mode 9.6 default v
     :config
     (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter))
 
+
+
 #+end_src
 
 
