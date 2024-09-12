@@ -2420,7 +2420,7 @@ To workaround it, just set org-fold-core-style to its pre org-mode 9.6 default v
     (global-corfu-mode))
 
     ;; Enable auto completion and configure quitting
-  (setq corfu-auto t
+  (setq corfu-autonil
         corfu-quit-no-match 'separator) ;; or t
 
 
