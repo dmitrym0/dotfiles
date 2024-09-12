@@ -2417,7 +2417,9 @@ To workaround it, just set org-fold-core-style to its pre org-mode 9.6 default v
     ;; This is recommended since Dabbrev can be used globally (M-/).
     ;; See also `corfu-excluded-modes'.
     :init
-    (global-corfu-mode))
+    (global-corfu-mode)
+    (corfu-popupinfo-mode nil)
+    )
 
     ;; Enable auto completion and configure quitting
   (setq corfu-auto nil
