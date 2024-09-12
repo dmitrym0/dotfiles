@@ -2390,7 +2390,7 @@ To workaround it, just set org-fold-core-style to its pre org-mode 9.6 default v
 #+end_src
 
 
-* Corfu
+* Corfu (autocompletion)
 
 #+begin_src elisp
   (use-package corfu
