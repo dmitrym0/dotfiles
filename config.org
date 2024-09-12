@@ -2419,7 +2419,8 @@ To workaround it, just set org-fold-core-style to its pre org-mode 9.6 default v
     :init
     (global-corfu-mode)
     (corfu-popupinfo-mode nil)
-    (setq corfu-popupinfo-delay 0.5))
+    (setq corfu-popupinfo-delay 0.5) ### how long to wait before popping up the docs
+    )
 
 
     ;; Enable auto completion and configure quitting
