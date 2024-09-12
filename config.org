@@ -2419,8 +2419,6 @@ To workaround it, just set org-fold-core-style to its pre org-mode 9.6 default v
    :init
    (global-corfu-mode))
 
-
-
 #+end_src
 
 
