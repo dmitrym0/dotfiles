@@ -2439,6 +2439,16 @@ To workaround it, just set org-fold-core-style to its pre org-mode 9.6 default v
     ;; (keybing <iso-lefttab> may not work for your keyboard model)
     (global-set-key (kbd "C-<iso-lefttab>") 'corfu-candidate-overlay-complete-at-point))
 
+  (use-package kind-icon
+    :ensure t
+    :after corfu
+    ;:custom
+    ; (kind-icon-blend-background t)
+    ; (kind-icon-default-face 'corfu-default) ; only needed with blend-background
+    :config
+    (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter))
+
+
 #+end_src
 
 
