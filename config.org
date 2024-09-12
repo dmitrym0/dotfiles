@@ -2419,6 +2419,7 @@ To workaround it, just set org-fold-core-style to its pre org-mode 9.6 default v
     :init
     (global-corfu-mode)
     (corfu-popupinfo-mode nil)
+    (corfu-popupinfo-delay 0.5))
     )
 
     ;; Enable auto completion and configure quitting
@@ -2452,6 +2453,7 @@ To workaround it, just set org-fold-core-style to its pre org-mode 9.6 default v
 
 
 
+  (dm/
 #+end_src
 
 
