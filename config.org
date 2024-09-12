@@ -2419,6 +2419,9 @@ To workaround it, just set org-fold-core-style to its pre org-mode 9.6 default v
   :init
   (global-corfu-mode))
 
+  ;; Enable auto completion and configure quitting
+(setq corfu-auto t
+      corfu-quit-no-match 'separator) ;; or t
 
 #+end_src
 
