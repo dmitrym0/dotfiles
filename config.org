@@ -2407,7 +2407,6 @@ To workaround it, just set org-fold-core-style to its pre org-mode 9.6 default v
     (corfu-echo-documentation nil) ;; Disable documentation in the echo area
     (corfu-scroll-margin 5)        ;; Use scroll margin
     (global-corfu-minibuffer nil)
-
     :hook (corfu-mode . corfu-popupinfo-mode)
     ;; Enable Corfu only for certain modes.
     ;; :hook ((prog-mode . corfu-mode)
@@ -2448,6 +2447,7 @@ To workaround it, just set org-fold-core-style to its pre org-mode 9.6 default v
     ; (kind-icon-default-face 'corfu-default) ; only needed with blend-background
     :config
     (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter))
+
 #+end_src
 
 
