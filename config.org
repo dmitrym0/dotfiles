@@ -2423,7 +2423,7 @@ To workaround it, just set org-fold-core-style to its pre org-mode 9.6 default v
   (setq corfu-auto nil
         corfu-quit-no-match 'separator) ;; or t
 
-  (setq corfu-popupinfo-mode t)
+  (setq corfu-popupinfo-mode nil)
 
 
     (use-package corfu-candidate-overlay
