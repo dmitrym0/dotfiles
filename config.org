@@ -2393,7 +2393,7 @@ To workaround it, just set org-fold-core-style to its pre org-mode 9.6 default v
 * Corfu (autocompletion)
 
 #+begin_src elisp
-    (use-package corfu
+  (use-package corfu
     ;; Optional customizations
     :custom
     (corfu-cycle t)                ;; Enable cycling for `corfu-next/previous'
@@ -2423,15 +2423,15 @@ To workaround it, just set org-fold-core-style to its pre org-mode 9.6 default v
     )
 
 
-    ;; Enable auto completion and configure quitting
+  ;; Enable auto completion and configure quitting
   (setq corfu-auto nil
         corfu-quit-no-match 'separator) ;; or t
 
 
-    (use-package corfu-candidate-overlay
+  (use-package corfu-candidate-overlay
     :straight (:type git
-               :repo "https://code.bsdgeek.org/adam/corfu-candidate-overlay"
-               :files (:defaults "*.el"))
+                     :repo "https://code.bsdgeek.org/adam/corfu-candidate-overlay"
+                     :files (:defaults "*.el"))
     :after corfu
     :config
     ;; enable corfu-candidate-overlay mode globally
@@ -2446,9 +2446,9 @@ To workaround it, just set org-fold-core-style to its pre org-mode 9.6 default v
   (use-package kind-icon
     :ensure t
     :after corfu
-    ;:custom
-    ; (kind-icon-blend-background t)
-    ; (kind-icon-default-face 'corfu-default) ; only needed with blend-background
+                                          ;:custom
+                                          ; (kind-icon-blend-background t)
+                                          ; (kind-icon-default-face 'corfu-default) ; only needed with blend-background
     :config
     (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter))
 #+end_src
