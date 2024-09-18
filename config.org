@@ -424,7 +424,7 @@ Done tasks get a [[https://github.com/lmintmate/emacs.d#strikethrough-for-done-t
             %(dm/get-clipboard-contents)
 
           %?")
-          ("u" "Unexpected task" entry (function dm/capture-unexpected-task-into-org-roam-daily) :immediate-finish nil)
+          ("u" "Unexpected task" entry (function dm/capture-unexpected-task-into-org-roam-daily) )
 
                                 ))
 
