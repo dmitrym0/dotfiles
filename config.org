@@ -2934,7 +2934,11 @@ We are using :input-buffer of INFO."
 * gptel
 
 #+begin_src elisp
-  (use-package gptel )
+  (use-package gptel
+    :bind
+    ("M-SPC" . major-mode-hydra)
+
+    )
 
 #+end_src
 
