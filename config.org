@@ -2939,7 +2939,7 @@ We are using :input-buffer of INFO."
     (gptel-send '(4)))
 
   (use-package gptel
-    :bind (("C-c d g" . dm/gptel-send-universal-prefix)))
+    :bind (("C-c d g" . nil)))
 #+end_src
 
 * jira
