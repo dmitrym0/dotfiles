@@ -2934,6 +2934,9 @@ We are using :input-buffer of INFO."
 * gptel
 
 #+begin_src elisp
+  (defun dm/gptel-send-universal-prefix ()
+    (universal-prefix)
+    (gptel-send))
   (use-package gptel
     :bind (("C-c d g" . (lambda () (gptel-send '(4))))))
 
