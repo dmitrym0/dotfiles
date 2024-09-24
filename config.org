@@ -2936,9 +2936,7 @@ We are using :input-buffer of INFO."
 #+begin_src elisp
   (use-package gptel
     :bind
-    ("M-SPC" . major-mode-hydra)
-
-    )
+    (("C-c d g" . (gptel-send '(4)))))
 
 #+end_src
 
