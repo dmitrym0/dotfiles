@@ -335,6 +335,9 @@ Find symbol under cursor in current project
   (setq org-agenda-dim-blocked-tasks nil)
   ;; Stop preparing agenda buffers on startup:
   (setq org-agenda-inhibit-startup t)
+  (setq org-export-with-toc nil    ;; Disable table of contents globally
+      org-export-with-section-numbers nil)  ;; Disable section numbering globally
+
 #+end_src
 
 enable automated indent mode for org files
