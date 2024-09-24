@@ -2935,11 +2935,11 @@ We are using :input-buffer of INFO."
 
 #+begin_src elisp
   (defun dm/gptel-send-universal-prefix ()
-    (universal-prefix)
-    (gptel-send))
+    "Invoke gptel-send with a universal prefix. This function is to be used in :bind"
+    (gptel-send '(4)))
 
   (use-package gptel
-    :bind (("C-c d g" . (lambda () (gptel-send '(4))))))
+    :bind (("C-c d g" . dm/gptel-send-universal-prefix)))
 
 
 #+end_src
