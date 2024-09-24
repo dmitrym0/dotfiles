@@ -2936,6 +2936,7 @@ We are using :input-buffer of INFO."
 #+begin_src elisp
   (defun dm/gptel-send-universal-prefix ()
     "Invoke gptel-send with a universal prefix. This function is to be used in :bind"
+    (interactive)
     (gptel-send '(4)))
 
   (use-package gptel
