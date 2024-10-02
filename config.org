@@ -518,11 +518,14 @@ Create a custom agenda view.
                       '(time-up priority-down))))))
 
 
-          ("r" "1SIE" tags-todo "-CANCELLED/"
-           ((org-agenda-overriding-header "SIE Reviews Scheduled")
-            (org-agenda-skip-function 'org-review-agenda-skip)
-            (org-agenda-cmp-user-defined 'org-review-compare)
-            (org-agenda-sorting-strategy '(user-defined-down))))
+
+          ("r" "SIE" tags-todo "-CANCELLED/"
+         ((org-agenda-overriding-header "SIE Review")
+          (org-agenda-skip-function 'org-review-agenda-skip)
+          (org-agenda-cmp-user-defined 'org-review-compare)
+          (org-agenda-sorting-strategy '(user-defined-down))
+          (org-review-last-property-name org-sie-last-review-property)
+          (org-review-next-property-name org-sie-next-review-property)))
 
           ("R" "Review projects" tags-todo "-CANCELLED/"
            ((org-agenda-overriding-header "Reviews Scheduled")
