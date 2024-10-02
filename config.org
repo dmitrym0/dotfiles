@@ -44,10 +44,10 @@ When idling GC is triggered and a low threshold is set.
 * gc-maybe
 
 #+begin_quote
-gc-maybe-mode does is this:
+All gc-maybe-mode does is this:
 
-with a predefined idle timer (default is 5 seconds), call garbage-collect-maybe (from Emacs 28.1 or above) with a factor based on the current gc-cons-percentage, so it garbage collects if needed;
-add hooks to the minibuffer-setup-hook (raising the GC threshold), minibuffer-exit-hook (restoring the GC threshold), and the post-gc-hook (for optional stats in a buffer);
+- with a predefined idle timer (default is 5 seconds), call garbage-collect-maybe (from Emacs 28.1 or above) with a factor based on the current gc-cons-percentage, so it garbage collects if needed;
+- add hooks to the minibuffer-setup-hook (raising the GC threshold), minibuffer-exit-hook (restoring the GC threshold), and the post-gc-hook (for optional stats in a buffer);
 
 #+end_quote
 
