@@ -48,7 +48,7 @@ When idling GC is triggered and a low threshold is set.
                      :host github
                      :type git)
   :init
-  (setopt gc-maybe-threshold-default (*  1024 1024)) ; 16 MiB
+  (setopt gc-maybe-threshold-default (* 48 1024 1024)) ; 48 MiB
   (setopt gc-maybe-percentage-default 0.2)
   (gc-maybe-mode +1) ; set minibuffer hooks and idle timer
   :config
