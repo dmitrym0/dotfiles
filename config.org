@@ -44,12 +44,11 @@ When idling GC is triggered and a low threshold is set.
 
 #+begin_src elisp
   (use-package gc-maybe
-    :straight (:repo "
+    :straight (:repo "bcardoso/gc-maybe"
                      :host github
-                     :type git))
-  :straight (:local-repo "~/.emacs.d/site-lisp/gc-maybe")
+                     :type git)
   :init
-  (setopt gc-maybe-threshold-default (* 16 1024 1024)) ; 16 MiB
+  (setopt gc-maybe-threshold-default (*  1024 1024)) ; 16 MiB
   (setopt gc-maybe-percentage-default 0.2)
   (gc-maybe-mode +1) ; set minibuffer hooks and idle timer
   :config
