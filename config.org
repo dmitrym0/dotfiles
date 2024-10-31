@@ -454,7 +454,7 @@ Done tasks get a [[https://github.com/lmintmate/emacs.d#strikethrough-for-done-t
             %(dm/get-clipboard-contents)
 
           %?")
-          ("u" "1Unexpected task" entry (function dm/capture-unexpected-task-into-org-roam-daily) " * TODO [u]    %? ")
+          ("u" "1Unexpected task" entry (function dm/capture-unexpected-task-into-org-roam-daily) "* TODO [u]    %? ")
           ("t" "Test" entry (function (lambda () (set-buffer (org-capture-target-buffer "~/test.org")) (goto-char (point-max)))) "* Level 2" :immediate-finish t)
 
                                 ))
