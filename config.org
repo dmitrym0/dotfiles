@@ -455,9 +455,7 @@ Done tasks get a [[https://github.com/lmintmate/emacs.d#strikethrough-for-done-t
 
           %?")
           ("u" "1Unexpected task" entry (function dm/capture-unexpected-task-into-org-roam-daily) " - asdf - ")
-          ("t" "Test" entry (function (lambda () (set-buffer (org-capture-target-buffer "~/test.org")) (goto-char (point-max))))
-         "* Level 2"
-         :immediate-finish t)
+          ("t" "Test" entry (function (lambda () (set-buffer (org-capture-target-buffer "~/test.org")) (goto-char (point-max)))) "* Level 2" :immediate-finish t)
 
                                 ))
 
