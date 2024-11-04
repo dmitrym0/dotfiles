@@ -2703,6 +2703,9 @@ Orderless, borrowed from [[https://kristofferbalintona.me/posts/202202211546/][h
 
 #+end_src
 
+#+RESULTS:
+: #s(hash-table size 65 test eql rehash-size 1.5 rehash-threshold 0.8125 data (:use-package (26408 14712 680892 0) :init (26408 14712 680889 0) :init-secs (0 0 21 0) :use-package-secs (0 0 1804 0)))
+
 
 * syncthing conflicts
 
