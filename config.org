@@ -2673,7 +2673,12 @@ Orderless, borrowed from [[https://kristofferbalintona.me/posts/202202211546/][h
     :bind
     (("C-c d ." . embark-act)         ;; pick some comfortable binding
      ("C-;" . embark-dwim)        ;; good alternative: M-.
-     ("C-h B" . embark-bindings)) ;; alternative for `describe-bindings'
+     ("C-h B" . embark-bindings)
+
+     (:map minibuffer-local-map
+              ("M-o" . embark-act)
+              ("C-o" . embark-collect))
+     ) ;; alternative for `describe-bindings'
 
     :init
 
