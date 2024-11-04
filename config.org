@@ -2191,7 +2191,7 @@ Use ~gd~ to jump to definitions in evil mode.
 	     :config
 (org-noter-enable-org-roam-integration)
    (setq org-noter-max-short-selected-text-length 700000)
-   (setq org-noter-max-short-length 80000)
+   (setq org-noter-max-short-length 0)
 
 
    (define-key org-noter-doc-mode-map (kbd "M-i") nil)
