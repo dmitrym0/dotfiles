@@ -100,7 +100,7 @@ Emacs Nursery; stuff that I'm working on.
 
 
 #+begin_src elisp
-#  ;; (use-package org-hyperscheduler
+  ;; (use-package org-hyperscheduler
   ;;   :config
   ;;   (org-hs--log-set-level 'debug)
   ;;   (setq org-hyperscheduler-readonly-mode nil)
