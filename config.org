@@ -23,6 +23,14 @@ Gets tangled by =~/.emacs=
 - Change highlight color. Selecting with a mouse or ~C-SPC~ I can't see the highlight.
 
 
+
+
+* Header
+
+#+begin_src elisp
+;;; config.el --- DESCRIPTION -*- no-byte-compile: t; lexical-binding: t; -*-
+#+end_src
+
 * Garbage collection hack
 
 [[https://github.com/emacsmirror/gcmh][Garbage collection magic hack]]
