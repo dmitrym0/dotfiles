@@ -3362,6 +3362,7 @@ Midnight mode cleans up unused buffers. [[https://www.gnu.org/software/emacs/man
 
 * Timestamp *messages*
 
+From [[https://emacs.stackexchange.com/a/33523/22240][SO]]
 
 #+begin_src elisp
 
