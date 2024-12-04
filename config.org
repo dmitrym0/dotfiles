@@ -3335,6 +3335,29 @@ branch than the one you're currently working on."
 
 =global-linum-mode= is bad apparently. Makes everything slow.
 
+
+* midnight mode
+
+Midnight mode cleans up unused buffers
+
+#+begin_src elisp
+
+  ;; Midnight mode configuration
+(require 'midnight)
+
+;; Automatically clean buffers that haven't been used in the last 3 days
+(setq clean-buffer-list-delay-general (* 3 24 60 60)) ; 3 days in seconds
+
+;; Specify buffers to ignore during cleanup
+(setq clean-buffer-list-kill-never-buffer-names
+      '("*scratch*" "*Messages*")
+
+;; Enable Midnight mode
+(midnight-mode t)
+
+
+#+end_src
+
 * FIN
 
 #+begin_src elisp
