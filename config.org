@@ -3338,7 +3338,7 @@ branch than the one you're currently working on."
 
 * midnight mode
 
-Midnight mode cleans up unused buffers. [[https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Kill-Buffer][manual]]
+Midnight mode cleans up unused buffers. [[https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Kill-Buffer][manual]].
 
 #+begin_src elisp
 
