@@ -1134,7 +1134,7 @@ From [[https://massimilianomirra.com/notes/lightweight-external-command-integrat
 #+end_src
 
 
-To add a calendar, go to settings
+To add a calendar, go to settings (3 dots) and the find =Calendar ID=
 
 #+begin_src elisp
     (use-package org-gcal
