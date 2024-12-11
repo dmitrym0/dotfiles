@@ -1146,7 +1146,7 @@ To add a calendar, go to settings (3 dots) and the find =Calendar ID=
             org-gcal-file-alist `(
                                   ("dmitrym@gmail.com" .  ,(concat org-directory "/gcal.org"))
                                   ("it5btt3khcv7lupc226ua48uc8f8bj3i@import.calendar.google.com" .  ,(concat org-directory "/vt-cal.org"))
-                                  ("dmitry.markushevich@varsitytutors.com" .  ,(concat org-directory "/vt-cal.org"))
+                                  ;; ("dmitry.markushevich@varsitytutors.com" .  ,(concat org-directory "/vt-cal.org"))
                                   ("r7d2lpfs96r5l79oltg49rh6rmnjpcs8@import.calendar.google.com" . ,(concat org-directory "/kayen-cal.org")) ;; kayen's hockey
                                   ("69hfionkpq8a9es9qk8lmslssb25nko0@import.calendar.google.com" . ,(concat org-directory "/maya-cal.org")) ;; kayen's hockey
 
