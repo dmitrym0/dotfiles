@@ -3359,7 +3359,7 @@ Midnight mode cleans up unused buffers. [[https://www.gnu.org/software/emacs/man
 
   ;; Specify buffers to ignore during cleanup
   (setq clean-buffer-list-kill-never-buffer-names
-        '("*scratch*" "*Messages*")
+        '("*scratch*" "*Messages*"))
 
   ;; Enable Midnight mode
   ;; (midnight-mode t)
