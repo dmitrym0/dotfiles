@@ -3182,6 +3182,7 @@ Refactoring support via =M-x emr-show-refactor-menu=
 
 
 #+begin_src elisp
+  (message "[d] emacs-everywhere")
 
     (use-package emacs-everywhere)
     (defun dm/log-to-current-daily ()
