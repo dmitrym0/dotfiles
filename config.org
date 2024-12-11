@@ -3107,7 +3107,7 @@ diff-hl-mode highlights uncommitted changes on the left side of the window (area
 #+begin_src elisp
 
   (menu-bar-mode t) ;; necessary for spaces focusing properly.
-  (push "/opt/homebrew/Cellar/emacs-mac/emacs-28.1-mac-9.0/share/emacs/28.1/lisp/org" load-path)
+  ;; (push "/opt/homebrew/Cellar/emacs-mac/emacs-28.1-mac-9.0/share/emacs/28.1/lisp/org" load-path)
   (setq org-fold-core-style 'text-properties)    ;; org failing to org-cycle with org-mode 6.5.1. This is the work around.
   (message "Done loading.")
 
