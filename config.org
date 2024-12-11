@@ -3350,18 +3350,19 @@ Midnight mode cleans up unused buffers. [[https://www.gnu.org/software/emacs/man
 
 #+begin_src elisp
 
-  ;; Midnight mode configuration
-(require 'midnight)
+  (message "[d] enable midnight mode")
+    ;; Midnight mode configuration
+  (require 'midnight)
 
-;; Automatically clean buffers that haven't been used in the last 3 days
-(setq clean-buffer-list-delay-general (* 3 24 60 60)) ; 3 days in seconds
+  ;; Automatically clean buffers that haven't been used in the last 3 days
+  (setq clean-buffer-list-delay-general (* 3 24 60 60)) ; 3 days in seconds
 
-;; Specify buffers to ignore during cleanup
-(setq clean-buffer-list-kill-never-buffer-names
-      '("*scratch*" "*Messages*")
+  ;; Specify buffers to ignore during cleanup
+  (setq clean-buffer-list-kill-never-buffer-names
+        '("*scratch*" "*Messages*")
 
-;; Enable Midnight mode
-(midnight-mode t)
+  ;; Enable Midnight mode
+  (midnight-mode t)
 
 
 #+end_src
