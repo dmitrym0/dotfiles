@@ -3352,7 +3352,7 @@ Midnight mode cleans up unused buffers. [[https://www.gnu.org/software/emacs/man
 
   (message "[d] enable midnight mode")
     ;; Midnight mode configuration
-  (require 'midnight)
+  ;; (require 'midnight)
 
   ;; Automatically clean buffers that haven't been used in the last 3 days
   (setq clean-buffer-list-delay-general (* 3 24 60 60)) ; 3 days in seconds
