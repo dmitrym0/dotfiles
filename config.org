@@ -3362,7 +3362,7 @@ Midnight mode cleans up unused buffers. [[https://www.gnu.org/software/emacs/man
         '("*scratch*" "*Messages*")
 
   ;; Enable Midnight mode
-  (midnight-mode t)
+  ;; (midnight-mode t)
 
 
 #+end_src
