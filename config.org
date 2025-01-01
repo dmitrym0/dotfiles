@@ -442,12 +442,12 @@ Done tasks get a [[https://github.com/lmintmate/emacs.d#strikethrough-for-done-t
                                                      %?
                                                      ")
                                 ("di" "Important thing daily" entry
-                                 (file+olp+datetree ,(concat org-directory  "/important-things-daily-2023.org"))
+                                 (file+olp+datetree ,(concat org-directory  "/important-things-daily-2025.org"))
                                  "* Entered on %U
           %?")
 
                                 ("dj" "Journal" entry
-                                 (file+olp+datetree ,(concat org-directory "/personal-daily-2023.org"))
+                                 (file+olp+datetree ,(concat org-directory "/personal-daily-2025.org"))
                                  "* Entered on %U
 
             Prompt: %(dm/get-journaling-prompt)
