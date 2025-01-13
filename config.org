@@ -3407,7 +3407,7 @@ From [[https://emacs.stackexchange.com/a/33523/22240][SO]]
 
 #+begin_src elisp
 
-  (use-package auto-dim-other-buffers)
+  (use-package auto-dim-other-buffers :ensure t)
 
 #+end_src
 * FIN
