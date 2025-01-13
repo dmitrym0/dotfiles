@@ -3399,6 +3399,17 @@ From [[https://emacs.stackexchange.com/a/33523/22240][SO]]
   (advice-add 'message :before 'sh/ad-timestamp-message)
 
 #+end_src
+
+
+
+* Auto dim
+
+
+#+begin_src elisp
+
+  (use-package auto-dim-other-buffers)
+
+#+end_src
 * FIN
 
 #+begin_src elisp
