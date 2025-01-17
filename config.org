@@ -116,7 +116,7 @@ Emacs Nursery; stuff that I'm working on.
      :bind (("C-c d t" . org-hyperscheduler-open))
      :straight (:local-repo "~/workspace/org-hyperscheduler" :type git :no-build t :no-install t))
    (message "Done with hyperscheduler")
-+end_src
+#+end_src
 
 
 * Init
