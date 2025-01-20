@@ -1297,7 +1297,7 @@ timer setup.
 ;;     (when dmm-agenda-timer (cancel-timer dmm-agenda-timer))
 ;;     (setq dmm-agenda-timer (run-with-idle-timer 20 nil (lambda () (load-file "~/workspace/github/agenda-html/agenda-html.el")))))
 ;; ;;  (add-hook 'org-after-todo-state-change-hook 'dm/set-timer)
-;;   (run-with-idle-timer (* 60 5) nil (lambda () (dm/update-agenda-file-list)))
+(run-with-idle-timer (* 60 5) nil (lambda () (dm/update-agenda-file-list)))
 #+end_src
 
 * Custom LISP
