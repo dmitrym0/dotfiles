@@ -3406,7 +3406,7 @@ From [[https://emacs.stackexchange.com/a/33523/22240][SO]]
 * pretty vertico
 
 #+begin_src elisp
-    (straight-use-package
+  (straight-use-package
    '(nova :type git :host github :repo "thisisran/nova"))
 
   (require 'nova-vertico)
