@@ -3425,6 +3425,12 @@ From [[https://emacs.stackexchange.com/a/33523/22240][SO]]
   ;; (use-package auto-dim-other-buffers :ensure t)
 
 #+end_src
+
+
+#+begin_src elisp
+  (use-package ox-gfm :init (require 'ox-gfm))
+
+#+end_src
 * FIN
 
 #+begin_src elisp
