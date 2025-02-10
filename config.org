@@ -416,7 +416,7 @@ Done tasks get a [[https://github.com/lmintmate/emacs.d#strikethrough-for-done-t
   (defun dm/theme-balance-checklist-from-file ()
   "Prepare Theme:Balance checklist"
   (with-temp-buffer
-    (insert-file-contents "~/org-roam/theme_balance_checklist.oprg")  ;; Change path as needed
+    (insert-file-contents "~/org-roam/theme_balance_checklist.org")  ;; Change path as needed
     (buffer-string)))
 
 #+end_src
