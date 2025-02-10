@@ -466,7 +466,7 @@ Done tasks get a [[https://github.com/lmintmate/emacs.d#strikethrough-for-done-t
           ("t" "Test" entry (function (lambda () (set-buffer (org-capture-target-buffer "~/test.org")) (goto-char (point-max)))) "* Level 2" :immediate-finish t)
 
           ("T" "Theme: Balance" entry
-                                 (file+olp+datetree ,(concat org-directory  "/important_things_daily_2025.org"))
+                                 (file+olp+datetree ,(concat org-directory  "/theme_balance.org"))
                                  "* Entered on %U
           %?")
                                 ))
