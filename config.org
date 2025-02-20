@@ -311,7 +311,7 @@ No toolbar.
 #+end_src
 
 * Keybindings
-** Personal
+** Personal keybindings
 
 Lets keep `C-c d` for personal shortcuts.
 #+begin_src emacs-lisp
@@ -324,6 +324,7 @@ Lets keep `C-c d` for personal shortcuts.
   (global-set-key (kbd "C-c d s") #'dm/hydra-inbox-sweep/body)
   (global-set-key (kbd "C-c d l") #'dm/move-task-to-today-and-reset-schedule)
   (global-set-key (kbd "C-c d c") #'dm/config)
+  (global-set-key (kbd "C-c d o") #'consult-org-heading)
 
   (defun dm/set-schedule-today-now ()
     "Set a SCHEDULED property on today's headline to a random timestamp."
