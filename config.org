@@ -1995,19 +1995,22 @@ Sourced from [[https://github.com/hiecaq/quinoa42.github.io/blob/gh-pages/org/do
 4. Invoke ~dm/ankify-subtree~.
 
 #+begin_src elisp
-  (defun dm/ankify-subtree ()
-    "Add subtree of a heading to Anki"
-    (interactive)
-    (let* ((heading (cdr (assoc "ITEM" (org-entry-properties)))))
-      (message "Ankifying children of: \"%s\"" heading)
-      (save-excursion
-        ;; Move to the first child
-        (org-goto-first-child)
+(defun dm/ankify-subtree ()
+  "Ankify all direct children of the heading at point.
+Each child heading will be processed by org-anki-sync-entry."
+  (interactive)
+  (let* ((heading (cdr (assoc "ITEM" (org-entry-properties))))
+         (has-more-siblings t)) ; Flag to track if we have more siblings
+    (message "Ankifying children of: \"%s\"" heading)
+    (save-excursion
+      ;; Move to the first child
+      (when (org-goto-first-child)
         ;; Process all siblings at this level
-        (while (not (null (point)))
+        (while has-more-siblings
           (org-anki-sync-entry)
           (sleep-for 0.1)
-          (org-get-next-sibling)))))
+          ;; Try to move to next sibling, exit loop if none left
+          (setq has-more-siblings (org-goto-sibling)))))))
 #+end_src
 
 
