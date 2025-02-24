@@ -1995,17 +1995,17 @@ Sourced from [[https://github.com/hiecaq/quinoa42.github.io/blob/gh-pages/org/do
 4. Invoke ~dm/ankify-subtree~.
 
 #+begin_src elisp
-  (defun dm/ankify-heading ()
-    (let* ((heading (cdr (assoc "ITEM" (org-entry-properties)))))
-      (when (not (equal heading "Anki")) ; ignore Anki headings; kinda ugly.
-        (message "Ankifying: \"%s\"" heading)
+(defun dm/ankify-subtree ()
+  (let* ((heading (cdr (assoc "ITEM" (org-entry-properties)))))
+    (message "Ankifying children of: \"%s\"" heading)
+    (save-excursion
+      ;; Move to the first child
+      (org-goto-first-child)
+      ;; Process all siblings at this level
+      (while (not (null (point)))
+        (org-anki-sync-entry)
         (sleep-for 0.1)
-        (org-anki-sync-entry))))
-
-  (defun dm/ankify-subtree()
-    (interactive)
-    (org-map-entries #'dm/ankify-heading nil 'tree))
-
+        (org-get-next-sibling)))))
 #+end_src
 
 
