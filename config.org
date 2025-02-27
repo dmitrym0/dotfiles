@@ -2934,7 +2934,7 @@ Then type the short form (eg ~inv~) and hit ~tab~ to expand.
 
 #+begin_src elisp
 
-  (use-package shell-maker)
+  (use-package shell-maker :ensure t)
   (use-package copilot-chat
   :straight (:host github :repo "chep/copilot-chat.el" :files ("*.el"))
   :after (org shell-maker))
