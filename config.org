@@ -3028,6 +3028,7 @@ We are using :input-buffer of INFO."
     (gptel-send '(4)))
 
   (use-package gptel
+  :straight (:type git :host github :repo "username/repo-name" :branch "develop"))
     :bind ("C-c d g" . dm/gptel-send-universal-prefix))
 #+end_src
 
