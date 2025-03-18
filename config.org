@@ -3492,7 +3492,7 @@ From [[https://emacs.stackexchange.com/a/33523/22240][SO]]
   ;; (setq aider-args '("--model" "o3-mini"))
   ;; (setenv "OPENAI_API_KEY" <your-openai-api-key>)
   ;; Or use your personal config file
-  ;; (setq aider-args `("--config" ,(expand-file-name "~/.aider.conf.yml")))
+  (setq aider-args `("--config" ,(expand-file-name "~/.aider.conf.yml")))
   ;; ;;
   ;; Optional: Set a key binding for the transient menu
   (global-set-key (kbd "C-c a") 'aider-transient-menu))
