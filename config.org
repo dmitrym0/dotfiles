@@ -2699,6 +2699,7 @@ Orderless, borrowed from [[https://kristofferbalintona.me/posts/202202211546/][h
 #+end_src
 
 
+* embark collecto
 
 #+begin_src elisp
   (message "loading Embark")
