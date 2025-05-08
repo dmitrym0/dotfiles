@@ -480,6 +480,17 @@ Done tasks get a [[https://github.com/lmintmate/emacs.d#strikethrough-for-done-t
           ("t" "Test" entry (function (lambda () (set-buffer (org-capture-target-buffer "~/test.org")) (goto-char (point-max)))) "* Level 2" :immediate-finish t)
 
           ("T" "Theme: Balance" entry (file+olp+datetree ,(concat org-directory  "/theme_balance.org")) "* %U\n%(dm/theme-balance-checklist-from-file)")
+
+
+          ("U" "URL Bookmark" entry
+         (file "~/org-mode/favurls.org")
+         "* %^{Headline} %^g
+:PROPERTIES:
+:URL: %^{URL}
+:END:
+
+"
+         :immediate-finish t)
                                 ))
 
 
