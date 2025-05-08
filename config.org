@@ -483,7 +483,7 @@ Done tasks get a [[https://github.com/lmintmate/emacs.d#strikethrough-for-done-t
 
 
           ("U" "URL Bookmark" entry
-         (file "~/org-mode/favurls.org")
+         (file "~/org-roam/favurls.org")
          "* %^{Headline} %^g
 :PROPERTIES:
 :URL: %^{URL}
