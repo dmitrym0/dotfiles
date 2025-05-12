@@ -3511,6 +3511,22 @@ From [[https://emacs.stackexchange.com/a/33523/22240][SO]]
     )
 
 #+end_src
+
+
+
+#+begin_src elisp
+  (use-package aidermacs
+  :bind (("C-c d a" . aidermacs-transient-menu))
+  :config
+  ; Set API_KEY in .bashrc, that will automatically picked up by aider or in elisp
+  (setenv "ANTHROPIC_API_KEY" "sk-...")
+  ; defun my-get-openrouter-api-key yourself elsewhere for security reasons
+  :custom
+  ; See the Configuration section below
+  (aidermacs-use-architect-mode t)
+  (aidermacs-default-model "sonnet"))
+
+#+end_src
 * FIN
 
 #+begin_src elisp
