@@ -3525,6 +3525,28 @@ From [[https://emacs.stackexchange.com/a/33523/22240][SO]]
     (aidermacs-default-model "sonnet"))
 
 #+end_src
+
+
+
+* Smarter keyboard quit
+
+
+#+begin_src elisp
+
+  (defun er-keyboard-quit ()
+  "Smater version of the built-in `keyboard-quit'.
+
+The generic `keyboard-quit' does not do the expected thing when
+the minibuffer is open.  Whereas we want it to close the
+minibuffer, even without explicitly focusing it."
+  (interactive)
+  (if (active-minibuffer-window)
+      (if (minibufferp)
+          (minibuffer-keyboard-quit)
+        (abort-recursive-edit))
+    (keyboard-quit)))
+
+#+end_src
 * FIN
 
 #+begin_src elisp
