@@ -3004,31 +3004,31 @@ We are using :input-buffer of INFO."
 #+begin_src elisp
   (message "Loading blamer")
   (use-package blamer
+    :ensure t
+    :bind (("s-i" . blamer-show-commit-info)
+           ("C-c i" . blamer-show-posframe-commit-info))
+    :defer 20
+    :custom
+    (blamer-idle-time 0.3)
+    (blamer-min-offset 70)
+    :custom-face
+    (blamer-face ((t :foreground "#7a88cf"
+                     :background nil
+                     :height 140
+                     :italic t)))
+    :config
+    ;;(global-blamer-mode 1)
+    )
 
-  :defer 20
-  :custom
-  (blamer-idle-time 0.3)
-  (blamer-min-offset 70)
-  :custom-face
-  (blamer-face ((t :foreground "#7a88cf"
-                    :background nil
-                    :height 0.8
-                    ;; :font "Input Mono Compressed"
-                    :italic nil)))
-
-  ;;:config
-  global-blamer-mode 1)
-  ;; (set-face-attribute 'blamer-face nil :height 0.9)
-  (setq blamer-commit-formatter "%s")
 
 
   (defun dm/turn-on-blamer-mode ()
-  "Turn on blamer for everything other than org files."
-  (when (and buffer-file-name
-             (not (string-suffix-p ".org" buffer-file-name)))
-    (blamer-mode 1)))
+    "Turn on blamer for everything other than org files."
+    (when (and buffer-file-name
+               (not (string-suffix-p ".org" buffer-file-name)))
+      (blamer-mode 1)))
 
-(add-hook 'find-file-hook #'dm/turn-on-blamer-mode)
+  (add-hook 'find-file-hook #'dm/turn-on-blamer-mode)
 
 
 #+end_src
