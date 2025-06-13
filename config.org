@@ -3023,6 +3023,7 @@ We are using :input-buffer of INFO."
 
 
   (defun dm/turn-on-blamer-mode ()
+    (interactive)
     "Turn on blamer for everything other than org files."
     (when (and buffer-file-name
                (not (string-suffix-p ".org" buffer-file-name)))
