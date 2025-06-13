@@ -2998,6 +2998,9 @@ We are using :input-buffer of INFO."
 
 * blamer
 
+
+[[https://github.com/Artawower/blamer.el][Blamer]] shows inline git commit messages, like vscode.
+
 #+begin_src elisp
   (message "Loading blamer")
   (use-package blamer
