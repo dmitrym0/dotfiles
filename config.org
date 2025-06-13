@@ -3015,7 +3015,7 @@ We are using :input-buffer of INFO."
     (blamer-face ((t :foreground "#7a88cf"
                      :background nil
                      :height 80
-                     :italic t)))
+                     :italic nil)))
     :config
     ;;(global-blamer-mode 1)
     )
