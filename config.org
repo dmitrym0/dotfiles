@@ -3011,10 +3011,10 @@ We are using :input-buffer of INFO."
                     :background nil
                     :height 0.8
                     ;; :font "Input Mono Compressed"
-                    :italic nil))))
+                    :italic nil)))
 
   ;;:config
-  ;;(global-blamer-mode 1))
+  global-blamer-mode 1)
   ;; (set-face-attribute 'blamer-face nil :height 0.9)
   (setq blamer-commit-formatter "%s")
 
