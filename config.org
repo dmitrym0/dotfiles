@@ -2066,7 +2066,7 @@ Use ~gd~ to jump to definitions in evil mode.
   (use-package dumb-jump
     :config
     (setq dumb-jump-force-searcher 'ag)
-    (setq dumb-jump-debug t)
+    (setq dumb-jump-debug nil)
     (setq xref-show-definitions-function #'xref-show-definitions-completing-read)
     (add-hook 'xref-backend-functions #'dumb-jump-xref-activate) ; to use with evil
     :bind (("C-M-g" . dumb-jump-go)
