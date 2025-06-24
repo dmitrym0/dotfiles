@@ -3082,7 +3082,7 @@ To get JQL from a board:
                         :filename "mex-current-sprint")
 
 
-                  (:jql "(parent = MEX-14106 ORDER BY created DESC" :filename "chimera")
+                  (:jql "parent = MEX-14106 ORDER BY created DESC" :filename "chimera")
 
 
                   ))
