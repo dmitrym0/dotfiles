@@ -3075,7 +3075,7 @@ To get JQL from a board:
     )
     AND status not in (Done, Rejected)
     AND assignee = currentUser()
-) ORDER BY Rank ASC"
+)mbakl ORDER BY Rank ASC"
 
 
 
