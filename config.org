@@ -3083,7 +3083,9 @@ To get JQL from a board:
 
 
           (:jql "parent = MEX-14106 ORDER BY created DESC" :filename "chimera")
-          (:jql " assignee = currentUser()" :filename "assigned-to-me")
+          (:jql "assignee = currentUser()" :filename "assigned-to-me")
+          (:jql "" :filename "assigned-to-me")
+
 
 
           ))
