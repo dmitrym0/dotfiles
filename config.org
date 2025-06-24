@@ -3059,13 +3059,13 @@ To get JQL from a board:
 
 #+begin_src elisp
 
-          (use-package org-jira)
+  (use-package org-jira)
 
 
 
-          (setq org-jira-custom-jqls
-                '(
-                  (:jql "(
+  (setq org-jira-custom-jqls
+        '(
+          (:jql "(
       (
           (project in (\"Customer Acquisition Consumer\", \"Comms Platform\") AND \"Team[Team]\" in (MEX, 0b76287e-7b0f-40d4-ab51-567e658d6502))
           OR (project = MEX AND labels in (CAC))
@@ -3079,13 +3079,14 @@ To get JQL from a board:
 
 
 
-                        :filename "mex-current-sprint")
+                :filename "mex-current-sprint")
 
 
-                  (:jql "parent = MEX-14106 ORDER BY created DESC" :filename "chimera")
+          (:jql "parent = MEX-14106 ORDER BY created DESC" :filename "chimera")
+          (:jql " assignee = currentUser()" :filename "assigned-to-me")
 
 
-                  ))
+          ))
 
 #+end_src
 
