@@ -3121,11 +3121,8 @@ Patched org-ql. Insert a link to the issue that was patched.
 in .emacs.
 
 #+begin_src elisp
-  (use-package org-ql
-    :straight (:repo "dmitrym0/org-ql"
-                     :host github
-                     :type git))
-#+end_src
+  (use-package org-ql)
+  #+end_src
 
 
 * mermaid
