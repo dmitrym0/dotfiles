@@ -981,7 +981,10 @@ git-auto-commit-mode
 
 track every change in git.
 #+begin_src emacs-lisp
-(use-package git-auto-commit-mode )
+  (use-package git-auto-commit-mode
+    :config
+    (setq gac-debounce-interval 20) ;; debounce to 20 seconds
+    )
 
 #+end_src
 
