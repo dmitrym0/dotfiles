@@ -1166,10 +1166,8 @@ To add a calendar, go to settings (3 dots) and the find =Calendar ID=
 
 #+begin_src elisp
   (use-package org-gcal
-
     :after org
     :config
-
     (setq org-gcal-up-days 7)      ;; Days before today
     (setq org-gcal-down-days 30)   ;; Days after today
     (setq org-gcal-auto-archive t)
