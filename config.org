@@ -1165,33 +1165,38 @@ From [[https://massimilianomirra.com/notes/lightweight-external-command-integrat
 To add a calendar, go to settings (3 dots) and the find =Calendar ID=
 
 #+begin_src elisp
-    (use-package org-gcal
+  (use-package org-gcal
 
-      :after org
-      :config
-      (setq org-gcal-remove-api-cancelled-event t) ;; delete removed events without asking.
-      (setq org-gcal-header-alist '(("dmitrym@gmail.com" . "#+PROPERTY: TIMELINE_FACE \"pink\"\n"))
-            org-gcal-file-alist `(
-                                  ("dmitrym@gmail.com" .  ,(concat org-directory "/gcal.org"))
-                                  ("it5btt3khcv7lupc226ua48uc8f8bj3i@import.calendar.google.com" .  ,(concat org-directory "/vt-cal.org"))
-                                  ;; ("dmitry.markushevich@varsitytutors.com" .  ,(concat org-directory "/vt-cal.org"))
-                                  ("r7d2lpfs96r5l79oltg49rh6rmnjpcs8@import.calendar.google.com" . ,(concat org-directory "/kayen-cal.org")) ;; kayen's hockey
-                                  ("69hfionkpq8a9es9qk8lmslssb25nko0@import.calendar.google.com" . ,(concat org-directory "/maya-cal.org")) ;; kayen's hockey
+    :after org
+    :config
 
+    (setq org-gcal-up-days 7)      ;; Days before today
+    (setq org-gcal-down-days 30)   ;; Days after today
+    (setq org-gcal-auto-archive t)
 
-                                  )
-            org-gcal-auto-archive nil
-            org-gcal-notify-p nil)
-  )
-
-
-   (setq plstore-cache-passphrase-for-symmetric-encryption t)
+    (setq org-gcal-remove-api-cancelled-event t) ;; delete removed events without asking.
+    (setq org-gcal-header-alist '(("dmitrym@gmail.com" . "#+PROPERTY: TIMELINE_FACE \"pink\"\n"))
+          org-gcal-file-alist `(
+                                ("dmitrym@gmail.com" .  ,(concat org-directory "/gcal.org"))
+                                ("it5btt3khcv7lupc226ua48uc8f8bj3i@import.calendar.google.com" .  ,(concat org-directory "/vt-cal.org"))
+                                ;; ("dmitry.markushevich@varsitytutors.com" .  ,(concat org-directory "/vt-cal.org"))
+                                ("r7d2lpfs96r5l79oltg49rh6rmnjpcs8@import.calendar.google.com" . ,(concat org-directory "/kayen-cal.org")) ;; kayen's hockey
+                                ("69hfionkpq8a9es9qk8lmslssb25nko0@import.calendar.google.com" . ,(concat org-directory "/maya-cal.org")) ;; kayen's hockey
 
 
+                                )
+          org-gcal-auto-archive nil
+          org-gcal-notify-p nil)
+    )
 
-    (setq org-gcal-remove-api-cancelled-events t) ;; delete removed events without asking.
-                                            ;(add-hook 'org-agenda-mode-hook 'org-gcal-fetch)
-                                            ;(add-hook 'org-capture-after-finalize-hook 'org-gcal-fetch))
+
+  (setq plstore-cache-passphrase-for-symmetric-encryption t)
+
+
+
+  (setq org-gcal-remove-api-cancelled-events t) ;; delete removed events without asking.
+                                          ;(add-hook 'org-agenda-mode-hook 'org-gcal-fetch)
+                                          ;(add-hook 'org-capture-after-finalize-hook 'org-gcal-fetch))
 
 #+end_src
 
