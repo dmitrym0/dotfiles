@@ -1185,7 +1185,6 @@ To add a calendar, go to settings (3 dots) and the find =Calendar ID=
 
 
                                 )
-          org-gcal-auto-archive nil
           org-gcal-notify-p nil)
     )
 
