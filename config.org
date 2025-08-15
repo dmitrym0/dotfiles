@@ -3021,6 +3021,11 @@ We are using :input-buffer of INFO."
     (gptel-make-anthropic "Claude"
     :stream t
     :key (getenv "CLAUDE_TOKEN"))
+
+
+  (use-package mcp)
+  (require 'gptel-integrations)
+
 #+end_src
 
 * jira
