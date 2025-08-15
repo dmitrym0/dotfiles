@@ -3030,6 +3030,8 @@ We are using :input-buffer of INFO."
       :hook (after-init . mcp-hub-start-all-server))
 
 
+      (setq mcp-hub-servers
+          '(("mcp-eng" . (:command "/Users/dmitrymarkushevich/bin/eng-mcp.sh" :args ()))))
        (mcp-hub-start-all-server)
 #+end_src
 
