@@ -3023,9 +3023,16 @@ We are using :input-buffer of INFO."
     :key (getenv "CLAUDE_TOKEN"))
 
 
-  (use-package mcp)
-  (require 'gptel-integrations)
-
+    (use-package mcp
+      :ensure t
+      :after gptel
+      :custom (mcp-hub-servers
+               `(
+                 ("mcp-eng" . (:command "/Users/dmitrymarkushevich/bin/eng-mcp.sh" :args ()))
+                 ))
+      :config (require 'mcp-hub)
+      :hook (after-init . mcp-hub-start-all-server))
+  (mcp-hub-start-all
 #+end_src
 
 * jira
