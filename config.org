@@ -3018,9 +3018,9 @@ We are using :input-buffer of INFO."
     :bind ("C-c d g" . dm/gptel-send-universal-prefix))
 
 
-    (gptel-make-anthropic "Claude"          ;Any name you want
-    :stream t                             ;Streaming responses
-    :key
+    (gptel-make-anthropic "Claude"
+    :stream t
+    :key (getenv "CLAUDE_TOKEN"))
 #+end_src
 
 * jira
