@@ -925,6 +925,7 @@ org-roam
               (not (member "DO_NOT_ORG_ROAM" (org-get-tags)))))
       )
 
+(message "Done org-roam")
 
 #+end_src
 
@@ -981,20 +982,11 @@ git-auto-commit-mode
 
 track every change in git.
 #+begin_src emacs-lisp
-  (use-package git-auto-commit-mode
-    :config
-    (setq gac-debounce-interval 20) ;; debounce to 20 seconds)
+  (use-package git-auto-commit-mode)
+  (message "Done git-auto-commit-mode")
 
 #+end_src
 
-
-#+begin_src emacs-lisp
-  (use-package emojify
-
-  ;; do i really need emojis?
-  ;;  :hook (after-init . global-emojify-mode)
-  )
-#+end_src
 
 [[https://melpa.org/#/expand-region][expand-region]], intelligently adjust selection
 #+begin_src emacs-lisp
@@ -1025,18 +1017,8 @@ Fuzzy? matching. ~org refi~, matches ~org-refile~ and ~org-agenda-refile~
 
 ** ox-hugo
  #+begin_src elisp
+   (message "ox-hugo")
    (use-package ox-hugo)
- #+end_src
-
-** js2 (TypeScript refactoring)
- #+begin_src elisp
-   ;; (use-package js2-refactor
-   ;;
-   ;;   :config
-   ;;   (add-hook 'js2-mode-hook #'js2-refactor-mode)
-   ;;   (js2r-add-keybindings-with-prefix "C-c C-m")
-   ;;   )
-
  #+end_src
 
 
@@ -1047,31 +1029,11 @@ Fuzzy? matching. ~org refi~, matches ~org-refile~ and ~org-agenda-refile~
  #+end_src
 
 
-** Tide (Typescript interactive development environment for mac)
-
- #+begin_src elisp
-   ;; (use-package tide
-   ;;
-   ;;   :after (typescript-mode company flycheck)
-   ;;   :hook ((typescript-mode . tide-setup)
-   ;;          (typescript-mode . tide-hl-identifier-mode)
-   ;;          (before-save . tide-format-before-save)))
-
-   ;; (use-package typescript-mode
-   ;;
-   ;;   :config
-   ;;   (require 'ansi-color) ;; clean up compiler output from tsc
-   ;;   (defun colorize-compilation-buffer ()
-   ;;     (ansi-color-apply-on-region compilation-filter-start (point-max)))
-   ;;   (add-hook 'compilation-filter-hook 'colorize-compilation-buffer)
-   ;;   )
- #+end_src
-
-
 *** More typescript support
 #+begin_src elisp
   ;;(use-package flymake-eslint)
 
+    (message "typescript-mode")
 
     (use-package typescript-mode
       :after flymake-eslint
@@ -1083,7 +1045,7 @@ Fuzzy? matching. ~org refi~, matches ~org-refile~ and ~org-agenda-refile~
       (add-hook 'typescript-mode #'subword-mode)
       (add-to-list 'auto-mode-alist '("\\.tsx?\\'" . typescript-tsx-mode)))
 
-    (use-package tree-sitter
+    ;;(use-package tree-sitter
 
       ;; :hook ((typescript-mode . tree-sitter-hl-mode)
       ;;        (typescript-tsx-mode . tree-sitter-hl-mode)))
@@ -1099,6 +1061,7 @@ Fuzzy? matching. ~org refi~, matches ~org-refile~ and ~org-agenda-refile~
 
 ** LSP Mode
 #+begin_src elisp
+  (message "lsp-mode")
   (use-package lsp-mode
     :after company
 
@@ -1167,6 +1130,7 @@ From [[https://massimilianomirra.com/notes/lightweight-external-command-integrat
 To add a calendar, go to settings (3 dots) and the find =Calendar ID=
 
 #+begin_src elisp
+  (message "gcal")
   (use-package org-gcal
     :after org
     :config
@@ -3052,6 +3016,11 @@ We are using :input-buffer of INFO."
   (use-package gptel
     :straight (:type git :host github :repo "karthink/gptel" :branch "feature-tool-use")
     :bind ("C-c d g" . dm/gptel-send-universal-prefix))
+
+
+    (gptel-make-anthropic "Claude"          ;Any name you want
+    :stream t                             ;Streaming responses
+    :key
 #+end_src
 
 * jira
@@ -3488,6 +3457,7 @@ From [[https://emacs.stackexchange.com/a/33523/22240][SO]]
 
 
 #+begin_src elisp
+  (message "Github markdown export")
   (use-package ox-gfm :init (require 'ox-gfm))
 
 #+end_src
@@ -3497,6 +3467,7 @@ From [[https://emacs.stackexchange.com/a/33523/22240][SO]]
 * super links
 
 #+begin_src elisp
+  (message "Super links")
   (use-package org-super-links
   :straight (org-super-links :type git :host github :repo "toshism/org-super-links" :branch "develop")
   :bind (("C-c s s" . org-super-links-link)
@@ -3509,27 +3480,9 @@ From [[https://emacs.stackexchange.com/a/33523/22240][SO]]
 
 * aideremacs
 
-#+begin_src elisp
-    (use-package aider
-    :straight (:host github :repo "tninja/aider.el" :files ("aider.el" "aider-core.el" "aider-file.el" "aider-code-change.el" "aider-discussion.el" "aider-prompt-mode.el"))
-    :config
-    ;; For latest claude sonnet model
-    (setq aider-args '("--model" "claude"))
-    ;; Or chatgpt model
-    ;; (setq aider-args '("--model" "o3-mini"))
-    ;; (setenv "OPENAI_API_KEY" <your-openai-api-key>)
-    ;; Or use your personal config file
-    (setq aider-args `("--config" ,(expand-file-name "~/.aider.conf.yml")))
-    ;; ;;
-    ;; Optional: Set a key binding for the transient menu
-    ;;(global-set-key (kbd "C-c a") 'aider-transient-menu)
-    )
-
-#+end_src
-
-
 
 #+begin_src elisp
+  (message "aider")
   (use-package aidermacs
     :bind (("C-c d a" . aidermacs-transient-menu))
     :config
