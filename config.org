@@ -104,6 +104,7 @@ Emacs Nursery; stuff that I'm working on.
     :ensure nil
     :load-path "~/workspace/emacs-nursery"   ;; or the subdir that contains dm-mcp-tools.el
     :after (gptel))
+
   (use-package dm-org-journal-in-current-buffer :straight (:type git :local-repo "~/workspace/emacs-nursery" :no-build t :no-install t))
   (use-package dm-jira :after embark
     :straight (:type git :local-repo "~/workspace/emacs-nursery" :no-build t :no-install t))
