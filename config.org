@@ -3033,6 +3033,10 @@ We are using :input-buffer of INFO."
       (setq mcp-hub-servers
           '(("mcp-eng" . (:command "/Users/dmitrymarkushevich/bin/eng-mcp.sh" :args ()))))
        (mcp-hub-start-all-server)
+
+
+
+      (require 'gptel-integrations)
 #+end_src
 
 
