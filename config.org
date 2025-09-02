@@ -97,6 +97,7 @@ Emacs Nursery; stuff that I'm working on.
   (use-package dm-org-agenda :straight (:type git :local-repo "~/workspace/emacs-nursery" :no-build t :no-install t))
   (use-package dm-pomodoro-nag :straight (:type git :local-repo "~/workspace/emacs-nursery" :no-build t :no-install t))
   (use-package favurls :straight ( :type git :local-repo "~/workspace/emacs-nursery" :no-build t :no-install t))
+  (use-package dm-mcp-tools :straight ( :type git :local-repo "~/workspace/emacs-nursery" :no-build t :no-install t))
   (use-package dm-org-journal-in-current-buffer :straight (:type git :local-repo "~/workspace/emacs-nursery" :no-build t :no-install t))
   (use-package dm-jira :after embark
                        :straight (:type git :local-repo "~/workspace/emacs-nursery" :no-build t :no-install t))
