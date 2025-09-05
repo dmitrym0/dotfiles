@@ -3031,6 +3031,8 @@ We are using :input-buffer of INFO."
     :key (getenv "CLAUDE_TOKEN"))
 
   (setq gptel-backend "claude")
+  (setq gptel-backend nil)
+
 
 
     (use-package mcp
