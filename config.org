@@ -97,13 +97,13 @@ Emacs Nursery; stuff that I'm working on.
   (use-package dm-org-agenda :straight (:type git :local-repo "~/workspace/emacs-nursery" :no-build t :no-install t))
   (use-package dm-pomodoro-nag :straight (:type git :local-repo "~/workspace/emacs-nursery" :no-build t :no-install t))
   (use-package favurls :straight ( :type git :local-repo "~/workspace/emacs-nursery" :no-build t :no-install t))
-  ;; (use-package dm-mcp-tools :straight ( :type git :local-repo "~/workspace/emacs-nursery" :no-build t :no-install t) :after gptel)
+  (use-package dm-mcp-tools :straight ( :type git :local-repo "~/workspace/emacs-nursery" :no-build t :no-install t) :after (gptel))
 
 
-  (use-package dm-mcp-tools
-    :ensure nil
-    :load-path "~/workspace/emacs-nursery"   ;; or the subdir that contains dm-mcp-tools.el
-    :after (gptel))
+ ;;(use-package dm-mcp-tools
+ ;;   :ensure nil
+ ;;   :load-path "~/workspace/emacs-nursery/"   ;; or the subdir that contains dm-mcp-tools.el
+ ;;   :after (:all gptel))
 
   (use-package dm-org-journal-in-current-buffer :straight (:type git :local-repo "~/workspace/emacs-nursery" :no-build t :no-install t))
   (use-package dm-jira :after embark
@@ -3039,8 +3039,7 @@ We are using :input-buffer of INFO."
 
 
 
-  ;;   (u
-     se-package mcp
+     (use-package mcp
       :ensure t
       :after gptel
       :config (require 'mcp-hub)
