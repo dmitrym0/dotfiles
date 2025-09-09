@@ -3551,6 +3551,16 @@ From [[https://emacs.stackexchange.com/a/33523/22240][SO]]
 
 
 #+end_src
+
+
+
+* Go Mode
+
+#+begin_src elisp
+
+  (use-package go-mode)
+
+#+end_src
 * FIN
 
 #+begin_src elisp
