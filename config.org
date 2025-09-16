@@ -210,7 +210,7 @@ Highlight current line
 #+begin_src emacs-lisp
   (fset 'yes-or-no-p 'y-or-n-p)
   (setq use-package-compute-statistics t)
-  (setq use-package-always-ensure t) ;; ensure that package is installed if not present
+  (setq use-package-always-ensure t) ;; ensure that packages are installed if not present
 #+end_src
 
 
