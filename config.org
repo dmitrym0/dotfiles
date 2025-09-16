@@ -36,7 +36,7 @@ Gets tangled by =~/.emacs=
 * [[https://github.com/dholm/benchmark-init-el][benchmark-init:]] enable benchmarking during intit
 
 
-To show the data:
+To [[https://github.com/dholm/benchmark-init-el?tab=readme-ov-file#usage][show the data:]]
 
 
 #+begin_src elisp
