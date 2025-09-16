@@ -38,6 +38,8 @@ Gets tangled by =~/.emacs=
 
 To [[https://github.com/dholm/benchmark-init-el?tab=readme-ov-file#usage][show the data:]]
 
+=benchmark-init/show-durations-tabulated=
+
 
 #+begin_src elisp
 
