@@ -31,6 +31,21 @@ Gets tangled by =~/.emacs=
 ;;; config.el --- DESCRIPTION -*- no-byte-compile: t; lexical-binding: t; -*-
 #+end_src
 
+
+
+* enable benchmarking during intit
+
+
+#+begin_src elisp
+
+  (use-package benchmark-init
+    :ensure t
+    :config
+    ;; To disable collection of benchmark data after init is done.
+    (add-hook 'after-init-hook 'benchmark-init/deactivate))
+
+#+end_src
+
 * Garbage collection hack
 
 [[https://github.com/emacsmirror/gcmh][Garbage collection magic hack]]
