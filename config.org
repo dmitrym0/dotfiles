@@ -87,15 +87,15 @@ All gc-maybe-mode does is this:
     :straight (:repo "bcardoso/gc-maybe"
                      :host github
                      :type git)
-  :init
-  (setopt gc-maybe-threshold-default (* 48 1024 1024)) ; 48 MiB
-  (setopt gc-maybe-percentage-default 0.2)
-  (gc-maybe-mode +1) ; set minibuffer hooks and idle timer
-  :config
-  ;; optionally log GCs in a buffer
-  (setopt gc-maybe-log-stats t)
-  ;; example function advice
-  (advice-add 'save-buffers-kill-emacs :before #'gc-maybe-raise-threshold))
+    :init
+    (setopt gc-maybe-threshold-default (* 48 1024 1024)) ; 48 MiB
+    (setopt gc-maybe-percentage-default 0.2)
+    (gc-maybe-mode +1) ; set minibuffer hooks and idle timer
+    :config
+    ;; optionally log GCs in a buffer
+    (setopt gc-maybe-log-stats t)
+    ;; example function advice
+    (advice-add 'save-buffers-kill-emacs :before #'gc-maybe-raise-threshold))
 
 #+end_src
 
