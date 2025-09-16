@@ -33,7 +33,7 @@ Gets tangled by =~/.emacs=
 
 
 
-* enable benchmarking during intit
+* [[https://github.com/dholm/benchmark-init-el][benchmark-init:]] nable benchmarking during intit
 
 
 #+begin_src elisp
