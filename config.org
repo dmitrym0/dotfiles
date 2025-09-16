@@ -95,7 +95,7 @@ All gc-maybe-mode does is this:
     ;; optionally log GCs in a buffer
     (setopt gc-maybe-log-stats t)
     ;; example function advice
-    (setopt gc-maybe-idle-delay 30 )
+    (setopt gc-maybe-idle-delay 30)
     (advice-add 'save-buffers-kill-emacs :before #'gc-maybe-raise-threshold))
 
 #+end_src
