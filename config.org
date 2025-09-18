@@ -1176,9 +1176,9 @@ To add a calendar, go to settings (3 dots) and the find =Calendar ID=
     (setq org-gcal-header-alist '(("dmitrym@gmail.com" . "#+PROPERTY: TIMELINE_FACE \"pink\"\n"))
           org-gcal-file-alist `(
                                 ("dmitrym@gmail.com" .  ,(concat org-directory "gcal.org"))
-                                ("dmitry.markushevich@varsitytutors.com" .  ,(concat org-directory "/vt-cal.org"))
-                                ("r7d2lpfs96r5l79oltg49rh6rmnjpcs8@import.calendar.google.com" . ,(concat org-directory "/kayen-cal.org")) ;; kayen's hockey
-                                ("b3istivi8av2i3e8f1itj6uo67r37p1t@import.calendar.google.com" . ,(concat org-directory "/maya-cal.org")) ;; may hockey
+                                ("dmitry.markushevich@varsitytutors.com" .  ,(concat org-directory "vt-cal.org"))
+                                ("r7d2lpfs96r5l79oltg49rh6rmnjpcs8@import.calendar.google.com" . ,(concat org-directory "kayen-cal.org")) ;; kayen's hockey
+                                ("b3istivi8av2i3e8f1itj6uo67r37p1t@import.calendar.google.com" . ,(concat org-directory "maya-cal.org")) ;; may hockey
                                 )
           org-gcal-notify-p nil)
     )
