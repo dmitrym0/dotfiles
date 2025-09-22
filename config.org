@@ -3587,6 +3587,20 @@ From [[https://emacs.stackexchange.com/a/33523/22240][SO]]
   (use-package go-mode)
 
 #+end_src
+
+
+
+* org-workbench
+
+Zettlecasten assistance
+
+#+begin_src elisp
+  (use-package org-workbench
+    :straight (:host github :repo "yibie/org-workbench")
+    :config
+    (org-workbench-setup))
+
+#+end_src
 * FIN
 
 #+begin_src elisp
