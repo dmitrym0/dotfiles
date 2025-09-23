@@ -515,7 +515,7 @@ Done tasks get a [[https://github.com/lmintmate/emacs.d#strikethrough-for-done-t
 
             ("T" "Theme: Balance" entry (file+olp+datetree ,(concat org-directory  "/theme_balance.org")) "* %U\n%(dm/theme-balance-checklist-from-file)")
             ("r" "Reviews")
-            ("rm" "Monthly Review" entry (file+olp+datetree ,(concat org-directory  "/theme_balance.org")) "* %U\n%(dm/theme-balance-checklist-from-file)")
+            ("rm" "Monthly Review" entry (file+olp+datetree ,(concat org-directory  "/monthly_reviews.org")) "* %U\n%(dm/theme-balance-checklist-from-file)")
 
 
             ("U" "URL Bookmark" entry
