@@ -3085,7 +3085,7 @@ We are using :input-buffer of INFO."
 
   (setq mcp-hub-servers
         '(("mcp-eng" . (:command "/Users/dmitrymarkushevich/bin/eng-mcp.sh" ))
-          ("atlassian" . (:command "uvx" :args ("-y" "mcp-atlassian" "--jira-url" ,(concat "https://" (dot-env-get 'JIRA_HOST))
+          ("atlassian" . (:command "uvx" :args ("-y" "mcp-atlassian" "--jira-url" `(concat "https://" (dot-env-get 'JIRA_HOST))
                                                                                         "--jira-username" (dot-env-get 'ATLASSIAN_USERNAME)
                                                                                         "--jira-token" (dot-env-get 'ATLASSIAN_API_TOKEN)
                                                                                         "--confluence-url" (concat "https://" (dot-env-get 'JIRA_HOST) "/wiki")
