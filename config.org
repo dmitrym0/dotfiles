@@ -3078,7 +3078,12 @@ We are using :input-buffer of INFO."
 
       (setq mcp-hub-servers
           '(("mcp-eng" . (:command "/Users/dmitrymarkushevich/bin/eng-mcp.sh" ))
-            ("atlassian" . (:url "https://mcp.atlassian.com/v1/sse" :command "uvx" :args ("-y" "mcp-atlassian"))
+            ("atlassian" . (:url "https://mcp.atlassian.com/v1/sse" :command "uvx" :args ("-y" "mcp-atlassian" "--jira-url" "https://your-company.atlassian.net"
+"--jira-username" "<username>"
+"--jira-token" "<token>"
+"--confluence-url" "https://your-company.atlassian.net/wiki"
+"--confluence-username" "<username>"
+"--confluence-token" "<token>"))
 
             ))
        (mcp-hub-start-all-server)
