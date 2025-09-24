@@ -3085,28 +3085,40 @@ We are using :input-buffer of INFO."
 
 
   (setq mcp-hub-servers
-      `(("mcp-eng" . (:command "/Users/dmitrymarkushevich/bin/eng-mcp.sh"))
-        ("atlassian" . (:command "uvx" :args ("mcp-atlassian"
-                                               "--jira-url" ,(concat "https://" (dot-env-get 'JIRA_HOST))
-                                               "--jira-username" ,(dot-env-get 'ATLASSIAN_USERNAME)
-                                               "--jira-token" ,(dot-env-get 'ATLASSIAN_API_TOKEN)
-                                               "--confluence-url" ,(concat "https://" (dot-env-get 'JIRA_HOST) "/wiki")
-                                               "--confluence-username" ,(dot-env-get 'ATLASSIAN_USERNAME)
-                                               "--confluence-token" ,(dot-env-get 'ATLASSIAN_API_TOKEN))))
-        ("atlassian1" . (:command "uvx" :args ("mcp-atlassian"
-                                               "--jira-url" ,(concat "https://" (dot-env-get 'JIRA_HOST))
-                                               "--jira-username" ,(dot-env-get 'ATLASSIAN_USERNAME)
-                                               "--jira-token" ,(dot-env-get 'ATLASSIAN_API_TOKEN)
-                                               "--confluence-url" ,(concat "https://" (dot-env-get 'JIRA_HOST) "/wiki")
-                                               "--confluence-username" ,(dot-env-get 'ATLASSIAN_USERNAME)
-                                               "--confluence-token" ,(dot-env-get 'ATLASSIAN_API_TOKEN))))
+        `(("mcp-eng" . (:command "/Users/dmitrymarkushevich/bin/eng-mcp.sh"))
+          ("atlassian" . (:command "uvx" :args ("mcp-atlassian"
+                                                "--jira-url" ,(concat "https://" (dot-env-get 'JIRA_HOST))
+                                                "--jira-username" ,(dot-env-get 'ATLASSIAN_USERNAME)
+                                                "--jira-token" ,(dot-env-get 'ATLASSIAN_API_TOKEN)
+                                                "--confluence-url" ,(concat "https://" (dot-env-get 'JIRA_HOST) "/wiki")
+                                                "--confluence-username" ,(dot-env-get 'ATLASSIAN_USERNAME)
+                                                "--confluence-token" ,(dot-env-get 'ATLASSIAN_API_TOKEN))))
+          ("atlassian1" . (:command "uvx" :args ("mcp-atlassian"
+                                                 "--jira-url" ,(concat "https://" (dot-env-get 'JIRA_HOST))
+                                                 "--jira-username" ,(dot-env-get 'ATLASSIAN_USERNAME)
+                                                 "--jira-token" ,(dot-env-get 'ATLASSIAN_API_TOKEN)
+                                                 "--confluence-url" ,(concat "https://" (dot-env-get 'JIRA_HOST) "/wiki")
+                                                 "--confluence-username" ,(dot-env-get 'ATLASSIAN_USERNAME)
+                                                 "--confluence-token" ,(dot-env-get 'ATLASSIAN_API_TOKEN))))
 
-        ))
+          ))
   (mcp-hub-start-all-server)
 
 
 
   (require 'gptel-integrations)
+
+  (gptel-make-tool
+   :name "execute_nrql_query"
+   :description "Run a New Relic NRQL query via local nrql.sh script"
+   :args (list '(:name "query"
+                       :type string            ; :type value must be a symbol
+                       :description "NRQL query to be executed by NewRelic"))
+
+   :function (lambda (query)
+               ;; Call the script and return its output
+               (shell-command-to-string (format "~/bin/nrql.sh \"%s\"" query)))
+   :category "dmitry")
 #+end_src
 
 
