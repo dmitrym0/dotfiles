@@ -3075,6 +3075,10 @@ We are using :input-buffer of INFO."
     :config (require 'mcp-hub)
     :hook (after-init . mcp-hub-start-all-server))
 
+  (use-package dotenv-mode
+    :ensure t)
+
+  (dotenv-update-project-env "env")
 
   (setq mcp-hub-servers
         '(("mcp-eng" . (:command "/Users/dmitrymarkushevich/bin/eng-mcp.sh" ))
