@@ -3059,7 +3059,7 @@ We are using :input-buffer of INFO."
     :bind ("C-c d g" . dm/gptel-send-universal-prefix))
 
 
-  (gptel-make-anthropic "Claude"
+  (setq gptel-backend( gptel-make-anthropic "Claude"
     :stream t
     :key (getenv "CLAUDE_TOKEN"))
 
