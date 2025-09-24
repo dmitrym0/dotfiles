@@ -125,6 +125,7 @@ Emacs Nursery; stuff that I'm working on.
   (use-package dm-pomodoro-nag :straight (:type git :local-repo "~/workspace/emacs-nursery" :no-build t :no-install t))
   (use-package favurls :straight ( :type git :local-repo "~/workspace/emacs-nursery" :no-build t :no-install t))
   (use-package dm-mcp-tools :straight ( :type git :local-repo "~/workspace/emacs-nursery" :no-build t :no-install t) :after (gptel))
+  (use-package dm-shutdown :straight ( :type git :local-repo "~/workspace/emacs-nursery" :no-build t :no-install t) :after (gptel))
 
 
  ;;(use-package dm-mcp-tools
