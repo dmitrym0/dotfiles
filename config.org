@@ -46,8 +46,11 @@ To [[https://github.com/dholm/benchmark-init-el?tab=readme-ov-file#usage][show t
   (use-package benchmark-init
     :ensure t
     :config
+    (benchmark-init/activate)
     ;; To disable collection of benchmark data after init is done.
     (add-hook 'after-init-hook 'benchmark-init/deactivate))
+
+
 
 #+end_src
 
