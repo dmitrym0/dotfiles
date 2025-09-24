@@ -3102,7 +3102,7 @@ We are using :input-buffer of INFO."
 
   (require 'gptel-integrations)
 
-+end_src
+#+end_src
 
 
 * jira
