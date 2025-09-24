@@ -3081,6 +3081,7 @@ We are using :input-buffer of INFO."
 
   (setq dot-env-filepath "/Users/dmitrymarkushevich/workspace/eng-mcp-server/.env")
   (dot-env-config)
+  (dot-env-get
 
   (setq mcp-hub-servers
         '(("mcp-eng" . (:command "/Users/dmitrymarkushevich/bin/eng-mcp.sh" ))
