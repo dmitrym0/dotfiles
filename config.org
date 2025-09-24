@@ -3092,7 +3092,16 @@ We are using :input-buffer of INFO."
                                                "--jira-token" ,(dot-env-get 'ATLASSIAN_API_TOKEN)
                                                "--confluence-url" ,(concat "https://" (dot-env-get 'JIRA_HOST) "/wiki")
                                                "--confluence-username" ,(dot-env-get 'ATLASSIAN_USERNAME)
-                                               "--confluence-token" ,(dot-env-get 'ATLASSIAN_API_TOKEN))))))
+                                               "--confluence-token" ,(dot-env-get 'ATLASSIAN_API_TOKEN))))
+        ("atlassian1" . (:command "uvx" :args ("mcp-atlassian"
+                                               "--jira-url" ,(concat "https://" (dot-env-get 'JIRA_HOST))
+                                               "--jira-username" ,(dot-env-get 'ATLASSIAN_USERNAME)
+                                               "--jira-token" ,(dot-env-get 'ATLASSIAN_API_TOKEN)
+                                               "--confluence-url" ,(concat "https://" (dot-env-get 'JIRA_HOST) "/wiki")
+                                               "--confluence-username" ,(dot-env-get 'ATLASSIAN_USERNAME)
+                                               "--confluence-token" ,(dot-env-get 'ATLASSIAN_API_TOKEN))))
+
+        ))
   (mcp-hub-start-all-server)
 
 
