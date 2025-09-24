@@ -3089,7 +3089,8 @@ We are using :input-buffer of INFO."
 
   (setq mcp-hub-servers
         `(("mcp-eng" . (:command "/Users/dmitrymarkushevich/bin/eng-mcp.sh"))
-          ("atlassian" . (:command "/Users/dmitrymarkushevich/bin/atlassian.sh" :args ()))
+          ;;("atlassian" . (:command "/Users/dmitrymarkushevich/bin/atlassian.sh" :args ()))
+          ("context7" . (:command "npx" :args ("-y" "@upstash/context7-mcp@latest")))
           ))
 
   (mcp-hub-start-all-server)
