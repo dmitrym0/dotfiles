@@ -3078,6 +3078,10 @@ We are using :input-buffer of INFO."
   (use-package dot-env
     :ensure t)
 
+
+  (setq dot-env-filepath "~/workspace/eng")
+  (dot-env-config)
+
   (setq mcp-hub-servers
         '(("mcp-eng" . (:command "/Users/dmitrymarkushevich/bin/eng-mcp.sh" ))
           ("atlassian" . (:url "https://mcp.atlassian.com/v1/sse" :command "uvx" :args ("-y" "mcp-atlassian" "--jira-url" "https://"
