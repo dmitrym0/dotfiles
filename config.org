@@ -3064,7 +3064,7 @@ We are using :input-buffer of INFO."
     :key (getenv "CLAUDE_TOKEN")))
 
 
-  (setq gptel-model "claude-sonnet-4-20250514")
+  (setq gptel-model 'claude-sonnet-4-20250514)
 
   ;; (setq gptel-backend "Claude")
   ;; (setq gptel-backend     (gptel-make-anthropic "Claude"
