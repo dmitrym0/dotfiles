@@ -3044,6 +3044,7 @@ We are using :input-buffer of INFO."
 
 * gptel
 
+- =M-x mcp-hub= to see all currently running mcp servers
 #+begin_src elisp
   (defun dm/gptel-send-universal-prefix ()
     "Invoke gptel-send with a universal prefix. This function is to be used in :bind"
