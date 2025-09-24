@@ -3056,7 +3056,7 @@ We are using :input-buffer of INFO."
     :bind ("C-c d g" . dm/gptel-send-universal-prefix))
 
 
-    (gptel-make-anthropic "Claude"
+  (gptel-make-anthropic "Claude"
     :stream t
     :key (getenv "CLAUDE_TOKEN"))
 
@@ -3069,28 +3069,28 @@ We are using :input-buffer of INFO."
 
 
 
-     (use-package mcp
-      :ensure t
-      :after gptel
-      :config (require 'mcp-hub)
-      :hook (after-init . mcp-hub-start-all-server))
+  (use-package mcp
+    :ensure t
+    :after gptel
+    :config (require 'mcp-hub)
+    :hook (after-init . mcp-hub-start-all-server))
 
 
-      (setq mcp-hub-servers
-          '(("mcp-eng" . (:command "/Users/dmitrymarkushevich/bin/eng-mcp.sh" ))
-            ("atlassian" . (:url "https://mcp.atlassian.com/v1/sse" :command "uvx" :args ("-y" "mcp-atlassian" "--jira-url" "https://your-company.atlassian.net"
-"--jira-username" "<username>"
-"--jira-token" "<token>"
-"--confluence-url" "https://your-company.atlassian.net/wiki"
-"--confluence-username" "<username>"
-"--confluence-token" "<token>"))
+  (setq mcp-hub-servers
+        '(("mcp-eng" . (:command "/Users/dmitrymarkushevich/bin/eng-mcp.sh" ))
+          ("atlassian" . (:url "https://mcp.atlassian.com/v1/sse" :command "uvx" :args ("-y" "mcp-atlassian" "--jira-url" "https://your-company.atlassian.net"
+                                                                                        "--jira-username" "<username>"
+                                                                                        "--jira-token" "<token>"
+                                                                                        "--confluence-url" "https://your-company.atlassian.net/wiki"
+                                                                                        "--confluence-username" "<username>"
+                                                                                        "--confluence-token" "<token>")))
 
-            ))
-       (mcp-hub-start-all-server)
+          ))
+  (mcp-hub-start-all-server)
 
 
 
-      (require 'gptel-integrations)
+  (require 'gptel-integrations)
 #+end_src
 
 
