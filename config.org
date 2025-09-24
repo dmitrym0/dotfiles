@@ -3083,16 +3083,16 @@ We are using :input-buffer of INFO."
   (dot-env-config)
   (dot-env-get 'JIRA_HOST)
 
-  (setq mcp-hub-servers
-        '(("mcp-eng" . (:command "/Users/dmitrymarkushevich/bin/eng-mcp.sh" ))
-          ("atlassian" . (:command "uvx" :args ("-y" "mcp-atlassian" "--jira-url" ,(concat "https://" (dot-env-get 'JIRA_HOST))
-                                                                                        "--jira-username" ,(dot-env-get 'ATLASSIAN_USERNAME)
-                                                                                        "--jira-token" ,(dot-env-get 'ATLASSIAN_API_TOKEN)
-                                                                                        "--confluence-url" ,(concat "https://" (dot-env-get 'JIRA_HOST) "/wiki")
-                                                                                        "--confluence-username" ,(dot-env-get 'ATLASSIAN_USERNAME)
-                                                                                        "--confluence-token" ,(dot-env-get 'ATLASSIAN_API_TOKEN))))
 
-          ))
+  (setq mcp-hub-servers
+      `(("mcp-eng" . (:command "/Users/dmitrymarkushevich/bin/eng-mcp.sh"))
+        ("atlassian" . (:command "uvx" :args ("-y" "mcp-atlassian"
+                                               "--jira-url" ,(concat "https://" (dot-env-get 'JIRA_HOST))
+                                               "--jira-username" ,(dot-env-get 'ATLASSIAN_USERNAME)
+                                               "--jira-token" ,(dot-env-get 'ATLASSIAN_API_TOKEN)
+                                               "--confluence-url" ,(concat "https://" (dot-env-get 'JIRA_HOST) "/wiki")
+                                               "--confluence-username" ,(dot-env-get 'ATLASSIAN_USERNAME)
+                                               "--confluence-token" ,(dot-env-get 'ATLASSIAN_API_TOKEN))))))
   (mcp-hub-start-all-server)
 
 
