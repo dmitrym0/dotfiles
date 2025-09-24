@@ -3079,7 +3079,7 @@ We are using :input-buffer of INFO."
     :ensure t)
 
 
-  (setq dot-env-filepath "~/workspace/eng")
+  (setq dot-env-filepath "/Users/dmitrymarkushevich/workspace/eng-mcp-server/.env")
   (dot-env-config)
 
   (setq mcp-hub-servers
