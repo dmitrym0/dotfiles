@@ -3086,7 +3086,7 @@ We are using :input-buffer of INFO."
 
   (setq mcp-hub-servers
         `(("mcp-eng" . (:command "/Users/dmitrymarkushevich/bin/eng-mcp.sh"))
-          ("atlassian" . (:command "~/bin/atlassian.sh" :args ()))
+          ("atlassian" . (:command "/Users/dmitrymarkushevich/bin/atlassian.sh" :args ()))
 
           ))
   (mcp-hub-start-all-server)
