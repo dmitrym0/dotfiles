@@ -1169,7 +1169,7 @@ From [[https://massimilianomirra.com/notes/lightweight-external-command-integrat
 
 1. To add a calendar, go to settings (3 dots) and the find =Calendar ID=
 2. If not syncing: do =M-x org-gcal-sync-tokens-clear=. Tokens need to be cleared/refetched when adding a new calendar.
-3. Clear the org-id cache too (=rm ~/.emacs.d/.org-id-locations= and =M-x org-id-update-id-location=
+3. Clear the org-id cache too (=rm ~/.emacs.d/.org-id-locations= and =M-x org-id-update-id-locations=
 
 #+begin_src elisp
   (message "gcal")
