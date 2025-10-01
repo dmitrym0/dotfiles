@@ -1184,7 +1184,7 @@ From [[https://massimilianomirra.com/notes/lightweight-external-command-integrat
     (setq org-gcal-header-alist '(("dmitrym@gmail.com" . "#+PROPERTY: TIMELINE_FACE \"pink\"\n"))
           org-gcal-file-alist `(
                                 ("dmitrym@gmail.com" .  ,(concat org-directory "gcal.org"))
-                                ("dmitry.markushevich@varsitytutors.com" .  ,(concat org-directory "vt-cal.org"))
+;;                                ("dmitry.markushevich@varsitytutors.com" .  ,(concat org-directory "vt-cal.org"))
                                 ("r7d2lpfs96r5l79oltg49rh6rmnjpcs8@import.calendar.google.com" . ,(concat org-directory "kayen-cal.org")) ;; kayen's hockey
                                 ("c6oo61f4r9rsboqcisaep2rbsknq87s5@import.calendar.google.com" . ,(concat org-directory "maya-cal.org")) ;; maya ringette
                                 ("eok3gdluocm6eg05c4v1t2aq1oiugj8e@import.calendar.google.com" . ,(concat org-directory "diefenbaker-cal.org"))
