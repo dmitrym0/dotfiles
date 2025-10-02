@@ -72,6 +72,8 @@ When idling GC is triggered and a low threshold is set.
   (setq gcmh-idle-delay 'auto
       gcmh-auto-idle-delay-factor 10
       gcmh-high-cons-threshold (* 16 1024 1024))
+  (setq gc-cons-threshold most-positive-fixnum)
+
 #+end_src
 
 * gc-maybe
