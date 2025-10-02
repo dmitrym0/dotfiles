@@ -3633,5 +3633,11 @@ Zettlecasten assistance
   (with-current-buffer "*Benchmark Init Results Tabulated*"
     (message "%s" (buffer-string)))
 
+  (benchmark-init/show-durations-tree)
+    (with-current-buffer "*Benchmark Init Results Tree*"
+    (message "%s" (buffer-string)))
+
+
+
   (message "------- ✅DONE LOADING ------")
 #+end_src
