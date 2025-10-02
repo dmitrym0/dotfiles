@@ -957,7 +957,7 @@ org-roam
                ;; Dailies
                )
         :config
-        ;;(org-roam-db-autosync-mode)
+        (org-roam-db-autosync-mode)
         ;; If using org-roam-protocol
         :init
         (require 'org-roam-protocol)
@@ -3546,7 +3546,7 @@ From [[https://emacs.stackexchange.com/a/33523/22240][SO]]
 
 #+begin_src elisp
   (message "Github markdown export")
-  ;;(use-package ox-gfm :defer 5 :init (require 'ox-gfm))
+  (use-package ox-gfm :defer 5 :init (require 'ox-gfm))
 
 #+end_src
 
