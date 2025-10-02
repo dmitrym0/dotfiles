@@ -42,6 +42,7 @@ To [[https://github.com/dholm/benchmark-init-el?tab=readme-ov-file#usage][show t
 
 
 #+begin_src elisp
+  (setq use-package-always-defer t)
 
   (use-package benchmark-init
     :ensure t
