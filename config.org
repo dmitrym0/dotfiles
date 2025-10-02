@@ -1134,7 +1134,7 @@ Fuzzy? matching. ~org refi~, matches ~org-refile~ and ~org-agenda-refile~
 #+end_src
 ** Color in terminal (like M-x compile)
 #+begin_src elisp
-  use-package xterm-color
+  (use-package xterm-color
     :config
     (require 'xterm-color)
     (setq compilation-environment '("TERM=xterm-256color"))
