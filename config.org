@@ -3569,14 +3569,14 @@ From [[https://emacs.stackexchange.com/a/33523/22240][SO]]
 
 
 #+begin_src elisp
-  (message "aider")
-  (use-package aidermacs
-    :bind (("C-c d a" . aidermacs-transient-menu))
-    :config
-    (setenv "ANTHROPIC_API_KEY" (getenv "CLAUDE_TOKEN"))
-    :custom
-    (aidermacs-use-architect-mode t)
-    (aidermacs-default-model "sonnet"))
+  ;; (message "aider")
+  ;; (use-package aidermacs
+  ;;   :bind (("C-c d a" . aidermacs-transient-menu))
+  ;;   :config
+  ;;   (setenv "ANTHROPIC_API_KEY" (getenv "CLAUDE_TOKEN"))
+  ;;   :custom
+  ;;   (aidermacs-use-architect-mode t)
+  ;;   (aidermacs-default-model "sonnet"))
 
 #+end_src
 
