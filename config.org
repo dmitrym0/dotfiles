@@ -776,7 +776,7 @@ Suggested keymappings:
 #+begin_src elisp
   (straight-use-package 'git-commit-mode)
   (use-package magit :ensure t :defer t)
-  (use-package forge :after magit)
+  (use-package forge :after magit :defer t)
 #+end_src
 
 ** paredit
