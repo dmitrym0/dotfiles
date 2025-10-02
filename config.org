@@ -768,7 +768,6 @@ Suggested keymappings:
 'org-transclusion-fringe nil
 :foreground "green"
 :background "green")
-#
 :after org)
 
   ;; dont include the first section since it's usually metadata
