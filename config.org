@@ -3630,5 +3630,5 @@ Zettlecasten assistance
 
 #+begin_src elisp
   (benchmark-init/show-durations-tree)
-  (message "------- searDONE LOADING ------")
+  (message "------- ✅DONE LOADING ------")
 #+end_src
