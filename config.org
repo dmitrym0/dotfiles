@@ -2976,33 +2976,33 @@ Then type the short form (eg ~inv~) and hit ~tab~ to expand.
 #+begin_src elisp
  (require 'org)
 
-(defun my-org-export-only-occur (tree _back-end info)
-  "Export TREE only headings with org-occur overlays if there are any.
-Don't filter out anything if there are no org-occur overlays.
-This is a function for `org-export-filter-parse-tree-functions'.
-INFO is the plist of export infos.
-We are using :input-buffer of INFO."
-  (let ((input-buffer (plist-get info :input-buffer)))
-    (if (and input-buffer
-         (with-current-buffer input-buffer
-           org-occur-highlights))
-    (org-element-map
-        tree 'headline
-      (lambda (el)
-        (and (org-element-map
-             el 'headline
-           (lambda (hl)
-             (cl-member-if
-              (lambda (ol)
-            (eq (overlay-get ol 'org-type) 'org-occur))
-              (with-current-buffer input-buffer
-            (overlays-at (org-element-property :begin hl)))))
-           nil t)
-         el))
-      nil nil 'headline)
-      tree)))
+;; (defun my-org-export-only-occur (tree _back-end info)
+;;   "Export TREE only headings with org-occur overlays if there are any.
+;; Don't filter out anything if there are no org-occur overlays.
+;; This is a function for `org-export-filter-parse-tree-functions'.
+;; INFO is the plist of export infos.
+;; We are using :input-buffer of INFO."
+;;   (let ((input-buffer (plist-get info :input-buffer)))
+;;     (if (and input-buffer
+;;          (with-current-buffer input-buffer
+;;            org-occur-highlights))
+;;     (org-element-map
+;;         tree 'headline
+;;       (lambda (el)
+;;         (and (org-element-map
+;;              el 'headline
+;;            (lambda (hl)
+;;              (cl-member-if
+;;               (lambda (ol)
+;;             (eq (overlay-get ol 'org-type) 'org-occur))
+;;               (with-current-buffer input-buffer
+;;             (overlays-at (org-element-property :begin hl)))))
+;;            nil t)
+;;          el))
+;;       nil nil 'headline)
+;;       tree)))
 
-(cl-pushnew #'my-org-export-only-occur org-export-filter-parse-tree-functions)
+;; (cl-pushnew #'my-org-export-only-occur org-export-filter-parse-tree-functions)
 
 #+end_src
 
