@@ -2975,7 +2975,7 @@ Then type the short form (eg ~inv~) and hit ~tab~ to expand.
 * export only matched tree in org-mode from [[https://emacs.stackexchange.com/questions/42084/in-org-mode-how-to-export-sparse-tree-in-buffer-without-unmatched-top-level-hea#][here]].
 
 #+begin_src elisp
- (require 'org)
+ ;;(require 'org)
 
 ;; (defun my-org-export-only-occur (tree _back-end info)
 ;;   "Export TREE only headings with org-occur overlays if there are any.
