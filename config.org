@@ -957,7 +957,7 @@ org-roam
                ;; Dailies
                )
         :config
-        (org-roam-db-autosync-mode)
+        ;;(org-roam-db-autosync-mode)
         ;; If using org-roam-protocol
         :init
         (require 'org-roam-protocol)
