@@ -762,14 +762,14 @@ Suggested keymappings:
 
 
 #+begin_src elisp
-  (use-package org-transclusion
-    :config
-      (set-face-attribute
-   'org-transclusion-fringe nil
-   :foreground "green"
-   :background "green")
+(use-package org-transclusion
+:config
+(set-face-attribute
+'org-transclusion-fringe nil
+:foreground "green"
+:background "green")
 #
-    :after org)
+:after org)
 
   ;; dont include the first section since it's usually metadata
   (setq org-transclusion-include-first-section nil)
