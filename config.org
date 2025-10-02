@@ -3081,17 +3081,8 @@ Then type the short form (eg ~inv~) and hit ~tab~ to expand.
   (use-package mcp
     :ensure t
     :after gptel
-    :config (require 'mcp-hub)
-    :hook (after-init . mcp-hub-start-all-server))
-
-  (use-package dot-env
-    :ensure t)
-
-
-  (setq dot-env-filepath "/Users/dmitrymarkushevich/workspace/eng-mcp-server/.env")
-  (dot-env-config)
-  (dot-env-get 'JIRA_HOST)
-
+    :config
+    (require 'mcp-hub)
 
   (setq mcp-hub-servers
         `(("mcp-eng" . (:command "/Users/dmitrymarkushevich/bin/eng-mcp.sh"))
@@ -3099,7 +3090,17 @@ Then type the short form (eg ~inv~) and hit ~tab~ to expand.
           ("context7" . (:command "npx" :args ("-y" "@upstash/context7-mcp@latest")))
           ))
 
-  (mcp-hub-start-all-server)
+
+    :hook (after-init . mcp-hub-start-all-server))
+
+  (use-package dot-env
+    :ensure t)
+
+
+  ;; (setq dot-env-filepath "/Users/dmitrymarkushevich/workspace/eng-mcp-server/.env")
+  ;; (dot-env-config)
+  ;; (dot-env-get 'JIRA_HOST)
+
 
 
 
