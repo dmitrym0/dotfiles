@@ -3628,7 +3628,6 @@ Zettlecasten assistance
 #+begin_src elisp
   (benchmark-init/deactivate)
   (benchmark-init/show-durations-tabulated)
-  (benchmark-init/show-durations-tree)
   (message "%s" (buffer-string))
 
   (message "------- ✅DONE LOADING ------")
