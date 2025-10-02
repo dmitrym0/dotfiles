@@ -3627,5 +3627,6 @@ Zettlecasten assistance
 
 #+begin_src elisp
   (benchmark-init/show-durations-tree)
+  (benchmark-init/show-durations-tabulated)
   (message "------- ✅DONE LOADING ------")
 #+end_src
