@@ -1073,6 +1073,7 @@ Fuzzy? matching. ~org refi~, matches ~org-refile~ and ~org-agenda-refile~
     (message "typescript-mode")
 
     (use-package typescript-mode
+      :defer t
       :after flymake-eslint
       :init
       (define-derived-mode typescript-tsx-mode typescript-mode "tsx")
