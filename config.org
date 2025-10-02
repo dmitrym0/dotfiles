@@ -2969,7 +2969,7 @@ Then type the short form (eg ~inv~) and hit ~tab~ to expand.
 * enable media wiki export
 
 #+begin_src
-  (require 'ox-mediawiki)
+  ;;(require 'ox-mediawiki)
 #+end_src
 
 * export only matched tree in org-mode from [[https://emacs.stackexchange.com/questions/42084/in-org-mode-how-to-export-sparse-tree-in-buffer-without-unmatched-top-level-hea#][here]].
