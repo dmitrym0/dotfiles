@@ -3626,6 +3626,7 @@ Zettlecasten assistance
 * FIN
 
 #+begin_src elisp
+  (benchmark-init/deactivate)
   (benchmark-init/show-durations-tabulated)
   (message "%s" (buffer-string))
 
