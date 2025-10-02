@@ -1474,7 +1474,8 @@ blogging with ox-hugo
   (use-package ox-hugo
      ;Auto-install the package from Melpa
   :pin melpa  ;`package-archives' should already have ("melpa" . "https://melpa.org/packages/")
-  :after ox)
+  :after ox
+  :defer t)
 
 
   (with-eval-after-load 'ox-hugo
