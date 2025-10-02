@@ -44,13 +44,13 @@ To [[https://github.com/dholm/benchmark-init-el?tab=readme-ov-file#usage][show t
 #+begin_src elisp
   (setq use-package-always-defer t)
 
-  (use-package benchmark-init
-    :ensure t
-    :demand t
-    :config
-    (benchmark-init/activate)
-    ;; To disable collection of benchmark data after init is done.
-    (add-hook 'after-init-hook 'benchmark-init/deactivate))
+  ;; (use-package benchmark-init
+  ;;   :ensure t
+  ;;   :demand t
+  ;;   :config
+  ;;   (benchmark-init/activate)
+  ;;   ;; To disable collection of benchmark data after init is done.
+  ;;   (add-hook 'after-init-hook 'benchmark-init/deactivate))
 #+end_src
 
 * Garbage collection hack
