@@ -3094,6 +3094,7 @@ Then type the short form (eg ~inv~) and hit ~tab~ to expand.
         `(("mcp-eng" . (:command "/Users/dmitrymarkushevich/bin/eng-mcp.sh"))
           ;;("atlassian" . (:command "/Users/dmitrymarkushevich/bin/atlassian.sh" :args ()))
           ("context7" . (:command "npx" :args ("-y" "@upstash/context7-mcp@latest")))
+          ("chroma" . (:command "npx" :args ("-y" "@upstash/context7-mcp@latest")))
           ))
 
 
