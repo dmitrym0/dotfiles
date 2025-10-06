@@ -3063,6 +3063,8 @@ Then type the short form (eg ~inv~) and hit ~tab~ to expand.
 
   (use-package gptel
     :straight (:type git :host github :repo "karthink/gptel" )
+    :config
+    (require 'gptel-context)
     :bind ("C-c d g" . dm/gptel-send-universal-prefix))
 
 
