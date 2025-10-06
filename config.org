@@ -122,7 +122,7 @@ Emacs Nursery; stuff that I'm working on.
 #+begin_src elisp
   (message "Loading nursery items")
   (use-package dm-dueapp-integration :straight (:type git :local-repo "~/workspace/emacs-nursery" :no-build t :no-install t))
-  (use-package dm-org-agenda :straight (:type git :local-repo "~/workspace/emacs-nursery" :no-build t :no-install t))
+  (use-package dm-org-agenda :straight (:type git :local-repo "~/workspace/emacs-nursery" :no-build t :no-install t) :demand t)
   (use-package dm-pomodoro-nag :straight (:type git :local-repo "~/workspace/emacs-nursery" :no-build t :no-install t))
   (use-package favurls :straight ( :type git :local-repo "~/workspace/emacs-nursery" :no-build t :no-install t))
   (use-package dm-mcp-tools :straight ( :type git :local-repo "~/workspace/emacs-nursery" :no-build t :no-install t) :after (gptel))
