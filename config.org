@@ -345,7 +345,7 @@ No toolbar.
 
 * Enable easy templates (from [[https://emacs.stackexchange.com/a/46992][here]])
 #+begin_src emacs-lisp
-  (require 'org-tempo)
+  (require 'org-tempo :demand t)
 #+end_src
 
 * Keybindings
@@ -1944,7 +1944,7 @@ Sourced from [[https://github.com/hiecaq/quinoa42.github.io/blob/gh-pages/org/do
 
 
 #+begin_src elisp
-    (use-package templatel )
+    (use-package templatel :demand t)
 
 
 
