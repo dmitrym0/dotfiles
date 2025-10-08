@@ -214,6 +214,9 @@ Highlight current line
   (setq hl-line-face 'dm/hl-line-face)
 
   (global-hl-line-mode t)
+
+
+
 #+end_src
 
 #+begin_src emacs-lisp
