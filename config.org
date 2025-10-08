@@ -216,7 +216,6 @@ Highlight current line
   (global-hl-line-mode t)
 
 
- (setq org-catch-invisible-edits 'show-and-error)
 
 #+end_src
 
