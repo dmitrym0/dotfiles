@@ -1197,7 +1197,7 @@ From [[https://massimilianomirra.com/notes/lightweight-external-command-integrat
                                 ("c6oo61f4r9rsboqcisaep2rbsknq87s5@import.calendar.google.com" . ,(concat org-directory "maya-cal.org")) ;; maya ringette
                                 ("eok3gdluocm6eg05c4v1t2aq1oiugj8e@import.calendar.google.com" . ,(concat org-directory "diefenbaker-cal.org"))
                                 ("e6mpl77k84bv6chkkiqjcdunofsumt7q@import.calendar.google.com" . ,(concat org-directory "mcmath-cal.org"))
-                                ("rd84veu92nrtrqhjngugd71al42072ck@import.calendar.google.com" . ,(concat org-directory "nikaxu-cal.org"))
+                                )
 
                                 )
           org-gcal-notify-p nil)
