@@ -93,7 +93,7 @@ All gc-maybe-mode does is this:
     :init
     (setopt gc-maybe-threshold-default (* 48 1024 1024)) ; 48 MiB
     (setopt gc-maybe-percentage-default 0.2)
-    (gc-maybe-mode +1) ; set minibuffer hooks and idle timer
+    (gc-maybe-mode +0) ; set minibuffer hooks and idle timer
     :config
     ;; optionally log GCs in a buffer
     (setopt gc-maybe-log-stats t)
