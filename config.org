@@ -67,7 +67,7 @@ When idling GC is triggered and a low threshold is set.
   (add-to-list 'load-path "~/workspace/github/gcmh")
   (use-package compat)
   (require 'gcmh)
-  (gcmh-mode 1)
+  (gcmh-mode 0)
   (setq garbage-collection-messages nil)
   (setq gcmh-idle-delay 'auto
       gcmh-auto-idle-delay-factor 10
