@@ -73,7 +73,6 @@ When idling GC is triggered and a low threshold is set.
       gcmh-auto-idle-delay-factor 10
       gcmh-high-cons-threshold (* 16 1024 1024))
   (setq gc-cons-threshold most-positive-fixnum)
-
 #+end_src
 
 * gc-maybe
@@ -3382,6 +3381,7 @@ Refactoring support via =M-x emr-show-refactor-menu=
 
 #+begin_src elisp
   (use-package org-sie
+    :demand t
     :straight (:repo "dmitrym0/org-sie"
                      :host github
                      :type git))
@@ -3650,7 +3650,7 @@ Zettlecasten assistance
     (with-current-buffer "*Benchmark Init Results Tree*"
     (message "%s" (buffer-string)))
 
-
+  (setq gc-cons-threshold (* 100 1024 1024))
 
   (message "------- ✅DONE LOADING ------")
 #+end_src
