@@ -67,12 +67,12 @@ When idling GC is triggered and a low threshold is set.
   (add-to-list 'load-path "~/workspace/github/gcmh")
   (use-package compat)
   (require 'gcmh)
-  (gcmh-mode 0)
+;;  (gcmh-mode 0)
   (setq garbage-collection-messages nil)
   (setq gcmh-idle-delay 'auto
       gcmh-auto-idle-delay-factor 10
       gcmh-high-cons-threshold (* 16 1024 1024))
-  (setq gc-cons-threshold most-positive-fixnum)
+  ;;(setq gc-cons-threshold most-positive-fixnum)
 #+end_src
 
 * gc-maybe
@@ -93,7 +93,7 @@ All gc-maybe-mode does is this:
     :init
     (setopt gc-maybe-threshold-default (* 48 1024 1024)) ; 48 MiB
     (setopt gc-maybe-percentage-default 0.2)
-    (gc-maybe-mode +0) ; set minibuffer hooks and idle timer
+    ;;(gc-maybe-mode +0) ; set minibuffer hooks and idle timer
     :config
     ;; optionally log GCs in a buffer
     (setopt gc-maybe-log-stats t)
@@ -3097,7 +3097,11 @@ Then type the short form (eg ~inv~) and hit ~tab~ to expand.
         `(("mcp-eng" . (:command "/Users/dmitrymarkushevich/bin/eng-mcp.sh"))
           ;;("atlassian" . (:command "/Users/dmitrymarkushevich/bin/atlassian.sh" :args ()))
           ("context7" . (:command "npx" :args ("-y" "@upstash/context7-mcp@latest")))
-          ("chroma" . (:command "uvx" :args ("chroma-mcp" "--client-type" "persistent" "--data-dir" "/Users/dmitrymarkushevich/chromadb")))))
+          ("chroma" . (:command "uvx" :args ("chroma-mcp" "--client-type" "persistent" "--data-dir" "/Users/dmitrymarkushevich/chromadb")))
+          ("github" . (:command "uvx" :args ("chroma-mcp" "--client-type" "persistent" "--data-dir" "/Users/dmitrymarkushevich/chromadb")))
+
+
+          ))
 
 
     :hook (after-init . mcp-hub-start-all-server))
