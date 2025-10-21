@@ -3097,11 +3097,7 @@ Then type the short form (eg ~inv~) and hit ~tab~ to expand.
         `(("mcp-eng" . (:command "/Users/dmitrymarkushevich/bin/eng-mcp.sh"))
           ;;("atlassian" . (:command "/Users/dmitrymarkushevich/bin/atlassian.sh" :args ()))
           ("context7" . (:command "npx" :args ("-y" "@upstash/context7-mcp@latest")))
-          ("chroma" . (:command "uvx" :args ("chroma-mcp" "--client-type" "persistent" "--data-dir" "/Users/dmitrymarkushevich/chromadb")))
-          ("github" . (:command "uvx" :args ("chroma-mcp" "--client-type" "persistent" "--data-dir" "/Users/dmitrymarkushevich/chromadb")))
-
-
-          ))
+          ("chroma" . (:command "uvx" :args ("chroma-mcp" "--client-type" "persistent" "--data-dir" "/Users/dmitrymarkushevich/chromadb")))))
 
 
     :hook (after-init . mcp-hub-start-all-server))
