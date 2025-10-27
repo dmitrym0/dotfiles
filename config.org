@@ -119,30 +119,31 @@ Attempt to refactor this file a bit.
 Emacs Nursery; stuff that I'm working on.
 
 #+begin_src elisp
-  (message "Loading nursery items")
-  (use-package dm-dueapp-integration :straight (:type git :local-repo "~/workspace/emacs-nursery" :no-build t :no-install t))
-  (use-package dm-org-agenda :straight (:type git :local-repo "~/workspace/emacs-nursery" :no-build t :no-install t) :demand t)
-  (use-package dm-pomodoro-nag :straight (:type git :local-repo "~/workspace/emacs-nursery" :no-build t :no-install t))
-  (use-package favurls :straight ( :type git :local-repo "~/workspace/emacs-nursery" :no-build t :no-install t) :demand t)
-  (use-package dm-mcp-tools :straight ( :type git :local-repo "~/workspace/emacs-nursery" :no-build t :no-install t) :after (gptel) :demand t)
-  (use-package dm-shutdown :straight ( :type git :local-repo "~/workspace/emacs-nursery" :no-build t :no-install t) :after (gptel) :demand t)
+   (message "Loading nursery items")
+   (use-package dm-dueapp-integration :straight (:type git :local-repo "~/workspace/emacs-nursery" :no-build t :no-install t))
+   (use-package dm-org-agenda :straight (:type git :local-repo "~/workspace/emacs-nursery" :no-build t :no-install t) :demand t)
+   (use-package dm-pomodoro-nag :straight (:type git :local-repo "~/workspace/emacs-nursery" :no-build t :no-install t))
+   (use-package favurls :straight ( :type git :local-repo "~/workspace/emacs-nursery" :no-build t :no-install t) :demand t)
+   (use-package dm-mcp-tools :straight ( :type git :local-repo "~/workspace/emacs-nursery" :no-build t :no-install t) :after (gptel) :demand t)
+   (use-package dm-shutdown :straight ( :type git :local-repo "~/workspace/emacs-nursery" :no-build t :no-install t) :after (gptel) :demand t)
 
 
- ;;(use-package dm-mcp-tools
- ;;   :ensure nil
- ;;   :load-path "~/workspace/emacs-nursery/"   ;; or the subdir that contains dm-mcp-tools.el
- ;;   :after (:all gptel))
+  (use-package dm-mcp-tools
+     :ensure nil
+     :load-path "~/workspace/emacs-nursery/"   ;; or the subdir that contains dm-mcp-tools.el
+     :after (:all gptel)
+     :demand t)
 
-  (use-package dm-org-journal-in-current-buffer :straight (:type git :local-repo "~/workspace/emacs-nursery" :no-build t :no-install t))
-  (use-package dm-jira :after embark
-    :straight (:type git :local-repo "~/workspace/emacs-nursery" :no-build t :no-install t) :demand t)
-  (use-package dm-tools
-    :straight (:type git :local-repo "~/workspace/emacs-nursery" :no-build t :no-install t) :demand t)
+   (use-package dm-org-journal-in-current-buffer :straight (:type git :local-repo "~/workspace/emacs-nursery" :no-build t :no-install t))
+   (use-package dm-jira :after embark
+     :straight (:type git :local-repo "~/workspace/emacs-nursery" :no-build t :no-install t) :demand t)
+   (use-package dm-tools
+     :straight (:type git :local-repo "~/workspace/emacs-nursery" :no-build t :no-install t) :demand t)
 
 
-  (load-file "~/workspace/emacs-nursery/dm-unexpected-task.el")
-  (load-file "~/workspace/emacs-nursery/dm-dueapp-integration.el")
-  (load-file "~/workspace/emacs-nursery/dm-org-roam.el")
+   (load-file "~/workspace/emacs-nursery/dm-unexpected-task.el")
+   (load-file "~/workspace/emacs-nursery/dm-dueapp-integration.el")
+   (load-file "~/workspace/emacs-nursery/dm-org-roam.el")
 #+end_src
 
 
