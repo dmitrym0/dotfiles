@@ -900,7 +900,7 @@ Navigating within projects.
 [[https://github.com/abo-abo/org-download/][org-download]]; copy and pasting images
 
 #+begin_src emacs-lisp
-(use-package org-download  )
+(use-package org-download :ensure t :demand t)
 #+end_src
 
 fzf support
@@ -3649,6 +3649,7 @@ Zettlecasten assistance
   (benchmark-init/show-durations-tabulated)
   (with-current-buffer "*Benchmark Init Results Tabulated*"
     (message "%s" (buffer-string)))
+
 
   (benchmark-init/show-durations-tree)
     (with-current-buffer "*Benchmark Init Results Tree*"
