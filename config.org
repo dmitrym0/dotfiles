@@ -104,6 +104,62 @@ All gc-maybe-mode does is this:
 #+end_src
 
 
+* Native Compilation
+
+Modern Emacs (28+) can compile Elisp to native machine code using libgccjit for 2-5x performance gains.
+
+Native compilation converts bytecode (.elc) to native machine code (.eln files stored in eln-cache/).
+This happens asynchronously in the background on first load, then subsequent startups use the fast native code.
+
+To check if native-comp is working:
+- ~M-: (native-comp-available-p)~ should return ~t~
+- Check ~*Async-native-compile-log*~ buffer during first startup
+- View cache: =~/.emacs.d/eln-cache/=
+
+#+begin_src elisp
+  (when (and (fboundp 'native-comp-available-p)
+             (native-comp-available-p))
+    (message "Native compilation is available")
+
+    ;; Silence compiler warnings during async compilation
+    ;; These warnings are often about deprecated packages and create noise
+    (setq native-comp-async-report-warnings-errors nil)
+
+    ;; Compile loaded .elc files asynchronously in background
+    ;; This means first startup compiles, subsequent ones are fast
+    (setq native-comp-deferred-compilation t)
+
+    ;; Set compilation parallelism (0 = auto-detect CPU cores)
+    ;; Lower this (e.g., 2) if compilation pegs your CPU
+    (setq native-comp-async-jobs-number 0)
+
+    ;; Make straight.el use native compilation for installed packages
+    (setq straight-native-compile t))
+
+  ;; Helper function to check native-comp status
+  (defun dm/native-comp-status ()
+    "Show native compilation queue status."
+    (interactive)
+    (if (native-comp-available-p)
+        (let ((queue-length (length (native-comp-async-jobs))))
+          (message "Native-comp: %d files in compilation queue. Check *Async-native-compile-log* buffer"
+                   queue-length))
+      (message "Native compilation not available in this Emacs build")))
+
+  ;; Show startup statistics including native-comp
+  (add-hook 'emacs-startup-hook
+            (lambda ()
+              (when (native-comp-available-p)
+                (let ((native-count 0))
+                  (mapatoms
+                   (lambda (sym)
+                     (when (and (fboundp sym)
+                                (subr-native-elisp-p (symbol-function sym)))
+                       (setq native-count (1+ native-count)))))
+                  (message "Emacs started with %d native-compiled functions" native-count)))))
+#+end_src
+
+
 * Includes
 
 Attempt to refactor this file a bit.
@@ -219,10 +275,39 @@ Highlight current line
 
 #+end_src
 
+use-package debugging and statistics
+
+To see package load times and troubleshoot slow startup:
+
+1. Keep ~use-package-compute-statistics~ enabled (already set below)
+2. After Emacs fully loads, run: ~M-x use-package-report~
+3. Sort by load time to find slow packages
+4. For detailed logging during startup, temporarily set ~use-package-verbose~ to ~t~
+
 #+begin_src emacs-lisp
   (fset 'yes-or-no-p 'y-or-n-p)
+
+  ;; Collect statistics on package load times
+  ;; View with: M-x use-package-report
   (setq use-package-compute-statistics t)
+
+  ;; Set to t to see detailed loading messages in *Messages* buffer
+  ;; Useful for debugging slow startup - generates lots of output
+  (setq use-package-verbose nil)
+
   (setq use-package-always-ensure t) ;; ensure that packages are installed if not present
+#+end_src
+
+Helper function to quickly view package load times:
+
+#+begin_src emacs-lisp
+  (defun dm/show-package-load-times ()
+    "Open use-package-report to show package load times.
+  Packages are sorted by total load time."
+    (interactive)
+    (if use-package-compute-statistics
+        (use-package-report)
+      (message "use-package-compute-statistics is not enabled. Set it to t and restart Emacs.")))
 #+end_src
 
 
@@ -1861,6 +1946,7 @@ Sourced from [[https://github.com/hiecaq/quinoa42.github.io/blob/gh-pages/org/do
           :after evil
           :config
           (setq evil-want-keybinding nil)
+          (evil-collection-init 'vterm)
           (evil-collection-init))
 
 
@@ -2345,8 +2431,9 @@ Use ~gd~ to jump to definitions in evil mode.
 Preserve emacs open buffers. Restore 5 on open and then when emacs is idle open more. It's =~/.emacs.d/.emacs.desktop=
 
 #+begin_src emacs-lisp
-  (message "Load desktop")
-  (desktop-read)
+  ;; Disabled - desktop-save-mode is off
+  ;; (message "Load desktop")
+  ;; (desktop-read)
 #+end_src
 
 
@@ -2902,10 +2989,11 @@ Orderless, borrowed from [[https://kristofferbalintona.me/posts/202202211546/][h
 Preserve desktop
 
 #+begin_src emacs-lisp
-  (setq desktop-lazy-idle-delay 25)
-  (setq desktop-restore-eager 5)
-  (desktop-save-mode 1)
-  (setq desktop-path (list user-emacs-directory))
+  ;; Disabled - was prompting to save on exit
+  ;; (setq desktop-lazy-idle-delay 25)
+  ;; (setq desktop-restore-eager 5)
+  ;; (desktop-save-mode 1)
+  ;; (setq desktop-path (list user-emacs-directory))
   ;;(setq desktop-path `(,(concat user-emacs-directory ".cache/")))
 #+end_src
 
@@ -3516,14 +3604,20 @@ From [[https://emacs.stackexchange.com/a/33523/22240][SO]]
 
   Activate this advice with:
   (advice-add 'message :before 'sh/ad-timestamp-message)"
-    (unless (string-equal FORMAT-STRING "%s%s")
+    (unless (or (string-equal FORMAT-STRING "%s%s")
+                ;; Don't recurse if we're already in *Messages* buffer
+                (eq (current-buffer) (get-buffer "*Messages*"))
+                ;; Filter out noisy scroll messages
+                (string-match-p "^\\(End\\|Beginning\\) of buffer" (or FORMAT-STRING "")))
       (let ((deactivate-mark nil)
             (inhibit-read-only t))
         (with-current-buffer "*Messages*"
-          (goto-char (point-max))
-          (if (not (bolp))
-            (newline))
-          (insert (sh/current-time-microseconds) " ")))))
+          ;; Save point position so we don't jump user's cursor
+          (save-excursion
+            (goto-char (point-max))
+            (unless (bolp)
+              (newline))
+            (insert (sh/current-time-microseconds) " "))))))
 
   (advice-add 'message :before 'sh/ad-timestamp-message)
 
