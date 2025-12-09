@@ -2964,7 +2964,6 @@ Orderless, borrowed from [[https://kristofferbalintona.me/posts/202202211546/][h
     (unwind-protect
         (progn
           (vertico-mode -1)
-          (icomplete-vertical-mode 1)
           (message "dm/popup-url-selector: About to call dm/open-fav-urls")
           (let ((icomplete-show-matches-on-no-input t))
             (dm/open-fav-urls))
