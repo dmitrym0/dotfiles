@@ -2963,16 +2963,15 @@ Orderless, borrowed from [[https://kristofferbalintona.me/posts/202202211546/][h
     (message "dm/popup-url-selector: Icomplete enabled")
     (unwind-protect
         (progn
-          (vertico-mode -1)
+          (vertico-posframe-mode -1)
           (message "dm/popup-url-selector: About to call dm/open-fav-urls")
           (let ((icomplete-show-matches-on-no-input t))
             (dm/open-fav-urls))
+
+          (vertico-posframe-mode 1)
           (message "dm/popup-url-selector: dm/open-fav-urls completed"))
       (message "dm/popup-url-selector: Cleanup - disabling icomplete")
-      (icomplete-vertical-mode -1)
-      (icomplete-mode -1)
       (message "dm/popup-url-selector: Cleanup - enabling vertico")
-      (vertico-mode 1))
     (message "dm/popup-url-selector: About to delete frame")
     (delete-frame))
 
