@@ -2952,11 +2952,28 @@ Orderless, borrowed from [[https://kristofferbalintona.me/posts/202202211546/][h
       ))
 
   (defun dm/popup-url-selector ()
+    (message "dm/popup-url-selector: Starting")
     (get-buffer-create "URLS")
     (switch-to-buffer "URLS")
+    (message "dm/popup-url-selector: Buffer switched")
     (org-set-frame-title "URLS")
     (x-focus-frame nil)
-    (dm/open-fav-urls)
+    (message "dm/popup-url-selector: Frame focused")
+    (message "dm/popup-url-selector: Vertico disabled")
+    (message "dm/popup-url-selector: Icomplete enabled")
+    (unwind-protect
+        (progn
+          (vertico-mode -1)
+          (message "dm/popup-url-selector: About to call dm/open-fav-urls")
+          (let ((icomplete-show-matches-on-no-input t))
+            (dm/open-fav-urls))
+          (message "dm/popup-url-selector: dm/open-fav-urls completed"))
+      (message "dm/popup-url-selector: Cleanup - disabling icomplete")
+      (icomplete-vertical-mode -1)
+      (icomplete-mode -1)
+      (message "dm/popup-url-selector: Cleanup - enabling vertico")
+      (vertico-mode 1))
+    (message "dm/popup-url-selector: About to delete frame")
     (delete-frame))
 
 
