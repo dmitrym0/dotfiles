@@ -583,12 +583,12 @@ Done tasks get a [[https://github.com/lmintmate/emacs.d#strikethrough-for-done-t
                                                        %?
                                                        ")
                                   ("di" "Important thing daily" entry
-                                   (file+olp+datetree ,(concat org-directory  "/important_things_daily_2025.org"))
+                                   (file+olp+datetree ,(concat org-directory  "/important_things_daily_2026.org"))
                                    "* Entered on %U
             %?")
 
                                   ("dj" "Journal" entry
-                                   (file+olp+datetree ,(concat org-directory "/personal-daily-2025.org"))
+                                   (file+olp+datetree ,(concat org-directory "/personal-daily-2026.org"))
                                    "* Entered on %U
 
               Prompt: %(dm/get-journaling-prompt)
@@ -2952,27 +2952,14 @@ Orderless, borrowed from [[https://kristofferbalintona.me/posts/202202211546/][h
       ))
 
   (defun dm/popup-url-selector ()
-    (message "dm/popup-url-selector: Starting")
     (get-buffer-create "URLS")
     (switch-to-buffer "URLS")
-    (message "dm/popup-url-selector: Buffer switched")
     (org-set-frame-title "URLS")
     (x-focus-frame nil)
-    (message "dm/popup-url-selector: Frame focused")
-    (message "dm/popup-url-selector: Vertico disabled")
-    (message "dm/popup-url-selector: Icomplete enabled")
+    (vertico-posframe-mode -1)
     (unwind-protect
-        (progn
-          (vertico-posframe-mode -1)
-          (message "dm/popup-url-selector: About to call dm/open-fav-urls")
-          (let ((icomplete-show-matches-on-no-input t))
-            (dm/open-fav-urls))
-
-          (vertico-posframe-mode 1)
-          (message "dm/popup-url-selector: dm/open-fav-urls completed"))
-      (message "dm/popup-url-selector: Cleanup - disabling icomplete")
-      (message "dm/popup-url-selector: Cleanup - enabling vertico")
-    (message "dm/popup-url-selector: About to delete frame")
+        (dm/open-fav-urls)
+      (vertico-posframe-mode 1))
     (delete-frame))
 
 
