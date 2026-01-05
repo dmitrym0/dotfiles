@@ -825,11 +825,17 @@ Time tracking with org-pomodoro.
 Fancy TODO states
 #+begin_src emacs-lisp
   (message "Fancy todo states")
+  ;; (setq org-todo-keywords
+  ;;       '((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
+  ;;               (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)" "PHONE" "MEETING")))
+
+
   (setq org-todo-keywords
-        '((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
-                (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)" "PHONE" "MEETING")))
-
-
+      (quote ((sequence "TODO(t!/!)" "NEXT(n!/!)"
+                        "STARTED(s!)" "|" "DONE(d!/!)")
+              (type "PROJECT(p!/!)" "|" "DONE_PROJECT(D!/!)")
+              (sequence "WAITING(w@/!)" "SOMEDAY(S!)"  "|"
+                        "CANCELLED(c@/!)"))))
 #+end_src
 
 ** Shortcuts
