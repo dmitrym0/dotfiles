@@ -689,6 +689,19 @@ Create a custom agenda view.
 
   (setq org-agenda-custom-commands
         '(
+          ("P" "Stuck Projects"
+         ((org-ql-block '(and (todo "PROJECT")
+                              (or (not (descendants))
+                                  (and (not (descendants
+                                             (or (todo "STARTED") (todo "NEXT"))))
+                                       (descendants
+                                        (and (or (todo "TODO") (todo "WAITING"))
+                                                         (not (deadline))
+                                                         (not (scheduled)))))
+                                  (not (descendants (or (todo "NEXT") (todo "TODO")
+                                                        (todo "WAITING")
+                                                        (todo "STARTED")))))))))
+
 
           ("D" "Overview for today"
            ((tags-todo "WORK:URGENT"
