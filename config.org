@@ -689,8 +689,8 @@ Create a custom agenda view.
 
   (setq org-agenda-custom-commands
         '(
-                  ("n" . "Next Actions List")
-        ("nn" tags "+TODO=\"NEXT\"|+TODO=\"STARTED\"")
+                  ("N" . "Next Actions List")
+        ("NN" tags "+TODO=\"NEXT\"|+TODO=\"STARTED\"")
 
           ("P" "Stuck Projects"
          ((org-ql-block '(and (todo "PROJECT")
