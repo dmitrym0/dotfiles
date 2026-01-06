@@ -3174,63 +3174,65 @@ Then type the short form (eg ~inv~) and hit ~tab~ to expand.
 
 - =M-x mcp-hub= to see all currently running mcp servers
 #+begin_src elisp
-  (defun dm/gptel-send-universal-prefix ()
-    "Invoke gptel-send with a universal prefix. This function is to be used in :bind"
-    (interactive)
-    (gptel-send '(4)))
+    (defun dm/gptel-send-universal-prefix ()
+      "Invoke gptel-send with a universal prefix. This function is to be used in :bind"
+      (interactive)
+      (gptel-send '(4)))
 
-  (use-package gptel
-    :straight (:type git :host github :repo "karthink/gptel" )
-    :config
-    (require 'gptel-context)
-    :bind ("C-c d g" . dm/gptel-send-universal-prefix))
-
-
-  (setq gptel-backend (gptel-make-anthropic "Claude"
-    :stream t
-    :key (getenv "CLAUDE_TOKEN")))
+    (use-package gptel
+      :straight (:type git :host github :repo "karthink/gptel" )
+      :config
+      (require 'gptel-context)
+      :bind ("C-c d g" . dm/gptel-send-universal-prefix))
 
 
-  (setq gptel-model 'claude-sonnet-4-20250514)
-
-  ;; (setq gptel-backend "Claude")
-  ;; (setq gptel-backend     (gptel-make-anthropic "Claude"
-  ;;   :stream t
-  ;;   :key (getenv "CLAUDE_TOKEN")))
+    (setq gptel-backend (gptel-make-anthropic "Claude"
+      :stream t
+      :key (getenv "CLAUDE_TOKEN")))
 
 
+    (setq gptel-model 'claude-sonnet-4-20250514)
 
-
-
-  (use-package mcp
-    :ensure t
-    :after gptel
-    :config
-    (require 'mcp-hub)
-
-  (setq mcp-hub-servers
-        `(("mcp-eng" . (:command "/Users/dmitrymarkushevich/bin/eng-mcp.sh"))
-;;          ("atlassian" . (:command "/Users/dmitrymarkushevich/bin/atlassian.sh" :args ())) ;
-          ("context7" . (:command "npx" :args ("-y" "@upstash/context7-mcp@latest")))
-          ("chroma" . (:command "uvx" :args ("chroma-mcp" "--client-type" "persistent" "--data-dir" "/Users/dmitrymarkushevich/chromadb")))
-           ("github" :url "https://api.githubcopilot.com/mcp/" :token ,(lambda () (getenv "GITHUB_TOKEN")))
-          ))
-
-
-    :hook (after-init . mcp-hub-start-all-server))
-
-  (use-package dot-env
-    :ensure t)
-
-
-  ;; (setq dot-env-filepath "/Users/dmitrymarkushevich/workspace/eng-mcp-server/.env")
-  ;; (dot-env-config)
-  ;; (dot-env-get 'JIRA_HOST)
+    ;; (setq gptel-backend "Claude")
+    ;; (setq gptel-backend     (gptel-make-anthropic "Claude"
+    ;;   :stream t
+    ;;   :key (getenv "CLAUDE_TOKEN")))
 
 
 
 
-  (require 'gptel-integrations)
+
+    (use-package mcp
+      :ensure t
+      :after gptel
+      :config
+      (require 'mcp-hub)
+
+    (setq mcp-hub-servers
+          `(
+            ("mcp-eng" . (:command "/Users/dmitrymarkushevich/bin/eng-mcp.sh"))
+  ;;          ("atlassian" . (:command "/Users/dmitrymarkushevich/bin/atlassian.sh" :args ())) ;
+            ("context7" . (:command "npx" :args ("-y" "@upstash/context7-mcp@latest")))
+            ("chroma" . (:command "uvx" :args ("chroma-mcp" "--client-type" "persistent" "--data-dir" "/Users/dmitrymarkushevich/chromadb")))
+            ("basic-memory" . (:command "uvx" :args ()))
+             ("github" :url "https://api.githubcopilot.com/mcp/" :token ,(lambda () (getenv "GITHUB_TOKEN")))
+            ))
+
+
+      :hook (after-init . mcp-hub-start-all-server))
+
+    (use-package dot-env
+      :ensure t)
+
+
+    ;; (setq dot-env-filepath "/Users/dmitrymarkushevich/workspace/eng-mcp-server/.env")
+    ;; (dot-env-config)
+    ;; (dot-env-get 'JIRA_HOST)
+
+
+
+
+    (require 'gptel-integrations)
 
 #+end_src
 
