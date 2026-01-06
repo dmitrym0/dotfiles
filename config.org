@@ -3214,7 +3214,7 @@ Then type the short form (eg ~inv~) and hit ~tab~ to expand.
   ;;          ("atlassian" . (:command "/Users/dmitrymarkushevich/bin/atlassian.sh" :args ())) ;
             ("context7" . (:command "npx" :args ("-y" "@upstash/context7-mcp@latest")))
             ("chroma" . (:command "uvx" :args ("chroma-mcp" "--client-type" "persistent" "--data-dir" "/Users/dmitrymarkushevich/chromadb")))
-            ("basic-memory" . (:command "uvx" :args ()))
+            ("basic-memory" . (:command "uvx" :args ("basic-memory" "mcp")))
              ("github" :url "https://api.githubcopilot.com/mcp/" :token ,(lambda () (getenv "GITHUB_TOKEN")))
             ))
 
