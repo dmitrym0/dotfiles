@@ -692,6 +692,13 @@ Create a custom agenda view.
         ("N" . "Next Actions List")
         ("NN" tags "+TODO=\"NEXT\"|+TODO=\"STARTED\"")
 
+        ("NA" "Available NEXT actions"
+         ((org-ql-block
+           '(and (todo "NEXT")
+                 (or (not (scheduled))
+                     (scheduled :to today)))
+           ((org-ql-block-header . "NEXT (available: unscheduled or scheduled <= today)")
+            (org-agenda-prefix-format . " %(my/org-parent-heading) ")))))
 
           ("P" "Stuck Projects"
          ((org-ql-block '(and (todo "PROJECT")
