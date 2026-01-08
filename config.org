@@ -698,7 +698,9 @@ Create a custom agenda view.
                  (or (not (scheduled))
                      (scheduled :to today)))
            ((org-ql-block-header "NEXT (available: unscheduled or scheduled <= today)")
-            (org-super-agenda-groups '((:auto-parent t)))))))
+            (org-super-agenda-groups '((:auto-parent t)))
+            (org-agenda-cmp-user-defined #'dm/org-agenda-cmp-parent-priority)
+            (org-agenda-sorting-strategy '(user-defined-down priority-down))))))
   ("P" "Stuck Projects"
            ((org-ql-block '(and (todo "PROJECT")
                                 (or (not (descendants))
@@ -821,20 +823,59 @@ Create a custom agenda view.
 
 ** Custom org functions
 #+begin_src emacs-lisp
-(defun org-agenda-skip-if-scheduled-later ()
-"If this function returns nil, the current match should not be skipped.
-Otherwise, the function must return a position from where the search
-should be continued."
-  (ignore-errors
-    (let ((subtree-end (save-excursion (org-end-of-subtree t)))
-          (scheduled-seconds
-            (time-to-seconds
-              (org-time-string-to-time
-                (org-entry-get nil "SCHEDULED"))))
-          (now (time-to-seconds (current-time))))
-       (and scheduled-seconds
-            (>= scheduled-seconds now)
-            subtree-end))))
+  (defun dm/org-agenda-cmp-parent-priority (a b)
+    "Compare agenda items A and B by their parent's highest priority.
+  Parents with high-priority children sort first."
+    (let* ((a-marker (get-text-property 0 'org-marker a))
+           (b-marker (get-text-property 0 'org-marker b))
+           (a-priority (dm/get-parent-max-priority a-marker))
+           (b-priority (dm/get-parent-max-priority b-marker)))
+      (cond ((< a-priority b-priority) 1)
+            ((> a-priority b-priority) -1)
+            (t nil))))
+
+  (defun dm/get-parent-max-priority (marker)
+    "Get the highest priority among siblings under the same parent.
+  Returns priority as number (1=A, 2=B, 3=C, 4=none)."
+    (if (not marker)
+        4
+      (let ((parent (org-with-point-at marker
+                      (if (org-up-heading-safe)
+                          (point-marker)
+                        nil))))
+        (if (not parent)
+            (or (org-with-point-at marker
+                  (let ((pri (org-get-priority (thing-at-point 'line t))))
+                    (cond ((>= pri 3000) 1)
+                          ((>= pri 2000) 2)
+                          ((>= pri 1000) 3)
+                          (t 4))))
+                4)
+          (org-with-point-at parent
+            (let ((max-pri 4))
+              (org-map-entries
+               (lambda ()
+                 (let ((pri (org-get-priority (thing-at-point 'line t))))
+                   (cond ((>= pri 3000) (setq max-pri (min max-pri 1)))
+                         ((>= pri 2000) (setq max-pri (min max-pri 2)))
+                         ((>= pri 1000) (setq max-pri (min max-pri 3))))))
+               nil 'tree)
+              max-pri))))))
+
+  (defun org-agenda-skip-if-scheduled-later ()
+  "If this function returns nil, the current match should not be skipped.
+  Otherwise, the function must return a position from where the search
+  should be continued."
+    (ignore-errors
+      (let ((subtree-end (save-excursion (org-end-of-subtree t)))
+            (scheduled-seconds
+              (time-to-seconds
+                (org-time-string-to-time
+                  (org-entry-get nil "SCHEDULED"))))
+            (now (time-to-seconds (current-time))))
+         (and scheduled-seconds
+              (>= scheduled-seconds now)
+              subtree-end))))
 #+end_src
 
 ** packages
