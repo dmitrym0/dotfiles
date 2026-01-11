@@ -603,6 +603,11 @@ Done tasks get a [[https://github.com/lmintmate/emacs.d#strikethrough-for-done-t
               %(dm/get-clipboard-contents)
 
             %?")
+                                              ("W" "TADA. Something good." entry
+                                   (file+olp+datetree ,(concat org-directory  "/important_things_daily_2026.org"))
+                                   "* Entered on %U
+            %?")
+
             ("u" "1Unexpected task" entry (function dm/capture-unexpected-task-into-org-roam-daily) "* TODO [u]    %? ")
             ("t" "Test" entry (function (lambda () (set-buffer (org-capture-target-buffer "~/test.org")) (goto-char (point-max)))) "* Level 2" :immediate-finish t)
 
@@ -698,9 +703,8 @@ Create a custom agenda view.
                  (or (not (scheduled))
                      (scheduled :to today)))
            ((org-ql-block-header "NEXT (available: unscheduled or scheduled <= today)")
-            (org-super-agenda-groups '((:auto-parent t)))
-            (org-agenda-cmp-user-defined #'dm/org-agenda-cmp-parent-priority)
-            (org-agenda-sorting-strategy '(user-defined-down priority-down))))))
+            (org-super-agenda-groups '((:auto-map dm/auto-group-by-parent-with-priority)))
+            (org-agenda-sorting-strategy '(priority-down))))))
   ("P" "Stuck Projects"
            ((org-ql-block '(and (todo "PROJECT")
                                 (or (not (descendants))
@@ -823,44 +827,35 @@ Create a custom agenda view.
 
 ** Custom org functions
 #+begin_src emacs-lisp
-  (defun dm/org-agenda-cmp-parent-priority (a b)
-    "Compare agenda items A and B by their parent's highest priority.
-  Parents with high-priority children sort first."
-    (let* ((a-marker (get-text-property 0 'org-marker a))
-           (b-marker (get-text-property 0 'org-marker b))
-           (a-priority (dm/get-parent-max-priority a-marker))
-           (b-priority (dm/get-parent-max-priority b-marker)))
-      (cond ((< a-priority b-priority) 1)
-            ((> a-priority b-priority) -1)
-            (t nil))))
-
-  (defun dm/get-parent-max-priority (marker)
-    "Get the highest priority among siblings under the same parent.
-  Returns priority as number (1=A, 2=B, 3=C, 4=none)."
-    (if (not marker)
-        4
-      (let ((parent (org-with-point-at marker
-                      (if (org-up-heading-safe)
-                          (point-marker)
-                        nil))))
-        (if (not parent)
-            (or (org-with-point-at marker
-                  (let ((pri (org-get-priority (thing-at-point 'line t))))
-                    (cond ((>= pri 3000) 1)
-                          ((>= pri 2000) 2)
-                          ((>= pri 1000) 3)
-                          (t 4))))
-                4)
-          (org-with-point-at parent
-            (let ((max-pri 4))
-              (org-map-entries
-               (lambda ()
-                 (let ((pri (org-get-priority (thing-at-point 'line t))))
-                   (cond ((>= pri 3000) (setq max-pri (min max-pri 1)))
-                         ((>= pri 2000) (setq max-pri (min max-pri 2)))
-                         ((>= pri 1000) (setq max-pri (min max-pri 3))))))
-               nil 'tree)
-              max-pri))))))
+  (defun dm/auto-group-by-parent-with-priority (item)
+    "Return a grouping key for ITEM that sorts by priority then parent.
+  Format: \"N:Parent Name\" where N is priority (1=A, 2=B, 3=C, 4=none)."
+    (let* ((marker (or (get-text-property 0 'org-marker item)
+                       (get-text-property 0 'org-hd-marker item)))
+           ;; Try multiple ways to get priority
+           (pri-prop (get-text-property 0 'priority item))
+           (pri-face (get-text-property 0 'face item))
+           ;; Get priority directly from the org heading
+           (pri-from-marker (when marker
+                              (org-with-point-at marker
+                                (org-get-priority (thing-at-point 'line t)))))
+           ;; Also check for [#A] pattern in the item string
+           (pri-from-string (when (string-match "\\[#\\([ABC]\\)\\]" item)
+                              (pcase (match-string 1 item)
+                                ("A" 1) ("B" 2) ("C" 3))))
+           (pri-num (or pri-from-string
+                        (cond ((and pri-from-marker (>= pri-from-marker 3000)) 1)
+                              ((and pri-from-marker (>= pri-from-marker 2000)) 2)
+                              ((and pri-from-marker (>= pri-from-marker 1000)) 3)
+                              (t 4))))
+           (parent (when marker
+                     (org-with-point-at marker
+                       (if (org-up-heading-safe)
+                           (org-get-heading t t t t)
+                         "No parent")))))
+      ;; Return key with priority indicator for sorting
+      (let ((pri-label (pcase pri-num (1 "A") (2 "B") (3 "C") (_ "-"))))
+        (format "[%s] %s" pri-label (or parent "No parent")))))
 
   (defun org-agenda-skip-if-scheduled-later ()
   "If this function returns nil, the current match should not be skipped.
