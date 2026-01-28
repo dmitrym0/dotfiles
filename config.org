@@ -1530,7 +1530,7 @@ timer setup.
 #+begin_src emacs-lisp
 
 ;;   (setq dmm-agenda-timer nil)
-     (setq dm-idle-gcal-sync (run-with-idle-timer (* 60 60 3) t (lambda () (org-gcal-sync))))
+;;     (setq dm-idle-gcal-sync (run-with-idle-timer (* 60 60 3) t (lambda () (org-gcal-sync))))
 ;;   (defun dm/set-timer ()
 ;;     (when dmm-agenda-timer (cancel-timer dmm-agenda-timer))
 ;;     (setq dmm-agenda-timer (run-with-idle-timer 20 nil (lambda () (load-file "~/workspace/github/agenda-html/agenda-html.el")))))
