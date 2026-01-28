@@ -1538,6 +1538,9 @@ timer setup.
 (run-with-idle-timer (* 60 5) nil (lambda () (dm/update-agenda-file-list)))
 #+end_src
 
+#+RESULTS:
+: [nil 0 300 0 nil #[nil ((dm/update-agenda-file-list)) nil] nil idle 0 nil]
+
 * Custom LISP
 ** Pomodoro support
 
