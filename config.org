@@ -679,8 +679,6 @@ Done tasks get a [[https://github.com/lmintmate/emacs.d#strikethrough-for-done-t
     (org-super-agenda-mode)
     :config
     (setq org-super-agenda-header-map (make-sparse-keymap)))
-
-
 #+end_src
 
 #+begin_src emacs-lisp
