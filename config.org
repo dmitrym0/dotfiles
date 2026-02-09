@@ -672,12 +672,16 @@ Done tasks get a [[https://github.com/lmintmate/emacs.d#strikethrough-for-done-t
 
 
 ** custom agenda
-(use-package org-super-agenda
-  :after org-agenda
-  :init
-  (org-super-agenda-mode)
-  :config
-  (setq org-super-agenda-header-map (make-sparse-keymap)))
+#+begin_src elisp
+  (use-package org-super-agenda
+    :after org-agenda
+    :init
+    (org-super-agenda-mode)
+    :config
+    (setq org-super-agenda-header-map (make-sparse-keymap)))
+
+
+#+end_src
 
 #+begin_src emacs-lisp
 (setq org-agenda-files (list org-directory
