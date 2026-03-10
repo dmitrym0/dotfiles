@@ -196,6 +196,20 @@ Emacs Nursery; stuff that I'm working on.
    (use-package dm-tools
      :straight (:type git :local-repo "~/workspace/emacs-nursery" :no-build t :no-install t) :demand t)
 
+   (use-package quake-frame
+     :straight (:type git :host nil :repo "https://codeberg.org/ctietze/quake-frame.el"))
+
+
+  (use-package chronocheck
+     :straight (:type git :local-repo "~/workspace/emacs-nursery" :no-build t :no-install t)
+     :after quake-frame
+     :demand t)
+
+
+   (use-package dm-quake-chronotrack
+     :straight (:type git :local-repo "~/workspace/emacs-nursery" :no-build t :no-install t)
+     :after quake-frame
+     :demand t)
 
    (load-file "~/workspace/emacs-nursery/dm-unexpected-task.el")
    (load-file "~/workspace/emacs-nursery/dm-dueapp-integration.el")
@@ -674,7 +688,7 @@ Done tasks get a [[https://github.com/lmintmate/emacs.d#strikethrough-for-done-t
 ** custom agenda
 #+begin_src elisp
   (use-package org-super-agenda
-    :after org-agenda
+    :after org-agenda evil
     :init
     (org-super-agenda-mode)
     :config
@@ -3306,12 +3320,12 @@ Then type the short form (eg ~inv~) and hit ~tab~ to expand.
 
     (setq mcp-hub-servers
           `(
-            ("mcp-eng" . (:command "/Users/dmitrymarkushevich/bin/eng-mcp.sh"))
+  ;;          ("mcp-eng" . (:command "/Users/dmitrymarkushevich/bin/eng-mcp.sh"))
   ;;          ("atlassian" . (:command "/Users/dmitrymarkushevich/bin/atlassian.sh" :args ())) ;
-            ("context7" . (:command "npx" :args ("-y" "@upstash/context7-mcp@latest")))
+  ;;          ("context7" . (:command "npx" :args ("-y" "@upstash/context7-mcp@latest")))
   ;;          ("chroma" . (:command "uvx" :args ("chroma-mcp" "--client-type" "persistent" "--data-dir" "/Users/dmitrymarkushevich/chromadb")))
-            ("basic-memory" . (:command "uvx" :args ("basic-memory" "mcp")))
-             ("github" :url "https://api.githubcopilot.com/mcp/" :token ,(lambda () (getenv "GITHUB_TOKEN")))
+  ;;          ("basic-memory" . (:command "uvx" :args ("basic-memory" "mcp")))
+  ;;           ("github" :url "https://api.githubcopilot.com/mcp/" :token ,(lambda () (getenv "GITHUB_TOKEN")))
             ))
 
 
