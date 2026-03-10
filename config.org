@@ -200,8 +200,8 @@ Emacs Nursery; stuff that I'm working on.
      :straight (:type git :host nil :repo "https://codeberg.org/ctietze/quake-frame.el"))
 
 
-  (use-package chronocheck
-     :straight (:type git :local-repo "~/workspace/emacs-nursery" :no-build t :no-install t)
+  (use-package chronotrack
+     :straight (:type git :local-repo "~/workspace/ct-el" :no-build t :no-install t)
      :after quake-frame
      :demand t)
 
