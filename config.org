@@ -2638,14 +2638,12 @@ To workaround it, just set org-fold-core-style to its pre org-mode 9.6 default v
             completion-category-overrides '((file (styles partial-completion)))))
 
     ;;(require 'vertico-posframe)
-      (use-package vertico-posrame
+      (use-package vertico-posframe
         :after vertico
         :straight (:type git :host github :repo "vertico-posframe" :branch "main")
+        :init (vertico-posframe-mode 1))
 
-        )
 
-
-    (vertico-posframe-mode 1)
 
 
     (use-package marginalia
