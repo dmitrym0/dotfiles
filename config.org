@@ -2639,7 +2639,10 @@ To workaround it, just set org-fold-core-style to its pre org-mode 9.6 default v
 
     ;;(require 'vertico-posframe)
       (use-package vertico-posrame
-      :straight (:type git :host github :repo "vertico-posframe" :branch "main"))
+        :after vertico
+        :straight (:type git :host github :repo "vertico-posframe" :branch "main")
+
+        )
 
 
     (vertico-posframe-mode 1)
