@@ -2637,7 +2637,7 @@ To workaround it, just set org-fold-core-style to its pre org-mode 9.6 default v
             completion-category-defaults nil
             completion-category-overrides '((file (styles partial-completion)))))
 
-    (require 'vertico-posframe)
+    ;;(require 'vertico-posframe)
     (vertico-posframe-mode 1)
 
 
