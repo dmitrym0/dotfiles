@@ -2638,6 +2638,10 @@ To workaround it, just set org-fold-core-style to its pre org-mode 9.6 default v
             completion-category-overrides '((file (styles partial-completion)))))
 
     ;;(require 'vertico-posframe)
+      (use-package vertico-posrame
+      :straight (emacs-conflict :type git :host github :repo "ibizaman/emacs-conflict" :branch "master"))
+
+
     (vertico-posframe-mode 1)
 
 
