@@ -3878,6 +3878,19 @@ Zettlecasten assistance
     (org-workbench-setup))
 
 #+end_src
+
+
+
+
+* randoms
+
+
+#+begin_src elisp
+
+  (setq redisplay-skip-fontification-on-input t)
+
+
+#+end_src
 * FIN
 
 #+begin_src elisp
