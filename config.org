@@ -3884,6 +3884,7 @@ Zettlecasten assistance
 
 * randoms
 
+from here: https://emacsredux.com/blog/2026/04/07/stealing-from-the-best-emacs-configs/
 
 #+begin_src elisp
 
