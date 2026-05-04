@@ -344,7 +344,8 @@ Store autosaves elsewhere, borrowed from [[https://github.com/larstvei/dot-emacs
 Turn on variable syntax highlighting
 #+begin_src emacs-lisp
   (use-package color-identifiers-mode )
-  (add-hook 'after-init-hook 'global-color-identifiers-mode)
+  ;; Disabled: suspected memory leak via interval/overlay accumulation per buffer
+  ;; (add-hook 'after-init-hook 'global-color-identifiers-mode)
 #+end_src
 
 No startup message
