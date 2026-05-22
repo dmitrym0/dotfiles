@@ -64,9 +64,9 @@ When idling GC is triggered and a low threshold is set.
 #+end_quote
 
 #+begin_src elisp
-  (add-to-list 'load-path "~/workspace/github/gcmh")
-  (use-package compat)
-  (require 'gcmh)
+;;  (add-to-list 'load-path "~/workspace/github/gcmh")
+ ;; (use-package compat)
+  ;;(require 'gcmh)
 ;;  (gcmh-mode 0)
   (setq garbage-collection-messages nil)
   (setq gcmh-idle-delay 'auto
@@ -191,8 +191,8 @@ Emacs Nursery; stuff that I'm working on.
      :demand t)
 
    (use-package dm-org-journal-in-current-buffer :straight (:type git :local-repo "~/workspace/emacs-nursery" :no-build t :no-install t))
-   (use-package dm-jira :after embark
-     :straight (:type git :local-repo "~/workspace/emacs-nursery" :no-build t :no-install t) :demand t)
+    (use-package dm-jira :after embark
+      :straight (:type git :local-repo "~/workspace/emacs-nursery" :no-build t :no-install t) :demand t)
    (use-package dm-tools
      :straight (:type git :local-repo "~/workspace/emacs-nursery" :no-build t :no-install t) :demand t)
 
@@ -200,10 +200,10 @@ Emacs Nursery; stuff that I'm working on.
      :straight (:type git :host nil :repo "https://codeberg.org/ctietze/quake-frame.el"))
 
 
-  (use-package chronotrack
-     :straight (:type git :local-repo "~/workspace/ct-el" :no-build t :no-install t)
-     :after quake-frame
-     :demand t)
+  ;; (use-package chronotrack
+  ;;    :straight (:type git :local-repo "~/workspace/ct-el" :no-build t :no-install t)
+  ;;    :after quake-frame
+  ;;    :demand t)
 
 
    (use-package dm-quake-chronotrack
@@ -998,8 +998,8 @@ Suggested keymappings:
 ** Magit
 #+begin_src elisp
   (straight-use-package 'git-commit-mode)
-  (use-package magit :ensure t :defer t)
-  (use-package forge :after magit :defer t)
+  (use-package magit :ensure tt)
+  (use-package forge :after magitt)
 #+end_src
 
 ** paredit
@@ -1060,7 +1060,7 @@ A file browser.
 
   ;; (use-package treemacs
   ;;
-  ;;    :defer t
+  ;;   t
   ;;    :config
   ;;    (progn
 
@@ -1090,7 +1090,7 @@ A file browser.
 
 
   ;;  (use-package treemacs-projectile
-  ;;    :defer t
+  ;;   t
   ;;
   ;;    :config
   ;;    (setq treemacs-header-function #'treemacs-projectile-create-header)
@@ -1125,7 +1125,7 @@ fzf support
 
 [[https://github.com/domtronn/all-the-icons.el/tree/d922aff57ac8308d3ed067f9151cc76d342855f2][all the icons!]]
 #+begin_src emacs-lisp
-(use-package all-the-icons :defer 0.5)
+(use-package all-the-icons)
 #+end_src
 
 [[https://github.com/gregsexton/origami.el/tree/e558710a975e8511b9386edc81cd6bdd0a5bda74][Fancy text folding]]
@@ -1151,6 +1151,13 @@ dimmer, highlight current buffer
  ;;   (dimmer-mode t))
 #+end_src
 
+org-transclusion
+#+begin_src emacs-lisp
+  (use-package org-transclusion
+    :after org
+    :demand t)
+#+end_src
+
 org-roam
 #+begin_src emacs-lisp
       (message "Org-roam")
@@ -1161,7 +1168,7 @@ org-roam
     (define-key global-map (kbd "C-c n ]") #'dm/goto-index)
       ;; keybindings for org-roam
       (use-package org-roam
-        :defer 3
+
         :custom
         (org-roam-directory (file-truename org-directory))
         :bind (("C-c n l" . org-roam-buffer-toggle)
@@ -1189,7 +1196,6 @@ org-roam
   (message "Done org-roam")
 
 #+end_src
-
 
 org-roam-ui
 #+begin_src emacs-lisp
@@ -1221,8 +1227,6 @@ Python
 
 #+begin_src emacs-lisp
   (use-package elpy
-    :config
-    :defer t ; dont load this immediately
     :init
     (advice-add 'python-mode :before 'elpy-enable))
 
@@ -1285,7 +1289,7 @@ Fuzzy? matching. ~org refi~, matches ~org-refile~ and ~org-agenda-refile~
 
 ** Mocha (JS testing support)
  #+begin_src elisp
-   (use-package mocha :defer t)
+   ;; (use-package mochat) ; package not found in recipe repos
 
  #+end_src
 
@@ -1297,7 +1301,6 @@ Fuzzy? matching. ~org refi~, matches ~org-refile~ and ~org-agenda-refile~
     (message "typescript-mode")
 
     (use-package typescript-mode
-      :defer t
       :after flymake-eslint
       :init
       (define-derived-mode typescript-tsx-mode typescript-mode "tsx")
@@ -1469,7 +1472,7 @@ From [[https://massimilianomirra.com/notes/lightweight-external-command-integrat
 #+end_src
 
 ** dark room
-#+begin_src
+#+begin_src elisp
   (use-package darkroom )
 #+end_src
 
@@ -1703,7 +1706,7 @@ blogging with ox-hugo
      ;Auto-install the package from Melpa
   :pin melpa  ;`package-archives' should already have ("melpa" . "https://melpa.org/packages/")
   :after ox
-  :defer t)
+ t)
 
 
   (with-eval-after-load 'ox-hugo
@@ -1887,7 +1890,8 @@ modern orgmode https://github.com/minad/org-modern
   ;; https://github.com/koekeishiya/yabai/issues/1197#issuecomment-1100977096
   ;; this is needed so that emacs doesn't steal/loose focus
    (tool-bar-mode -1)
-   (scroll-bar-mode -1)
+   (when (display-graphic-p)
+     (scroll-bar-mode -1))
 
   ;; Add frame borders and window dividers
 #+end_src
@@ -2043,11 +2047,16 @@ Sourced from [[https://github.com/hiecaq/quinoa42.github.io/blob/gh-pages/org/do
 
         (setq evil-want-keybinding nil)
         (use-package evil
+         :straight t
+         :demand t
+         :init
+          (setq evil-disable-insert-state-bindings t)
+          (setq evil-undo-system 'undo-fu)
          :custom
           (evil-esc-delay 0.001 "avoid ESC/meta mixups")
           (evil-shift-width 4)
           (evil-search-module 'evil-search)
-          (evil-symbol-word-search t) ;; search for symbols at point
+          (evil-symbol-word-search t)
           (evil-want-fine-undo t)
           :general
     ;;      ([remap evil-ex-search-forward] '(lambda () (interactive) (swiper (format "%s" (thing-at-point 'symbol)))))
@@ -2055,30 +2064,21 @@ Sourced from [[https://github.com/hiecaq/quinoa42.github.io/blob/gh-pages/org/do
           ([remap evil-emacs-state] 'evil-normal-state)
           ([remap evil-undo] 'undo-fu-only-undo)
           ([remap evil-redo] 'undo-fu-only-redo)
-  ;;        ([remap evil-ex-search-word-forward] 'symbol-overlay-switch-forward)
-          (setq evil-disable-insert-state-bindings t)
-          (setq evil-undo-system 'undo-fu)
           ;;(define-key evil-motion-state-map "/" 'swiper)
           ;;(define-key evil-motion-state-map "*" '(lambda () (interactive) (swiper (format "%s" (thing-at-point 'symbol)))))
           :config
-          ;; Enable evil-mode in all buffers.
           (evil-mode 1)
-
-
         ;; force the use of dumb jump when looking for definitions.
         (define-key evil-motion-state-map (kbd "gd") #'dumb-jump-go))
 
 
         (message "Basic evil loaded.")
 
-
-        (setq evil-want-keybinding nil)
         (use-package evil-collection
           :ensure t
           :demand t
           :after evil
           :config
-          (setq evil-want-keybinding nil)
           (evil-collection-init 'vterm)
           (evil-collection-init))
 
@@ -2126,7 +2126,8 @@ Sourced from [[https://github.com/hiecaq/quinoa42.github.io/blob/gh-pages/org/do
           (global-set-key (kbd "M-;") 'evilnc-comment-or-uncomment-lines))
 
       (use-package evil-matchit
-        :init
+        :after evil
+        :config
         (global-evil-matchit-mode 1))
 
 
@@ -2148,8 +2149,9 @@ Sourced from [[https://github.com/hiecaq/quinoa42.github.io/blob/gh-pages/org/do
         (setq deactivate-mark  t)
       (when (get-buffer "*Completions*") (delete-windows-on "*Completions*"))
       (abort-recursive-edit)))
-  (define-key evil-normal-state-map [escape] 'keyboard-quit)
-  (define-key evil-visual-state-map [escape] 'keyboard-quit)
+  (with-eval-after-load 'evil
+    (define-key evil-normal-state-map [escape] 'keyboard-quit)
+    (define-key evil-visual-state-map [escape] 'keyboard-quit))
   (define-key minibuffer-local-map [escape] 'minibuffer-keyboard-quit)
   (define-key minibuffer-local-ns-map [escape] 'minibuffer-keyboard-quit)
   (define-key minibuffer-local-completion-map [escape] 'minibuffer-keyboard-quit)
@@ -2192,7 +2194,7 @@ Sourced from [[https://github.com/hiecaq/quinoa42.github.io/blob/gh-pages/org/do
 
 * org-dc
 #+begin_src elisp
-(load-file "~/workspace/org-dynamics-checklists/org-dc.el")
+;; (load-file "~/workspace/org-dynamics-checklists/org-dc.el")
 #+end_src
 
 
@@ -2357,11 +2359,12 @@ Use ~gd~ to jump to definitions in evil mode.
 
 #+begin_src elisp
   (message "Evil work arounds loaded")
-  (evil-set-initial-state 'nov-mode 'emacs)
-  (evil-set-initial-state 'pocket-reader-mode 'emacs)
-  (add-hook 'org-fc-review-flip-mode-hook 'evil-emacs-state)
-  (add-hook 'org-fc-review-rate-mode-hook 'evil-emacs-state)
-  (add-hook 'org-fc-after-review-hook 'evil-normal-state)
+  (with-eval-after-load 'evil
+    (evil-set-initial-state 'nov-mode 'emacs)
+    (evil-set-initial-state 'pocket-reader-mode 'emacs)
+    (add-hook 'org-fc-review-flip-mode-hook 'evil-emacs-state)
+    (add-hook 'org-fc-review-rate-mode-hook 'evil-emacs-state)
+    (add-hook 'org-fc-after-review-hook 'evil-normal-state))
 #+end_src
 
 
@@ -2782,13 +2785,13 @@ To workaround it, just set org-fold-core-style to its pre org-mode 9.6 default v
 
 Orderless, borrowed from [[https://kristofferbalintona.me/posts/202202211546/][here]].
 
-#+begin_src
+#+begin_src elisp
   (use-package orderless
   :custom
   (completion-styles '(orderless))      ; Use orderless
   (completion-category-defaults nil)    ; I want to be in control!
   (completion-category-overrides
-   '((file (styles basic-remote ; For `tramp' hostname completion with `vertico'
+   '((file (styles basic ; For `tramp' hostname completion with `vertico'
                    orderless)))))
 
 
@@ -3035,8 +3038,8 @@ Orderless, borrowed from [[https://kristofferbalintona.me/posts/202202211546/][h
 
 
     (use-package org-drill)
-     (require 'org-roam-dblocks)
-     (require 'org-roam-links)
+     ;; (require 'org-roam-dblocks)
+     ;; (require 'org-roam-links)
 
 
   ;;  (use-package org-roam-review :straight (org-roam-review :type git :local-repo "~/workspace/emacs-nursery" :no-build t :no-install t)
@@ -3205,7 +3208,7 @@ Then type the short form (eg ~inv~) and hit ~tab~ to expand.
 
 * enable media wiki export
 
-#+begin_src
+#+begin_src elisp
   ;;(require 'ox-mediawiki)
 #+end_src
 
@@ -3256,7 +3259,7 @@ Then type the short form (eg ~inv~) and hit ~tab~ to expand.
     :ensure t
     :bind (("s-i" . blamer-show-commit-info)
            ("C-c i" . blamer-show-posframe-commit-info))
-    :defer 20
+
     :custom
     (blamer-idle-time 0.3)
     (blamer-min-offset 70)
@@ -3795,7 +3798,7 @@ From [[https://emacs.stackexchange.com/a/33523/22240][SO]]
 
 #+begin_src elisp
   (message "Github markdown export")
-  (use-package ox-gfm :defer 5 :init (require 'ox-gfm))
+  (use-package ox-gfm :init (require 'ox-gfm))
 
 #+end_src
 
