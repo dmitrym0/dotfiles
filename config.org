@@ -190,7 +190,17 @@ Emacs Nursery; stuff that I'm working on.
      :after (:all gptel)
      :demand t)
 
-   (use-package dm-org-journal-in-current-buffer :straight (:type git :local-repo "~/workspace/emacs-nursery" :no-build t :no-install t))
+   (use-package dm-org-journal-in-current-buffer
+     :straight (:type git :local-repo "~/workspace/emacs-nursery"
+                :files ("dm-org-journal-in-current-buffer.el"))
+     :bind (:map org-mode-map
+            ("C-c d h" . dm/log-to-daily)
+            ("C-c d H" . org-insert-new-date-in-log)))
+   (use-package dm-org-roam-datestamp
+     :straight nil
+     :load-path "~/workspace/emacs-nursery/dm-org-roam-datestamp/"
+     :after org-roam
+     :demand t)
     (use-package dm-jira :after embark
       :straight (:type git :local-repo "~/workspace/emacs-nursery" :no-build t :no-install t) :demand t)
    (use-package dm-tools
@@ -993,7 +1003,7 @@ Suggested keymappings:
 
   ;; dont include the first section since it's usually metadata
   (setq org-transclusion-include-first-section nil)
-+end_src
+#+end_src
 
 ** Magit
 #+begin_src elisp
@@ -2090,7 +2100,7 @@ Sourced from [[https://github.com/hiecaq/quinoa42.github.io/blob/gh-pages/org/do
         ;;   :general ("C-s" 'swiper-helm))
 
 
-  #+end_src
+#+end_src
 
   slow?
 #+begin_src elisp
@@ -3428,7 +3438,7 @@ in .emacs.
 
 #+begin_src elisp
   (use-package org-ql)
-  #+end_src
+#+end_src
 
 
 * mermaid
@@ -3682,6 +3692,7 @@ org-mode dashboards
 #+begin_src elisp
   (message "[d] git-link")
 
+  (use-package git-link)
     (defun git-link-diffrent-branch (branch)
     "Invoke `git-link', but with the `branch' name set to a different
   branch than the one you're currently working on."
