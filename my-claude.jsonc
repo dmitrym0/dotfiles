@@ -1,0 +1,35 @@
+{
+  "extends": "nolabs-ai/claude",
+  "meta": {
+    "name": "my-claude"
+  },
+  "groups": {
+    "include": []
+  },
+  "workdir": {
+    "access": "readwrite"
+  },
+  "env_credentials": {
+  },
+  "filesystem": {
+    // ponytail: no Chromium user-data dir here — deny_browser_data_macos always wins.
+    // Chromium runs from /Applications (already readable); give it a profile under ~/.agent-browser.
+    "allow": ["~/org-roam", "~/.shepherd", "~/.config/.jira/", "~/.twilio-cli/", "~/.npm", "~/Library/Preferences/netlify", "~/.agents", "~/.config/gh/", "~/.cargo", "~/.agent-browser"],
+    "read": ["~/.config/gh"],
+    "read_file": ["~/.ssh/known_hosts", "~/.ssh/config", "~/.agent-browser/config.json"],
+    "bypass_protection": ["~/.ssh/known_hosts", "~/.ssh/config"]
+  },
+  // Chromium in the sandbox. Run it with CFFIXED_USER_HOME=~/.agent-browser/home and --no-sandbox.
+  "unsafe_macos_seatbelt_rules": [
+    // Crashpad handshake registers org.chromium.crashpad.child_port_handshake.*
+    "(allow mach-register (global-name-prefix \"org.chromium.\"))",
+    // Chromium gives its helper processes read access to its app bundle.
+    "(allow file-issue-extension (extension-class \"com.apple.app-sandbox.read\"))",
+    // Power-management driver. Without it, Chromium crashes with SEGV.
+    "(allow iokit-open-user-client (iokit-user-client-class \"RootDomainUserClient\"))"
+  ],
+  "command_policies": {
+    "commands": {
+          }
+  }
+}

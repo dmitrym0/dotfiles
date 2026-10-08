@@ -5,7 +5,7 @@
 
 (global-set-key (kbd "C-c C-l") 'reload-init-file)
 
-;; based on http://emacsredux.com/blog/2013/04/03/delete-file-and-buffer/
+  ;; based on http://emacsredux.com/blog/2013/04/03/delete-file-and-buffer/
 (defun delete-file-and-buffer ()
   "Kill the current buffer and deletes the file it is visiting."
   (interactive)

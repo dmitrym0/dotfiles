@@ -1,0 +1,36 @@
+{
+  "$schema": "https://www.raycast.com/schemas/extension.json",
+  "name": "find-claude-session",
+  "title": "Find Claude Session",
+  "description": "Find past Claude Code conversations from a natural-language description",
+  "icon": "icon.png",
+  "author": "dmitrym",
+  "license": "MIT",
+  "commands": [
+    {
+      "name": "find-session",
+      "title": "Find Claude Session",
+      "description": "Describe a past conversation; headless Claude locates matching sessions",
+      "mode": "view",
+      "arguments": [
+        {
+          "name": "query",
+          "placeholder": "describe the conversation",
+          "type": "text",
+          "required": true
+        }
+      ]
+    }
+  ],
+  "dependencies": {
+    "@raycast/api": "^1.88.4"
+  },
+  "devDependencies": {
+    "@types/react": "^19.3.0",
+    "typescript": "^5.4.5"
+  },
+  "scripts": {
+    "dev": "ray develop",
+    "build": "ray build -e dist"
+  }
+}
